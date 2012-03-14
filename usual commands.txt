@@ -1,0 +1,8 @@
+apply last db migrations
+------------------------
+bundle exec rake db:migrate
+reverse : bundle exec rake db:rollback
+
+synch test db with dev DB (in terms of structure)
+-------------------------------------------------
+bundle exec rake db:test:prepare
