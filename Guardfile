@@ -1,9 +1,11 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
+notification :gntp, :sticky => false, :host => '127.0.0.1'
+
 #TODO : adapt correctly the watches to match my needs
 
-guard 'rspec', :version => 2 do
+guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -20,5 +22,4 @@ guard 'rspec', :version => 2 do
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})      { |m| "spec/requests/#{m[1]}_pages_spec.rb" }
   watch(%r{^app/helpers/(.+)_helper\.rb$})        { |m| "spec/requests/#{m[1]}_pages_spec.rb" }
-end
 end

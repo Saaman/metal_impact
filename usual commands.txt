@@ -6,3 +6,18 @@ reverse : bundle exec rake db:rollback
 synch test db with dev DB (in terms of structure)
 -------------------------------------------------
 bundle exec rake db:test:prepare
+
+Annotate models
+---------------
+bundle exec annotate --position before
+
+Generate "request" tests
+------------------------
+rails generate integration_test <controller_name>
+
+Heroku commands
+---------------
+heroku create --stack cedar
+git push heroku master
+git push heroku
+heroku logs
