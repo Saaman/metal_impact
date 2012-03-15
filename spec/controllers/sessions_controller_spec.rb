@@ -34,13 +34,4 @@ describe SessionsController do
 		get :new
 		should render_template(:new)
 	end
-
-	it "GET /sessions" do
-		expect { get :index }.to raise_error
-	end
-
-	it "PUT /sessions" do
-		expect { put :update }.to raise_error
-	end
-
 end
