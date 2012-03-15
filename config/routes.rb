@@ -1,5 +1,11 @@
 MetalImpact::Application.routes.draw do
+  root to: 'sessions#new'
+  
+  resources :users
 
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
   
 
   
