@@ -21,3 +21,8 @@ heroku create --stack cedar
 git push heroku master
 git push heroku
 heroku logs
+
+GIT
+---
+go back to last commit : git reset --hard HEAD
+remove untracked files (but not ignored files) : git clean -f -d
