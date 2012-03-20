@@ -18,7 +18,6 @@ describe User do
   it { should respond_to(:remember_token) }
 
 
-
   #methods
   it { should respond_to(:authenticate) }
 

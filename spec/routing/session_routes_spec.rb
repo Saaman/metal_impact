@@ -14,3 +14,6 @@ describe "routes to the sessions controller" do
 		delete(signout_path).should route_to("sessions#destroy")
 	end
 end
+
+describe "routes to the users controller" do
+end

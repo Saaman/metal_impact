@@ -9,7 +9,7 @@ describe SessionsController do
 			it "should re-prompt for credentials" do
 				post :create, {:email => user.email, :password => "toto"}
 				flash[:error].should_not be_empty
-				session['remember_token'].should be_nil
+				session.should_not be_signed_in
 				should render_template(:new)
 			end
 		end
@@ -18,14 +18,14 @@ describe SessionsController do
 			
 			it "should get signed-in" do
 				flash[:error].should be_nil
-				session['remember_token'].should_not be_nil
+				session.should be_signed_in
 				should redirect_to root_path
 			end
 			
 			it "then sign out" do
 				delete :destroy
 				should redirect_to root_path
-				session['remember_token'].should be_nil
+				session.should_not be_signed_in
 			end
 		end
 	end
