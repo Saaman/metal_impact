@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120314171852) do
+ActiveRecord::Schema.define(:version => 20120321173957) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20120314171852) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "roles"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -3,12 +3,12 @@ require 'spec_helper'
 describe UsersController do
 	subject { response }
 
-	describe "sign up form" do
+	describe "sign up form :" do
 		before { get :new }
 		it { should render_template(:new) }
 	end
 
-	describe "sign up action" do
+	describe "sign up action :" do
 		context "with invalid information" do
 			it "should return errors" do
 				post :create
@@ -31,7 +31,7 @@ describe UsersController do
 		end
 	end
 
-	describe "list users" do
+	describe "list users :" do
     context "anonymous user" do
     	before { get :index }
 	    it { should redirect_to signin_path }
@@ -67,7 +67,7 @@ describe UsersController do
 	  end
   end
 
-  describe "show user" do
+  describe "show user :" do
   	let(:user) { FactoryGirl.create(:user) }
   	before { get :show, {:id => user.id} }
   	it "should display the user" do
@@ -76,7 +76,7 @@ describe UsersController do
   	end
   end
 
-  describe "edit form and actions" do
+  describe "edit form and actions :" do
   	let(:user) { FactoryGirl.create(:user) }
   	let(:user_to_update) { FactoryGirl.build(:user) }
   	context "anonymous user" do
@@ -125,6 +125,49 @@ describe UsersController do
   			assigns(:user).errors.count.should > 0
   			should render_template(:edit)
   		end
+  	end
+  end
+
+  describe "delete user :" do
+  	let(:user_to_destroy) {FactoryGirl.create(:user) }
+  	context "anonymous user" do
+  		it "should not be able to delete a user" do
+	  		delete :destroy, id: user_to_destroy.id
+	  		should redirect_to signin_path
+	  		User.exists?(user_to_destroy.id).should be_true
+	  	end
+  	end
+  	context "signed-in user" do
+  		let(:user) {FactoryGirl.create(:user) }
+  		before { @controller.sign_in(user) }
+  		it "should not be able to delete any user" do
+	  		delete :destroy, id: user_to_destroy.id
+	  		should redirect_to root_path
+	  		flash[:error].should_not be_empty
+	  		User.exists?(user_to_destroy.id).should be_true
+	  	end
+	  	it "should be able to delete himself" do
+	  		delete :destroy, id: user.id
+	  		should redirect_to root_path
+	  		flash[:success].should_not be_empty
+	  		User.exists?(user.id).should be_false
+	  	end
+  	end
+  	context "admin user" do
+  		let(:user) {FactoryGirl.create(:admin) }
+  		before { @controller.sign_in(user) }
+  		it "should not be able to delete himself" do
+	  		delete :destroy, id: user.id
+	  		should redirect_to root_path
+	  		flash[:error].should_not be_empty
+	  		User.exists?(user.id).should be_true
+	  	end
+	  	it "should be able to delete any user" do
+	  		delete :destroy, id: user_to_destroy.id
+	  		should redirect_to users_path
+	  		flash[:success].should_not be_empty
+	  		User.exists?(user_to_destroy.id).should be_false
+	  	end
   	end
   end
 end

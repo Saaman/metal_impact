@@ -48,16 +48,26 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    if current_user == user
-      flash[:error] = "You cannot delete yourself"
-    else
-      user.destroy
-      flash[:success] = "User destroyed."
+    if (current_user.admin? && current_user != user) # admins can delete any user except themselves
+      destroy_user(user)
+      redirect_to users_path
+      return
     end
-    redirect_to users_path
+    if (!current_user.admin? && current_user == user) #users can delete themselves
+      destroy_user(user)
+      redirect_to root_path
+      return
+    end
+    flash[:error] = "You can't delete this user. Operation forbidden"
+    redirect_to root_path
   end
 
 	private
+    def destroy_user(user)
+      user.destroy
+      flash[:success] = "User destroyed."
+    end
+
   	def unsigned_user
       redirect_to(root_path) unless !signed_in?
     end

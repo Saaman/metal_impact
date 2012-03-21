@@ -21,7 +21,7 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc' d
   
   #app
   watch(%r{^app/(.+)\.rb$})                       { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/(.*)\.erb$})                      { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+  watch(%r{^app/(.+)/(.+)\.erb$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
     
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})      { |m| "spec/requests/#{m[1]}_pages_spec.rb" }
