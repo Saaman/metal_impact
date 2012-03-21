@@ -21,8 +21,21 @@ describe SessionsController do
 				session.should be_signed_in
 				should redirect_to root_path
 			end
-			
-			it "then sign out" do
+		end
+	end
+
+	describe "sign out" do
+		context "anonymous user" do
+			it "should redirect to sign in page" do
+				delete :destroy
+				should redirect_to root_path
+				session.should_not be_signed_in
+			end
+		end
+		context "signed-in user" do
+			let(:user) { FactoryGirl.create(:user) }
+			it "should sign out" do
+				@controller.sign_in(user)
 				delete :destroy
 				should redirect_to root_path
 				session.should_not be_signed_in

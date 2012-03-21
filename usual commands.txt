@@ -7,6 +7,11 @@ synch test db with dev DB (in terms of structure)
 -------------------------------------------------
 bundle exec rake db:test:prepare
 
+load Fake data in dev DB
+------------------------
+bundle exec rake db:reset
+bundle exec rake db:populate
+
 Annotate models
 ---------------
 bundle exec annotate --position before
