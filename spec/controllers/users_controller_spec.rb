@@ -37,7 +37,7 @@ describe UsersController do
 	    it { should redirect_to signin_path }
 	  end
 	  context "signed_in user" do
-	  	before(:all) { 50.times { FactoryGirl.create(:user) } }
+	  	before(:all) { 35.times { FactoryGirl.create(:user) } }
 	    after(:all)  { User.delete_all }
 	  	let(:user) { FactoryGirl.create(:user) }
 	    let(:first_page)  { User.paginate(page: 1) }
@@ -73,6 +73,58 @@ describe UsersController do
   	it "should display the user" do
   		assigns(:user).should == user
   		should render_template("show")
+  	end
+  end
+
+  describe "edit form and actions" do
+  	let(:user) { FactoryGirl.create(:user) }
+  	let(:user_to_update) { FactoryGirl.build(:user) }
+  	context "anonymous user" do
+  		it "get EDIT should redirect to sign-in path" do
+	  		get :edit, id: user.id
+	  		should redirect_to(signin_path)
+  		end
+  		it "put UPDATE should redirect to sign-in path" do
+  			put :update, { id: user.id, user: {email: user_to_update.email, name: user_to_update.name, password: user.password } }
+	  		should redirect_to(signin_path)
+  		end
+  	end
+  	context "signed-in but incorrect user" do
+  		let(:wrong_user)  { FactoryGirl.create(:user) }
+  		before { @controller.sign_in(wrong_user) }
+  		it "get EDIT should redirect to root path" do
+  			get :edit, {:id=>user.id}
+  			should redirect_to(root_path)
+  		end
+  		it "put UPDATE should redirect to root path" do
+  			put :update, { id: user.id, user: {email: user_to_update.email, name: user_to_update.name, password: user.password } }
+	  		should redirect_to(root_path)
+  		end
+  	end
+  	context "signed-in and correct user" do
+  		before { @controller.sign_in(user) }
+  		it "get EDIT should render the update form" do
+  			get :edit, {:id=>user.id}
+  			assigns(:user).should == user
+  			should render_template(:edit)
+  		end
+  		it "put UPDATE should update user and redirect to show path" do
+  			put :update, { id: user.id, user: {email: user_to_update.email, name: user_to_update.name, password: user.password } }
+	  		should redirect_to(user_path(user))
+	  		updated_user = User.find(user.id)
+	  		updated_user.email.should == user_to_update.email
+	  		updated_user.name.should == user_to_update.name
+  		end
+  		it "put UPDATE with wrong password should show auth error" do
+  			put :update, { id: user.id, user: {email: user_to_update.email, name: user_to_update.name, password: "wrongpassword" } }
+  			should render_template(:edit)
+  			flash[:error].should_not be_empty
+  		end
+  		it "put UPDATE with blank infos should show model errors" do
+  			put :update, { id: user.id, user: {email: "", name: "", password: user.password } }
+  			assigns(:user).errors.count.should > 0
+  			should render_template(:edit)
+  		end
   	end
   end
 end

@@ -8,8 +8,6 @@ class UsersController < ApplicationController
 	end
 
 	def index
-    logger.info "param :page"
-    logger.info params[:page]
     @users = User.paginate(page: params[:page])
   end
 
@@ -32,7 +30,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if !@user.authenticate(params[:user][:password])
+      flash.now[:error] = 'Invalid password'
+      render 'edit'
+      return
+    end
+    @user.attributes = params[:user]
+    @user.password_confirmation = @user.password
+    if @user.save
       flash[:success] = "Profile updated"
       sign_in @user
       redirect_to @user
