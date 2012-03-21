@@ -66,4 +66,13 @@ describe UsersController do
 	  	end
 	  end
   end
+
+  describe "show user" do
+  	let(:user) { FactoryGirl.create(:user) }
+  	before { get :show, {:id => user.id} }
+  	it "should display the user" do
+  		assigns(:user).should == user
+  		should render_template("show")
+  	end
+  end
 end
