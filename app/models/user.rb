@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
 	end
 
 	def has_role?(role)
+		raise "term '#{role}' is not recognized as an existing role" unless allowed_roles.include?(role)
 		roles.include?(role)
 	end
 
