@@ -6,9 +6,3 @@ def sign_in_with_capybara(user)
   fill_in "Password", with: user.password
   click_button "Sign in"
 end
-
-RSpec::Matchers.define :be_signed_in do
-  match do |session|
-    !session['remember_token'].nil?
-  end
-end

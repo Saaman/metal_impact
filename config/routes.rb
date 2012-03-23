@@ -1,13 +1,6 @@
 MetalImpact::Application.routes.draw do
-  root to: 'sessions#new'
-  
-  resources :users
-
-  resources :sessions, only: [:new, :create, :destroy]
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
-  
-
+  devise_for :users
+  root to: 'home#index'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

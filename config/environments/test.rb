@@ -37,6 +37,9 @@ MetalImpact::Application.configure do
 
   config.log_level = :info
   
+  #devise configuration
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
   # Speed up test by lowering BCrypt's cost function.
     require 'bcrypt'
     silence_warnings do
