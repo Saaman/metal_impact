@@ -7,6 +7,10 @@ Create a migration
 ------------------
 rails generate migration add_password_digest_to_users password_digest:string
 
+Generate a model
+----------------
+
+
 synch test db with dev DB (in terms of structure)
 -------------------------------------------------
 bundle exec rake db:test:prepare
