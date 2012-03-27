@@ -13,8 +13,10 @@ class Ability
 
     if user.admin?
         can :manage, :all
+        cannot :destroy, User, :id => user.id
     else
         can :read, :all
+        can :destroy, User, :id => user.id
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
