@@ -37,4 +37,7 @@ MetalImpact::Application.configure do
 
   #devise configuration
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # use letter opener
+  config.action_mailer.delivery_method = :letter_opener
 end

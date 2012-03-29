@@ -6,5 +6,7 @@ FactoryGirl.define do
     factory :admin do
       roles [:admin]
     end
+
+    after_create { |user, evaluator| user.confirm! }
   end
 end
