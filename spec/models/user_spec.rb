@@ -83,9 +83,9 @@ describe User do
     end
 
     describe "when having a role" do
-      before { @user.role = :admin }
+      before { @user.role = "admin" }
       it { should be_valid }
-      specify { @user.is?(:admin).should be_true }
+      specify { @user.is?("admin").should be_true }
     end
 
     describe "when assigning an unknown role" do

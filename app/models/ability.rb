@@ -11,7 +11,7 @@ class Ability
         return
     end
 
-    if user.is?(:admin)
+    if user.is?("admin")
         can :manage, :all
         cannot :destroy, User, :id => user.id
     else

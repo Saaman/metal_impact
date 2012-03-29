@@ -26,7 +26,7 @@
 
 class User < ActiveRecord::Base
 	#roles list
-	ROLES = [:admin]
+	ROLES = %w[admin reviewer]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable and :omniauthable
@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
 	validates :role, :inclusion => { :in => ROLES}, :allow_blank => true
 
 	def is?(role)
+		logger.info "you're role is #{self.role}"
 		self.role == role
 	end
 end

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
-gem 'railties', '3.2.1'
+gem 'rails', '3.2.2'
+gem 'railties', '3.2.2'
 gem 'bootstrap-sass', '2.0.0'
 gem 'jquery-rails', '2.0.0'
 gem 'will_paginate', '3.0.3'
@@ -12,8 +12,6 @@ gem 'cancan', '1.6.7'
 
 group :development do
   gem 'sqlite3', '1.3.5'
-  gem 'rspec-rails', '2.8.1'
-  gem 'guard-rspec', '0.6.0'
   gem 'annotate', '~> 2.4.1.beta'
   gem "letter_opener", '0.0.2'
 end
@@ -27,7 +25,7 @@ group :assets do
 end
 
 group :test do
-  gem 'rspec-rails', '2.8.1'
+  gem 'rspec-rails', '2.9.0'
   gem 'capybara', '1.1.2'
   gem 'guard-rspec', '0.6.0'
   gem 'guard', '1.0.0'
