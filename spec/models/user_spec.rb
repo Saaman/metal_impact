@@ -21,7 +21,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  roles                  :string(255)
+#  role                   :string(255)
 #
 
 require 'spec_helper'
@@ -41,11 +41,10 @@ describe User do
     it { should respond_to(:password) }
     it { should respond_to(:password_confirmation) }
     it { should respond_to(:remember_me) }
-    it { should respond_to(:roles) }
+    it { should respond_to(:role) }
 
     #methods
-    it { should respond_to(:admin?) }
-    it { should respond_to(:has_role?) }
+    it { should respond_to(:is?) }
   end
   
   describe "Validations" do
@@ -83,20 +82,14 @@ describe User do
       it { should_not be_valid }
     end
 
-    describe "when adding a role" do
-      before { @user.roles << :admin }
+    describe "when having a role" do
+      before { @user.role = :admin }
       it { should be_valid }
-      it { should be_admin }
-      specify { @user.has_role?(:admin).should be_true }
+      specify { @user.is?(:admin).should be_true }
     end
 
-    describe "when adding twice the same role" do
-      before { @user.roles << :admin << :admin}
-      it { should_not be_valid }
-    end
-
-    describe "when adding an unknown role" do
-      before { @user.roles << :tata }
+    describe "when assigning an unknown role" do
+      before { @user.role = :tata }
       it { should_not be_valid }
     end
   end

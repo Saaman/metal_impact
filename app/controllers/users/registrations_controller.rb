@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
   	def admins_cant_delete_own_account
-  		if current_user.admin?
+  		if current_user.is?(:admin)
   			flash[:error] = "administrators are forbidden to delete their own account"
   			redirect_to root_path
   		end

@@ -4,7 +4,7 @@ FactoryGirl.define do
     password "foobar"
 
     factory :admin do
-      roles [:admin]
+      role :admin
     end
 
     after_create { |user, evaluator| user.confirm! }
