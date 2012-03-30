@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 	validates :role, :inclusion => { :in => ROLES}, :allow_blank => true
 
 	def is?(role)
-		logger.info "you're role is #{self.role}"
+		raise "'#{role}' is not a valid role" unless ROLES.include?(role)
 		self.role == role
 	end
 end

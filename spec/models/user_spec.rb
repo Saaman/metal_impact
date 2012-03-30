@@ -92,6 +92,12 @@ describe User do
       before { @user.role = :tata }
       it { should_not be_valid }
     end
+
+    describe "when asking if is of unknown role" do
+      it "raises" do
+        expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
+      end
+    end
   end
 
   describe "password & authentication" do
