@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
          :lockable, :timeoutable,:confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :roles
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
 
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, format: { with: valid_email_regex },uniqueness: { case_sensitive: false }
