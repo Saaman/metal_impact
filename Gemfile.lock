@@ -123,6 +123,7 @@ GEM
       ffi
     rdoc (3.12)
       json (~> 1.4)
+    recaptcha (0.3.4)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
       rspec-expectations (~> 2.9.0)
@@ -190,6 +191,7 @@ DEPENDENCIES
   rails (= 3.2.2)
   railties (= 3.2.2)
   rb-fchange (= 0.0.5)
+  recaptcha (= 0.3.4)
   rspec-rails (= 2.9.0)
   ruby_gntp (= 0.3.4)
   sass-rails (= 3.2.3)
