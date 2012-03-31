@@ -1,76 +1,80 @@
 require 'spec_helper'
 
+#######################################################################################
+shared_examples "common registrations actions for signed-in users" do
+  describe "GET 'new'" do
+  	before { get :new }
+  	its_access_is "unauthorized"
+  end
+  describe "GET 'edit'" do
+  	before { get :edit }
+		it  { should render_template(:edit) }
+  end
+  describe "PUT 'update'" do
+  	let(:fake_user) { FactoryGirl.build(:user) }
+  	before { put :update, {user: {email: fake_user.email, current_password: user.password} } }
+		it "should update own registration" do
+  		should redirect_to root_path
+  		flash[:notice].should_not be_nil
+  	end
+  end
+end
+#######################################################################################
+
+
+
 describe Users::RegistrationsController do
 	subject { response }
 	before(:each) { @request.env["devise.mapping"] = Devise.mappings[:user] }
 
 	context "anonymous user" do
-		describe "delete own registration :" do
-			let(:user_to_destroy) {FactoryGirl.create(:user) }
-			it "would be nonsense" do
-	  		delete :destroy
-	  		should redirect_to new_user_session_path
-	  		User.exists?(user_to_destroy.id).should be_true
-	  	end
+		describe "DELETE 'destroy'" do
+			before { delete :destroy }
+			its_access_is "protected"
 	  end
-	  describe "register :" do
-			it "should be allowed" do
-	  		get :new
-	  		should render_template(:new)
-	  	end
+	  describe "GET 'new'" do
+	  	before { get :new }
+			it { should render_template(:new) }
 	  end
-	  describe "edit registration :" do
-			it "should not be allowed" do
-	  		get :edit
-	  		should redirect_to new_user_session_path
-	  	end
+	  describe "GET 'edit'" do
+	  	before { get :edit }
+	  	its_access_is "protected"
 	  end
-	  describe "update registration :" do
+	  describe "PUT 'udate'" do
 	  	let(:fake_user) { FactoryGirl.build(:user) }
-			it "should not be allowed" do
-	  		put :update, {user: fake_user.attributes}
-	  		should redirect_to new_user_session_path
-	  	end
+	  	before { put :update, {user: fake_user.attributes} }
+	  	its_access_is "protected"
 	  end
 	end
 
+  #######################################################################################
 
 	context "signed-in user" do
 		login_user
-		describe "delete own registration :" do
-			it "should be able to delete himself" do
-	  		delete :destroy
+		describe "DELETE 'destroy'" do
+			before { delete :destroy }
+			it "should delete own registration" do
 	  		should redirect_to root_path
 	  		User.exists?(user.id).should be_false
 	  	end
 	  end
-	  describe "edit registration :" do
-			it "should be allowed" do
-	  		get :edit
-	  		should render_template(:edit)
-	  	end
-	  end
-	  describe "update registration :" do
-	  	let(:fake_user) { FactoryGirl.build(:user) }
-			it "should be allowed" do
-	  		put :update, {user: {email: fake_user.email, current_password: user.password} }
-	  		should redirect_to root_path
-	  		flash[:notice].should_not be_nil
-	  	end
+  	it_behaves_like "common registrations actions for signed-in users" do
+			login_user
 	  end
 	end
 
+  #######################################################################################
 
 	context "admin user" do
   	login_admin
-		describe "delete own registration :" do
-			it "should not be able to delete himself" do
-	  		delete :destroy
-	  		should redirect_to root_path
-	  		User.exists?(user.id).should be_true
-	  		flash[:error].should_not be_nil
-	  		flash[:error].should include(forbidden_for_admins_string)
-	  	end
-	  end
+		describe "DELETE 'destroy'" do
+			before { delete :destroy }
+			its_access_is "unauthorized"
+		end
+		it_behaves_like "common registrations actions for signed-in users"
 	end
 end
+
+
+
+
