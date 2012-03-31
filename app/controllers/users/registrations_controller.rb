@@ -1,8 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 	skip_before_filter :require_no_authentication, :only => [:new, :create]
-  before_filter :admins_cant_delete_own_account, :only =>  [:destroy, :cancel]
+
+  def new
+    authorize! :create, User
+    super
+  end
 
   def create
+    authorize! :create, User
     if verify_recaptcha
       super
     else
@@ -12,12 +17,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render_with_scope :new
     end
   end
-  
-  private
-  	def admins_cant_delete_own_account
-  		if current_user.is?("admin")
-  			flash[:error] = "administrators are forbidden to delete their own account"
-  			redirect_to root_path
-  		end
-  	end
+
+  def destroy
+    authorize! :destroy, current_user
+    super
+  end
+
+  def cancel
+    authorize! :destroy, current_user
+    super
+  end
 end
