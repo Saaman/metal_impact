@@ -6,17 +6,18 @@ class Ability
     
     user ||= User.new # guest user (not logged in)
     
-    if user.nil?
-        can :read, :all
-        return
+    can :read, :all
+    can :create, User
+    cannot :read, User do |other_user| user.id != other_user.id end
+
+    unless(user.new_record?)
+        can [:destroy, :update], User, :id => user.id
+        cannot :create, User
     end
 
     if user.is?("admin")
         can :manage, :all
-        cannot :destroy, User, :id => user.id
-    else
-        can :read, :all
-        can [:destroy, :update], User, :id => user.id
+        cannot :destroy, User, :id => user.id    
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

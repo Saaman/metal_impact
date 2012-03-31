@@ -1,4 +1,7 @@
 MetalImpact::Application.routes.draw do
+  get "administration/index"
+  get "administration/filter"
+
   devise_for :users,  :controllers => { :registrations => "users/registrations" }
 
   root to: 'home#index'

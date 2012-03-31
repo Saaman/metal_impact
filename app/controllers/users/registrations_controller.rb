@@ -2,7 +2,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	skip_before_filter :require_no_authentication, :only => [:new, :create]
   before_filter :admins_cant_delete_own_account, :only =>  [:destroy, :cancel]
 
-
   def create
     if verify_recaptcha
       super
