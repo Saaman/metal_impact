@@ -1,0 +1,7 @@
+<li>
+  <%= gravatar_for user, size: 30 %>
+  <span><%= user.email %></span>
+  <% if can? :delete, user %>
+    | <%= link_to "delete", administration_user_path(user), method: :delete, confirm: "Are you sure?" %>
+  <% end %>
+</li>

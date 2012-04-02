@@ -26,6 +26,7 @@ group :assets do
 end
 
 group :test do
+  gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.9.0'
   gem 'capybara', '1.1.2'
   gem 'guard-rspec', '0.6.0'
