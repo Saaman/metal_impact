@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Users::AdministrationController do
+describe Administration::UsersController do
   subject { response }
 
   context "anonymous user :" do
