@@ -5,9 +5,8 @@ class Administration::UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
-  def filter
-  end
-
   def destroy
+  	User.find(params[:id]).destroy
+  	head :ok
   end
 end
