@@ -58,7 +58,7 @@ describe Users::RegistrationsController do
 	  		User.exists?(user.id).should be_false
 	  	end
 	  end
-  	it_behaves_like "common registrations actions for signed-in users" do
+  	it_should_behave_like "common registrations actions for signed-in users" do
 			login_user
 	  end
 	end
@@ -71,7 +71,7 @@ describe Users::RegistrationsController do
 			before { delete :destroy }
 			its_access_is "unauthorized"
 		end
-		it_behaves_like "common registrations actions for signed-in users"
+		it_should_behave_like "common registrations actions for signed-in users"
 	end
 end
 
