@@ -1,6 +1,6 @@
 MetalImpact::Application.routes.draw do
   namespace :administration do
-    resources :users, :only => [:index, :destroy]
+    resources :users, :only => [:index, :destroy, :update]
   end
 
   devise_for :users,  :controllers => { :registrations => "users/registrations" }, :skip => [:sessions]

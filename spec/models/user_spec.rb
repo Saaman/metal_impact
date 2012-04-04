@@ -82,20 +82,25 @@ describe User do
       it { should_not be_valid }
     end
 
-    describe "when having a role" do
-      before { @user.role = "admin" }
-      it { should be_valid }
-      specify { @user.is?("admin").should be_true }
-    end
+    describe "roles :" do
+      describe "default role should be 'basic'" do
+        its(:role) {should == "basic"}
+      end
+      describe "when having a role" do
+        before { @user.role = "admin" }
+        it { should be_valid }
+        specify { @user.is?("admin").should be_true }
+      end
 
-    describe "when assigning an unknown role" do
-      before { @user.role = :tata }
-      it { should_not be_valid }
-    end
+      describe "when assigning an unknown role" do
+        before { @user.role = :tata }
+        it { should_not be_valid }
+      end
 
-    describe "when asking if is of unknown role" do
-      it "raises" do
-        expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
+      describe "when asking if is of unknown role" do
+        it "raises" do
+          expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
+        end
       end
     end
   end
