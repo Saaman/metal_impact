@@ -26,7 +26,7 @@
 
 class User < ActiveRecord::Base
 	#roles list
-	ROLES = %w[admin reviewer]
+	ROLES = %w[admin basic]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable and :omniauthable
@@ -37,13 +37,20 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role
 
+  after_initialize :default_values
+
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, format: { with: valid_email_regex },uniqueness: { case_sensitive: false }
 	validates :password, length: { minimum: 6 }, allow_blank: true
-	validates :role, :inclusion => { :in => ROLES}, :allow_blank => true
+	validates :role, :inclusion => { :in => ROLES}
 
 	def is?(role)
 		raise "'#{role}' is not a valid role" unless ROLES.include?(role)
 		self.role == role
 	end
+
+	private
+    def default_values
+      self.role ||= "basic"
+    end
 end

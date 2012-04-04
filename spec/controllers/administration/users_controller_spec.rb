@@ -3,15 +3,21 @@ require 'spec_helper'
 #######################################################################################
 shared_examples "users administration has access unauthorized" do
   describe "GET 'index'" do
-      before { get :index }
-      its_access_is "unauthorized"
-    end
+    before { get :index }
+    its_access_is "unauthorized"
+  end
 
-     describe "DELETE 'destroy'" do
-       let(:user_to_destroy) { FactoryGirl.create(:user) }
-       before { delete :destroy, id: user_to_destroy.id }
-       its_access_is "unauthorized"
-     end
+   describe "DELETE 'destroy'" do
+     let(:user_to_destroy) { FactoryGirl.create(:user) }
+     before { delete :destroy, id: user_to_destroy.id }
+     its_access_is "unauthorized"
+   end
+
+   describe "PUT 'update'" do
+     let(:user_to_update) { FactoryGirl.create(:user) }
+     before { put :update, id: user_to_update.id }
+     its_access_is "unauthorized"
+   end
 end
 #######################################################################################
 
@@ -79,6 +85,20 @@ describe Administration::UsersController do
         end
         it { should redirect_to administration_users_path }
         specify { flash[:error].should include("Couldn't find User with id=300") }
+      end
+    end
+    describe "PUT 'update :'" do
+      let(:user_to_update) { FactoryGirl.create(:user) }
+      describe "update the role of the corresponding user" do
+        before { put :update, {id: user_to_update.id, user: {role: "admin"}} }
+        it { should redirect_to (administration_users_path) }
+        it {user_to_update.reload.role.should == "admin" }
+      end
+      describe "should not update email and password" do
+        let(:other_user) { FactoryGirl.build(:user) }
+        before { put :update, {id: user_to_update.id, user: other_user.attributes} }
+        it { user_to_update.reload.email.should == user_to_update.email }
+        it { user_to_update.reload.password.should == user_to_update.password }
       end
     end
   end

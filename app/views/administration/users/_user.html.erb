@@ -1,7 +1,17 @@
-<li>
-  <%= gravatar_for user, size: 30 %>
-  <span><%= user.email %></span>
-  <% if can? :destroy, user %>
-    | <%= link_to "delete", administration_user_path(user), method: :delete, confirm: "Are you sure?" %>
-  <% end %>
-</li>
+<tr>
+  <td>
+  	<%= gravatar_for user, size: 30 %>
+  	<span><%= user.email %></span>
+  </td>
+  <td>
+  	<%= form_for(user, url: "#", remote: true, :url => administration_user_path(user), :method => :put ) do |f| %>
+  		<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+      <%= f.submit "Update" %>
+  	<%end%>
+  </td>
+  <td>
+  	<% if can? :destroy, user %>
+  		<%= link_to "delete", administration_user_path(user), method: :delete, confirm: "Are you sure?" %>
+  	<% end %>
+	</td>
+</tr>
