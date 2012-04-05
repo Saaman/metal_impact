@@ -8,7 +8,6 @@ class Administration::UsersController < ApplicationController
   def update
   	user = User.find(params[:id])
   	user.update_attributes(role: params[:user][:role])
-  	redirect_to action: :index
   end
 
   def destroy

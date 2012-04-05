@@ -4,9 +4,8 @@
   	<span><%= user.email %></span>
   </td>
   <td>
-  	<%= form_for(user, url: "#", remote: true, :url => administration_user_path(user), :method => :put ) do |f| %>
-  		<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
-      <%= f.submit "Update" %>
+  	<%= form_for([:administration, user], remote: true, :method => :put , :format => :js) do |f| %>
+  		<%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'submittable'} %>
   	<%end%>
   </td>
   <td>
