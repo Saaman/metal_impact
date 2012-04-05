@@ -129,7 +129,7 @@ input, textarea, select, .uneditable-input {
   width: 100%;
   padding: 10px;
   height: auto;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   @include box_sizing;
 }
 
@@ -153,4 +153,8 @@ input, textarea, select, .uneditable-input {
   .gravatar {
     margin: 1px 1px;
   }
+}
+
+select.ajax-success {
+  outline: medium solid LawnGreen;
 }
