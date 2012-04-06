@@ -4,8 +4,13 @@
   	<span><%= user.email %></span>
   </td>
   <td>
-  	<%= form_for([:administration, user], remote: true, :method => :put , :format => :js) do |f| %>
-  		<%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'submittable'} %>
+  	<%= form_for([:administration, user], remote: true, :method => :put , :format => :js, html: {:class => 'form-horizontal'}) do |f| %>
+    		<%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'submittable span2'} %>
+        <div class="ajax-result">
+          <%= image_tag("ajax-loader.gif", :class => "ajax-load") %>
+          <%= image_tag("Check-icon.png", :class => "ajax-success") %>
+          <%= image_tag("Delete-icon.png", :class => "ajax-fail") %>
+        </div>
   	<%end%>
   </td>
   <td>

@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
 	rescue_from ActiveRecord::RecordNotFound do |exception|
 		logger.debug "RecordNotFound exception : #{exception.message}"
 		flash[:error] = "invalid record : #{exception.message}"
-		redirect_to get_back_uri
+    redirect_to get_back_uri
 	end
 end

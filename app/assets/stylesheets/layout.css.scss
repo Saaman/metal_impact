@@ -155,6 +155,9 @@ input, textarea, select, .uneditable-input {
   }
 }
 
-select.ajax-success {
-  outline: medium solid LawnGreen;
+/*perso*/
+
+.ajax-result {
+  display: inline;
+  width: 20px;
 }
