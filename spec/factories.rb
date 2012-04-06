@@ -1,11 +1,12 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:name)  { |n| "Person #{n}" }
     sequence(:email) { |n| "person_#{n}@example.com"}   
     password "foobar"
 
     factory :admin do
-      roles [:admin]
+      role "admin"
     end
+
+    after_create { |user, evaluator| user.confirm! }
   end
 end
