@@ -2,51 +2,55 @@
 #
 # Table name: users
 #
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  email           :string(255)
-#  remember_token  :string(255)
-#  password_digest :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  roles           :string(255)
+#  id                     :integer         not null, primary key
+#  email                  :string(255)     default(""), not null
+#  encrypted_password     :string(255)     default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer         default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
+#  failed_attempts        :integer         default(0)
+#  locked_at              :datetime
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  role                   :string(255)
 #
 
 class User < ActiveRecord::Base
-	attr_accessible :name, :email, :password, :password_confirmation, :roles
-	has_secure_password
-	serialize :roles, ::Array
+	#roles list
+	ROLES = %w[admin basic]
 
-	validate :roles_should_be_consistent
-	validates :name, presence: true, length: { maximum: 50 }
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :lockable, :timeoutable,:confirmable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
+
+  after_initialize :default_values
+
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, format: { with: valid_email_regex },uniqueness: { case_sensitive: false }
-	validates :password, length: { minimum: 6 }
+	validates :password, length: { minimum: 6 }, allow_blank: true
+	validates :role, :inclusion => { :in => ROLES}
 
-	before_save :create_remember_token
-
-	def admin?
-		has_role?(:admin)
-	end
-
-	def has_role?(role)
-		raise "term '#{role}' is not recognized as an existing role" unless allowed_roles.include?(role)
-		roles.include?(role)
+	def is?(role)
+		raise "'#{role}' is not a valid role" unless ROLES.include?(role)
+		self.role == role
 	end
 
 	private
-		def roles_should_be_consistent
-			self.roles.each do |role|
-				errors.add(:roles, "The value '#{role}' is not recognized as a role") unless allowed_roles.include?(role)
-				errors.add(:roles, "The role #{role} can't be repeated twice") unless roles.count(role) == 1
-			end
-		end
-
-		def allowed_roles
-			[:admin]
-		end
-
-	  def create_remember_token
-	    self.remember_token = SecureRandom.urlsafe_base64
-	  end
+    def default_values
+      self.role ||= "basic"
+    end
 end

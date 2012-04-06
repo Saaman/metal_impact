@@ -1,4 +1,17 @@
 class ApplicationController < ActionController::Base
+	include ApplicationHelper
   protect_from_forgery
-  include SessionsHelper
+  check_authorization :unless => :devise_controller?
+  after_filter :store_back_uri
+
+  rescue_from CanCan::AccessDenied do |exception|
+  	logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
+    redirect_to root_url, :alert => exception.message
+  end
+
+	rescue_from ActiveRecord::RecordNotFound do |exception|
+		logger.debug "RecordNotFound exception : #{exception.message}"
+		flash[:error] = "invalid record : #{exception.message}"
+    redirect_to get_back_uri
+	end
 end

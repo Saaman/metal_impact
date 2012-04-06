@@ -1,0 +1,11 @@
+$(".ajax-load").hide();
+$(".ajax-success").hide();
+$(".ajax-fail").hide();
+<% if object.errors.any? %>
+	<% object.errors.full_messages.each do |msg| %>
+			alert(<%= msg %>);
+	<% end %>
+	$("form#<%= formId %> img.ajax-fail").show();
+<% else %>
+	$("form#<%= formId %> img.ajax-success").show();
+<% end %>

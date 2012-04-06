@@ -6,7 +6,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+#require 'net/http'  #it might be needed to run recaptcha
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -65,6 +65,9 @@ module MetalImpact
     # use Rspec as my test generator:
     config.generators do |g|
         g.test_framework :rspec
+
+    #to allow devise to work on Heroku :
+    config.assets.initialize_on_precompile = false
     end
   end
 end

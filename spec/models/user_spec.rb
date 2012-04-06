@@ -1,46 +1,58 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer         not null, primary key
+#  email                  :string(255)     default(""), not null
+#  encrypted_password     :string(255)     default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer         default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
+#  failed_attempts        :integer         default(0)
+#  locked_at              :datetime
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  role                   :string(255)
+#
+
 require 'spec_helper'
 
 describe User do
 
   before do
-    @user = User.new(name: "Example User", email: "user@example.com", 
-                     password: "foobar", password_confirmation: "foobar")
+    @user = User.new(email: "user@example.com", password: "foobar", password_confirmation: "foobar")
   end
 
   subject { @user }
 
   describe "attributes and methods" do
     #attributes
-    it { should respond_to(:name) }
     it { should respond_to(:email) }
     it { should respond_to(:password_digest) }
     it { should respond_to(:password) }
     it { should respond_to(:password_confirmation) }
-    it { should respond_to(:remember_token) }
-    it { should respond_to(:roles) }
+    it { should respond_to(:remember_me) }
+    it { should respond_to(:role) }
 
     #methods
-    it { should respond_to(:authenticate) }
-    it { should respond_to(:admin?) }
-    it { should respond_to(:has_role?) }
+    it { should respond_to(:is?) }
   end
   
   describe "Validations" do
 
     it { should be_valid }
 
-    describe "when name is not present" do
-      before { @user.name = " " }
-      it { should_not be_valid }
-    end
-
     describe "when email is not present" do
       before { @user.email = " " }
-      it { should_not be_valid }
-    end
-
-    describe "when name is too long" do
-      before { @user.name = "a" * 51 }
       it { should_not be_valid }
     end
 
@@ -70,21 +82,26 @@ describe User do
       it { should_not be_valid }
     end
 
-    describe "when adding a role" do
-      before { @user.roles << :admin }
-      it { should be_valid }
-      it { should be_admin }
-      specify { @user.has_role?(:admin).should be_true }
-    end
+    describe "roles :" do
+      describe "default role should be 'basic'" do
+        its(:role) {should == "basic"}
+      end
+      describe "when having a role" do
+        before { @user.role = "admin" }
+        it { should be_valid }
+        specify { @user.is?("admin").should be_true }
+      end
 
-    describe "when adding twice the same role" do
-      before { @user.roles << :admin << :admin}
-      it { should_not be_valid }
-    end
+      describe "when assigning an unknown role" do
+        before { @user.role = :tata }
+        it { should_not be_valid }
+      end
 
-    describe "when adding an unknown role" do
-      before { @user.roles << :tata }
-      it { should_not be_valid }
+      describe "when asking if is of unknown role" do
+        it "raises" do
+          expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
+        end
+      end
     end
 
     describe "has_role" do
@@ -109,27 +126,6 @@ describe User do
     describe "with a password that's too short" do
         before { @user.password = @user.password_confirmation = "a" * 5 }
         it { should be_invalid }
-    end
-
-    describe "return value of authenticate method" do
-      before { @user.save }
-      let(:found_user) { User.find_by_email(@user.email) }
-
-      describe "with valid password" do
-        it { should == found_user.authenticate(@user.password) }
-      end
-
-      describe "with invalid password" do
-        let(:user_for_invalid_password) { found_user.authenticate("invalid") }
-
-        it { should_not == user_for_invalid_password }
-        specify { user_for_invalid_password.should be_false }
-      end
-    end
-
-    describe "remember token" do
-      before { @user.save }
-      its(:remember_token) { should_not be_blank }
     end
   end
 end
