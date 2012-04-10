@@ -9,4 +9,10 @@ FactoryGirl.define do
 
     after_create { |user, evaluator| user.confirm! }
   end
+
+  factory :album do
+  	sequence(:title) { Faker::Lorem.words }
+  	sequence(:release_date) { DateTime.now }
+  	album_type "album"
+  end
 end
