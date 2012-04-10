@@ -1,4 +1,6 @@
 MetalImpact::Application.routes.draw do
+  resources :albums
+
   namespace :administration do
     resources :users, :only => [:index, :destroy, :update]
   end

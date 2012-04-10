@@ -103,12 +103,6 @@ describe User do
         end
       end
     end
-
-    describe "has_role" do
-      it "should raises exception when role is unknown" do
-        expect { @user.has_role(:toto) }.to raise_error
-      end
-    end
   end
 
   describe "password & authentication" do
