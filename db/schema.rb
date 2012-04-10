@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321173957) do
+ActiveRecord::Schema.define(:version => 20120410125156) do
+
+  create_table "albums", :force => true do |t|
+    t.string   "title"
+    t.date     "release_date"
+    t.string   "album_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -24,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20120321173957) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",      :null => false
+    t.string   "encrypted_password",     :default => "",      :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -40,9 +48,9 @@ ActiveRecord::Schema.define(:version => 20120321173957) do
     t.string   "unconfirmed_email"
     t.integer  "failed_attempts",        :default => 0
     t.datetime "locked_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "role"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "role",                   :default => "basic", :null => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

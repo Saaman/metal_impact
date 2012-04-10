@@ -41,3 +41,4 @@ go back to last commit : git reset --hard HEAD
 remove untracked files (but not ignored files) : git clean -f -d
 get a new branch from GitHub : git checkout -b <branch> origin/<branch>
 remove uncommited changes on a single file : git checkout -- <filename>
+create new branch : git checkout -b <branch>
