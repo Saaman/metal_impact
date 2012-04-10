@@ -1,8 +1,10 @@
 class AlbumsController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /albums
   # GET /albums.json
   def index
-    @albums = Album.all
+    @albums = Album.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
