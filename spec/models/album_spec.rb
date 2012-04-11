@@ -2,12 +2,16 @@
 #
 # Table name: albums
 #
-#  id           :integer         not null, primary key
-#  title        :string(255)
-#  release_date :date
-#  type         :string(255)
-#  created_at   :datetime        not null
-#  updated_at   :datetime        not null
+#  id                 :integer         not null, primary key
+#  title              :string(255)
+#  release_date       :date
+#  album_type         :string(255)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  cover_file_name    :string(255)
+#  cover_content_type :string(255)
+#  cover_file_size    :integer
+#  cover_updated_at   :datetime
 #
 
 require 'spec_helper'
@@ -25,7 +29,10 @@ describe Album do
     it { should respond_to(:title) }
     it { should respond_to(:release_date) }
     it { should respond_to(:album_type) }
-    
+    it { should have_attached_file(:cover) }
+    it { should validate_attachment_content_type(:cover).
+      allowing('image/png', 'image/jpg').
+      rejecting('text/plain', 'text/xml') }
     #methods
   end
   

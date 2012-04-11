@@ -40,4 +40,8 @@ MetalImpact::Application.configure do
 
   # use letter opener
   config.action_mailer.delivery_method = :letter_opener
+
+  #imageMagic path for PaperClip
+  Paperclip.options[:command_path] = 'C:\Program Files (x86)\ImageMagick-6.7.6-Q16'
+  Paperclip.options[:swallow_stderr] = false
 end

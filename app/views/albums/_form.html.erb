@@ -1,15 +1,5 @@
-<%= form_for(@album) do |f| %>
-  <% if @album.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
-
-      <ul>
-      <% @album.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for @album, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', :object => @album %>
 
   <div class="field">
     <%= f.label :title %><br />
@@ -21,7 +11,10 @@
   </div>
   <div class="field">
     <%= f.label :album_type %><br />
-    <%= f.text_field :album_type %>
+    <%= f.collection_select :album_type, Album::ALBUMS_TYPES, :to_s, :humanize, {}, {:class => 'span2'} %>
+  </div>
+  <div class="field">
+    <%= f.file_field :cover %>
   </div>
   <div class="actions">
     <%= f.submit %>
