@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Title:</b>
   <%= @album.title %>
@@ -13,6 +11,10 @@
 <p>
   <b>Type:</b>
   <%= @album.album_type %>
+</p>
+<p>
+	<b>Cover:</b>
+	<%= image_tag @album.cover.url(:thumb) %>
 </p>
 
 

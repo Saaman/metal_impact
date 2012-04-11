@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require "paperclip/matchers"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -37,4 +38,7 @@ RSpec.configure do |config|
 
   #alias it_behaves_like
   config.alias_it_should_behave_like_to :its_access_is, 'access is'
+
+  #include paperclip matchers
+  config.include Paperclip::Shoulda::Matchers
 end
