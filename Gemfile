@@ -10,6 +10,7 @@ gem 'devise', '2.0.4'
 gem 'cancan', '1.6.7'
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
 gem "paperclip", "~> 3.0"
+gem "foreigner", "~> 1.1"
 
 group :development do
   gem 'faker', '1.0.1'
