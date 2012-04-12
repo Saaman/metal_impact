@@ -29,11 +29,13 @@ describe Album do
     it { should respond_to(:title) }
     it { should respond_to(:release_date) }
     it { should respond_to(:album_type) }
+    it { should respond_to(:music_label) }
+    #methods
+    #validators
     it { should have_attached_file(:cover) }
     it { should validate_attachment_content_type(:cover).
       allowing('image/png', 'image/jpg').
       rejecting('text/plain', 'text/xml') }
-    #methods
   end
   
   describe "Validations" do
