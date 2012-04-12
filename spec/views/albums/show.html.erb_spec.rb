@@ -4,7 +4,8 @@ describe "albums/show" do
   before(:each) do
     @album = assign(:album, stub_model(Album,
       :title => "Title",
-      :album_type => "Type"
+      :album_type => "Type",
+      :release_date => DateTime.now
     ))
   end
 
