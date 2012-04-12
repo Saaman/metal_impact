@@ -1,22 +1,22 @@
 <p>
-  <b>Title:</b>
-  <%= @album.title %>
+  <span class="album-title"><%= "#{@album.title} (#{@album.release_date.year})" %></span>
 </p>
 
-<p>
-  <b>Release date:</b>
-  <%= @album.release_date %>
-</p>
+<div class="portrait"><%= image_tag @album.cover.url(:medium) %></div>
+<div>
+	<div>
+		<i>Label : </i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label.name %>
+	</div>
+	<div>
+		<i>Sortie du Scud : </i><%= @album.release_date.strftime("%-d %B %Y") %>
+	</div>
+	<div>
+		<i>Type : </i><%= @album.album_type %>
+	</div>
+</div>
 
-<p>
-  <b>Type:</b>
-  <%= @album.album_type %>
-</p>
-<p>
-	<b>Cover:</b>
-	<%= image_tag @album.cover.url(:thumb) %>
-</p>
-
+<br style="clear: left" />
+<p>Some text for Fun</p>
 
 <%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', albums_path %>
