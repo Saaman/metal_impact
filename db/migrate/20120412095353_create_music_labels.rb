@@ -9,6 +9,6 @@ class CreateMusicLabels < ActiveRecord::Migration
     end
 
     add_foreign_key(:albums, :music_labels)
-    
+    add_index :music_labels, :name, :unique => true
   end
 end

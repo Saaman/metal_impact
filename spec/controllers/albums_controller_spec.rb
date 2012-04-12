@@ -3,8 +3,6 @@ require 'spec_helper'
 #######################################################################################
 shared_examples "albums actions granted for anybody" do
   describe "GET 'index'" do
-    before(:all) { 50.times { FactoryGirl.create(:album) } }
-    after(:all)  { Album.delete_all }
     let(:first_page)  { Album.paginate(page: 1) }
     let(:second_page) { Album.paginate(page: 2) }
     it "should return the first page of albums" do
@@ -58,7 +56,9 @@ end
 #######################################################################################
 
 describe AlbumsController do
-  
+  before(:all) { 50.times { FactoryGirl.create(:album) } }
+  after(:all)  { Album.delete_all }
+
   subject { response }
 
   context "anonymous user :" do
