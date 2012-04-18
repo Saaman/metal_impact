@@ -19,3 +19,4 @@ doc/
 *.sublime-project
 *.dat
 *.sqlite3-journal
+public/system/albums/covers/
