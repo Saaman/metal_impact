@@ -2,22 +2,23 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.2'
 gem 'railties', '3.2.2'
-gem 'bootstrap-sass', '~> 2.0.2'
+gem 'bootstrap-sass'
 gem 'jquery-rails', '2.0.0'
-gem 'will_paginate', '3.0.3'
-gem 'bootstrap-will_paginate', '0.0.5'
-gem 'devise', '2.0.4'
-gem 'cancan', '1.6.7'
-gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
-gem "paperclip", "~> 3.0"
-gem "foreigner", "~> 1.1"
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'devise'
+gem 'cancan'
+gem 'recaptcha', :require => 'recaptcha/rails'
+gem "paperclip"
 gem 'simple_form'
+gem 'http_accept_language'
 
 group :development do
-  gem 'faker', '1.0.1'
+  gem 'faker'
   gem 'sqlite3', '1.3.5'
-  gem 'annotate', '~> 2.4.1.beta'
-  gem "letter_opener", '0.0.2'
+  gem 'annotate'
+  gem "letter_opener"
+  gem "foreigner"
 end
 
 # Gems used only for assets and not required
@@ -29,13 +30,13 @@ group :assets do
 end
 
 group :test do
-  gem 'faker', '1.0.1'
+  gem 'faker'
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.9.0'
   gem 'capybara', '1.1.2'
-  gem 'guard-rspec', '0.6.0'
-  gem 'guard', '1.0.0'
-  gem 'factory_girl_rails', '1.4.0'
+  gem 'guard-rspec'
+  gem 'guard'
+  gem 'factory_girl_rails'
   # Windows gems
   gem 'rb-fchange', '0.0.5'
   gem 'win32console', '~> 1.3.0'

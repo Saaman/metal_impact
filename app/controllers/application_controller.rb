@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
 	include ApplicationHelper
+  include LocaleHelper
   protect_from_forgery
   check_authorization :unless => :devise_controller?
+  before_filter :set_locale
   after_filter :store_back_uri
 
   rescue_from CanCan::AccessDenied do |exception|

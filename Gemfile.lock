@@ -79,6 +79,7 @@ GEM
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
     hike (1.2.1)
+    http_accept_language (1.0.2)
     i18n (0.6.0)
     journey (1.0.3)
     jquery-rails (2.0.0)
@@ -186,31 +187,32 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  annotate (~> 2.4.1.beta)
-  bootstrap-sass (~> 2.0.2)
-  bootstrap-will_paginate (= 0.0.5)
-  cancan (= 1.6.7)
+  annotate
+  bootstrap-sass
+  bootstrap-will_paginate
+  cancan
   capybara (= 1.1.2)
   coffee-rails (= 3.2.2)
-  devise (= 2.0.4)
-  factory_girl_rails (= 1.4.0)
-  faker (= 1.0.1)
-  foreigner (~> 1.1)
-  guard (= 1.0.0)
-  guard-rspec (= 0.6.0)
+  devise
+  factory_girl_rails
+  faker
+  foreigner
+  guard
+  guard-rspec
+  http_accept_language
   jquery-rails (= 2.0.0)
-  letter_opener (= 0.0.2)
-  paperclip (~> 3.0)
+  letter_opener
+  paperclip
   pg (= 0.12.2)
   rails (= 3.2.2)
   railties (= 3.2.2)
   rb-fchange (= 0.0.5)
-  recaptcha (= 0.3.4)
+  recaptcha
   rspec-rails (= 2.9.0)
   ruby_gntp (= 0.3.4)
   sass-rails (= 3.2.3)
   simple_form
   sqlite3 (= 1.3.5)
   uglifier (= 1.2.3)
-  will_paginate (= 3.0.3)
+  will_paginate
   win32console (~> 1.3.0)
