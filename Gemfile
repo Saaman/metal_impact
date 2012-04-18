@@ -11,6 +11,7 @@ gem 'cancan', '1.6.7'
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
 gem "paperclip", "~> 3.0"
 gem "foreigner", "~> 1.1"
+gem 'simple_form'
 
 group :development do
   gem 'faker', '1.0.1'
