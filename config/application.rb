@@ -65,9 +65,9 @@ module MetalImpact
     # use Rspec as my test generator:
     config.generators do |g|
         g.test_framework :rspec
+    end
 
     #to allow devise to work on Heroku :
     config.assets.initialize_on_precompile = false
-    end
   end
 end
