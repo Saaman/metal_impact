@@ -31,6 +31,7 @@ en-US:
     - Friday
     - Saturday
     formats:
+      jdefault: ! 'mm/dd/yyyy'
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
       short: ! '%b %d'

@@ -4,7 +4,7 @@ class DatePickerInput < SimpleForm::Inputs::Base
   end
 
   def datepicker_options(value = nil)
-    datepicker_options = {:value => value.nil?? nil : I18n.localize(value)}
+    datepicker_options = {:value => value.nil?? nil : I18n.l(value)}
   end
 
 end
