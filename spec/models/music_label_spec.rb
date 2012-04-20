@@ -67,5 +67,11 @@ describe MusicLabel do
       end
       it { should_not be_valid }
     end
+
+    describe "when adding an album" do
+      before { @musicLabel.albums << Album.new }
+      specify { @musicLabel.albums.should_not be_nil }
+      specify { @musicLabel.albums.size.should == 1 }
+    end
   end
 end

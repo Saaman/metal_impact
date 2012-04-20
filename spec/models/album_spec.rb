@@ -72,6 +72,10 @@ describe Album do
         before { @album.album_type = "tata" }
         it { should_not be_valid }
       end
+      describe "when assigning a music label" do
+        before { @album.music_label = MusicLabel.new }
+        its(:music_label) { should_not be_nil }
+      end
     end
   end
 end
