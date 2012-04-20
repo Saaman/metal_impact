@@ -8,7 +8,8 @@ class CreateMusicLabels < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_foreign_key(:albums, :music_labels)
+    add_column :albums, :music_label_id, :integer
+    #add_foreign_key(:albums, :music_labels)
     add_index :music_labels, :name, :unique => true
   end
 end
