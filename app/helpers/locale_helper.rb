@@ -8,6 +8,8 @@ module LocaleHelper
 	private
 		def retrieve_from_headers
 			logger.debug "set_locale : retrieve from headers"
+			logger.debug "set_locale : request.preferred_language_from(I18n.available_locales) : #{request.preferred_language_from(I18n.available_locales)}"
+			logger.debug "set_locale : request.compatible_language_from(I18n.available_locales) : #{request.compatible_language_from(I18n.available_locales)}"
 			request.preferred_language_from(I18n.available_locales) || request.compatible_language_from(I18n.available_locales)
 		end
 
