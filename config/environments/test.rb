@@ -37,6 +37,9 @@ MetalImpact::Application.configure do
 
   config.log_level = :info
   
+  #english by default for tests to run
+  config.i18n.default_locale = :en
+  
   #devise configuration
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
