@@ -2,16 +2,19 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.2'
 gem 'railties', '3.2.2'
-gem 'bootstrap-sass'
 gem 'jquery-rails', '2.0.0'
 gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 gem 'devise'
 gem 'cancan'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem "paperclip"
 gem 'simple_form'
 gem 'http_accept_language'
+
+# I18n
+gem 'devise-i18n'
+gem 'rails-i18n'
+gem 'will-paginate-i18n'
 
 group :development do
   gem 'faker'
@@ -27,6 +30,8 @@ group :assets do
   gem 'sass-rails',   '3.2.3'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'
+  gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
+  gem 'bootstrap-will_paginate'
 end
 
 group :test do
