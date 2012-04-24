@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120412095353) do
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
+    t.integer  "music_label_id"
   end
 
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
