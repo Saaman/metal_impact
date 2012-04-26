@@ -44,3 +44,5 @@ remove uncommited changes on a single file : 		git checkout -- <filename>
 create new branch : 														git checkout -b <branch>
 push a new branch to GitHub : 									git push origin <branch>
 merge a branch (checkout the main first) :			git merge <branch>
+delete a branch (locally) :											git branch -D <branch>
+delete a branch (on GitHub) :										git push origin --delete <branch>
