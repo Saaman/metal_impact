@@ -1,6 +1,7 @@
 MetalImpact::Application.routes.draw do
   resources :albums
-  
+  resources :music_labels, :only => [:new, :create]
+
   namespace :administration do
     resources :users, :only => [:index, :destroy, :update]
   end

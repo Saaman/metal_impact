@@ -29,5 +29,5 @@ class Album < ActiveRecord::Base
   validates_attachment_content_type :cover, :content_type => /image/
 
   #associations
-  belongs_to :music_label
+  belongs_to :music_label, :autosave => true
 end
