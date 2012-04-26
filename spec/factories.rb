@@ -12,7 +12,7 @@ FactoryGirl.define do
 
   factory :album do
   	sequence(:title) { Faker::Lorem.words.join(" ") }
-  	sequence(:release_date) { DateTime.now }
+  	sequence(:release_date) { 1.month.ago.to_date }
   	album_type "album"
   end
 
@@ -20,6 +20,5 @@ FactoryGirl.define do
     sequence(:name) { Faker::Lorem.words.join(" ") }
     sequence(:website) { "http://www.#{Faker::Internet.domain_name}" }
     sequence(:distributor) { Faker::Lorem.words.join(" ") }
-    album_type "album"
   end
 end

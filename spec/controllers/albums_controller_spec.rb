@@ -120,12 +120,32 @@ describe AlbumsController do
           post :create, {:album => album_attrs}
           response.should redirect_to(Album.last)
         end
+        describe "about music album creation : " do
+          let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
+          let(:page_attrs) { album_attrs.merge({:music_label => music_label_attrs}) }
+          it "creates a new MusicLabel with valid parameters" do
+            expect {
+              post :create, {:album => page_attrs}
+            }.to change(MusicLabel, :count).by(1)
+          end
+          describe "if MusicLabel params are invalid" do
+            before { page_attrs[:music_label][:name] = "" }
+            it "does not create MusicLabel nor Album" do
+              expect {
+                post :create, {:album => page_attrs}
+              }.not_to change(MusicLabel, :count)
+              expect {
+                post :create, {:album => page_attrs}
+              }.not_to change(Album, :count)
+            end
+          end
+        end
       end
 
       describe "with invalid params" do
+        before { Album.any_instance.stub(:save).and_return(false) }
         it "assigns a newly created but unsaved album as @album" do
           # Trigger the behavior that occurs when invalid params are submitted
-          Album.any_instance.stub(:save).and_return(false)
           post :create, {:album => {}}
           assigns(:album).should be_a_new(Album)
         end
@@ -136,31 +156,32 @@ describe AlbumsController do
           post :create, {:album => {}}
           response.should render_template("new")
         end
+        describe "with music album creation" do
+          let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
+          it "does not create a new MusicLabel" do
+            expect {
+              post :create, {:album => {:music_label => music_label_attrs}}
+            }.not_to change(MusicLabel, :count)
+          end
+        end
       end
     end
 
     describe "PUT update" do
       let(:album_attrs) { FactoryGirl.attributes_for(:album) }
-      let(:album) { Album.create! album_attrs }
+      let!(:album) { FactoryGirl.create(:album) }
       describe "with valid params" do
-        it "updates the requested album" do
-          #album = Album.create! album_attrs
-          # Assuming there are no other albums in the database, this
-          # specifies that the Album created on the previous line
-          # receives the :update_attributes message with whatever params are
-          # submitted in the request.
-          Album.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, {:id => album.id, :album => {'these' => 'params'}}
-        end
-
-        it "assigns the requested album as @album" do
-          put :update, {:id => album.id, :album => album_attrs}
-          assigns(:album).should eq(album)
-        end
-
-        it "redirects to the album" do
-          put :update, {:id => album.id, :album => album_attrs}
-          response.should redirect_to(album)
+        describe "updates the requested album" do
+          before do
+            album.stub(:save).and_return(true)
+            put :update, {:id => album.id, :album => album_attrs}
+          end
+          it "assigns the requested album as @album" do
+            assigns(:album).should eq(album)
+          end
+          it "redirects to the album" do
+            response.should redirect_to(album)
+          end
         end
       end
 

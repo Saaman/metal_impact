@@ -12,6 +12,9 @@
 
 class MusicLabel < ActiveRecord::Base
 
+	#attributes
+  attr_accessible :name, :website, :distributor
+	
 	#validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   valid_website_regex = /\Ahttp[s]*:\/\/[\w+\-.]+\.[a-z]+\z/i

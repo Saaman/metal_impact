@@ -22,6 +22,7 @@ describe MusicLabel do
     it { should respond_to(:name) }
     it { should respond_to(:website) }
     it { should respond_to(:distributor) }
+    #associations
     it { should respond_to(:albums) }
   end
 
@@ -67,11 +68,25 @@ describe MusicLabel do
       end
       it { should_not be_valid }
     end
+  end
 
+  describe "albums association :" do
     describe "when adding an album" do
       before { @musicLabel.albums << Album.new }
-      specify { @musicLabel.albums.should_not be_nil }
+      specify { @musicLabel.albums.should_not be_empty }
       specify { @musicLabel.albums.size.should == 1 }
+    end
+    describe "when saving an album" do
+      let!(:album) { FactoryGirl.create(:album) }
+      let!(:other_album) { FactoryGirl.create(:album) }
+      before do
+        @musicLabel.albums << album
+        @musicLabel.albums << other_album
+        @musicLabel.save
+      end
+      specify { @musicLabel.albums(true).should_not be_empty }
+      specify { @musicLabel.albums(true).size.should == 2 }
+      specify { @musicLabel.album_ids.should == [album.id, other_album.id] }
     end
   end
 end

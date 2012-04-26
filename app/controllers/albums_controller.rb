@@ -1,6 +1,8 @@
 class AlbumsController < ApplicationController
   load_and_authorize_resource
-  
+  #Cancan breaks the mass-assignment security because music label association is not accessible
+  skip_load_and_authorize_resource  :only => :create
+
   # GET /albums
   # GET /albums.json
   def index
@@ -42,7 +44,10 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
-    @album = Album.new(params[:album])
+    @album = Album.new
+    @album.attributes = params[:album].except(:music_label, :music_label_id)
+    authorize! :create, @album
+    build_or_associate_music_label(params[:album])
 
     respond_to do |format|
       if @album.save
@@ -59,9 +64,12 @@ class AlbumsController < ApplicationController
   # PUT /albums/1.json
   def update
     @album = Album.find(params[:id])
+    @album.attributes = params[:album].except(:music_label, :music_label_id)
+
+    build_or_associate_music_label(params[:album])
 
     respond_to do |format|
-      if @album.update_attributes(params[:album])
+      if @album.save
         format.html { redirect_to @album, notice: 'Album was successfully updated.' }
         format.json { head :no_content }
       else
@@ -82,4 +90,16 @@ class AlbumsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def build_or_associate_music_label(params)
+      if params[:music_label_id].blank?
+        return if params[:music_label].blank?
+        return if params[:music_label][:name].blank?
+        logger.debug "will create music label : #{params[:music_label].inspect}"
+        @album.build_music_label(params[:music_label])
+      else
+        @album.music_label = MusicLabel.find(params[:music_label_id])
+      end
+    end
 end
