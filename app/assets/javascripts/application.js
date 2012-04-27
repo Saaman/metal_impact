@@ -15,5 +15,7 @@
 //= require jquery-ui
 //= require bootstrap
 //= require vendor
+//= require i18n
+//= require i18n/translations
 //= require_tree .
 //

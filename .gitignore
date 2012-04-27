@@ -20,3 +20,7 @@ doc/
 *.dat
 *.sqlite3-journal
 public/system/albums/covers/
+
+#Ignore files compiled for production
+/public/assets
+/app/assets/javascripts/i18n
