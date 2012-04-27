@@ -10,6 +10,7 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 gem "paperclip"
 gem 'simple_form'
 gem 'http_accept_language'
+gem 'i18n-js'
 
 # I18n
 gem 'devise-i18n'
