@@ -67,5 +67,12 @@ MetalImpact::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   #devise configuration
-  config.action_mailer.default_url_options = { :host => 'metal-impact.com' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # use letter opener
+  config.action_mailer.delivery_method = :letter_opener
+
+  #imageMagic path for PaperClip
+  Paperclip.options[:command_path] = 'C:\Program Files (x86)\ImageMagick-6.7.6-Q16'
+  Paperclip.options[:swallow_stderr] = false
 end

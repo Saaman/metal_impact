@@ -17,8 +17,7 @@ bundle exec rake db:test:prepare
 
 load Fake data in dev DB
 ------------------------
-bundle exec rake db:reset
-bundle exec rake db:populate
+bundle exec rake db:(re)seed
 
 Annotate models
 ---------------
@@ -49,7 +48,7 @@ delete a branch (on GitHub) :										git push origin --delete <branch>
 
 Production
 ----------
-bundle exec rake i18n:js:export
-rails s -e production
 bundle exec rake:* RAILS_ENV=production
+bundle exec rake i18n:js:export
 assets pre-compilation : bundle exec rake assets:precompile
+rails s -e production

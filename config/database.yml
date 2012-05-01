@@ -30,4 +30,4 @@ local_prod:
   database: mi_local_prod
   pool: 5
   username: metalimpact
-  password:
+  password: mi12

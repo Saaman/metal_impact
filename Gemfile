@@ -11,19 +11,12 @@ gem "paperclip"
 gem 'simple_form'
 gem 'http_accept_language'
 gem 'i18n-js'
+gem 'foreigner'
 
 # I18n
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem 'will-paginate-i18n'
-
-group :development do
-  gem 'faker'
-  gem 'sqlite3', '1.3.5'
-  gem 'annotate'
-  gem "letter_opener"
-  gem "foreigner"
-end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,6 +26,13 @@ group :assets do
   gem 'uglifier', '1.2.3'
   gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
   gem 'bootstrap-will_paginate'
+end
+
+group :development do
+  gem 'faker'
+  gem 'sqlite3', '1.3.5'
+  gem 'annotate'
+  gem "letter_opener"
 end
 
 group :test do
@@ -50,7 +50,11 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '0.12.2'
+  gem 'pg'
+end
+
+group :local_prod do
+  gem 'pg'
 end
 
 # To use Jbuilder templates for JSON
