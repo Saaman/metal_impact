@@ -213,7 +213,7 @@ DEPENDENCIES
   jquery-rails (= 2.0.0)
   letter_opener
   paperclip
-  pg (= 0.12.2)
+  pg
   rails (= 3.2.2)
   rails-i18n
   railties (= 3.2.2)
