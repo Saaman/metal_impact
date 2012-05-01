@@ -68,7 +68,7 @@ module MetalImpact
         g.test_framework :rspec
     end
 
-    #to allow devise to work on Heroku :
+    #to allow to work on Heroku :
     config.assets.initialize_on_precompile = false
   end
 end
