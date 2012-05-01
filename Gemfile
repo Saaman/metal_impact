@@ -51,6 +51,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'thin'
 end
 
 group :local_prod do
