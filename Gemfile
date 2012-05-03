@@ -10,13 +10,13 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 gem "paperclip"
 gem 'simple_form'
 gem 'http_accept_language'
-gem 'i18n-js'
 gem 'foreigner'
 
 # I18n
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem 'will-paginate-i18n'
+gem 'i18n-js'
 
 # Gems used only for assets and not required
 # in production environments by default.
