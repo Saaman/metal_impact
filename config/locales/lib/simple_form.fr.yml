@@ -1,7 +1,4 @@
 fr:
-  date:
-    formats:
-      jsdefault: 'dd/mm/yyyy'
   simple_form:
     "yes": 'Oui'
     "no": 'Non'

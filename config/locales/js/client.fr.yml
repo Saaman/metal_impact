@@ -1,0 +1,4 @@
+fr:
+  client:
+    date:
+      default_format: 'dd/mm/yyyy'
