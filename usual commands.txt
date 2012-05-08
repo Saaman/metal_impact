@@ -19,6 +19,10 @@ load Fake data in dev DB
 ------------------------
 bundle exec rake db:(re)seed
 
+Generate bundler stubs
+----------------------
+bundle --binstubs=./bundler_stubs
+
 Annotate models
 ---------------
 bundle exec annotate --position before
