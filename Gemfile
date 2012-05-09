@@ -44,9 +44,9 @@ group :test do
   gem 'guard'
   gem 'factory_girl_rails'
   # Windows gems
-  gem 'rb-fchange', '0.0.5'
-  gem 'win32console', '~> 1.3.0'
-  gem 'ruby_gntp', '0.3.4'
+  gem 'rb-fchange'
+  gem 'win32console', '~> 1.3'
+  gem 'ruby_gntp'
 end
 
 group :production do

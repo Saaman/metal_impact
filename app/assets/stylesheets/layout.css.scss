@@ -9,6 +9,15 @@ html {
 
 body {
   font-size: 11px;
+  background-color: $grayMediumLight;
+}
+
+.contentzone {
+  background-color: white;
+}
+
+.leftzone {
+  background-color: gray;
 }
 
 textarea {
@@ -37,6 +46,8 @@ textarea {
 
 footer {
   margin-top: 45px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
   //color: $grayLight;
