@@ -1,11 +1,20 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-notification :gntp, :sticky => false, :host => '127.0.0.1'
+guard 'spork', :rspec_env => { 'RAILS_ENV' => 'test' } do
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch(%r{^config/environments/.+\.rb$})
+  watch(%r{^config/initializers/.+\.rb$})
+  watch('Gemfile')
+  watch('Gemfile.lock')
+  watch('spec/spec_helper.rb')
+  watch('test/test_helper.rb')
+  watch('spec/support/')
+end
 
-#TODO : adapt correctly the watches to match my needs
 
-guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc' do
+guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc --drb' do
   
   #lib
   watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }

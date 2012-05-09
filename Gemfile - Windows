@@ -43,6 +43,7 @@ group :test do
   gem 'guard-rspec'
   gem 'guard'
   gem 'factory_girl_rails'
+  
   # Windows gems
   gem 'rb-fchange'
   gem 'win32console', '~> 1.3'
