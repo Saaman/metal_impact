@@ -22,6 +22,10 @@ Generate bundler stubs
 ----------------------
 bundle --binstubs=./bundler_stubs
 
+Switch OS
+---------
+bundle exec rake refresh_ws:<OS>
+
 Annotate models
 ---------------
 bundle exec annotate --position before
