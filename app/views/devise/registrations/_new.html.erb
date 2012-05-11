@@ -1,0 +1,17 @@
+<% content_for :modal_title, t('.title') %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
+	
+	<div class="modal-body">
+		  <%= devise_error_messages! %>
+
+		  <%= f.input :email %>
+		  <%= f.input :password, :required => true %>
+		  <%= f.input :password_confirmation, :required => true %>
+
+	</div>
+	<div class="modal-footer">
+		<%= render "links" %>
+	  <%= f.button :submit, :class => 'btn-primary' %>
+	</div>
+
+<% end %>

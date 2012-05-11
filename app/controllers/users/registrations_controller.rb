@@ -1,9 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 	skip_before_filter :require_no_authentication, :only => [:new, :create]
+  respond_to :js, :only => :new
 
   def new
     authorize! :create, User
-    super
+    resource = build_resource
+    respond_with resource
   end
 
   def create

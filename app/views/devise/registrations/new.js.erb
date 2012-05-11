@@ -1,0 +1,4 @@
+$("#new-registration-modal").bind('show', function() {
+  $(this).html("<%= escape_javascript(render(:partial => 'new', :layout => 'modal')) %>");
+})
+.modal();
