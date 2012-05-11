@@ -1,0 +1,15 @@
+fr:
+  devise:
+    registrations:
+      new:
+        title: "Création de compte express"
+  simple_form:
+    labels:
+      defaults:
+        email: "Adresse e-mail"
+        password: "mot de passe"
+  helpers:
+    submit:
+      user:
+        create: "Valider"
+

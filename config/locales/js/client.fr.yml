@@ -1,4 +1,4 @@
 fr:
-  client:
-    date:
-      default_format: 'dd/mm/yyyy'
+  time:
+    formats:
+      js_date: 'dd/mm/yyyy'

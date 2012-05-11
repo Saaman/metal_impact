@@ -1,0 +1,14 @@
+en:
+  devise:
+    registrations:
+      new:
+        title: "Create your account"
+  simple_form:
+    labels:
+      defaults:
+        email: "E-mail adress"
+        password: "password"
+  helpers:
+    submit:
+      user:
+        create: "Submit"
