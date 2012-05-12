@@ -10,16 +10,18 @@ end
 
 def make_users
   admin = User.new(email:    "romain.magny@gmail.com",
-                       password: "password",
-                       password_confirmation: "password",
+                       password: "password1",
+                       email_confirmation: "romain.magny@gmail.com",
+                       pseudo: "Roro",
                        role: "admin")
   admin.skip_confirmation!
   admin.save!
   99.times do |n|
     email = "example-#{n+1}@railstutorial.org"
-    password  = "password"
+    pseudo = "example-#{n+1}"
+    password  = "password1"
     user = User.new(email: email, password: password,
-      password_confirmation: password)
+      email_confirmation: email, pseudo: pseudo)
     user.skip_confirmation!
     user.save!
   end

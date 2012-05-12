@@ -29,7 +29,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = User.new(email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+    @user = User.new(email: "user@example.com", email_confirmation: "user@example.com", password: "foobar1", pseudo: "Roro", date_of_birth: 1.month.ago, gender: "male")
   end
 
   subject { @user }
@@ -37,10 +37,13 @@ describe User do
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:email) }
+    it { should respond_to(:email_confirmation) }
     it { should respond_to(:password_digest) }
     it { should respond_to(:password) }
-    it { should respond_to(:password_confirmation) }
+    it { should respond_to(:pseudo) }
     it { should respond_to(:remember_me) }
+    it { should respond_to(:date_of_birth) }
+    it { should respond_to(:gender) }
     it { should respond_to(:role) }
 
     #methods
@@ -51,36 +54,108 @@ describe User do
 
     it { should be_valid }
 
-    describe "when email is not present" do
-      before { @user.email = " " }
-      it { should_not be_valid }
-    end
+    describe "when email" do
+      describe "is not present" do
+        before { @user.email = " " }
+        it { should_not be_valid }
+      end
 
-    describe "when email format is invalid" do
-      invalid_addresses =  %w[user@foo,com user_at_foo.org example.user@foo.]
-      invalid_addresses.each do |invalid_address|
-        before { @user.email = invalid_address }
+      describe "format is invalid" do
+        invalid_addresses =  %w[user@foo,com user_at_foo.org example.user@foo.]
+        invalid_addresses.each do |invalid_address|
+          before { @user.email = @user.email_confirmation = invalid_address }
+          it { should_not be_valid }
+        end
+      end
+
+      describe "format is valid" do
+        valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+        valid_addresses.each do |valid_address|
+          before { @user.email = @user.email_confirmation = valid_address }
+          it { should be_valid }
+        end
+      end
+
+      describe "and confirmation mismatch" do
+        before { @user.email_confirmation = "toto" }
+        it { should_not be_valid }
+      end
+
+      describe "address is already taken" do
+        before do
+          user_with_same_email = @user.dup
+          user_with_same_email.email = user_with_same_email.email_confirmation = @user.email.upcase
+          user_with_same_email.save
+        end
+
         it { should_not be_valid }
       end
     end
 
-    describe "when email format is valid" do
-      valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
-      valid_addresses.each do |valid_address|
-        before { @user.email = valid_address }
+    describe "when password" do
+
+      describe "is not present" do
+        before { @user.password = " " }
+        it { should_not be_valid }
+      end
+
+      describe "is too short" do
+          before { @user.password = "a" * 4 + "1" }
+          it { should be_invalid }
+      end
+
+      describe "is too long" do
+          before { @user.password = "a" * 128 + "1" }
+          it { should be_invalid }
+      end
+
+      describe "don't have a special char" do
+          before { @user.password = "a" * 7 }
+          it { should be_invalid }
+      end
+    end
+
+    describe "when pseudo" do
+      describe "is blank" do
+        before { @user.pseudo = " " }
+        it { should_not be_valid }
+      end
+      describe "is too short" do
+        before { @user.pseudo = "a" * 3 }
+        it { should_not be_valid }
+      end
+      describe "is too long" do
+        before { @user.pseudo = "a" * 130 }
+        it { should_not be_valid }
+      end
+    end
+
+    describe "when date of birth" do
+      describe "is invalid" do
+        before { @user.date_of_birth = "tata" }
+        it { should_not be_valid }
+      end
+      describe "is in the future" do
+        before { @user.date_of_birth = Date.today + 1.month }
+        it { should_not be_valid }
+      end
+      describe "is blank" do 
+        before { @user.gender = "" }
         it { should be_valid }
       end
     end
 
-    describe "when email address is already taken" do
-      before do
-        user_with_same_email = @user.dup
-        user_with_same_email.email = @user.email.upcase
-        user_with_same_email.save
+    describe "when gender" do
+      describe "is invalid" do
+        before { @user.gender = "tata" }
+        it { should_not be_valid }
       end
-
-      it { should_not be_valid }
+      describe "is blank" do 
+        before { @user.gender = "" }
+        it { should be_valid }
+      end
     end
+
 
     describe "roles :" do
       describe "default role should be 'basic'" do
@@ -93,7 +168,7 @@ describe User do
       end
 
       describe "when assigning an unknown role" do
-        before { @user.role = :tata }
+        before { @user.role = "tata" }
         it { should_not be_valid }
       end
 
@@ -102,24 +177,6 @@ describe User do
           expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
         end
       end
-    end
-  end
-
-  describe "password & authentication" do
-
-    describe "when password is not present" do
-      before { @user.password = @user.password_confirmation = " " }
-      it { should_not be_valid }
-    end
-
-    describe "when password doesn't match confirmation" do
-      before { @user.password_confirmation = "mismatch" }
-      it { should_not be_valid }
-    end
-
-    describe "with a password that's too short" do
-        before { @user.password = @user.password_confirmation = "a" * 5 }
-        it { should be_invalid }
     end
   end
 end
