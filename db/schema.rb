@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412095353) do
+ActiveRecord::Schema.define(:version => 20120512200439) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20120412095353) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "role",                   :default => "basic", :null => false
+    t.string   "pseudo"
+    t.date     "date_of_birth"
+    t.string   "gender"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
