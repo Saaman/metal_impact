@@ -1,10 +1,10 @@
 class AddDetailsToUser < ActiveRecord::Migration
   def change
-    add_column :users, :pseudo, :string
-
-    add_column :users, :date_of_birth, :date
-
-    add_column :users, :gender, :string
-
+  	 change_table :users do |t|
+      t.string :pseudo, :null => false, default: ""
+      t.date :date_of_birth
+      t.integer :gender_cd
+    end
+    
   end
 end

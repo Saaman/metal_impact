@@ -29,7 +29,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = User.new(email: "user@example.com", email_confirmation: "user@example.com", password: "foobar1", pseudo: "Roro", date_of_birth: 1.month.ago, gender: "male")
+    @user = User.new(email: "user@example.com", email_confirmation: "user@example.com", password: "foobar1", pseudo: "Roro", date_of_birth: 1.month.ago, gender: :male)
   end
 
   subject { @user }
@@ -45,6 +45,11 @@ describe User do
     it { should respond_to(:date_of_birth) }
     it { should respond_to(:gender) }
     it { should respond_to(:role) }
+    it { should respond_to(:male?) }
+    it { should respond_to(:female?) }
+    it { should respond_to(:male!) }
+    it { should respond_to(:female!) }
+    specify { User.should respond_to(:genders) }
 
     #methods
     it { should respond_to(:is?) }
@@ -147,8 +152,9 @@ describe User do
 
     describe "when gender" do
       describe "is invalid" do
-        before { @user.gender = "tata" }
-        it { should_not be_valid }
+        it "Invalid enumeration error" do
+          expect { @user.gender = "tata" }.to raise_error(ArgumentError, /Invalid enumeration/)
+        end
       end
       describe "is blank" do 
         before { @user.gender = "" }
