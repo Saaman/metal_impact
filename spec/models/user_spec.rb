@@ -45,14 +45,19 @@ describe User do
     it { should respond_to(:date_of_birth) }
     it { should respond_to(:gender) }
     it { should respond_to(:role) }
+    
+    specify { User.should respond_to(:genders) }
+    specify { User.should respond_to(:roles) }
+
+    #methods
     it { should respond_to(:male?) }
     it { should respond_to(:female?) }
     it { should respond_to(:male!) }
     it { should respond_to(:female!) }
-    specify { User.should respond_to(:genders) }
-
-    #methods
-    it { should respond_to(:is?) }
+    it { should respond_to(:basic?) }
+    it { should respond_to(:admin?) }
+    it { should respond_to(:basic!) }
+    it { should respond_to(:admin!) }
   end
   
   describe "Validations" do
@@ -152,7 +157,7 @@ describe User do
 
     describe "when gender" do
       describe "is invalid" do
-        it "Invalid enumeration error" do
+        it "raises invalid enumeration error" do
           expect { @user.gender = "tata" }.to raise_error(ArgumentError, /Invalid enumeration/)
         end
       end
@@ -165,22 +170,17 @@ describe User do
 
     describe "roles :" do
       describe "default role should be 'basic'" do
-        its(:role) {should == "basic"}
+        its(:role) {should == :basic}
       end
       describe "when having a role" do
-        before { @user.role = "admin" }
+        before { @user.admin! }
         it { should be_valid }
-        specify { @user.is?("admin").should be_true }
+        specify { @user.admin?.should be_true }
       end
 
       describe "when assigning an unknown role" do
-        before { @user.role = "tata" }
-        it { should_not be_valid }
-      end
-
-      describe "when asking if is of unknown role" do
-        it "raises" do
-          expect { @user.is?("tata") }.to raise_error(RuntimeError, /not a valid/)
+        it "raises invalid enumeration error" do
+          expect { @user.role = "tata" }.to raise_error(ArgumentError, /Invalid enumeration/)
         end
       end
     end

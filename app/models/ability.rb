@@ -15,7 +15,7 @@ class Ability
         cannot :create, User
     end
 
-    if user.is?("admin")
+    if user.admin?
         can :manage, :all
         cannot :destroy, User, :id => user.id
         cannot :create, User

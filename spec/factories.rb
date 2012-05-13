@@ -6,7 +6,7 @@ FactoryGirl.define do
     email_confirmation { email }
 
     factory :admin do
-      role "admin"
+      role :admin
     end
 
     after_create { |user, evaluator| user.confirm! }
