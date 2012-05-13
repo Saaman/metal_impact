@@ -25,8 +25,6 @@
 #
 
 class User < ActiveRecord::Base
-	#roles list
-	ROLES = %w[admin basic]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :validatable, :encryptable and :omniauthable
@@ -38,6 +36,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :password, :pseudo, :date_of_birth, :gender, :remember_me, :role
 
 	as_enum :gender, [:male, :female]
+	as_enum :role, admin: 1, basic: 0
 
   after_initialize :default_values
 
@@ -50,12 +49,7 @@ class User < ActiveRecord::Base
 	validates :pseudo, presence: true, length: { :in => 4..128 }
 	validates :date_of_birth, :timeliness => { :before => :today, :type => :date }, :allow_blank => true
 	validates_as_enum :gender, allow_blank: true
-	validates :role, :inclusion => { :in => ROLES }
-
-	def is?(role)
-		raise "'#{role}' is not a valid role" unless ROLES.include?(role)
-		self.role == role
-	end
+	validates_as_enum :role
 
 	def update_without_password(params={})
 	  params.delete(:email)
@@ -64,6 +58,6 @@ class User < ActiveRecord::Base
 
 	private
     def default_values
-      self.role ||= "basic"
+      self.role ||= :basic
     end
 end

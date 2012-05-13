@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                       :null => false
-    t.string   "encrypted_password",                          :null => false
+    t.string   "email",                                  :null => false
+    t.string   "encrypted_password",                     :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -66,10 +66,10 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
     t.string   "unconfirmed_email"
     t.integer  "failed_attempts",        :default => 0
     t.datetime "locked_at"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.string   "role",                   :default => "basic", :null => false
-    t.string   "pseudo",                 :default => "",      :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "role_cd",                :default => 0,  :null => false
+    t.string   "pseudo",                 :default => "", :null => false
     t.date     "date_of_birth"
     t.integer  "gender_cd"
   end
@@ -77,6 +77,6 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["role"], :name => "index_users_on_role"
+  add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
 
 end

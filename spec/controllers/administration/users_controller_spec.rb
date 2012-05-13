@@ -90,9 +90,9 @@ describe Administration::UsersController do
     describe "PUT 'update :'" do
       let(:user_to_update) { FactoryGirl.create(:user) }
       describe "update the role of the corresponding user" do
-        before { put :update, {id: user_to_update.id, user: {role: "admin"}} }
+        before { put :update, {id: user_to_update.id, user: {role: :admin}} }
         it { should redirect_to (administration_users_path) }
-        it {user_to_update.reload.role.should == "admin" }
+        it {user_to_update.reload.admin?.should be_true }
       end
       describe "should not update email and password" do
         let(:other_user) { FactoryGirl.build(:user) }

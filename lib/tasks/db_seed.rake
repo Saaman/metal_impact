@@ -13,7 +13,7 @@ def make_users
                        password: "password1",
                        email_confirmation: "romain.magny@gmail.com",
                        pseudo: "Roro",
-                       role: "admin")
+                       role: :admin)
   admin.skip_confirmation!
   admin.save!
   99.times do |n|
