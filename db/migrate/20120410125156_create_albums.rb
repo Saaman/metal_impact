@@ -1,9 +1,9 @@
 class CreateAlbums < ActiveRecord::Migration
   def change
     create_table :albums do |t|
-      t.string :title
-      t.date :release_date
-      t.string :album_type
+      t.string :title, null: false
+      t.date :release_date, null: false
+      t.string :album_type, null: false
 
       t.timestamps
     end

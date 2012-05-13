@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(:version => 20120512200439) do
 
   create_table "albums", :force => true do |t|
-    t.string   "title"
-    t.date     "release_date"
-    t.string   "album_type"
+    t.string   "title",              :null => false
+    t.date     "release_date",       :null => false
+    t.string   "album_type",         :null => false
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "cover_file_name"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
   add_index "albums", ["title"], :name => "index_albums_on_title", :unique => true
 
   create_table "music_labels", :force => true do |t|
-    t.string   "name"
-    t.string   "website"
+    t.string   "name",        :null => false
+    t.string   "website",     :null => false
     t.string   "distributor"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",      :null => false
-    t.string   "encrypted_password",     :default => "",      :null => false
+    t.string   "email",                                       :null => false
+    t.string   "encrypted_password",                          :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "role",                   :default => "basic", :null => false
-    t.string   "pseudo"
+    t.string   "pseudo",                 :default => "",      :null => false
     t.date     "date_of_birth"
-    t.string   "gender"
+    t.integer  "gender_cd"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

@@ -27,7 +27,6 @@
 class User < ActiveRecord::Base
 	#roles list
 	ROLES = %w[admin basic]
-	GENDERS = %w[male female]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :validatable, :encryptable and :omniauthable
@@ -38,6 +37,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :email_confirmation, :password, :pseudo, :date_of_birth, :gender, :remember_me, :role
 
+	as_enum :gender, [:male, :female]
+
   after_initialize :default_values
 
 	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -46,10 +47,9 @@ class User < ActiveRecord::Base
 	validates :email, confirmation: true, on: :create
 	validates :email_confirmation, presence: true, on: :create
 	validates :password, length: { :in => 6..128 }, format: { with: valid_password_regex }, on: :create
-	
 	validates :pseudo, presence: true, length: { :in => 4..128 }
 	validates :date_of_birth, :timeliness => { :before => :today, :type => :date }, :allow_blank => true
-	validates :gender, allow_blank: true, inclusion: { :in => GENDERS }
+	validates_as_enum :gender, allow_blank: true
 	validates :role, :inclusion => { :in => ROLES }
 
 	def is?(role)
