@@ -1,4 +1,11 @@
 fr:
+  activerecord:
+    enums:
+      user:
+        genders:
+          male: Homme
+          female: Femme
+
   devise:
     registrations:
       new:
@@ -7,7 +14,11 @@ fr:
     labels:
       defaults:
         email: "Adresse e-mail"
-        password: "mot de passe"
+        email_confirmation: "Confirmez votre adresse e-mail"
+        password: "Mot de passe"
+        pseudo: "Pseudo"
+        gender: "Genre"
+        date_of_birth: "Date de naissance"
   helpers:
     submit:
       user:
