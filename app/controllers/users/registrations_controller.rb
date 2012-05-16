@@ -27,9 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       logger.info "redirect to #{new_user_registration_url}"
       logger.info "request : #{request.format.inspect}"
       respond_with resource do |format|
-        format.js do
-          render :json => resource.errors, :status => :unprocessable_entity
-        end
+        format.js  { render 'new' }
       end
     end
   end
