@@ -8,17 +8,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
-  def create
-    authorize! :create, User
-    if verify_recaptcha
-      super
-    else
-      build_resource
-      clean_up_passwords(resource)
-      flash.now[:alert] = "There was an error with the recaptcha code below. Please re-enter the code."
-      render_with_scope :new
-    end
-  end
+   def create
+     authorize! :create, User
+     super
+  #   if verify_recaptcha
+  #     super
+  #   else
+  #     build_resource
+  #     clean_up_passwords(resource)
+  #     flash.now[:alert] = "There was an error with the recaptcha code below. Please re-enter the code."
+  #     render_with_scope :new
+  #   end
+   end
 
   def destroy
     authorize! :destroy, current_user

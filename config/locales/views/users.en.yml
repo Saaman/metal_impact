@@ -1,4 +1,10 @@
 en:
+  activerecord:
+    enums:
+      user:
+        genders:
+          male: Male
+          female: Female
   devise:
     registrations:
       new:
@@ -6,8 +12,12 @@ en:
   simple_form:
     labels:
       defaults:
-        email: "E-mail adress"
-        password: "password"
+        email: "E-mail address"
+        email_confirmation: "E-mail address confirmation"
+        password: "Password"
+        pseudo: "Pseudo"
+        gender: "Gender"
+        date_of_birth: "Date of birth"
   helpers:
     submit:
       user:

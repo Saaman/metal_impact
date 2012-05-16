@@ -1,12 +1,15 @@
 <% content_for :modal_title, t('.title') %>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal" }, :defaults => { :label_html => { :class => 'span3' } }) do |f| %>
 	
 	<div class="modal-body">
 		  <%= devise_error_messages! %>
 
-		  <%= f.input :email %>
-		  <%= f.input :password, :required => true %>
-		  <%= f.input :password_confirmation, :required => true %>
+		  <%= f.input :email, required: true, input_html: { class: 'span3' } %>
+		  <%= f.input :email_confirmation, :required => true, input_html: { class: 'span3' } %>
+		  <%= f.input :password, :required => true, input_html: { class: 'span3' } %>
+		  <%= f.input :pseudo, :required => true, input_html: { class: 'span3' } %>
+		  <%= f.input :gender, as: :radio_buttons, collection: User.genders_for_select, item_wrapper_class: 'inline' %>
+		  <%= f.input :date_of_birth, start_year: Date.today.year - 100, end_year: Date.today.year - 12, use_short_month: true, input_html: { class: 'span1 inline' }, prompt: true %>
 
 	</div>
 	<div class="modal-footer">
