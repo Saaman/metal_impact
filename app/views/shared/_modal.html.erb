@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <button class="close" data-dismiss="modal">×</button>
+  <h3><%= yield_content! :modal_title %></h3>
+</div>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal" }, :defaults => { :label_html => { :class => 'span3' } }) do |f| %>
+	
+	<div class="modal-body">
+		  <%= devise_error_messages! %>
+			
+			<%= yield f %>
+
+	</div>
+	<div class="modal-footer">
+		<%= render "links" %>
+		<%= f.button :submit, :class => 'btn-primary' %>
+	</div>
+<% end %>
