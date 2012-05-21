@@ -1,0 +1,11 @@
+fr:
+  activerecord:
+    attributes:
+      user:
+        email: "e-mail"
+        email_confirmation: "confirmation d'e-mail"
+    enums:
+      user:
+        genders:
+          male: Homme
+          female: Femme

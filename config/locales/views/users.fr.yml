@@ -1,11 +1,4 @@
 fr:
-  activerecord:
-    enums:
-      user:
-        genders:
-          male: Homme
-          female: Femme
-
   devise:
     registrations:
       new:
