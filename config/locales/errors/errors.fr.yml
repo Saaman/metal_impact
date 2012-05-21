@@ -6,3 +6,8 @@ fr:
           attributes:
             email_confirmation:
               custom_confirmation: "L'e-mail et la confirmation ne concordent pas"
+            password:
+              too_short: "est trop court (au moins 6 caractères)"
+              invalid: "doit contenir au moins un caractère qui n'est pas une lettre"
+            pseudo:
+              taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre"

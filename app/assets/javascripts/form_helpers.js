@@ -5,6 +5,6 @@ jQuery.fn.bindToCleanErrorStyles = function() {
 	})
 }
 
-jQuery.fn.displayDynamicError = function(message_key) {
-	$(this).after('<span class="help-inline">' + I18n.t(message_key) + '</span>').parents('.control-group').addClass('error');
+jQuery.fn.displayDynamicError = function(message) {
+	$(this).after('<span class="help-inline">' + message + '</span>').parents('.control-group').addClass('error');
 }
