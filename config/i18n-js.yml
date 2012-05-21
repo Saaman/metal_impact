@@ -12,7 +12,7 @@
 #
 translations:
   - file: "app/assets/javascripts/i18n/translations.js"
-    only: "*.client.*"
+    only: ['*.client.*', '*.activerecord.*']
 #
 # If you're running an old version, you can use something
 # like this:

@@ -26,9 +26,10 @@ Switch OS
 ---------
 bundle exec rake refresh_ws:<OS>
 
-Annotate models
----------------
-bundle exec annotate --position before
+Annotate models / routes
+------------------------
+bundle exec annotate -p before
+bundle exec annotate -r
 
 Generate "request" tests
 ------------------------

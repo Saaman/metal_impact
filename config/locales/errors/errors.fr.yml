@@ -1,0 +1,8 @@
+fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email_confirmation:
+              custom_confirmation: "L'e-mail et la confirmation ne concordent pas"
