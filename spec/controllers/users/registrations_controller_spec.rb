@@ -19,6 +19,20 @@ shared_examples "common registrations actions for signed-in users" do
   	end
   end
 end
+
+shared_examples "is_pseudo_taken json access" do
+  it "GET 'is_pseudo_taken' returns false" do
+  	get :is_pseudo_taken, :pseudo => 'tata', :format => :json
+  	response.body.should == {isPseudoTaken: false}.to_json
+  end
+  it "GET 'is_pseudo_taken' returns true" do
+  	user = FactoryGirl.build(:user)
+  	user.pseudo = "tata"
+  	user.save!
+  	get :is_pseudo_taken, pseudo: 'tata', :format => :json
+  	response.body.should == {isPseudoTaken: true, :errorMessage => "This user name is already taken. Please choose another one"}.to_json
+  end
+end
 #######################################################################################
 
 
@@ -45,6 +59,8 @@ describe Users::RegistrationsController do
 	  	before { put :update, {user: fake_user.attributes} }
 	  	its_access_is "protected"
 	  end
+
+	  it_should_behave_like "is_pseudo_taken json access"
 	end
 
   #######################################################################################
@@ -61,6 +77,9 @@ describe Users::RegistrationsController do
   	it_should_behave_like "common registrations actions for signed-in users" do
 			login_user
 	  end
+	  it_should_behave_like "is_pseudo_taken json access" do
+	  	login_user
+	  end
 	end
 
   #######################################################################################
@@ -71,7 +90,12 @@ describe Users::RegistrationsController do
 			before { delete :destroy }
 			its_access_is "unauthorized"
 		end
-		it_should_behave_like "common registrations actions for signed-in users"
+		it_should_behave_like "common registrations actions for signed-in users" do
+			login_admin
+		end
+		it_should_behave_like "is_pseudo_taken json access" do
+	  	login_admin
+	  end
 	end
 end
 

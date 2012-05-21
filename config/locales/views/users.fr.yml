@@ -16,4 +16,7 @@ fr:
     submit:
       user:
         create: "Valider"
+  global:
+    info:
+      errors: "Le formulaire contient des erreurs. Veuillez les corriger et soumettre à nouveau"
 
