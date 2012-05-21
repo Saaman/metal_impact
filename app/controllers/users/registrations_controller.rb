@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_filter :require_no_authentication, :only => [:new, :create]
   respond_to :js, :only => [:new, :create]
+  respond_to :json, :only => :is_pseudo_taken
 
   def new
     authorize! :create, User
@@ -24,8 +25,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      logger.info "redirect to #{new_user_registration_url}"
-      logger.info "request : #{request.format.inspect}"
       respond_with resource do |format|
         format.js  { render 'new' }
       end
@@ -40,5 +39,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def cancel
     authorize! :destroy, current_user
     super
+  end
+
+  def is_pseudo_taken
+    if User.where("pseudo = ?", params[:pseudo]).empty?
+      respond_with({ isPseudoTaken: false }, status: :ok )
+    else
+      respond_with({ isPseudoTaken: true, :errorMessage => t('activerecord.errors.models.user.attributes.pseudo.taken') }, status: :ok)
+    end
   end
 end
