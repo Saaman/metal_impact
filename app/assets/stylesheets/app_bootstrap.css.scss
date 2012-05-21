@@ -33,8 +33,15 @@ label abbr {
 	.controls {
 		margin-left: 220px;
 	}
+	.btn {
+		margin-top: 20px;
+	}
 }
 
 .form-horizontal .control-group {
 	margin-bottom: 10px;
+}
+
+#dynamic_recaptcha {
+	float: left;
 }

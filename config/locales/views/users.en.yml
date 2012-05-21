@@ -16,3 +16,6 @@ en:
     submit:
       user:
         create: "Submit"
+  global:
+    info:
+      errors: "The form contains errors. Please correct them and submit again"

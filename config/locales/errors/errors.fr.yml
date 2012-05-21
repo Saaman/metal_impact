@@ -4,6 +4,8 @@ fr:
       models:
         user:
           attributes:
+            email:
+              invalid: "doit être une adresse e-mail valide"
             email_confirmation:
               custom_confirmation: "L'e-mail et la confirmation ne concordent pas"
             password:
@@ -11,3 +13,6 @@ fr:
               invalid: "doit contenir au moins un caractère qui n'est pas une lettre"
             pseudo:
               taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre"
+  recaptcha:
+    errors:
+      verification_failed: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha"
