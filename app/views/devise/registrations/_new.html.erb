@@ -1,12 +1,9 @@
 <div class="modal-header">
   <button class="close" data-dismiss="modal">×</button>
   <h3><%= t('.title') %></h3>
-  <% unless resource.errors.empty? %>
-  	<%= content_tag(:div, t('global.info.errors'), class: "alert alert-info") %>
-  	<% unless resource.errors[:base].empty? %>
-  		<%= content_tag(:div, resource.errors[:base].first, class: "alert alert-error") %>
-  	<% end %>
-  <% end %>
+	<% unless resource.errors[:base].empty? %>
+		<%= content_tag(:div, resource.errors[:base].first, class: "alert alert-error") %>
+	<% end %>
 </div>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal" }, :defaults => { :label_html => { :class => 'span3', :'data-type' => 'js'}}, remote: true) do |f| %>
