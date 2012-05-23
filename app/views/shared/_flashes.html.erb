@@ -1,0 +1,4 @@
+<% flash.each do |key, value| %>
+	<%= content_tag(:div, value, class: "alert alert-#{key}", id: "#{key}") unless key.to_s.eql?('recaptcha_error') %>
+<% end %>
+<% flash.discard %>

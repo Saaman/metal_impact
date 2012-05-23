@@ -14,14 +14,14 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <div class="span12">
+        <div id="flashes">
+          <%= render 'shared/flashes' %>
+        </div>
         <div class="row">
           <div class="leftzone span3">
             <%= render 'layouts/fake_left' %>
           </div>
           <div class="contentzone span9">
-            <% flash.each do |key, value| %>
-              <%= content_tag(:div, value, class: "alert alert-#{key}", id: "#{key}") %>
-            <% end %>
             <%= yield %>
           </div>
         </div>

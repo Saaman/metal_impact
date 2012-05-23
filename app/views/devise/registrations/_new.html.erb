@@ -1,6 +1,7 @@
 <div class="modal-header">
   <button class="close" data-dismiss="modal">×</button>
   <h3><%= t('.title') %></h3>
+  <%= render 'shared/flashes' %>
 	<% unless resource.errors[:base].empty? %>
 		<%= content_tag(:div, resource.errors[:base].first, class: "alert alert-error") %>
 	<% end %>
