@@ -1,46 +1,34 @@
 $(document).ready ->
 	
 	$('#new-registration-modal')
-	#assign default form behavior
-	.bindToCleanErrorStyles()
 	
 	#dynamic validation : email & confirmation should match
-	.on 'blur', '#user_email_confirmation', (event) ->
-	  if $(this).val() != $('#user_email').val()
-	  	$(this).displayDynamicError(I18n.t('activerecord.errors.models.user.attributes.email_confirmation.custom_confirmation'))
-	  else
-	  	$(this).displayDynamicValidation()
+	.addValidation '#user_email_confirmation', (elem) ->
+		if $(elem).val() isnt $('#user_email').val()
+			return I18n.t('activerecord.errors.models.user.attributes.email_confirmation.custom_confirmation')
+		return ''
 
 	#dynamic validation : email should be a valid mail address
-	.on 'blur', '#user_email', (event) ->
-		valid_email_regex = /// ^
-		[\w+\-.]+
-		@[a-z\d\-.]+
-		\.[a-z]+
-		$ ///i
-		if not valid_email_regex.test $(this).val()
-	  	$(this).displayDynamicError I18n.t('activerecord.errors.models.user.attributes.email.invalid')
-	  else
-	  	$(this).displayDynamicValidation()
-
+	.addValidation '#user_email', (elem) ->
+		valid_email_regex = /// ^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$ ///i
+		if not valid_email_regex.test $(elem).val()
+			return I18n.t('activerecord.errors.models.user.attributes.email.invalid')
+		return ''
+	
 	#dynamic validation : password should be 6 chars length, one special
-	.on 'blur', '#user_password', (event) ->
-	  if $(this).val().length < 7
-	  	return $(this).displayDynamicError I18n.t('activerecord.errors.models.user.attributes.password.too_short')
-	  valid_password_regex = /// ^
-	  [\w+\-.]*
-	  [^a-zA-Z]+
-	  [\w+\-.]*
-	  $ ///i
-	  if not valid_password_regex.test $(this).val()
-	  	return $(this).displayDynamicError I18n.t('activerecord.errors.models.user.attributes.password.invalid')
-
-	  $(this).displayDynamicValidation()
+	.addValidation '#user_password', (elem) ->
+		valid_password_regex = /// ^[\w+\-.]*[^a-zA-Z]+[\w+\-.]*$ ///i
+		if $(elem).val().length < 6
+				return I18n.t('activerecord.errors.models.user.attributes.password.too_short')
+		if not valid_password_regex.test $(elem).val()
+			return I18n.t('activerecord.errors.models.user.attributes.password.invalid')
+		return ''
 
 	#dynamic validation : pseudo should be unique
-	.on 'blur', '#user_pseudo', (event) ->
-		$.getJSON 'users/is-pseudo-taken.json', { pseudo: $(this).val() }, (json) =>
+	.addValidation '#user_pseudo', (elem) ->
+		if $(elem).val().length < 4
+				return I18n.t('activerecord.errors.models.user.attributes.pseudo.too_short')
+		$.getJSON 'users/is-pseudo-taken.json', { pseudo: $(elem).val() }, (json) =>
 			if json.isPseudoTaken
-				$(this).displayDynamicError json.errorMessage
-			else
-				$(this).displayDynamicValidation()
+				$(elem).displayDynamicError(json.errorMessage)
+		return ''

@@ -17,5 +17,7 @@
 //= require vendor
 //= require i18n
 //= require i18n/translations
+//= require webshims/minified/extras/modernizr-custom
+//= require webshims/minified/polyfiller
 //= require_tree .
 //
