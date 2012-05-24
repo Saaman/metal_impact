@@ -13,6 +13,7 @@ fr:
               invalid: "doit contenir au moins un caractère qui n'est pas une lettre"
             pseudo:
               taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre"
+              too_short: "est trop court (au moins 4 caractères)"
   recaptcha:
     errors:
       verification_failed: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha"

@@ -1,3 +1,5 @@
+require 'simple_form_extensions'
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
@@ -31,10 +33,10 @@ SimpleForm.setup do |config|
     b.optional :maxlength
 
     # Calculates pattern from format validations for string inputs
-    b.optional :pattern
+    b.use :pattern
 
     # Calculates min and max from length validations for numeric inputs
-    b.optional :min_max
+    b.use :min_max
 
     # Calculates readonly automatically from readonly attributes
     b.optional :readonly
@@ -136,17 +138,17 @@ SimpleForm.setup do |config|
   config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
-  # config.form_class = :simple_form
+  config.form_class = 'simple_form form-horizontal'
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
 
   # Whether attributes are required by default (or not). Default is true.
-  # config.required_by_default = true
+  config.required_by_default = false
 
   # Tell browsers whether to use default HTML5 validations (novalidate option).
   # Default is enabled.
-  config.browser_validations = false
+  config.browser_validations = true
 
   # Collection of methods to detect if a file type was given.
   # config.file_methods = [ :mounted_as, :file?, :public_filename ]
