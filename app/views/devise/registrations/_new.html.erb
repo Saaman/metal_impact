@@ -15,14 +15,17 @@
 		  <%= f.input :email_confirmation, :required => true, input_html: { class: 'span3', type: "email" } %>
 		  <%= f.input :password, :required => true, :pattern => :lookup, input_html: { class: 'span3' } %>
 		  <%= f.input :pseudo, :required => true, input_html: { class: 'span3' } %>
-		  <%= f.input :gender, as: :radio_buttons, collection: User.genders_for_select, item_wrapper_class: 'inline', input_html: { :'validate-input' => 'false' } %>
-		  <%= f.input :date_of_birth, start_year: Date.today.year - 100, end_year: Date.today.year - 12, use_short_month: true, input_html: { class: 'span1 inline', :'validate-input' => 'false' }, prompt: true %>
+		  <%= f.input :gender, as: :radio_buttons, collection: User.genders_for_select, item_wrapper_class: 'inline' %>
+		  <%= f.input :date_of_birth, start_year: Date.today.year - 100, end_year: Date.today.year - 12, use_short_month: true, input_html: { class: 'span1 inline' }, prompt: true %>
 
 	</div>
 	<div class="modal-footer">
 		<%= recaptcha_tags ajax: true %>
 		<%= render "links" %>
-	  <%= f.button :wrapped, :cancel => root_path %>
+		<div class="btn-toolbar">
+			<%= f.button :submit, :class => 'btn-primary' %>
+		  <button class="btn btn-small" data-dismiss="modal"><%= t(:cancel) %></button>
+    </div>
 	</div>
 
 <% end %>
