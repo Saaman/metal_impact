@@ -30,7 +30,7 @@ $(document).ready ->
 				'firstinvalid': (e) ->
 					#$.webshims.validityAlert is an helper object to create simple, styleable error messages
 					$.webshims.validityAlert.showFor e.target
-			}, 'input[validate-input!="false"]'
+			}, 'input[required="required"]'
 	}
 	validationUI.init()
 
