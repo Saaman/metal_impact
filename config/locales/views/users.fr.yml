@@ -3,6 +3,9 @@ fr:
     registrations:
       new:
         title: "Création de compte express"
+    sessions:
+      new:
+        title: "S'identifier"
   simple_form:
     labels:
       defaults:
@@ -16,6 +19,7 @@ fr:
     submit:
       user:
         create: "Valider"
+    cancel: "Annuler"
   global:
     info:
       errors: "Le formulaire contient des erreurs. Veuillez les corriger et soumettre à nouveau"
