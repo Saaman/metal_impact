@@ -34,3 +34,6 @@ Guardfile
 spec/spec_helper.rb
 .rspec
 config/initializers/recaptcha.rb
+
+#ignore compiled coffeescripts
+*.js.js

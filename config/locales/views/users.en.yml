@@ -3,6 +3,9 @@ en:
     registrations:
       new:
         title: "Create your account"
+    sessions:
+      new:
+        title: "Login"
   simple_form:
     labels:
       defaults:
@@ -16,6 +19,7 @@ en:
     submit:
       user:
         create: "Submit"
+    cancel: "Cancel"
   global:
     info:
       errors: "The form contains errors. Please correct them and submit again"

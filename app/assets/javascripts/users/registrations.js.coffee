@@ -1,6 +1,6 @@
 $(document).ready ->
 	
-	$('#new-registration-modal')
+	$('#modal-container')
 	
 	#dynamic validation : email & confirmation should match
 	.addValidation '#user_email_confirmation', (elem) ->

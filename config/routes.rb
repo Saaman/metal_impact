@@ -6,7 +6,7 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,  :controllers => { :registrations => "users/registrations" }, :skip => [:sessions]
+  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }, :skip => [:sessions]
   devise_scope :user do
     get 'signin' => 'devise/sessions#new', :as => :new_user_session
     post 'signin' => 'devise/sessions#create', :as => :user_session
