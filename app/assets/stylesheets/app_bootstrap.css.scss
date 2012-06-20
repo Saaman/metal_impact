@@ -28,8 +28,8 @@ label abbr {
 }
 
 #modal-container {
-	width: 650px;
-	.btn {
+	width: 630px;
+	.btn-toolbar {
 		margin-top: 20px;
 	}
 }
@@ -44,11 +44,25 @@ label abbr {
 }
 
 div#new_user_session {
-	@include align-form(100px);
+	@include align-form(0px);
+
+	.left-side {
+		margin-left: -10px;
+	}
 	.right-side {
 		border-left: 1px solid gray;
-		padding-left: 3px;
+		padding-left: 30px;
+		margin-left: 50px;
+		img {
+			margin: 5px;
+		}
 	}
+}
+
+div#new_user_session_footer {
+	text-align: left;
+	vertical-align: middle;
+
 }
 
 div#new_user_registration {
@@ -61,4 +75,9 @@ div#new_user_registration {
 
 #dynamic_recaptcha {
 	float: left;
+}
+
+span.insidediv {
+	margin-left: 10px;
+	vertical-align: middle;
 }

@@ -6,6 +6,9 @@ en:
     sessions:
       new:
         title: "Login"
+        password_forgotten: "Have forgotten your password?"
+        no_account_line: "You don't have an account yet?"
+        sign_up: "sign up here"
   simple_form:
     labels:
       defaults:
@@ -15,10 +18,16 @@ en:
         pseudo: "Pseudo"
         gender: "Gender"
         date_of_birth: "Date of birth"
+        remember_me: "Remember my credentials"
+    placeholders:
+      user:
+        email: "E-mail address"
+        password: "Password"
   helpers:
     submit:
       user:
         create: "Submit"
+        sign_in: "Connection"
     cancel: "Cancel"
   global:
     info:
