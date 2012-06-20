@@ -6,6 +6,9 @@ fr:
     sessions:
       new:
         title: "S'identifier"
+        password_forgotten: "mot de passe oublié?"
+        no_account_line: "Vous ne possédez pas encore de compte?"
+        sign_up: "Inscrivez-vous ici"
   simple_form:
     labels:
       defaults:
@@ -15,10 +18,16 @@ fr:
         pseudo: "Pseudo"
         gender: "Genre"
         date_of_birth: "Date de naissance"
+        remember_me: "Mémoriser mes identifiants"
+    placeholders:
+      user:
+        email: "Adresse e-mail"
+        password: "Mot de passe"
   helpers:
     submit:
       user:
         create: "Valider"
+        sign_in: "Connexion"
     cancel: "Annuler"
   global:
     info:

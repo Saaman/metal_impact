@@ -7,36 +7,36 @@
 	<% end %>
 </div>
 
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :defaults => { :label_html => { :class => 'span1', :'data-type' => 'js'}}, remote: true) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: true) do |f| %>
 	
 	<div class="modal-body" id="new_user_session">
-		<div class="span7">
+		<div class="span6">
 			<div class="row">
 				
-				<div class="span4">
-					<%= f.input :email, required: true, input_html: { class: 'span2', autofocus: 'true' } %>
-					<%= f.input :password, :required => true, :pattern => :lookup, input_html: { class: 'span2' } %>
-				  <%= f.input :remember_me, :label => false, :inline_label => 'Remember me', :as => :boolean if devise_mapping.rememberable? %>
+				<div class="span3 left-side">
+					<%= f.input :email, required: true, :label => false, input_html: { class: 'span3', autofocus: 'true' } %>
+					<%= f.input :password, :required => true, :pattern => :lookup, :label => false, input_html: { class: 'span3' } %>
+				  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), :as => :boolean if devise_mapping.rememberable? %>
+				  <div class="controls">
+				  	<%= f.button :submit, t("sign_in", :scope => "helpers.submit.user"), :class => 'btn-primary' %>
+				  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+						  <span class="insidediv"><%= link_to t(".password_forgotten"), new_password_path(resource_name) %></span>
+						<% end -%>
+				  </div>
 				</div>
-				<div class="span3">
-					<div class ="right-side">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</div>
+				<div class="span2 right-side">
+					<%= localized_image_tag "fb-connect.png" %>
+					<%= localized_image_tag "twitter-connect.png" %>
+					<%= localized_image_tag "google-connect.png" %>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal-footer">
-		<%= render "links" %>
-		<div class="btn-toolbar">
-			<%= f.button :submit, :class => 'btn-primary' %>
-		  <button class="btn btn-small" data-dismiss="modal"><%= t(:cancel) %></button>
-    </div>
+	<div class="modal-footer" id="new_user_session_footer">
+		<%= t ".no_account_line" %>
+		<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+	  	<%= link_to t(".sign_up"), new_registration_path(resource_name) %>
+		<% end -%>
 	</div>
 <% end %>
