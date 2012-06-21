@@ -6,11 +6,11 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }, :skip => [:sessions]
+  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
   devise_scope :user do
-    get 'signin' => 'devise/sessions#new', :as => :new_user_session
-    post 'signin' => 'devise/sessions#create', :as => :user_session
-    delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+    #get 'signin' => 'devise/sessions#new', :as => :new_user_session
+    #post 'signin' => 'devise/sessions#create', :as => :user_session
+    #delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
     get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
   end
   
