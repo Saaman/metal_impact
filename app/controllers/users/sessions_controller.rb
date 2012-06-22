@@ -10,7 +10,7 @@ class Users::SessionsController < Devise::SessionsController
     user = User.find_by_email(params["user"]["email"])
     logger.info "user = #{user.inspect}"
     if user.nil? or not user.valid_password?(params["user"]["password"])
-      flash["error"] = t "devise.failure.invalid"
+      flash[:error] = t "devise.failure.invalid"
     	clean_up_passwords resource
     	respond_with resource do |format|
         format.js  { render 'new' }

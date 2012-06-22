@@ -31,7 +31,8 @@ end
 
 shared_examples "access denied on restricted actions" do
   describe "GET edit" do
-    before { get :edit }
+    let!(:album) { FactoryGirl.create(:album) }
+    before { get :edit, {id: album.id} }
     its_access_is "unauthorized"
   end
 
