@@ -1,0 +1,13 @@
+
+<h3><%= t('.title') %></h3>
+<div class="span9" id="new_user_session">
+	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<%= render 'form', f: f %>
+	<% end %>
+</div>
+<div class="span9">
+	<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+		<%= t ".no_account_line" %>
+  	<%= link_to t(".sign_up"), new_registration_path(resource_name), :remote => true %>
+	<% end -%>
+</div>

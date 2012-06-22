@@ -6,9 +6,10 @@ en:
     sessions:
       new:
         title: "Login"
-        password_forgotten: "Have forgotten your password?"
         no_account_line: "You don't have an account yet?"
         sign_up: "sign up here"
+      form:
+        password_forgotten: "Have forgotten your password?"
   simple_form:
     labels:
       defaults:
