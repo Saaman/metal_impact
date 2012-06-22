@@ -9,7 +9,7 @@ FactoryGirl.define do
       role :admin
     end
 
-    after_create { |user, evaluator| user.confirm! }
+    after(:create) { |user, evaluator| user.confirm! }
   end
 
   factory :album do

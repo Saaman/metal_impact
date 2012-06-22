@@ -8,9 +8,6 @@ MetalImpact::Application.routes.draw do
 
   devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
   devise_scope :user do
-    #get 'signin' => 'devise/sessions#new', :as => :new_user_session
-    #post 'signin' => 'devise/sessions#create', :as => :user_session
-    #delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
     get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
   end
   
@@ -74,7 +71,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 21 May 2012 18:00
+# Generated on 21 Jun 2012 14:19
 #
 #                                   POST   /albums(.:format)                   albums#create
 #                         new_album GET    /albums/new(.:format)               albums#new
@@ -87,6 +84,9 @@ end
 #              administration_users GET    /administration/users(.:format)     administration/users#index
 #               administration_user PUT    /administration/users/:id(.:format) administration/users#update
 #                                   DELETE /administration/users/:id(.:format) administration/users#destroy
+#                  new_user_session GET    /users/sign_in(.:format)            users/sessions#new
+#                      user_session POST   /users/sign_in(.:format)            users/sessions#create
+#              destroy_user_session DELETE /users/sign_out(.:format)           users/sessions#destroy
 #                     user_password POST   /users/password(.:format)           devise/passwords#create
 #                 new_user_password GET    /users/password/new(.:format)       devise/passwords#new
 #                edit_user_password GET    /users/password/edit(.:format)      devise/passwords#edit
@@ -103,8 +103,5 @@ end
 #                       user_unlock POST   /users/unlock(.:format)             devise/unlocks#create
 #                   new_user_unlock GET    /users/unlock/new(.:format)         devise/unlocks#new
 #                                   GET    /users/unlock(.:format)             devise/unlocks#show
-#                  new_user_session GET    /signin(.:format)                   devise/sessions#new
-#                      user_session POST   /signin(.:format)                   devise/sessions#create
-#              destroy_user_session DELETE /signout(.:format)                  devise/sessions#destroy
 # is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)    users/registrations#is_pseudo_taken
 #                              root        /                                   home#index
