@@ -10,27 +10,7 @@
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: true) do |f| %>
 	
 	<div class="modal-body" id="new_user_session">
-		<div class="span6">
-			<div class="row">
-				
-				<div class="span3 left-side">
-					<%= f.input :email, required: true, :label => false, input_html: { class: 'span3', autofocus: 'true' } %>
-					<%= f.input :password, :required => true, :pattern => :lookup, :label => false, input_html: { class: 'span3' } %>
-				  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), :as => :boolean if devise_mapping.rememberable? %>
-				  <div class="controls">
-				  	<%= f.button :submit, t("sign_in", :scope => "helpers.submit.user"), :class => 'btn-primary' %>
-				  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-						  <span class="insidediv"><%= link_to t(".password_forgotten"), new_password_path(resource_name) %></span>
-						<% end -%>
-				  </div>
-				</div>
-				<div class="span2 right-side">
-					<%= localized_image_tag "fb-connect.png" %>
-					<%= localized_image_tag "twitter-connect.png" %>
-					<%= localized_image_tag "google-connect.png" %>
-				</div>
-			</div>
-		</div>
+		<%= render 'form', f: f %>
 	</div>
 
 	<div class="modal-footer" id="new_user_session_footer">

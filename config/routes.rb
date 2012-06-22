@@ -6,9 +6,16 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
+  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
   devise_scope :user do
-    get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
+    delete "logout" => "users/sessions#destroy", :as => :destroy_user_session
+    get "login" => "users/sessions#new", :as => :new_user_session
+    post "login" => "users/sessions#create", :as => :user_session
+    get "signup" => "users/registrations#new"
+    post "signup" => "users/registrations#create"
+    constraints :format => :json do
+      get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
+    end
   end
   
   root to: 'home#index'
@@ -71,7 +78,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 21 Jun 2012 14:19
+# Generated on 22 Jun 2012 13:35
 #
 #                                   POST   /albums(.:format)                   albums#create
 #                         new_album GET    /albums/new(.:format)               albums#new
@@ -84,9 +91,6 @@ end
 #              administration_users GET    /administration/users(.:format)     administration/users#index
 #               administration_user PUT    /administration/users/:id(.:format) administration/users#update
 #                                   DELETE /administration/users/:id(.:format) administration/users#destroy
-#                  new_user_session GET    /users/sign_in(.:format)            users/sessions#new
-#                      user_session POST   /users/sign_in(.:format)            users/sessions#create
-#              destroy_user_session DELETE /users/sign_out(.:format)           users/sessions#destroy
 #                     user_password POST   /users/password(.:format)           devise/passwords#create
 #                 new_user_password GET    /users/password/new(.:format)       devise/passwords#new
 #                edit_user_password GET    /users/password/edit(.:format)      devise/passwords#edit
@@ -103,5 +107,10 @@ end
 #                       user_unlock POST   /users/unlock(.:format)             devise/unlocks#create
 #                   new_user_unlock GET    /users/unlock/new(.:format)         devise/unlocks#new
 #                                   GET    /users/unlock(.:format)             devise/unlocks#show
-# is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)    users/registrations#is_pseudo_taken
+#              destroy_user_session DELETE /logoff(.:format)                   devise/sessions#destroy
+#                  new_user_session GET    /login(.:format)                    devise/sessions#new {:format=>"js"}
+#                      user_session POST   /login(.:format)                    devise/sessions#create {:format=>"js"}
+#                           sign_up GET    /sign_up(.:format)                  devise/registrations#new {:format=>"js"}
+#                                   POST   /sign_up(.:format)                  devise/registrations#create {:format=>"js"}
+# is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)    users/registrations#is_pseudo_taken {:format=>"json"}
 #                              root        /                                   home#index

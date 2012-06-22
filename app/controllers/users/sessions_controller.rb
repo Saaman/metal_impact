@@ -3,17 +3,22 @@ class Users::SessionsController < Devise::SessionsController
   #prepend_before_filter :allow_params_authentication!, :only => :create
   respond_to :js, :only => [:new, :create]
 
-  # POST /resource/sign_in
+  # GET /login
+  def new
+    logger.info "Je passe dedans"
+    super
+  end
+
+  # POST /login
   def create
     build_resource
-    logger.info "resource = #{resource.inspect}"
     user = User.find_by_email(params["user"]["email"])
-    logger.info "user = #{user.inspect}"
     if user.nil? or not user.valid_password?(params["user"]["password"])
       flash[:error] = t "devise.failure.invalid"
     	clean_up_passwords resource
     	respond_with resource do |format|
         format.js  { render 'new' }
+        format.html  { render 'new' }
       end
     else
       super

@@ -1,0 +1,10 @@
+<div class="modal-body"  id="new_user_registration">
+  
+  <%= f.input :email, required: true, input_html: { class: 'span3', autofocus: 'true' } %>
+  <%= f.input :email_confirmation, :required => true, input_html: { class: 'span3', type: "email" } %>
+  <%= f.input :password, :required => true, :pattern => :lookup, input_html: { class: 'span3' } %>
+  <%= f.input :pseudo, :required => true, input_html: { class: 'span3' } %>
+  <%= f.input :gender, as: :radio_buttons, collection: User.genders_for_select, item_wrapper_class: 'inline' %>
+  <%= f.input :date_of_birth, start_year: Date.today.year - 100, end_year: Date.today.year - 12, use_short_month: true, input_html: { class: 'span1 inline' }, prompt: true %>
+
+</div>

@@ -3,6 +3,8 @@ require "spec_helper"
 describe "Routing for Users::Registrations controller :" do
 	describe "routes :" do
 		it { post("/users").should route_to("users/registrations#create") }
+		it { post("/signup").should route_to("users/registrations#create") }
+		it { get("/signup").should route_to("users/registrations#new") }
 		it { get("/users/edit").should route_to("users/registrations#edit") }
 		it { put("/users").should route_to("users/registrations#update") }
 		it { delete("/users").should route_to("users/registrations#destroy") }

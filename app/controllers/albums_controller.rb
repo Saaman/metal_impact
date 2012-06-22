@@ -11,6 +11,7 @@ class AlbumsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @albums }
+      format.js { "alert('toto');" }
     end
   end
 

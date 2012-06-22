@@ -6,9 +6,10 @@ fr:
     sessions:
       new:
         title: "S'identifier"
-        password_forgotten: "mot de passe oublié?"
         no_account_line: "Vous ne possédez pas encore de compte?"
         sign_up: "Inscrivez-vous ici"
+      form:
+        password_forgotten: "mot de passe oublié?"
   simple_form:
     labels:
       defaults:
