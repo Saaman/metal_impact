@@ -6,7 +6,7 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }
+  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }, :skip => [:sessions]
   devise_scope :user do
     delete "logout" => "users/sessions#destroy", :as => :destroy_user_session
     get "login" => "users/sessions#new", :as => :new_user_session
@@ -78,7 +78,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 22 Jun 2012 13:35
+# Generated on 23 Jun 2012 22:59
 #
 #                                   POST   /albums(.:format)                   albums#create
 #                         new_album GET    /albums/new(.:format)               albums#new
@@ -107,10 +107,10 @@ end
 #                       user_unlock POST   /users/unlock(.:format)             devise/unlocks#create
 #                   new_user_unlock GET    /users/unlock/new(.:format)         devise/unlocks#new
 #                                   GET    /users/unlock(.:format)             devise/unlocks#show
-#              destroy_user_session DELETE /logoff(.:format)                   devise/sessions#destroy
-#                  new_user_session GET    /login(.:format)                    devise/sessions#new {:format=>"js"}
-#                      user_session POST   /login(.:format)                    devise/sessions#create {:format=>"js"}
-#                           sign_up GET    /sign_up(.:format)                  devise/registrations#new {:format=>"js"}
-#                                   POST   /sign_up(.:format)                  devise/registrations#create {:format=>"js"}
-# is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)    users/registrations#is_pseudo_taken {:format=>"json"}
+#              destroy_user_session DELETE /logout(.:format)                   users/sessions#destroy
+#                  new_user_session GET    /login(.:format)                    users/sessions#new
+#                      user_session POST   /login(.:format)                    users/sessions#create
+#                            signup GET    /signup(.:format)                   users/registrations#new
+#                                   POST   /signup(.:format)                   users/registrations#create
+# is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)    users/registrations#is_pseudo_taken {:format=>:json}
 #                              root        /                                   home#index
