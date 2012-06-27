@@ -29,44 +29,6 @@ label abbr {
 
 #modal-container {
 	width: 630px;
-	.btn-toolbar {
-		margin-top: 20px;
-	}
-}
-
-@mixin align-form($margin) {
-	.control-label {
-		width: $margin;
-	}
-	.controls {
-		margin-left: $margin + 20px;
-	}
-}
-
-div#new_user_session {
-	@include align-form(0px);
-
-	.left-side {
-		margin-left: -10px;
-	}
-	.right-side {
-		border-left: 1px solid gray;
-		padding-left: 30px;
-		margin-left: 50px;
-		img {
-			margin: 5px;
-		}
-	}
-}
-
-div#new_user_session_footer {
-	text-align: left;
-	vertical-align: middle;
-
-}
-
-div#new_user_registration {
-	@include align-form(200px);
 }
 
 .form-horizontal .control-group {
@@ -80,4 +42,20 @@ div#new_user_registration {
 span.insidediv {
 	margin-left: 10px;
 	vertical-align: middle;
+}
+
+.centeredblock {
+	margin-left: auto;
+  margin-right: auto;
+  width: 440px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.align-right {
+	float: right;	
+}
+
+.btn-toolbar {
+	margin-top: 20px;
 }

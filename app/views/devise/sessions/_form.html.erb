@@ -6,7 +6,7 @@
 			<%= f.input :password, :required => true, :pattern => :lookup, :label => false, input_html: { class: 'span3' } %>
 		  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), :as => :boolean if devise_mapping.rememberable? %>
 		  <div class="controls">
-		  	<%= f.button :submit, t("sign_in", :scope => "helpers.submit.user"), :class => 'btn-primary' %>
+		  	<%= f.button :submit, t(".connection"), :class => 'btn-primary' %>
 		  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
 				  <span class="insidediv"><%= link_to t(".password_forgotten"), new_password_path(resource_name) %></span>
 				<% end -%>

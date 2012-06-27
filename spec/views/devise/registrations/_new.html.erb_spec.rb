@@ -18,6 +18,7 @@ describe "devise/registrations/new" do
       assert_select "select#user_date_of_birth_3i", :name => "user[date_of_birth(3i)]"
       assert_select "select#user_date_of_birth_2i", :name => "user[date_of_birth(2i)]"
       assert_select "select#user_date_of_birth_1i", :name => "user[date_of_birth(1i)]"
+      assert_select "input[type=submit]", :name => "commit"
     end
   end
 end

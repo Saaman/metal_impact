@@ -10,6 +10,12 @@ en:
         sign_up: "sign up here"
       form:
         password_forgotten: "Have forgotten your password?"
+        connection: "Connection"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        reset_password_expl: "To reset your reset, please fill in your e-mail address :"
+        reset_password: "reset my password"
   simple_form:
     labels:
       defaults:
@@ -28,7 +34,6 @@ en:
     submit:
       user:
         create: "Submit"
-        sign_in: "Connection"
     cancel: "Cancel"
   global:
     info:
