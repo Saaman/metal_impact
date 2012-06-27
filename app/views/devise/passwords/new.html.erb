@@ -1,12 +1,15 @@
-<h2>Forgot your password?</h2>
+<h2><%= t(".title") %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row centeredblock">
+	<div class="span5 well">
+		<p><%= t(".reset_password_expl") %></p>
+		<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :defaults => { :placeholder => false }) do |f| %>
+		  <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.submit "Send me reset password instructions" %></div>
-<% end %>
-
-<%= render "links" %>
+		  <%= f.input :email, input_html: { class: 'span2', autofocus: 'true' } %>
+		  <div class="align-right btn-toolbar">
+		  	<%= f.button :submit, t(".reset_password"), :class => 'btn-primary' %>
+		  </div>
+		<% end %>
+	</div>
+</div>

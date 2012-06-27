@@ -10,6 +10,12 @@ fr:
         sign_up: "Inscrivez-vous ici"
       form:
         password_forgotten: "mot de passe oublié?"
+        connection: "Connexion"
+    passwords:
+      new:
+        title: "Mot de passe oublié?"
+        reset_password_expl: "Pour réinitialiser votre mot de passe, veuillez indiquer votre adresse e-mail :"
+        reset_password: "réinitialiser le mot de passe"
   simple_form:
     labels:
       defaults:
@@ -28,7 +34,6 @@ fr:
     submit:
       user:
         create: "Valider"
-        sign_in: "Connexion"
     cancel: "Annuler"
   global:
     info:

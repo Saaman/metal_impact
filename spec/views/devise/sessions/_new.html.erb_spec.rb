@@ -10,6 +10,7 @@ describe "devise/sessions/new" do
     assert_select "form", :action => user_session_path, :method => "post" do
       assert_select "input#user_email", :name => "user[email]"
       assert_select "input#user_password", :name => "user[password]"
+      assert_select "input[type=submit]", :name => "commit"
     end
   end
 end

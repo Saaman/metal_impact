@@ -1,0 +1,34 @@
+@mixin align-form($margin) {
+	.control-label {
+		width: $margin;
+	}
+	.controls {
+		margin-left: $margin + 20px;
+	}
+}
+
+div#new_user_session {
+	@include align-form(0px);
+
+	.left-side {
+		margin-left: -10px;
+	}
+	.right-side {
+		border-left: 1px solid gray;
+		padding-left: 30px;
+		margin-left: 50px;
+		img {
+			margin: 5px;
+		}
+	}
+}
+
+div#new_user_session_footer {
+	text-align: left;
+	vertical-align: middle;
+
+}
+
+div#new_user_registration {
+	@include align-form(200px);
+}
