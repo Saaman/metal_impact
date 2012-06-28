@@ -6,7 +6,7 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions" }, :skip => [:sessions]
+  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }, :skip => [:sessions]
   devise_scope :user do
     delete "logout" => "users/sessions#destroy", :as => :destroy_user_session
     get "login" => "users/sessions#new", :as => :new_user_session

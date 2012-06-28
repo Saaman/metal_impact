@@ -23,6 +23,14 @@ $gridColumnWidth: 80px;
   text-align: center;
 }
 
+.right {
+	text-align: right;
+}
+
+.help-inline {
+  font-size: 10px;
+}
+
 label abbr {
 	color: red;
 }
@@ -50,6 +58,14 @@ span.insidediv {
   width: 440px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.all-center {
+	vertical-align: middle;
+	text-align: center;
+	margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
 .align-right {
