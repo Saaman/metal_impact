@@ -16,6 +16,8 @@ en:
         title: "Forgot your password?"
         reset_password_expl: "To reset your reset, please fill in your e-mail address :"
         reset_password: "reset my password"
+      errors:
+        email_taken: "<b>Unknown account</b><br/>No account is associated to <b>%{email}</b> e-mail address."
   simple_form:
     labels:
       defaults:

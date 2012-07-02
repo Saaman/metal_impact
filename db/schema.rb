@@ -79,4 +79,6 @@ ActiveRecord::Schema.define(:version => 20120512200439) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
 
+  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
+
 end

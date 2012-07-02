@@ -16,6 +16,8 @@ fr:
         title: "Mot de passe oublié?"
         reset_password_expl: "Pour réinitialiser votre mot de passe, veuillez indiquer votre adresse e-mail :"
         reset_password: "réinitialiser le mot de passe"
+      errors:
+        email_taken: "<b>Compte inconnu</b><br/>Aucun compte associé à l'adresse e-mail <b>%{email}</b> n'a été trouvé."
   simple_form:
     labels:
       defaults:
