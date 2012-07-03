@@ -6,7 +6,7 @@ gem 'jquery-rails', '2.0.0'
 gem 'will_paginate'
 gem 'devise'
 gem 'cancan'
-gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
 gem "paperclip"
 gem 'simple_form'
 gem 'http_accept_language'
