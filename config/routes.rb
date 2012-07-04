@@ -13,6 +13,7 @@ MetalImpact::Application.routes.draw do
     post "login" => "users/sessions#create", :as => :user_session
     get "signup" => "users/registrations#new"
     post "signup" => "users/registrations#create"
+    get 'users/password/email-sent' => 'users/passwords#email_sent', :as => :email_sent_user_password
     constraints :format => :json do
       get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
     end

@@ -18,6 +18,8 @@ fr:
         reset_password: "réinitialiser le mot de passe"
       errors:
         email_taken: "<b>Compte inconnu</b><br/>Aucun compte associé à l'adresse e-mail <b>%{email}</b> n'a été trouvé."
+      email_sent:
+        reset_password_result: "Vous allez recevoir sous quelques minutes un email à l'adresse <b>%{user}</b> vous indiquant comment réinitialiser votre mot de passe."
   simple_form:
     labels:
       defaults:

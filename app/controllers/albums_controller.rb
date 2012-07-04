@@ -97,7 +97,6 @@ class AlbumsController < ApplicationController
       if params[:music_label_id].blank?
         return if params[:music_label].blank?
         return if params[:music_label][:name].blank?
-        logger.debug "will create music label : #{params[:music_label].inspect}"
         @album.build_music_label(params[:music_label])
       else
         @album.music_label = MusicLabel.find(params[:music_label_id])

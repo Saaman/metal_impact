@@ -5,7 +5,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /login
   def new
-    logger.info "Je passe dedans"
     super
   end
 
