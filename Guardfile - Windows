@@ -38,3 +38,10 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc' d
   #end
   #watch(%r{^app/views/(.+)/}) { |m| "spec/requests/#{m[1]}_pages_spec.rb" }
 end
+
+guard 'brakeman', :run_on_start => true do
+  watch(%r{^app/.+\.(erb|haml|rhtml|rb)$})
+  watch(%r{^config/.+\.rb$})
+  watch(%r{^lib/.+\.rb$})
+  watch('Gemfile')
+end
