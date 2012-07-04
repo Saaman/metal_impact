@@ -1,13 +1,11 @@
 class Users::PasswordsController < Devise::PasswordsController
 
 def create
-	authorize! :create, User
   build_resource
 
-  logger.info "email : #{resource.email}"
-
+  @email = resource.email
   if verify_recaptcha(:model => resource)
-  	unless User.find_by_email(params[:user][:email]).nil?
+  	unless User.find_by_email(@email).nil?
     	super
     	return
     else
@@ -19,9 +17,15 @@ def create
   end
 end
 
+def email_sent
+  flash.clear  #prevent devise from displaying the email sending message as flash notice
+  @email = params[:email]
+end
+
 protected
 
-    def after_sending_reset_password_instructions_path_for(resource)
-    	root_path
+    def after_sending_reset_password_instructions_path_for(resource_name)
+      logger.info("email = #{resource.email}")
+    	email_sent_user_password_path(email: @email)
     end
 end

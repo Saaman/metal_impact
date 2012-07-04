@@ -34,14 +34,14 @@ end
 group :development do
   gem 'faker', '~> 1.0.1'
   gem 'pg', '~> 0.14'
-  gem 'annotate', '~> 2.4.1.beta'
+  gem 'annotate', '~> 2.5.0.pre'
   gem 'letter_opener', '~> 0.0'
 end
 
 group :test do
   gem 'faker', '~> 1.0.1'
   gem 'sqlite3', '~> 1.3.5'
-  gem 'rspec-rails', '~> 2.9.0'
+  gem 'rspec-rails', '~> 2.10.0'
   gem 'capybara', '~> 1.1.2'
   gem 'guard-rspec', '~> 1.1.0'
   gem 'guard', '~> 1.2.3'

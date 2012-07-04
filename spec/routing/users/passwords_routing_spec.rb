@@ -6,11 +6,13 @@ describe "Routing for Users::Passwords controller :" do
 		it { post("/users/password").should route_to("users/passwords#create") }
 		it { get("/users/password/edit").should route_to("users/passwords#edit") }
 		it { put("/users/password").should route_to("users/passwords#update") }
+		it { get("/users/password/email-sent").should route_to("users/passwords#email_sent") }
 	end
 	describe "named routes :" do
 		it { get(new_user_password_path).should route_to("users/passwords#new") }
 		it { post(user_password_path).should route_to("users/passwords#create") }
 		it { get(edit_user_password_path).should route_to("users/passwords#edit") }
 		it { put(user_password_path).should route_to("users/passwords#update") }
+		it { get(email_sent_user_password_path).should route_to("users/passwords#email_sent") }
 	end
 end
