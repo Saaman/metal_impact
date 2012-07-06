@@ -2,7 +2,5 @@
 # This is a global keys pair
 
 Recaptcha.configure do |config|
-  config.public_key  = '6LciutESAAAAAGGia0fERvDkl2x4dxw-28WeZGZT'
-  config.private_key = '6LciutESAAAAAGsfTgknJEuRquBtG8x438URff_3'
   config.proxy = 'http://cdsaatmg01:8080'
 end

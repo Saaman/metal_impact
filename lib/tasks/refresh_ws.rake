@@ -10,6 +10,7 @@ namespace :refresh_ws do
 		File.delete(Rails.root.join('config/initializers/recaptcha.rb')) if File.exists? Rails.root.join('config/initializers/recaptcha.rb')
 		File.delete(Rails.root.join('config/environments/development.rb')) if File.exists? Rails.root.join('config/environments/development.rb')
 		File.delete(Rails.root.join('config/database.yml')) if File.exists? Rails.root.join('config/database.yml')
+		File.delete(Rails.root.join('Procfile')) if File.exists? Rails.root.join('Procfile')
 	end
 
 	desc "Set up base files for Linux"
@@ -19,9 +20,9 @@ namespace :refresh_ws do
 		FileUtils.copy(Rails.root.join('Guardfile - Linux'), Rails.root.join('Guardfile'))
 		FileUtils.copy(Rails.root.join('spec/spec_helper - Linux.rb'), Rails.root.join('spec/spec_helper.rb'))
 		FileUtils.copy(Rails.root.join('.rspec - Linux'), Rails.root.join('.rspec'))
-		FileUtils.copy(Rails.root.join('config/initializers/recaptcha.rb - Linux'), Rails.root.join('config/initializers/recaptcha.rb'))
 		FileUtils.copy(Rails.root.join('config/environments/development.rb - Linux'), Rails.root.join('config/environments/development.rb'))
 		FileUtils.copy(Rails.root.join('config/database.yml - Linux'), Rails.root.join('config/database.yml'))
+		FileUtils.copy(Rails.root.join('Procfile - Linux'), Rails.root.join('Procfile'))
 	end
 
 	desc "Set up base files for Windows"
