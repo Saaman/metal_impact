@@ -36,6 +36,10 @@ spec/spec_helper.rb
 config/initializers/recaptcha.rb
 config/environments/development.rb
 config/database.yml
+Procfile
 
 #ignore compiled coffeescripts
 *.js.js
+
+#sensible data
+.env
