@@ -41,6 +41,8 @@ heroku create --stack cedar
 git push heroku master
 git push heroku
 heroku logs
+heroku config:add RECAPTCHA_PUBLIC_KEY=''
+heroku config:add RECAPTCHA_PRIVATE_KEY=''
 
 GIT
 ---
