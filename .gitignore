@@ -28,15 +28,15 @@ public/system/albums/covers/
 bundler_stubs/
 
 #OS dependent files
-Gemfile
-Gemfile.lock
-Guardfile
-spec/spec_helper.rb
-.rspec
-config/initializers/recaptcha.rb
-config/environments/development.rb
-config/database.yml
-Procfile
+#Gemfile
+#Gemfile.lock
+#Guardfile
+#spec/spec_helper.rb
+#.rspec
+#config/initializers/recaptcha.rb
+#config/environments/development.rb
+#config/database.yml
+#Procfile
 
 #ignore compiled coffeescripts
 *.js.js
