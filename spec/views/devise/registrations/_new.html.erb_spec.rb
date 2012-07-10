@@ -17,7 +17,19 @@ describe "devise/registrations/new" do
       assert_select "input#user_gender_female", :name => "user[gender]"
       assert_select "select#user_date_of_birth_3i", :name => "user[date_of_birth(3i)]"
       assert_select "select#user_date_of_birth_2i", :name => "user[date_of_birth(2i)]"
-      assert_select "select#user_date_of_birth_1i", :name => "user[date_of_birth(1i)]"
+      assert_select "select#user_date_of_birth_1i" do
+        assert_select "[name=?]", "user[date_of_birth(1i)]"
+        #assert years are starting from today -12 years, descending
+        assert_select "option" do |elements|
+          count = 12
+          #logger.warn "elements = #{elements.inspect}"
+          elements.drop(1).each do |element|
+            logger.warn "element = #{element.inspect}"
+            assert_select element, "[value=?]", Time.now.year-count
+            count += 1
+          end
+        end
+      end
       assert_select "input[type=submit]", :name => "commit"
     end
   end
