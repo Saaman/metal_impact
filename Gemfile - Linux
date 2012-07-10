@@ -17,6 +17,11 @@ gem 'webshims-rails', '~> 0.2'
 gem 'pg', '~> 0.14'
 gem 'thin'
 
+#Async engine
+gem 'delayed_job_active_record', '~>0.3'
+gem 'devise-async', '~>0.2'
+gem 'daemons', '~>1.1'
+
 # I18n
 gem 'devise-i18n', '~> 0.4'
 gem 'rails-i18n', '~> 0.6'
