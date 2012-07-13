@@ -6,11 +6,12 @@ en:
           attributes:
             email:
               invalid: "must be a valid e-mail address"
+              format: "must be a valid e-mail address"
             email_confirmation:
               custom_confirmation: "E-mail and confirmation don't match"
             password:
               too_short: "is too short (at least 6 characters)"
-              invalid: "must contain at least one character that is not a letter"
+              invalid: "must contain 7 characters including at least one that is not a letter"
             pseudo:
               taken: "This user name is already taken. Please choose another one"
               too_short: "is too short (at least 4 characters)"

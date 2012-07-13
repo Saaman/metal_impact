@@ -1,7 +1,7 @@
 $ ->
 	$.webshims.setOptions {
 		'basePath': '/assets/webshims/minified/shims/',
-		'forms': {overrideMessages: true} }
+		'forms': {customMessages: true} }
 	$.webshims.activeLang I18n.currentLocale()
 
 	"use strict"
@@ -23,9 +23,9 @@ $ ->
 			return false
 		}, 'form'
 
-jQuery.fn.displayDynamicError = (message) ->
+jQuery.fn.displayDynamicError = () ->
 	$(this).siblings('span.help-inline').remove().end()
-	.after('<span class="help-inline">' + (message ? $(this).prop('customValidationMessage')) + '</span>').parents('.control-group').addClass('error').removeClass("success")
+	.after('<span class="help-inline">' + $(this).prop('customValidationMessage') + '</span>').parents('.control-group').addClass('error').removeClass("success")
 
 jQuery.fn.displayDynamicSuccess = () ->
 	$(this).siblings('span.help-inline').remove().end()

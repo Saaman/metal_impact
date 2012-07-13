@@ -1,0 +1,1 @@
+foreman run bundle exec guard
