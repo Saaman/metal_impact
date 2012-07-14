@@ -23,11 +23,3 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
-
-local_prod:
-  adapter: postgresql
-  encoding: unicode
-  database: mi_local_prod
-  pool: 5
-  username: metalimpact
-  password: mi12

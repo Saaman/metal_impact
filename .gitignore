@@ -44,5 +44,5 @@ config/database.yml
 *.js.js
 
 #sensible data
-.env
+.*env
 deploy.sh
