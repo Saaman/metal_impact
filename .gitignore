@@ -45,3 +45,4 @@ config/database.yml
 
 #sensible data
 .env
+deploy.sh
