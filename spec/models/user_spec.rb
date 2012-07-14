@@ -109,7 +109,7 @@ describe User do
 
       describe "is not present" do
         before { @user.password = " " }
-        it { should_not be_valid }
+        it { should be_invalid }
       end
 
       describe "is too short" do
@@ -123,7 +123,17 @@ describe User do
       end
 
       describe "don't have a special char" do
-          before { @user.password = "a" * 7 }
+          before { @user.password = "a" * 9 }
+          it { should be_invalid }
+      end
+
+      describe "have upper case" do
+          before { @user.password = "aahHHHFklz56" }
+          it { should be_valid }
+      end
+
+      describe "is well formed" do
+          before { @user.password = "aefD2!er" }
           it { should be_invalid }
       end
     end

@@ -43,12 +43,13 @@ class User < ActiveRecord::Base
 
   after_initialize :default_values
 
-	valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-	valid_password_regex = /\A[\w+\-.]*[^a-zA-Z]+[\w+\-.]*\z/i
-	validates :email, presence: true, format: { with: valid_email_regex }, uniqueness: { case_sensitive: false }
+  VALID_PASSWORD_PATTERN = '^(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-z]).*$'
+	VALID_EMAIL_PATTERN = '\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}\b'
+
+	validates :email, presence: true, format: { with: /#{VALID_EMAIL_PATTERN}/ }, uniqueness: { case_sensitive: false }
 	validates :email, custom_confirmation: true, on: :create
 	validates :email_confirmation, presence: true, on: :create
-	validates :password, length: { :in => 6..128 }, format: { with: /\A[\w+\-.]*[^a-zA-Z]+[\w+\-.]*\z/i }, on: :create
+	validates :password, length: { :in => 7..128 }, format: { with: /#{VALID_PASSWORD_PATTERN}/ }, on: :create
 	validates :pseudo, presence: true, length: { :in => 4..128 }
 	validates :date_of_birth, :timeliness => { :before => :today, :type => :date }, :allow_blank => true
 	validates_as_enum :gender, allow_blank: true

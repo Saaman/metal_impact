@@ -9,6 +9,9 @@ require "paperclip/matchers"
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+#disable routing filters
+RoutingFilter.active = false
+
 RSpec.configure do |config|
   # ## Mock Framework
   #

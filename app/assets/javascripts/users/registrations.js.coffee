@@ -2,28 +2,6 @@ $(document).ready ->
 	
 	$('#modal-container')
 	
-	#dynamic validation : email & confirmation should match
-	.addValidation '#new_user_registration #user_email_confirmation', (elem) ->
-		if $(elem).val() isnt $('#new_user_registration #user_email').val()
-			return I18n.t('activerecord.errors.models.user.attributes.email_confirmation.custom_confirmation')
-		return ''
-
-	#dynamic validation : email should be a valid mail address
-	.addValidation '#new_user_registration #user_email', (elem) ->
-		valid_email_regex = /// ^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$ ///i
-		if not valid_email_regex.test $(elem).val()
-			return I18n.t('activerecord.errors.models.user.attributes.email.invalid')
-		return ''
-	
-	#dynamic validation : password should be 6 chars length, one special
-	.addValidation '#new_user_registration #user_password', (elem) ->
-		valid_password_regex = /// ^[\w+\-.]*[^a-zA-Z]+[\w+\-.]*$ ///i
-		if $(elem).val().length < 6
-				return I18n.t('activerecord.errors.models.user.attributes.password.too_short')
-		if not valid_password_regex.test $(elem).val()
-			return I18n.t('activerecord.errors.models.user.attributes.password.invalid')
-		return ''
-
 	#dynamic validation : pseudo should be unique
 	.addValidation '#new_user_registration #user_pseudo', (elem) ->
 		if $(elem).val().length < 4

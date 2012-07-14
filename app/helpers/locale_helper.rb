@@ -1,7 +1,7 @@
 module LocaleHelper
 
 	def set_locale
-		I18n.locale = retrieve_from_user_profile || retrieve_from_headers || I18n.default_locale
+		I18n.locale = params[:locale] || retrieve_from_user_profile || retrieve_from_headers || I18n.default_locale
 	end
 
 	def localized_image_tag(image_name, options={})
