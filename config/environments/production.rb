@@ -68,4 +68,9 @@ MetalImpact::Application.configure do
 
   #devise configuration
   config.action_mailer.default_url_options = { :host => ENV["HOST_NAME"] }
+
+  # Tell Action Mailer to deliver emails with smtp.
+  # With mail.rb file, it will use SendGrid connection provided by Heroku
+  # Only working in Prod environment!!!
+  config.action_mailer.delivery_method = :smtp
 end

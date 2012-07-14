@@ -50,11 +50,13 @@ group :test do
   gem 'guard-brakeman', '~> 0.4'
   gem 'factory_girl_rails', '~> 3.5.0'
   
-  #Linux gems
-  gem 'rb-inotify'
-  gem 'libnotify'
-  gem 'guard-spork'
-  gem 'spork'
+  #tools
+  gem 'foreman', '~>0'
+    #Linux gems
+    gem 'rb-inotify'
+    gem 'libnotify'
+    gem 'guard-spork'
+    gem 'spork'
 end
 
 # To use Jbuilder templates for JSON

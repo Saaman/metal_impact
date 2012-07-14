@@ -1,1 +1,0 @@
-guard: bundle exec guard
