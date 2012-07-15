@@ -1,6 +1,7 @@
 $ ->
 	$.webshims.setOptions {
 		'basePath': '/assets/webshims/minified/shims/',
+		'waitReady': false,
 		'forms': {customMessages: true} }
 	$.webshims.activeLang I18n.currentLocale()
 

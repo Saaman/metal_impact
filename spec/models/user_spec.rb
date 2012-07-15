@@ -134,7 +134,7 @@ describe User do
 
       describe "is well formed" do
           before { @user.password = "aefD2!er" }
-          it { should be_invalid }
+          it { should be_valid }
       end
     end
 
