@@ -1,0 +1,15 @@
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+  	<%= localized_image_tag "flag.png" %>
+  	<b class="caret"></b>
+  </a>
+  <ul id="language-menu" class="dropdown-menu">
+  	<% I18n.available_locales.reject{|x| x == I18n.locale}.each do |lang| %>
+    	<li>
+    		<%= link_to url_for( :locale => lang ) do %>
+    			<%= localized_image_tag "flag.png", lang %>
+    		<% end %>
+    	</li>
+    <% end %>
+  </ul>
+</li>

@@ -7,7 +7,8 @@
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
     <SCRIPT language="Javascript">
-      I18n.locale = "<%= I18n.locale %>"
+      I18n.locale = "<%= I18n.locale %>";
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
     </SCRIPT>
   </head>
   <body>
