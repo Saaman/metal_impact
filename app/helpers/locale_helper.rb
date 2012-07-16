@@ -18,13 +18,12 @@ module LocaleHelper
 
 	private
 		def retrieve_from_headers
-			request.preferred_language_from(I18n.available_locales) || request.language_region_compatible_from(I18n.available_locales)
+			request.preferred_language_from(I18n.available_locales) || request.compatible_language_from(I18n.available_locales)
 		end
 
 		def retrieve_from_url
-			parsed_locale = params[:locale].to_sym
-			res = I18n.available_locales.include?(parsed_locale) ? parsed_locale  : nil
-			return res
+			return nil if params[:locale].nil?
+			I18n.available_locales.include?(params[:locale].to_sym) ? params[:locale]  : nil
 		end
 
 end
