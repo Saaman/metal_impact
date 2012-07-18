@@ -14,11 +14,11 @@
 	</div>
 	
 	<div class="modal-footer">
-		<%= recaptcha_tags ajax: true %>
+		<%= my_recaptcha_tags ajax: true %>
 		<%= render "links" %>
 		<div class="btn-toolbar">
 			<%= f.button :submit, :class => 'btn-primary' %>
-		  <button class="btn btn-small" data-dismiss="modal"><%= t(:cancel) %></button>
+		  <button class="btn btn-small" data-dismiss="modal"><%= t("helpers.cancel") %></button>
     </div>
 	</div>
 

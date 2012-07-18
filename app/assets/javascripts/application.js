@@ -19,5 +19,6 @@
 //= require i18n/translations
 //= require webshims/minified/extras/modernizr-custom
 //= require webshims/minified/polyfiller
+//= require webshims/minified/extras/custom-validity
 //= require_tree .
 //

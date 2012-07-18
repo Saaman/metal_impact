@@ -5,15 +5,16 @@ fr:
         user:
           attributes:
             email:
-              invalid: "doit être une adresse e-mail valide"
+              invalid: "doit être une adresse e-mail valide."
             email_confirmation:
-              custom_confirmation: "L'e-mail et la confirmation ne concordent pas"
+              custom_confirmation: "L'e-mail et la confirmation ne concordent pas."
             password:
-              too_short: "est trop court (au moins 7 caractères)"
-              invalid: "doit contenir au moins 7 caractères dont un qui n'est pas une lettre"
+              too_short: "est trop court (au moins 7 caractères)."
+              invalid: "doit contenir au moins 7 caractères dont un qui n'est pas une lettre."
             pseudo:
-              taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre"
-              too_short: "est trop court (au moins 4 caractères)"
+              taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre."
+              too_short: "est trop court (au moins 4 caractères)."
   recaptcha:
     errors:
-      verification_failed: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha"
+      verification_failed: "Le captcha que vous avez saisi n'est pas valide. Merci de recommencer."
+      verification_failed_on_sign_up: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha."
