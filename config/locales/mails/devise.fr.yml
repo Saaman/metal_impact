@@ -1,0 +1,12 @@
+fr:
+  mails:
+    devise:
+      confirmation:
+        welcome: "Bienvenue %{pseudo}!"
+        text: "Vous pouvez confirmer la création de votre compte en cliquant sur le lien ci-dessous :"
+        link_title: "Confirmer mon compte"
+      reset_password:
+        hello: "Bonjour %{pseudo}!"
+        text: "Une de demande de modification de votre mot de passe a été demandée pour votre compte. Vous pouvez changer votre mot de passe en cliquant sur le lien ci-dessous."
+        link_title: "Modifier mon mot de passe"
+        instructions: "<p>Si vous n'êtes à pas à l'origine de cette demande, merci de ne pas tenir compte de cet email.</p><p>Votre mot de passe restera inchangé tant que vous ne le modifierez pas en suivant le lien proposé.</p>"

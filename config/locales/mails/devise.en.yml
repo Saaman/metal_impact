@@ -1,0 +1,12 @@
+en:
+  mails:
+    devise:
+      confirmation:
+        welcome: "Welcome %{pseudo}!"
+        text: "You can confirm your account email through the link below:"
+        link_title: "Confirm my account"
+      reset_password:
+        hello: "Hello %{pseudo}!"
+        text: "Someone has requested a link to change your password, and you can do this through the link below."
+        link_title: "Change my password"
+        instructions: "<p>If you didn't request this, please ignore this email.</p><p>Your password won't change until you access the link above and create a new one.</p>"
