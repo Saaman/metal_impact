@@ -4,7 +4,7 @@
 	<div class="well">
 		<p><%= t(".reset_password_expl") %></p>
 		<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :defaults => { :placeholder => false }) do |f| %>
-		  <%= f.input :email, input_html: { class: 'span2', autofocus: 'true' } %>
+		  <%= f.input :email, input_html: { class: 'span2', autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
 
 		  <% unless resource.errors[:base].empty? %>
 				<%= content_tag(:div, resource.errors[:base].first.html_safe, class: "alert alert-error", style: "margin-top: 15px;") %>
