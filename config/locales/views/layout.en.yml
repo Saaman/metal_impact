@@ -1,0 +1,4 @@
+en:
+  layout:
+    footer:
+      site_version: "Version <b>%{version}</b>"

@@ -1,7 +1,8 @@
 <footer class="footer">
-  <small>
-    Copyright 2012
-  </small>
+	<% unless ENV["SITE_VERSION"].empty? %>
+  	<small><%= t("layout.footer.site_version", version: ENV["SITE_VERSION"]).html_safe %></small>
+  <% end %>
+  <small>Copyright 2012</small>
   <nav>
     <ul>
       <li><%= link_to "About",   '#' %></li>
