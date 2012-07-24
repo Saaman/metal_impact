@@ -2,12 +2,12 @@
 #
 # Table name: music_labels
 #
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  website     :string(255)
+#  id          :integer          not null, primary key
+#  name        :string(255)      not null
+#  website     :string(255)      not null
 #  distributor :string(255)
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 require 'spec_helper'

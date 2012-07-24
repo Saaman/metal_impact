@@ -9,5 +9,6 @@ class CreateAlbums < ActiveRecord::Migration
     end
     add_index :albums, :title, :unique => true
     add_index :albums, :release_date
+    add_index :albums, :created_at
   end
 end

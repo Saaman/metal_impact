@@ -2,12 +2,12 @@
 #
 # Table name: albums
 #
-#  id                 :integer         not null, primary key
-#  title              :string(255)     not null
-#  release_date       :date            not null
-#  album_type         :string(255)     not null
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
+#  id                 :integer          not null, primary key
+#  title              :string(255)      not null
+#  release_date       :date             not null
+#  album_type         :string(255)      not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #  cover_file_name    :string(255)
 #  cover_content_type :string(255)
 #  cover_file_size    :integer
