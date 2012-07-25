@@ -3,9 +3,9 @@
 # Table name: products
 #
 #  id                 :integer          not null, primary key
-#  title              :string(255)
-#  type               :string(255)
-#  release_date       :date
+#  title              :string(511)      not null
+#  type               :string(7)        not null
+#  release_date       :date             not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  cover_file_name    :string(255)

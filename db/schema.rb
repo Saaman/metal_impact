@@ -11,36 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724094403) do
-
-  create_table "albums", :force => true do |t|
-    t.string   "title",              :null => false
-    t.date     "release_date",       :null => false
-    t.string   "album_type",         :null => false
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "cover_file_name"
-    t.string   "cover_content_type"
-    t.integer  "cover_file_size"
-    t.datetime "cover_updated_at"
-    t.integer  "music_label_id"
-  end
-
-  add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
-  add_index "albums", ["title"], :name => "index_albums_on_title", :unique => true
+ActiveRecord::Schema.define(:version => 20120725153940) do
 
   create_table "artists", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "type",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",       :limit => 127, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
+  add_index "artists", ["created_at"], :name => "index_artists_on_created_at"
   add_index "artists", ["name"], :name => "index_artists_on_name"
 
   create_table "artists_products", :id => false, :force => true do |t|
-    t.integer "artist_id"
-    t.integer "product_id"
+    t.integer "artist_id",  :null => false
+    t.integer "product_id", :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -69,12 +53,22 @@ ActiveRecord::Schema.define(:version => 20120724094403) do
 
   add_index "music_labels", ["name"], :name => "index_music_labels_on_name", :unique => true
 
+  create_table "practices", :force => true do |t|
+    t.integer  "artist_id",  :null => false
+    t.integer  "kind_cd",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "practices", ["artist_id", "kind_cd"], :name => "index_practices_on_artist_id_and_kind_cd", :unique => true
+  add_index "practices", ["artist_id"], :name => "index_practices_on_artist_id"
+
   create_table "products", :force => true do |t|
-    t.string   "title"
-    t.string   "type"
-    t.date     "release_date"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.string   "title",              :limit => 511, :null => false
+    t.string   "type",               :limit => 7,   :null => false
+    t.date     "release_date",                      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "cover_file_name"
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
@@ -97,12 +91,12 @@ ActiveRecord::Schema.define(:version => 20120724094403) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                  :null => false
-    t.string   "encrypted_password",                     :null => false
+    t.string   "email",                                                 :null => false
+    t.string   "encrypted_password",                                    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -111,12 +105,12 @@ ActiveRecord::Schema.define(:version => 20120724094403) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
+    t.integer  "failed_attempts",                       :default => 0
     t.datetime "locked_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.integer  "role_cd",                :default => 0,  :null => false
-    t.string   "pseudo",                 :default => "", :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.integer  "role_cd",                               :default => 0,  :null => false
+    t.string   "pseudo",                 :limit => 127, :default => "", :null => false
     t.date     "date_of_birth"
     t.integer  "gender_cd"
   end

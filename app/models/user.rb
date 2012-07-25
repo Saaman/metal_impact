@@ -22,7 +22,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role_cd                :integer          default(0), not null
-#  pseudo                 :string(255)      default(""), not null
+#  pseudo                 :string(127)      default(""), not null
 #  date_of_birth          :date
 #  gender_cd              :integer
 #
@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, format: { with: /#{VALID_EMAIL_PATTERN}/ }, uniqueness: { case_sensitive: false }
 	validates :email, custom_confirmation: true, on: :create
 	validates :email_confirmation, presence: true, on: :create
-	validates :password, length: { :in => 7..128 }, format: { with: /#{VALID_PASSWORD_PATTERN}/ }, on: :create
-	validates :pseudo, presence: true, length: { :in => 4..128 }
+	validates :password, length: { :in => 7..127 }, format: { with: /#{VALID_PASSWORD_PATTERN}/ }, on: :create
+	validates :pseudo, presence: true, length: { :in => 4..127 }
 	validates :date_of_birth, :timeliness => { :before => :today, :type => :date }, :allow_blank => true
 	validates_as_enum :gender, allow_blank: true
 	validates_as_enum :role

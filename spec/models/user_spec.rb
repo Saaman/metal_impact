@@ -22,7 +22,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role_cd                :integer          default(0), not null
-#  pseudo                 :string(255)      default(""), not null
+#  pseudo                 :string(127)      default(""), not null
 #  date_of_birth          :date
 #  gender_cd              :integer
 #
@@ -118,7 +118,7 @@ describe User do
       end
 
       describe "is too long" do
-          before { @user.password = "a" * 128 + "1" }
+          before { @user.password = "a" * 127 + "1" }
           it { should be_invalid }
       end
 
@@ -148,7 +148,7 @@ describe User do
         it { should_not be_valid }
       end
       describe "is too long" do
-        before { @user.pseudo = "a" * 130 }
+        before { @user.pseudo = "a" * 128 }
         it { should_not be_valid }
       end
     end

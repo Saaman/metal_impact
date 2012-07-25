@@ -2,9 +2,9 @@ class CreateProducts < ActiveRecord::Migration
   def up
   	#rable
     create_table :products do |t|
-      t.string :title
-      t.string :type
-      t.date :release_date
+      t.string :title, :null => false, limit: 511
+      t.string :type, :null => false, limit: 7
+      t.date :release_date, :null => false
 
       t.timestamps
     end
