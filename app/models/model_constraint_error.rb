@@ -1,0 +1,2 @@
+class ModelConstraintError < StandardError
+end

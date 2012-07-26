@@ -81,6 +81,11 @@ describe User do
         end
       end
 
+      describe "is too long" do
+        before { @user.email = @user.email_confirmation = 'a'*247 + "@toto.com" }
+        it { should_not be_valid }
+      end
+
       describe "format is valid" do
         valid_addresses = %w[user@foo.com A_USER@f.b.org frst.lst@foo.jp a+b@baz.cn]
         valid_addresses.each do |valid_address|

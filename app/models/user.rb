@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   VALID_PASSWORD_PATTERN = '^(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-z]).*$'
 	VALID_EMAIL_PATTERN = '\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}\b'
 
-	validates :email, presence: true, format: { with: /#{VALID_EMAIL_PATTERN}/ }, uniqueness: { case_sensitive: false }
+	validates :email, presence: true, format: { with: /#{VALID_EMAIL_PATTERN}/ }, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
 	validates :email, custom_confirmation: true, on: :create
 	validates :email_confirmation, presence: true, on: :create
 	validates :password, length: { :in => 7..127 }, format: { with: /#{VALID_PASSWORD_PATTERN}/ }, on: :create
