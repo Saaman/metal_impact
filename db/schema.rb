@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
   end
 
   add_index "practices", ["artist_id", "kind_cd"], :name => "index_practices_on_artist_id_and_kind_cd", :unique => true
-  add_index "practices", ["artist_id"], :name => "index_practices_on_artist_id"
 
   create_table "products", :force => true do |t|
     t.string   "title",              :limit => 511, :null => false
@@ -75,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
     t.datetime "cover_updated_at"
   end
 
-  add_index "products", ["created_at"], :name => "index_products_on_created_at"
+  add_index "products", ["created_at"], :name => "index_products_on_created_at", :order => {"created_at"=>:desc}
   add_index "products", ["release_date"], :name => "index_products_on_release_date"
   add_index "products", ["title"], :name => "index_products_on_title"
   add_index "products", ["type"], :name => "index_products_on_type"
@@ -119,5 +118,10 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
+
+  add_foreign_key "artists_products", "artists", :name => "artists_products_artist_id_fk"
+  add_foreign_key "artists_products", "products", :name => "artists_products_product_id_fk"
+
+  add_foreign_key "practices", "artists", :name => "practices_artist_id_fk"
 
 end
