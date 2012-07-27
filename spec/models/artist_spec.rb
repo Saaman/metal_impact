@@ -60,7 +60,7 @@ describe Artist do
         its(:practices) { should be_empty }
       end
 
-      describe "has more than on practice" do
+      describe "has more than one practice" do
         before { @artist.practices.build :kind => :musician }
         it { should be_valid }
         its(:practices) { should have(2).items }

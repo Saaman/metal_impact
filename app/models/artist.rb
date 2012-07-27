@@ -22,5 +22,6 @@ class Artist < ActiveRecord::Base
   #validation
   validates :name, presence: true, length: { :maximum => 127 }
   validates :practices, :length => { :minimum => 1}
+  validates_associated :practices
   
 end

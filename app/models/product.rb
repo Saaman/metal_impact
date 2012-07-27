@@ -15,15 +15,19 @@
 #
 
 class Product < ActiveRecord::Base
+	
 	#associations
 	has_and_belongs_to_many :artists
 
 	#attributes
-  attr_accessible :release_date, :title, :type
+  attr_accessible :release_date, :title
   has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
 
   #validations
   validates :title, presence: true, length: { :maximum => 511}
   validates :release_date, presence: true
   validates_attachment_content_type :cover, :content_type => /image/
+  validates :type, presence: true, :inclusion => { :in => %w(Album Dvd) }
+  validates :artists, :length => { :minimum => 1}
+  validates_associated :artists
 end

@@ -3,7 +3,7 @@ class CreateProducts < ActiveRecord::Migration
   	#rable
     create_table :products do |t|
       t.string :title, :null => false, limit: 511
-      t.string :type, :null => false, limit: 7
+      t.string :type, :null => false, limit: 15
       t.date :release_date, :null => false
 
       t.timestamps
