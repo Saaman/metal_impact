@@ -26,6 +26,8 @@ describe Artist do
     it { should_not respond_to(:products) }
     it { should respond_to(:practices) }
     it { should respond_to(:album_ids) }
+    it { should respond_to(:biography) }
+    it { should respond_to(:translations) }
     it { should_not respond_to(:product_ids) }
     it { should respond_to(:practice_ids) }
     it { should respond_to(:created_at) }
@@ -97,6 +99,13 @@ describe Artist do
         it { should_not be_valid }
       end
     end
+
+    describe "when biography" do
+      describe "exists" do
+        before { @artist.biography = "tatatoto" }
+        it { should be_valid }
+      end
+    end
   end
 
   describe "cascading saves" do
@@ -114,6 +123,27 @@ describe Artist do
         it { should satisfy {|a| a.persisted? == false} }
         it { should satisfy {|a| a.practices[0].persisted? == false} }
         it { should satisfy {|a| a.practices[1].persisted? == false} }
+      end
+    end
+
+    describe "on biography" do
+      describe "should be saved and accessible" do
+        before do
+          @artist.biography = "tatatoto"
+          @artist.save
+        end
+        it { should satisfy {|a| a.persisted? == true} }
+        its(:translations)  { should have(1).items }
+      end
+      describe "should be saved and rendered even for a different culture" do
+        before do
+          @artist.biography = "tatatoto"
+          @artist.save
+          I18n.locale = 'en'
+        end
+        it { should satisfy {|a| a.persisted? == true} }
+        its(:translations)  { should have(1).items }
+        its(:biography) { should == "tatatoto" }
       end
     end
   end

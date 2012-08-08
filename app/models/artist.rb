@@ -23,6 +23,7 @@ class Artist < ActiveRecord::Base
   #attributes
   attr_accessible :name, :practices_attributes, :countries
   serialize :countries, Array
+  translates :biography
 
   #validation
   validates :name, presence: true, length: { :maximum => 127 }

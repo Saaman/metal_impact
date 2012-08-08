@@ -70,5 +70,8 @@ module MetalImpact
 
     #to allow to work on Heroku :
     config.assets.initialize_on_precompile = false
+
+    #allow Globalize3 to fallback on default language if translation not found
+    config.i18n.fallbacks = true
   end
 end

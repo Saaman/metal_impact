@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120808111355) do
     t.datetime "cover_updated_at"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
   add_index "albums", ["title"], :name => "index_albums_on_title"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(:version => 20120808111355) do
     t.integer "artist_id", :null => false
     t.integer "album_id",  :null => false
   end
+
+  create_table "artist_translations", :force => true do |t|
+    t.integer  "artist_id"
+    t.string   "locale"
+    t.text     "biography"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "artist_translations", ["artist_id"], :name => "index_artist_translations_on_artist_id"
+  add_index "artist_translations", ["locale"], :name => "index_artist_translations_on_locale"
 
   create_table "artists", :force => true do |t|
     t.string   "name",       :limit => 127, :null => false
@@ -119,5 +130,10 @@ ActiveRecord::Schema.define(:version => 20120808111355) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
+
+  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
+  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
+
+  add_foreign_key "practices", "artists", :name => "practices_artist_id_fk"
 
 end
