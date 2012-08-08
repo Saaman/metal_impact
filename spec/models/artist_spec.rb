@@ -104,8 +104,8 @@ describe Artist do
       before do
         new_practice = @artist.practices.build :kind => :musician
         @artist.save!
-        @artist.practices.delete(new_practice)
-        @artist.save
+        @artist.attributes = { :practices_attributes => [{:id => new_practice.reload.id, _destroy: '1'}] }
+        @artist.save!
       end
       it { should satisfy {|a| a.persisted? == true} }
       specify { Practice.where(artist_id: @artist.id).should have(1).items }

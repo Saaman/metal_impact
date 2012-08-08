@@ -23,7 +23,7 @@ FactoryGirl.define do
   factory :album do
   	sequence(:title) { generate(:random_string) }
   	sequence(:release_date) { 1.month.ago.to_date }
-  	album_type "album"
+    kind :album
   end
 
   factory :music_label do

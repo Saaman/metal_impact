@@ -59,9 +59,7 @@ describe Practice do
   describe "when saving" do
   	describe "without an artist" do
   		before { @practice.artist = nil }
-  		it "should raise an error" do
-  			expect { @practice.save }.to raise_error(ModelConstraintError, /artist/)
-  		end
+      it { should_not be_valid }
   	end
   	describe "a new practice on an existing artist" do
   		let!(:artist) { FactoryGirl.create(:artist) }

@@ -13,10 +13,12 @@ class Artist < ActiveRecord::Base
 	has_and_belongs_to_many :albums
 	#no need of inverse_of here, as it preloads artist when accessing a practice. No use here
 	#all practices related to an artist are saved/deleted automatically
-	has_many :practices, :dependent => :destroy, autosave: true
+	has_many :practices, :dependent => :destroy, :inverse_of => :artist
+
+  accepts_nested_attributes_for :practices, :allow_destroy => true
   
   #attributes
-  attr_accessible :name
+  attr_accessible :name, :practices_attributes
 
   #validation
   validates :name, presence: true, length: { :maximum => 127 }
