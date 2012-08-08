@@ -14,5 +14,5 @@
 #  cover_updated_at   :datetime
 #
 
-class Dvd < Product
-end
+#class Dvd < Product
+#end

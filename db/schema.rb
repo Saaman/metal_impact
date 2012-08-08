@@ -13,6 +13,28 @@
 
 ActiveRecord::Schema.define(:version => 20120725153940) do
 
+  create_table "albums", :force => true do |t|
+    t.string   "title",              :limit => 511, :null => false
+    t.date     "release_date",                      :null => false
+    t.integer  "kind_cd",                           :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
+  end
+
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
+  add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
+  add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
+  add_index "albums", ["title"], :name => "index_albums_on_title"
+
+  create_table "albums_artists", :id => false, :force => true do |t|
+    t.integer "artist_id", :null => false
+    t.integer "album_id",  :null => false
+  end
+
   create_table "artists", :force => true do |t|
     t.string   "name",       :limit => 127, :null => false
     t.datetime "created_at",                :null => false
@@ -21,11 +43,6 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
 
   add_index "artists", ["created_at"], :name => "index_artists_on_created_at"
   add_index "artists", ["name"], :name => "index_artists_on_name"
-
-  create_table "artists_products", :id => false, :force => true do |t|
-    t.integer "artist_id",  :null => false
-    t.integer "product_id", :null => false
-  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -61,23 +78,6 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
   end
 
   add_index "practices", ["artist_id", "kind_cd"], :name => "index_practices_on_artist_id_and_kind_cd", :unique => true
-
-  create_table "products", :force => true do |t|
-    t.string   "title",              :limit => 511, :null => false
-    t.string   "type",               :limit => 7,   :null => false
-    t.date     "release_date",                      :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "cover_file_name"
-    t.string   "cover_content_type"
-    t.integer  "cover_file_size"
-    t.datetime "cover_updated_at"
-  end
-
-  add_index "products", ["created_at"], :name => "index_products_on_created_at", :order => {"created_at"=>:desc}
-  add_index "products", ["release_date"], :name => "index_products_on_release_date"
-  add_index "products", ["title"], :name => "index_products_on_title"
-  add_index "products", ["type"], :name => "index_products_on_type"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -118,10 +118,5 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-
-  add_foreign_key "artists_products", "artists", :name => "artists_products_artist_id_fk"
-  add_foreign_key "artists_products", "products", :name => "artists_products_product_id_fk"
-
-  add_foreign_key "practices", "artists", :name => "practices_artist_id_fk"
 
 end

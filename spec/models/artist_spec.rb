@@ -22,11 +22,9 @@ describe Artist do
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:name) }
-    it { should respond_to(:dvds) }
     it { should respond_to(:albums) }
     it { should_not respond_to(:products) }
     it { should respond_to(:practices) }
-    it { should respond_to(:dvd_ids) }
     it { should respond_to(:album_ids) }
     it { should_not respond_to(:product_ids) }
     it { should respond_to(:practice_ids) }

@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: products
+# Table name: albums
 #
 #  id                 :integer          not null, primary key
 #  title              :string(511)      not null
-#  type               :string(7)        not null
 #  release_date       :date             not null
+#  kind_cd            :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  cover_file_name    :string(255)
@@ -14,7 +14,14 @@
 #  cover_updated_at   :datetime
 #
 
-class Album < Product
+class Album < ActiveRecord::Base
+	include Productable
+
+	attr_accessible :kind
+
+	as_enum :kind, album: 0, demo: 1
+
+	validates_as_enum :kind
 end
 
 #implementation deprecated
