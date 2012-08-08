@@ -13,7 +13,7 @@ require 'spec_helper'
 describe Artist do
 
   before do
-    @artist = Artist.new name: "Metallica"
+    @artist = Artist.new name: "Metallica", :countries => ["FR"]
     @artist.practices.build :kind => :band
   end
 
@@ -66,6 +66,34 @@ describe Artist do
 
       describe "has an invalid practice" do
         before { @artist.practices << Practice.new }
+        it { should_not be_valid }
+      end
+    end
+
+    describe "when countries" do
+      describe "is empty" do
+        before { @artist.countries = nil }
+        it { should_not be_valid }
+      end
+      describe "contains unknown code" do
+        before do
+          @artist.countries << "XX"
+          @artist.valid?
+        end
+        it { should_not be_valid }
+        it { should satisfy {|a| a.errors[:countries].blank? == false} }
+        it { should satisfy {|a| a.errors[:countries][0].include?("XX")} }
+      end
+      describe "contains duplicates" do
+        before do
+          @artist.countries << "FR"
+          @artist.valid?
+        end
+        it { should be_valid }
+        it { should satisfy {|a| a.countries.length == 1} }
+      end
+      describe "has more than seven values" do
+        before { @artist.countries += ["AD", "AE", "AF", "AG", "AW", "AX", "AZ"] }
         it { should_not be_valid }
       end
     end

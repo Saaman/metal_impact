@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120725153940) do
+ActiveRecord::Schema.define(:version => 20120808111355) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",              :limit => 511, :null => false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120725153940) do
     t.string   "name",       :limit => 127, :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.string   "countries",  :limit => 127
   end
 
   add_index "artists", ["created_at"], :name => "index_artists_on_created_at"

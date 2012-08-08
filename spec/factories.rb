@@ -18,6 +18,7 @@ FactoryGirl.define do
   factory :artist do
     sequence(:name) { generate(:random_string) }
     practices [Practice.new(:kind => :band)]
+    countries ["FR"]
   end
 
   factory :album do

@@ -15,6 +15,10 @@ en:
             pseudo:
               taken: "This user name is already taken. Please choose another one."
               too_short: "is too short (at least 4 characters)."
+        artist:
+          attributes:
+            countries:
+              array_inclusion: "'%{value}' is not a valid 2-letters country code"
   recaptcha:
     errors:
       verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."
