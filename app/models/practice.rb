@@ -13,7 +13,7 @@ class Practice < ActiveRecord::Base
 	#associations
 	#no need of inverse_of here, as it preloads artist when accessing apractice. No use here
 	#touch makes update the artist timestamp when associating a new practice
-	belongs_to :artist, :touch => true, :inverse_of => :practices
+	belongs_to :artist, :inverse_of => :practices, touch: true
 
 	#attributes
 	attr_accessible :kind

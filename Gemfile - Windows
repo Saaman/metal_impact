@@ -57,7 +57,7 @@ group :test do
   gem 'guard-rspec', '~> 1.1'
   gem 'guard', '~> 1.2'
   gem 'guard-brakeman', '~> 0'
-  gem 'factory_girl_rails', '~> 3.5'
+  gem 'factory_girl_rails', '~> 4.0'
   
   #tools
   gem 'foreman', '~>0'

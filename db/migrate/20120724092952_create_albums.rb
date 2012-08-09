@@ -15,6 +15,10 @@ class CreateAlbums < ActiveRecord::Migration
     #cover
     add_attachment :albums, :cover
 
+    #music labels
+    add_column :albums, :music_label_id, :integer
+    add_foreign_key :albums, :music_labels
+
     #indexes
     add_index :albums, :title
     add_index :albums, :created_at, order: {created_at: :desc}
@@ -31,6 +35,10 @@ class CreateAlbums < ActiveRecord::Migration
 
     #cover
     remove_attachment :albums, :cover
+
+    #music labels
+    remove_foreign_key :albums, :music_labels
+    remove_column :albums, :music_label_id
 
     #table
     drop_table :albums

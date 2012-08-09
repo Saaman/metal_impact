@@ -12,10 +12,14 @@
 #  cover_content_type :string(255)
 #  cover_file_size    :integer
 #  cover_updated_at   :datetime
+#  music_label_id     :integer
 #
 
 class Album < ActiveRecord::Base
 	include Productable
+
+	#associations
+  belongs_to :music_label, :autosave => true, :inverse_of => :albums
 
 	attr_accessible :kind
 
@@ -23,22 +27,3 @@ class Album < ActiveRecord::Base
 
 	validates_as_enum :kind
 end
-
-#implementation deprecated
-# class Album < ActiveRecord::Base
-# 	#types list
-# 	ALBUMS_TYPES = %w[album demo]
-
-# 	#attributes
-#   attr_accessible :title, :album_type, :release_date, :cover
-#   has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
-
-#   #validations
-#   validates :title, presence: true, uniqueness: { case_sensitive: false }
-#   validates :album_type, presence: true, :inclusion => { :in => ALBUMS_TYPES}
-#   validates :release_date, presence: true
-#   validates_attachment_content_type :cover, :content_type => /image/
-
-#   #associations
-#   belongs_to :music_label, :autosave => true
-# end

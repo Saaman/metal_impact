@@ -12,6 +12,9 @@
 
 class MusicLabel < ActiveRecord::Base
 
+	#associations
+  has_many :albums, :inverse_of => :music_label
+
 	#attributes
   attr_accessible :name, :website, :distributor
 	
@@ -19,7 +22,4 @@ class MusicLabel < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   valid_website_regex = /\Ahttp[s]*:\/\/[\w+\-.]+\.[a-z]+\z/i
 	validates :website, format: { with: valid_website_regex },uniqueness: { case_sensitive: false }
-
-	#associations
-  has_many :albums
 end

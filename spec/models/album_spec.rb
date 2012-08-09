@@ -12,6 +12,7 @@
 #  cover_content_type :string(255)
 #  cover_file_size    :integer
 #  cover_updated_at   :datetime
+#  music_label_id     :integer
 #
 
 require 'spec_helper'
@@ -35,8 +36,8 @@ describe Album do
 		it { should respond_to(:kind_cd) }
 
 		#associations
-    #it { should respond_to(:music_label) }
-    #it { should respond_to(:music_label_id) }
+    it { should respond_to(:music_label) }
+    it { should respond_to(:music_label_id) }
 
     #methods
     it { should respond_to(:album?) }
@@ -61,31 +62,31 @@ describe Album do
     end
 	end
 
-	# describe "music label association" do
- #    describe "when assigning a music label" do
- #      before { @album.music_label = MusicLabel.new }
- #      its(:music_label) { should_not be_nil }
- #    end
- #    describe "should save the association" do
- #      let!(:music_label) { FactoryGirl.create(:music_label) }
- #      before do
- #        @album.music_label = music_label
- #        @album.save
- #        @album.reload
- #      end
- #      its(:music_label) { should_not be_nil }
- #      its(:music_label_id) { should == music_label.id }
- #    end
- #    describe "should save new music label when saving album" do
- #      let(:music_label_attr) { FactoryGirl.attributes_for(:music_label) }
- #      before do
- #        @album.build_music_label(music_label_attr)
- #        @album.save
- #        @album.reload
- #      end
- #      its(:music_label_id) { should_not be_blank } 
- #      specify { @album.music_label.name.should == music_label_attr[:name] }
- #    end
- #  end
+	describe "music label association" do
+    describe "when assigning a music label" do
+      before { @album.music_label = MusicLabel.new }
+      its(:music_label) { should_not be_nil }
+    end
+    describe "should save the association" do
+      let!(:music_label) { FactoryGirl.create(:music_label) }
+      before do
+        @album.music_label = music_label
+        @album.save
+        @album.reload
+      end
+      its(:music_label) { should_not be_nil }
+      its(:music_label_id) { should == music_label.id }
+    end
+    describe "should save new music label when saving album" do
+      let!(:music_label_attr) { FactoryGirl.attributes_for(:music_label, name: "tata") }
+      before do
+        @album.build_music_label(music_label_attr)
+        @album.save
+        @album.reload
+      end
+      its(:music_label_id) { should_not be_blank } 
+      it { should satisfy {|a| a.music_label.name.should == "tata" } }
+    end
+  end
 	  
 end

@@ -6,6 +6,7 @@
 #  name       :string(127)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  countries  :string(127)
 #
 
 class Artist < ActiveRecord::Base

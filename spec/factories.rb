@@ -25,6 +25,7 @@ FactoryGirl.define do
   	sequence(:title) { generate(:random_string) }
   	sequence(:release_date) { 1.month.ago.to_date }
     kind :album
+    after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, 1, albums: [album]) }
   end
 
   factory :music_label do
