@@ -2,6 +2,10 @@ MetalImpact::Application.routes.draw do
   filter :locale
   
   resources :albums
+  resources :artists do
+    get 'search', :on => :collection
+    get 'smallblock', :on => :member
+  end
   resources :music_labels, :only => [:new, :create]
 
   namespace :administration do
@@ -81,7 +85,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 11 Jul 2012 10:41
+# Generated on 10 Aug 2012 21:51
 #
 #                                   POST   /albums(.:format)                    albums#create
 #                         new_album GET    /albums/new(.:format)                albums#new
@@ -89,6 +93,14 @@ end
 #                             album GET    /albums/:id(.:format)                albums#show
 #                                   PUT    /albums/:id(.:format)                albums#update
 #                                   DELETE /albums/:id(.:format)                albums#destroy
+#                    search_artists GET    /artists/search(.:format)            artists#search
+#                           artists GET    /artists(.:format)                   artists#index
+#                                   POST   /artists(.:format)                   artists#create
+#                        new_artist GET    /artists/new(.:format)               artists#new
+#                       edit_artist GET    /artists/:id/edit(.:format)          artists#edit
+#                            artist GET    /artists/:id(.:format)               artists#show
+#                                   PUT    /artists/:id(.:format)               artists#update
+#                                   DELETE /artists/:id(.:format)               artists#destroy
 #                      music_labels POST   /music_labels(.:format)              music_labels#create
 #                   new_music_label GET    /music_labels/new(.:format)          music_labels#new
 #              administration_users GET    /administration/users(.:format)      administration/users#index

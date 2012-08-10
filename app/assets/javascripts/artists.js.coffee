@@ -3,21 +3,20 @@ $ ->
       # source can be a function
       source: (typeahead, query) ->
         # this function receives the typeahead object and the query string
-        $.getJSON(
-          url: ""
-          data: {'query-term', query}
-          success: (data) =>
-            # data must be a list of either strings or objects
-            # data = [{'name': 'Joe', }, {'name': 'Henry'}, ...]
-            typeahead.process(data)
-        )
+        $.getJSON '/artists/search.json', {'name_like': query}, (data) =>
+          # data must be a list of either strings or objects
+          # data = [{'name': 'Joe', }, {'name': 'Henry'}, ...]
+          typeahead.process(data)
       # if we return objects to typeahead.process we must specify the property
       # that typeahead uses to look up the display value
-      property: "name"
+      property: 'name'
+      onselect: (obj) ->
+        $.get '/artists/'+obj.id+'/smallblock.html', (data) ->
+          $('#artists_association').append(data)
     )
 
-  $('.artist_label').on 'change', (e) ->
-    $(e.delegateTarget).toggle 'fast'
+  $('#artists_association').on 'change', '.artist_label', (e) ->
+    $(e.currentTarget).hide 'fast'
     $('#cancel_artists_deletions').addClass('btn-info').prop 'disabled', false
 
   $('#cancel_artists_deletions').on 'click', (e) ->
