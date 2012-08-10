@@ -1,0 +1,27 @@
+fr:
+  simple_form:
+    labels:
+      defaults:
+        title: "Titre"
+        artist_ids: "Rechercher un artiste"
+        release_date: "Date de sortie"
+        music_label_id: "Label"
+        kind: "Type"
+        cover: "Artwork"
+  albums:
+    screens:
+      new:
+        create_album: "Ajouter un nouvel album"
+        informations: "Informations"
+        artwork: "Artwork"
+        select_label: "Sélectionner un label"
+        create_label: "... ou créer un nouveau"
+        select_kind: "Sélectionner un type d'album"
+        cover: "Artwork"
+        upload_cover : "Publier un artwork"
+        artists: "Artistes"
+  helpers:
+    submit:
+      album:
+        create: "Créer l'album"
+        update: "Mettre à jour l'album"

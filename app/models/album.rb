@@ -26,4 +26,5 @@ class Album < ActiveRecord::Base
 	as_enum :kind, album: 0, demo: 1
 
 	validates_as_enum :kind
+	validates :kind, presence: true
 end

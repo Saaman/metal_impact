@@ -29,6 +29,7 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   # GET /albums/new.json
   def new
+    debugger
     @album = Album.new
 
     respond_to do |format|
@@ -45,6 +46,7 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
+    debugger
     @album = Album.new
     @album.attributes = params[:album].except(:music_label, :music_label_id)
     authorize! :create, @album

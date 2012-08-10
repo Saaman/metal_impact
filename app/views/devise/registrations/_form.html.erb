@@ -1,6 +1,6 @@
 <%= f.input :email, required: true, input_html: { class: 'span3', autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
 <%= f.input :email_confirmation, :required => true, input_html: { class: 'span3', type: "email", "data-dependent-validation" => "user[email]", "data-errormessage" => "#{t("activerecord.errors.models.user.attributes.email_confirmation.custom_confirmation")}" } %>
 <%= f.input :password, :required => true, :pattern => :lookup, input_html: { class: 'span3', pattern: User::VALID_PASSWORD_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.password.invalid")}\"}" } %>
-<%= f.input :pseudo, :required => true, input_html: { class: 'span3' } %>
+<%= f.input :pseudo, :required => true, input_html: { class: 'span3 pseudo-length' } %>
 <%= f.input :gender, as: :radio_buttons, collection: User.genders_for_select, item_wrapper_class: 'inline' %>
 <%= f.input :date_of_birth, end_year: Date.today.year - 100, start_year: Date.today.year - 12, use_short_month: true, input_html: { class: 'span1 inline' }, prompt: true %>

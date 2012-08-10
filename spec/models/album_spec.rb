@@ -55,8 +55,12 @@ describe Album do
           expect { @album.kind = 45 }.to raise_error(ArgumentError, /Invalid enumeration/)
         end
       end
-      describe "is blank" do 
+      describe "is nil" do 
         before { @album.kind = nil }
+        it { should_not be_valid }
+      end
+      describe "is blank" do 
+        before { @album.kind = " " }
         it { should_not be_valid }
       end
     end

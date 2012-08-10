@@ -11,11 +11,14 @@ $ ->
 
 	$('body').on {
 		'changedvalid': (e) ->
+			return if $(e.target).hasClass('skipval')
 			$(e.target).displayDynamicSuccess()
 		'changedinvalid': (e) ->
+			return if $(e.target).hasClass('skipval')
 			$(e.target).displayDynamicError()
 		'change': (e) ->
 			#this event handler allow to display the good error message in case the field is still invalid, but for a different reason
+			return if $(e.target).hasClass('skipval')
 			if !$(e.target).prop('validity').valid
 				$(e.target).displayDynamicError()
 		'firstinvalid': (e) ->

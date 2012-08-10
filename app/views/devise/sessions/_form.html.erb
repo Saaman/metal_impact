@@ -4,7 +4,7 @@
 		<div class="span3 left-side">
 			<%= f.input :email, required: true, :label => false, input_html: { class: 'span3', autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
 			<%= f.input :password, :required => true, :pattern => :lookup, :label => false, input_html: { class: 'span3', pattern: User::VALID_PASSWORD_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.password.invalid")}\"}" } %>
-		  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), :as => :boolean if devise_mapping.rememberable? %>
+		  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), input_html: { class: 'skipval' }, :as => :boolean if devise_mapping.rememberable? %>
 		  <div class="controls">
 		  	<%= f.button :submit, t(".connection"), :class => 'btn-primary' %>
 		  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>

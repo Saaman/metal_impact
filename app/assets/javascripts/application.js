@@ -13,8 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require bootstrap
+//= require bootstrap-modal
+//= require bootstrap-dropdown
+//= require bootstrap-tab
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-button
+//= require bootstrap-collapse
 //= require vendor
+//= require lib
 //= require i18n
 //= require i18n/translations
 //= require webshims/minified/extras/modernizr-custom

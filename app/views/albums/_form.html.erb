@@ -1,15 +1,26 @@
 <%= simple_form_for @album, :html => { :multipart => true, :class => "form-horizontal" } do |f| %>
   <%= render 'shared/error_messages', :object => @album %>
   <div class="row">
-    <div class="span6">
+    <div class="span8">
       <fieldset>
-        <legend>Album informations</legend>
+        <legend><%= t 'albums.screens.new.artists' %></legend>
+        <div class="span4">
+          <div class="centeredblock">
+            <% @album.artists.each do |artist| %>
+              <div>artist.name.capitalize</div>
+            <% end %>
+            <%= f.association :artists, :as => :association_autocomplete %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend><%= t 'albums.screens.new.informations' %></legend>
         <%= f.input :title %>
         <%= f.input :release_date, :as => :date_picker %>
-        <%= f.association :music_label, :prompt => "Choose a Label" %>
+        <%= f.association :music_label, :prompt => t('albums.screens.new.select_label'), input_html: {class: 'skipval'} %>
         <div class="accordion-group">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label">Create a new label</a>
+            <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label"><%= t 'albums.screens.new.create_label'%></a>
           </div>
           <div id="new_music_label" class="accordion-body collapse" style="height: 0px; ">
             <div class="accordion-inner">
@@ -19,25 +30,25 @@
             </div>
           </div>
         </div>
-        <%= f.input :album_type, :collection => Album::ALBUMS_TYPES %>
+        <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('albums.screens.new.select_kind') %>
       </fieldset>
     </div>
     
-    <div class="span4">
+    <div class="span6">
       <fieldset>
-        <legend>Cover</legend>
+        <legend><%= t 'albums.screens.new.cover' %></legend>
         
         <% if @album.cover? %>
           <div class="center"><%= image_tag @album.cover.url(:medium), :class => "portrait" %></div>
         <% end %>
         
-        <%= f.input :cover, :label => "Upload cover", :wrapper_html => {:class => "well"} %>
+        <%= f.input :cover, :label => t('albums.screens.new.upload_cover'), :wrapper_html => {:class => "well"}, input_html: {class: 'skipval'} %>
       </fieldset>
     </div>
   </div>
   
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to 'Back', albums_path, { :class => "btn" } %>
+    <%= link_to t('defaults.back_link'), :back, { :class => "btn" } %>
   </div>
 <% end %>

@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    enums:
+      album:
+        kinds:
+          album:: Album
+          demo: Demo
+    attributes:
+      album:
+        kind: "type"
+        title: "title"

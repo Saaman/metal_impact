@@ -23,6 +23,6 @@ $ ->
 
 	# make sure the pseudo is at least 4 characters long
 	$.webshims.addCustomValidityRule 'pseudoTooShort', (elem, value) ->
-		return if !value
+		return if !(value and $(elem).hasClass('pseudo-length'))
 		return 4 > value.length
 	, I18n.t 'activerecord.errors.models.user.attributes.pseudo.too_short'
