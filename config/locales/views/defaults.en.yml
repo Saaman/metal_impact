@@ -1,3 +1,4 @@
 en:
   defaults:
     back_link: "Back"
+    search_terms: "Enter your search term..."

@@ -1,3 +1,4 @@
 fr:
   defaults:
     back_link: "Retour"
+    search_terms: "Commencez à taper..."

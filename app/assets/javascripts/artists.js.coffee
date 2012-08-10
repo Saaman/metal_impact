@@ -1,12 +1,11 @@
 $ ->
-  $('.typeahead').typeahead(
+  $('#artist_typeahead').typeahead(
       # source can be a function
       source: (typeahead, query) ->
         # this function receives the typeahead object and the query string
-        $.ajax(
-          url: "/lookup/?q="+query
-          # i'm binding the function here using CoffeeScript syntactic sugar,
-          # you can use for example Underscore's bind function instead.
+        $.getJSON(
+          url: ""
+          data: {'query-term', query}
           success: (data) =>
             # data must be a list of either strings or objects
             # data = [{'name': 'Joe', }, {'name': 'Henry'}, ...]
@@ -19,9 +18,9 @@ $ ->
 
   $('.artist_label').on 'change', (e) ->
     $(e.delegateTarget).toggle 'fast'
-    $('#cancel_artists_deletions').prop 'disabled', false
+    $('#cancel_artists_deletions').addClass('btn-info').prop 'disabled', false
 
   $('#cancel_artists_deletions').on 'click', (e) ->
     $('#artists_association input:checkbox').prop 'checked', true
-    $('#artists_association .artist_label').show()
-    $('#cancel_artists_deletions').prop 'disabled', true
+    $('#artists_association .artist_label').show 'fast'
+    $('#cancel_artists_deletions').removeClass('btn-info').prop 'disabled', true

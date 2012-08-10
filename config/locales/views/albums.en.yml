@@ -3,7 +3,7 @@ en:
     labels:
       defaults:
         title: "Title"
-        artist_ids: "Find an artist"
+        artist_ids: "Artists"
         release_date: "Release date"
         music_label_id: "Label"
         kind: "Type"
