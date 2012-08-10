@@ -38,7 +38,7 @@ def make_artists
   15.times do |n|
     name = Faker::Lorem.words(prng.rand(1..2)).join(" ")
     biography = Faker::Lorem.paragraphs.join(" ")
-    countries = Artist::COUNTRIES_CODES.sample(prng.rand(1..6))
+    countries = References::COUNTRIES_CODES.sample(prng.rand(1..6))
     Artist.create(name: name, biography: biography, countries: countries, 
       practices_attributes: [{:kind => :band}])
   end

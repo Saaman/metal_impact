@@ -78,14 +78,25 @@ span.insidediv {
 
 legend {
 	margin-left: 10px;
+	margin-bottom: 5px;
 }
 
 h1 {
 	margin-bottom: 15px;
 	margin-left: 15px;
-	margin-top: 5px;
 }
 
 .accordion-group {
 	margin-bottom: 10px;
+}
+
+.artist_label {
+	margin: 5px;
+	width: 230px;
+	display: inline-block;
+}
+
+.controls-bar {
+	margin-top: 10px;
+	margin-left: 30px;
 }

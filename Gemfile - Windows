@@ -28,6 +28,7 @@ gem 'devise-i18n', '~> 0.4'
 gem 'rails-i18n', '~> 0.6'
 gem 'will-paginate-i18n', '~> 0.1'
 gem 'i18n-js', '~> 2.1.2'
+gem 'i18n-country-translations', '~>0.0'
 
 gem 'routing-filter', '~>0.3'
 

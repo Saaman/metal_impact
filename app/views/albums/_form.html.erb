@@ -4,14 +4,8 @@
     <div class="span8">
       <fieldset>
         <legend><%= t 'albums.screens.new.artists' %></legend>
-        <div class="span4">
-          <div class="centeredblock">
-            <% @album.artists.each do |artist| %>
-              <div>artist.name.capitalize</div>
-            <% end %>
-            <%= f.association :artists, :as => :association_autocomplete %>
-          </div>
-        </div>
+          <%= render :partial => "artists/artists_for_product", :locals => {:product => @album, product_name: "album" } %>
+          <%= f.association :artists, :as => :check_boxes %>
       </fieldset>
       <fieldset>
         <legend><%= t 'albums.screens.new.informations' %></legend>

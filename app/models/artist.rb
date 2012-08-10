@@ -10,8 +10,6 @@
 #
 
 class Artist < ActiveRecord::Base
-
-  COUNTRIES_CODES ||= Country.all.collect { |c| c[1] }
   
 	#associations
 	has_and_belongs_to_many :albums
@@ -30,11 +28,16 @@ class Artist < ActiveRecord::Base
   validates :name, presence: true, length: { :maximum => 127 }
   validates :practices, :length => { :minimum => 1}
   validates_associated :practices
-  validates :countries, :length => { :in => 1..7 }, :array_inclusion => { :in => COUNTRIES_CODES }
+  validates :countries, :length => { :in => 1..7 }, :array_inclusion => { :in => References::COUNTRIES_CODES }
   
   #callbaks
   before_validation do |artist|
     #remove duplicates
     artist.countries |= artist.countries
+  end
+
+  #methods
+  def countries_labels
+    References::translate_countries self.countries
   end
 end

@@ -1,0 +1,17 @@
+<div id="artists_association">
+	<% product.artists.each do |artist| %>
+		<div class="label artist_label">
+
+			<div style="float: right;">
+				<%= check_box_tag "#{product_name}_artist_ids_#{artist.id}", artist.id, true, name: "#{product_name}[artist_ids[]]" %>
+			</div>
+			<div>
+				<div><h3><%= artist.name.upcase %></h3></div>
+				<div><%= truncate artist.countries_labels().join(" / "), :length => 45, class: "check_boxes optional" %></div>
+			</div>
+		</div>
+	<% end %>
+	<div class="controls-bar">
+		<button type="button" id="cancel_artists_deletions" class="btn" disabled="true"><%= t 'cancel_all_deletions' %></button>
+	</div>
+</div>

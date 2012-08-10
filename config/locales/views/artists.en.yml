@@ -1,0 +1,5 @@
+en:
+  artists:
+    screens:
+      defaults:
+        cancel_all_deletions: "Cancel all my deletions"
