@@ -22,7 +22,7 @@ class Artist < ActiveRecord::Base
   accepts_nested_attributes_for :practices, :allow_destroy => true
   
   #attributes
-  attr_accessible :name, :practices_attributes, :countries
+  attr_accessible :name, :practices_attributes, :countries, :biography
   serialize :countries, Array
   translates :biography
 

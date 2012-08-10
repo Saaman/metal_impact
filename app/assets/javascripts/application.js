@@ -20,7 +20,6 @@
 //= require bootstrap-popover
 //= require bootstrap-button
 //= require bootstrap-collapse
-//= require vendor
 //= require lib
 //= require i18n
 //= require i18n/translations
