@@ -104,15 +104,14 @@ describe AlbumsController do
 
     describe "POST create" do
       let(:album_attrs) { FactoryGirl.attributes_for(:album) }
+      let(:album_params) { { :album => album_attrs.except("artist_ids"), :product => {artist_ids: album_attrs[:artist_ids]} } }
       describe "with valid params" do
         it "creates a new Album" do
-          expect {
-            post :create, {:album => album_attrs}
-          }.to change(Album, :count).by(1)
+          expect { post :create, album_params }.to change(Album, :count).by(1)
         end
 
         it "assigns a newly created album as @album" do
-          post :create, {:album => album_attrs}
+          post :create, album_params
           assigns(:album).should be_a(Album)
           assigns(:album).should be_persisted
         end

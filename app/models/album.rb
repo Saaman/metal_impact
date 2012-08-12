@@ -27,4 +27,6 @@ class Album < ActiveRecord::Base
 
 	validates_as_enum :kind
 	validates :kind, presence: true
+
+	#TODO add validation to check that artists attached are bands, no other kind
 end

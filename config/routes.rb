@@ -3,7 +3,7 @@ MetalImpact::Application.routes.draw do
   
   resources :albums
   resources :artists do
-    get 'search', :on => :collection
+    get 'typeahead', :on => :collection
     get 'smallblock', :on => :member
   end
   resources :music_labels, :only => [:new, :create]

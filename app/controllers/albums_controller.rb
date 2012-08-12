@@ -45,10 +45,10 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
-    debugger
     @album = Album.new
     @album.attributes = params[:album].except(:music_label, :music_label_id)
-    authorize! :create, @album
+    authorize! :create, @album #TODO : vérifier pourquoi on reauthorize ici
+    @album.artist_ids = params[:product][:artist_ids]
     build_or_associate_music_label(params[:album])
 
     respond_to do |format|

@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :password, :pseudo, :date_of_birth, :gender, :remember_me, :role
 
 	as_enum :gender, [:male, :female]
-	as_enum :role, admin: 1, basic: 0
+	as_enum :role, admin: 10, basic: 0
 
   after_initialize :default_values
 
