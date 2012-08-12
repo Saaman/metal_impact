@@ -11,7 +11,7 @@ en:
   albums:
     screens:
       new:
-        create_album: "Add a new album"
+        title: "Add a new album"
         informations: "Informations"
         artwork: "Artwork"
         select_label: "Select a label"
@@ -20,6 +20,8 @@ en:
         cover: "Cover"
         upload_cover : "Upload a cover"
         artists: "Artists"
+      edit:
+        title: "Edit album"
   helpers:
     submit:
       album:

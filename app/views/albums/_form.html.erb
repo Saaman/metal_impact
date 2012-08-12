@@ -5,7 +5,6 @@
       <fieldset>
         <legend><%= t 'albums.screens.new.artists' %></legend>
           <%= render :partial => "artists/artists_for_product", :locals => {:product => @album, product_name: "album" } %>
-          <%= f.association :artists, :as => :check_boxes %>
       </fieldset>
       <fieldset>
         <legend><%= t 'albums.screens.new.informations' %></legend>

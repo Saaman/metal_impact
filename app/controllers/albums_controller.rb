@@ -65,7 +65,9 @@ class AlbumsController < ApplicationController
   # PUT /albums/1
   # PUT /albums/1.json
   def update
+
     @album = Album.find(params[:id])
+    @album.artist_ids = params[:product][:artist_ids]
     @album.attributes = params[:album].except(:music_label, :music_label_id)
 
     build_or_associate_music_label(params[:album])
