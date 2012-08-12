@@ -1,3 +1,5 @@
+PRNG ||= Random.new()
+
 FactoryGirl.define do
 
   sequence(:random_string) { |n| Faker::Lorem.words.join(" ") }
@@ -16,21 +18,23 @@ FactoryGirl.define do
   end
 
   factory :artist do
-    sequence(:name) { generate(:random_string) }
+    name { generate(:random_string) }
     practices [Practice.new(:kind => :band)]
     countries ["FR"]
   end
 
   factory :album do
-  	sequence(:title) { generate(:random_string) }
-  	sequence(:release_date) { 1.month.ago.to_date }
+  	title { generate(:random_string) }
+  	release_date { 1.month.ago.to_date }
     kind :album
-    after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, 1, albums: [album]) }
+    factory :album_with_artists do
+      after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, PRNG.rand(1..2), albums: [album]) }
+    end
   end
 
   factory :music_label do
-    sequence(:name) { generate(:random_string) }
+    name { generate(:random_string) }
     sequence(:website) { "http://www.#{Faker::Internet.domain_name}" }
-    sequence(:distributor) { generate(:random_string) }
+    distributor { generate(:random_string) }
   end
 end

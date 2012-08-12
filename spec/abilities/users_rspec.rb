@@ -4,10 +4,10 @@ require 'spec_helper'
 describe "authorizations on User" do
   subject { ability }
   let(:ability){ Ability.new(user) }
+  let(:other_user) { FactoryGirl.create(:user) }
 
   context "when is anonymous user" do
     let(:user) { User.new }
-    let(:other_user) { FactoryGirl.create(:user) }
 
     it{ should be_able_to(:create, User.new) }
     it{ should be_able_to(:create, user) }
@@ -21,7 +21,6 @@ describe "authorizations on User" do
 
   context "when is basic user" do
     let(:user) { FactoryGirl.create (:user) }
-    let(:other_user) { FactoryGirl.create(:user) }
 
     it{ should_not be_able_to(:create, User.new) }
     it{ should_not be_able_to(:create, user) }
@@ -35,7 +34,6 @@ describe "authorizations on User" do
 
   context "when is admin user" do
     let(:user) { FactoryGirl.create (:admin) }
-    let(:other_user) { FactoryGirl.create(:user) }
 
     it{ should_not be_able_to(:create, User.new) }
     it{ should_not be_able_to(:create, user) }

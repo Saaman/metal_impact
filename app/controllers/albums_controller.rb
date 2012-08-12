@@ -46,9 +46,9 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     @album = Album.new
-    @album.attributes = params[:album].except(:music_label, :music_label_id)
+    @album.attributes = params[:album].except(:music_label, :music_label_id) #TODO : passer en only plutôt
     authorize! :create, @album #TODO : vérifier pourquoi on reauthorize ici
-    @album.artist_ids = params[:product][:artist_ids]
+    @album.artist_ids = params[:product][:artist_ids] if params.has_key?(:product)
     build_or_associate_music_label(params[:album])
 
     respond_to do |format|
@@ -67,10 +67,15 @@ class AlbumsController < ApplicationController
   def update
 
     @album = Album.find(params[:id])
-    @album.artist_ids = params[:product][:artist_ids]
     @album.attributes = params[:album].except(:music_label, :music_label_id)
+    @album.artist_ids = params[:product][:artist_ids] if params.has_key?(:product)
 
     build_or_associate_music_label(params[:album])
+    logger.info "album update is valid? = #{@album.valid?}"
+    logger.info "album errors = #{@album.errors.inspect}" unless @album.valid?
+    logger.info "album artists = #{@album.artist_ids}"
+    logger.info "artist is valid? = #{@album.artists[0].valid?}"
+    logger.info "artist errors = #{@album.artists[0].errors.inspect}" unless @album.artists[0].valid?
 
     respond_to do |format|
       if @album.save
@@ -99,7 +104,6 @@ class AlbumsController < ApplicationController
     def build_or_associate_music_label(params)
       if params[:music_label_id].blank?
         return if params[:music_label].blank?
-        return if params[:music_label][:name].blank?
         @album.build_music_label(params[:music_label])
       else
         @album.music_label = MusicLabel.find(params[:music_label_id])

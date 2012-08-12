@@ -91,6 +91,15 @@ describe Album do
       its(:music_label_id) { should_not be_blank } 
       it { should satisfy {|a| a.music_label.name.should == "tata" } }
     end
+    describe "should not save new album when music label is invalid" do
+      let!(:music_label_attr) { FactoryGirl.attributes_for(:music_label, name: "") }
+      before do
+        @album.build_music_label(music_label_attr)
+        @album.save
+      end
+      it { should satisfy {|a| a.valid? == false} }
+      it { should satisfy {|a| a.music_label.persisted? == false} }
+    end
   end
 	  
 end

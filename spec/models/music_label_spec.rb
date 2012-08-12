@@ -77,8 +77,8 @@ describe MusicLabel do
       specify { @musicLabel.albums.size.should == 1 }
     end
     describe "when saving an album" do
-      let!(:album) { FactoryGirl.create(:album) }
-      let!(:other_album) { FactoryGirl.create(:album) }
+      let!(:album) { FactoryGirl.create(:album_with_artists) }
+      let!(:other_album) { FactoryGirl.create(:album_with_artists) }
       before do
         @musicLabel.albums << album
         @musicLabel.albums << other_album

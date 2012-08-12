@@ -31,7 +31,7 @@ end
 
 shared_examples "access denied on restricted actions" do
   describe "GET edit" do
-    let!(:album) { FactoryGirl.create(:album) }
+    let!(:album) { FactoryGirl.create(:album_with_artists) }
     before { get :edit, {id: album.id} }
     its_access_is "unauthorized"
   end
@@ -43,13 +43,13 @@ shared_examples "access denied on restricted actions" do
    end
 
   describe "PUT update" do
-     let!(:album) { FactoryGirl.create(:album) }
+     let!(:album) { FactoryGirl.create(:album_with_artists) }
      before { put :update, {id: album.id, :album => {'these' => 'params'}} }
      its_access_is "unauthorized"
    end
 
    describe "DELETE destroy" do
-     let!(:album) { FactoryGirl.create(:album) }
+     let!(:album) { FactoryGirl.create(:album_with_artists) }
      before { delete :destroy, id: album.id }
      its_access_is "unauthorized"
    end
@@ -57,8 +57,8 @@ end
 #######################################################################################
 
 describe AlbumsController do
-  before(:all) { 50.times { FactoryGirl.create(:album) } }
-  after(:all)  { Album.delete_all }
+  before(:all) { 50.times { FactoryGirl.create(:album_with_artists) } }
+  after(:all)  { Album.all.each {|a| a.destroy } }
 
   subject { response }
 
@@ -95,7 +95,7 @@ describe AlbumsController do
     end
 
     describe "GET edit" do
-      let(:album) { FactoryGirl.create(:album) }
+      let(:album) { FactoryGirl.create(:album_with_artists) }
       it "assigns the requested album as @album" do
         get :edit, {:id => album.to_param}
         assigns(:album).should eq(album)
@@ -104,7 +104,8 @@ describe AlbumsController do
 
     describe "POST create" do
       let(:album_attrs) { FactoryGirl.attributes_for(:album) }
-      let(:album_params) { { :album => album_attrs.except("artist_ids"), :product => {artist_ids: album_attrs[:artist_ids]} } }
+      let(:artist) { FactoryGirl.create(:artist) }
+      let!(:album_params) { { :album => album_attrs, :product => {artist_ids: [artist.id]} } }
       describe "with valid params" do
         it "creates a new Album" do
           expect { post :create, album_params }.to change(Album, :count).by(1)
@@ -117,7 +118,7 @@ describe AlbumsController do
         end
 
         it "redirects to the created album" do
-          post :create, {:album => album_attrs}
+          post :create, album_params
           response.should redirect_to(Album.last)
         end
         describe "about music album creation : " do
@@ -125,17 +126,17 @@ describe AlbumsController do
           let(:page_attrs) { album_attrs.merge({:music_label => music_label_attrs}) }
           it "creates a new MusicLabel with valid parameters" do
             expect {
-              post :create, {:album => page_attrs}
+              post :create, album_params.merge({:album => page_attrs})
             }.to change(MusicLabel, :count).by(1)
           end
           describe "if MusicLabel params are invalid" do
             before { page_attrs[:music_label][:name] = "" }
             it "does not create MusicLabel nor Album" do
               expect {
-                post :create, {:album => page_attrs}
+                post :create, album_params.merge({:album => page_attrs})
               }.not_to change(MusicLabel, :count)
               expect {
-                post :create, {:album => page_attrs}
+                post :create, album_params.merge({:album => page_attrs})
               }.not_to change(Album, :count)
             end
           end
@@ -169,19 +170,19 @@ describe AlbumsController do
 
     describe "PUT update" do
       let(:album_attrs) { FactoryGirl.attributes_for(:album) }
-      let!(:album) { FactoryGirl.create(:album) }
+      let(:artist) { FactoryGirl.create(:artist) }
+      let!(:album_params) { { :album => album_attrs, :product => {artist_ids: [artist.id]} } }
+      let!(:album) { FactoryGirl.create(:album_with_artists) }
       describe "with valid params" do
-        describe "updates the requested album" do
-          before do
-            album.stub(:save).and_return(true)
-            put :update, {:id => album.id, :album => album_attrs}
-          end
-          it "assigns the requested album as @album" do
-            assigns(:album).should eq(album)
-          end
-          it "redirects to the album" do
-            response.should redirect_to(album)
-          end
+        before do
+          Album.any_instance.stub(:save).and_return(true)
+          put :update, album_params.merge({:id => album.id})
+        end
+        it "redirects to the album" do
+          response.should redirect_to(album)
+        end
+        it "assigns the requested album as @album" do
+          assigns(:album).should eq(album)
         end
       end
 
@@ -203,7 +204,7 @@ describe AlbumsController do
     end
 
     describe "DELETE destroy" do
-      let!(:album) { FactoryGirl.create(:album) }
+      let!(:album) { FactoryGirl.create(:album_with_artists) }
       it "destroys the requested album" do
         expect {
           delete :destroy, {:id => album.id}
