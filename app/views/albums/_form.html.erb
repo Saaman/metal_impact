@@ -17,6 +17,7 @@
           </div>
           <div id="new_music_label" class="accordion-body collapse" style="height: 0px; ">
             <div class="accordion-inner">
+              <%= hidden_field_tag 'create_new_music_label', false %>
               <%= f.fields_for :music_label do |music_label_form| %>
                 <%= render :partial => 'music_labels/form', :locals => {:f => music_label_form} %>
               <% end %>

@@ -23,6 +23,7 @@ module Productable
 
     	#attributes
       attr_accessible :release_date, :title
+      attr_protected :artist_ids
       has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
 
       #validations

@@ -1,7 +1,6 @@
 <div class="label artist_label">
 	<div style="float: right;">
-		<% product_name = "product" #TODO : this is hardcoded because complex to setup. Is it really useful to have a real name rather than just "product"? %>
-		<%= check_box_tag "#{product_name}_artist_ids_#{artist.id}", artist.id, true, name: "#{product_name}[artist_ids][]" %>
+		<%= check_box_tag "product_artist_ids_#{artist.id}", artist.id, true, name: "product[artist_ids][]" %>
 	</div>
 	<div>
 		<div><h3><%= artist.name.upcase %></h3></div>

@@ -1,8 +1,6 @@
 class AlbumsController < ApplicationController
   load_and_authorize_resource
-  #Cancan breaks the mass-assignment security because music label association is not accessible
-  skip_load_and_authorize_resource  :only => :create
-
+  
   # GET /albums
   # GET /albums.json
   def index
@@ -28,7 +26,6 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   # GET /albums/new.json
   def new
-    debugger
     @album = Album.new
 
     respond_to do |format|
@@ -46,11 +43,8 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     @album = Album.new
-    @album.attributes = params[:album].except(:music_label, :music_label_id) #TODO : passer en only plutôt
-    authorize! :create, @album #TODO : vérifier pourquoi on reauthorize ici
-    @album.artist_ids = params[:product][:artist_ids] if params.has_key?(:product)
-    build_or_associate_music_label(params[:album])
-
+    build_or_update_album(params)
+    
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: 'Album was successfully created.' }
@@ -67,20 +61,14 @@ class AlbumsController < ApplicationController
   def update
 
     @album = Album.find(params[:id])
-    @album.attributes = params[:album].except(:music_label, :music_label_id)
-    @album.artist_ids = params[:product][:artist_ids] if params.has_key?(:product)
+    build_or_update_album(params)
 
-    build_or_associate_music_label(params[:album])
-    logger.info "album update is valid? = #{@album.valid?}"
-    logger.info "album errors = #{@album.errors.inspect}" unless @album.valid?
-    logger.info "album artists = #{@album.artist_ids}"
-    logger.info "artist is valid? = #{@album.artists[0].valid?}"
-    logger.info "artist errors = #{@album.artists[0].errors.inspect}" unless @album.artists[0].valid?
-
+    logger.info "album = #{@album.inspect}"
+    
     respond_to do |format|
       if @album.save
         format.html { redirect_to @album, notice: 'Album was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @album, status: :created, location: @album }
       else
         format.html { render action: "edit" }
         format.json { render json: @album.errors, status: :unprocessable_entity }
@@ -101,12 +89,16 @@ class AlbumsController < ApplicationController
   end
 
   private
-    def build_or_associate_music_label(params)
-      if params[:music_label_id].blank?
-        return if params[:music_label].blank?
-        @album.build_music_label(params[:music_label])
+    def build_or_update_album(params)
+      @album.attributes = params[:album].slice :title, :release_date, :kind
+      @album.artist_ids = params[:product][:artist_ids] if params.has_key? :product
+
+      #manage music label
+      if params[:create_new_music_label].to_bool
+        @album.build_music_label(params[:music_label]) unless params.has_key? :music_label
       else
-        @album.music_label = MusicLabel.find(params[:music_label_id])
+        @album.music_label_id = params[:music_label_id] unless params[:music_label_id].blank?
       end
+
     end
 end

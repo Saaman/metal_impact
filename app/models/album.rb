@@ -22,6 +22,7 @@ class Album < ActiveRecord::Base
   belongs_to :music_label, :autosave => true, :inverse_of => :albums
 
 	attr_accessible :kind
+	attr_protected :music_label_id
 
 	as_enum :kind, album: 0, demo: 1
 
