@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
 	include ApplicationHelper
   include LocaleHelper
+  include Exceptions
+  
   protect_from_forgery
   check_authorization :unless => :devise_controller?
   before_filter :set_locale

@@ -29,6 +29,7 @@ describe Album do
 
 	it_should_behave_like "productable model" do
 		let(:productable) { @album }
+    let(:artist) { FactoryGirl.create(:artist) }
 	end
 
 	describe "attributes and methods" do
@@ -66,6 +67,23 @@ describe Album do
     end
 	end
 
+  describe "artists :" do
+    describe "adding artist of the wrong kind" do
+        let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
+        it "directly should raise ArtistAssociationError" do
+          expect { @album.artists << writer }.to raise_error(Exceptions::ArtistAssociationError)
+        end
+        describe "through save should be invalid" do
+          before do
+            @album.artist_ids = @album.artist_ids + [writer.id]
+            require 'debugger'; debugger
+            @album.valid?
+          end
+          it { should_not be_valid }
+        end
+      end
+  end
+
 	describe "music label association" do
     describe "when assigning a music label" do
       before { @album.music_label = MusicLabel.new }
@@ -97,7 +115,7 @@ describe Album do
         @album.build_music_label(music_label_attr)
         @album.save
       end
-      it { should satisfy {|a| a.valid? == false} }
+      it { should_not be_valid }
       it { should satisfy {|a| a.music_label.persisted? == false} }
     end
   end

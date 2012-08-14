@@ -52,7 +52,7 @@ def make_writers
 end
 
 def make_albums
-  artists = Artist.all
+  artists = Artist.operates_as(:band)
   20.times do |n|
     title = Faker::Lorem.words(PRNG.rand(1..4)).join(" ")
     kind = Album.kinds.key(PRNG.rand(0..1))

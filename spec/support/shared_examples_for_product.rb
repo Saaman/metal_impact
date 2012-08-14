@@ -59,9 +59,14 @@ shared_examples "productable model" do
 	      its(:artists) { should have(2).items }
 	    end
 
-	    describe "has an invalid artist" do
-	      before { productable.artists << Artist.new }
-	      it { should_not be_valid }
+	    describe "when adding an artist" do
+	      describe "through product save, should be invalid" do
+	      	before { productable.artist_ids << 100000 }
+	      	it { should_not be_valid }
+	      end
+	      it "directly, should raise ArtistAssociationError" do
+	      	expect { productable.artists << Artist.new }.to raise_error(Exceptions::ArtistAssociationError)
+	      end
 	    end
 	  end
 	end
@@ -73,5 +78,16 @@ shared_examples "productable model" do
 			it { should satisfy {|p| p.artists(true)[0].persisted?} }
 		end
 	end
+
+	describe "callbacks before save" do
+      before do
+        productable.artist_ids << artist.id
+        productable.title = "ride the lightning"
+        productable.save
+      end
+      it { should be_valid }
+      its(:title) { should == "Ride The Lightning" }
+      its(:artist_ids) { should == [artist.id] }
+    end
 
 end

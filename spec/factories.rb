@@ -18,8 +18,11 @@ FactoryGirl.define do
   end
 
   factory :artist do
+    ignore do
+      practice_kind :band
+    end
     name { generate(:random_string) }
-    practices [Practice.new(:kind => :band)]
+    practices { [Practice.new(:kind => practice_kind)] }
     countries ["FR"]
   end
 

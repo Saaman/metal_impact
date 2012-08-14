@@ -19,11 +19,9 @@ module Productable
 	#associations
   def self.included(klazz)  # klazz is that class object that included this module
     klazz.class_eval do
-      has_and_belongs_to_many :artists
 
     	#attributes
       attr_accessible :release_date, :title
-      attr_protected :artist_ids
       has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
 
       #validations
@@ -32,6 +30,18 @@ module Productable
       validates_attachment_content_type :cover, :content_type => /image/
       validates :artists, :length => { :minimum => 1}
       validates_associated :artists
+
+      #callbacks
+      before_save do |product|
+        #"ride the lightning" turns into "Ride The Lightning"
+        product.title = product.title.titleize
+      end
     end
   end
+
+  protected
+    def ensure_artist_operates_as(artist, practice_kind)
+      has_the_required_practice = artist.practices.exists? :kind_cd => Practice.kinds(practice_kind)
+      raise Exceptions::ArtistAssociationError.new("You cannot associate to the current product an artist that is not a '#{practice_kind}'") unless has_the_required_practice
+    end
 end

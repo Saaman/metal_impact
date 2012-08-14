@@ -16,10 +16,14 @@
 #
 
 class Album < ActiveRecord::Base
+
 	include Productable
+
+	ALLOWED_PRACTICE_KIND = :band
 
 	#associations
   belongs_to :music_label, :autosave => true, :inverse_of => :albums
+  has_and_belongs_to_many :artists, :before_add => :ensure_artist_operates_as_band
 
 	attr_accessible :kind
 	attr_protected :music_label_id
@@ -30,5 +34,10 @@ class Album < ActiveRecord::Base
 	validates :kind, presence: true
 	validates_associated :music_label
 
-	#TODO add validation to check that artists attached are bands, no other kind
+	validates :artists, :artist_association => {practice_kind: ALLOWED_PRACTICE_KIND}
+
+	private
+		def ensure_artist_operates_as_band(artist)
+			ensure_artist_operates_as(artist, ALLOWED_PRACTICE_KIND)
+		end
 end

@@ -36,6 +36,9 @@ class Artist < ActiveRecord::Base
     artist.countries |= artist.countries
   end
 
+  #scopes
+  scope :operates_as, lambda { |practice_kind| joins(:practices).where(:practices => {:kind_cd => Practice.kinds(practice_kind)}) }
+
   #methods
   def countries_labels
     References::translate_countries self.countries

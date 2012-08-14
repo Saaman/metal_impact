@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    enums:
+      practice:
+        kinds:
+          band: band
+          writer: writer
+          musician: musician
