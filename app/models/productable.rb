@@ -42,6 +42,7 @@ module Productable
   protected
     def ensure_artist_operates_as(artist, practice_kind)
       has_the_required_practice = artist.practices.exists? :kind_cd => Practice.kinds(practice_kind)
-      raise Exceptions::ArtistAssociationError.new("You cannot associate to the current product an artist that is not a '#{practice_kind}'") unless has_the_required_practice
+      raise Exceptions::ArtistAssociationError.new(
+        I18n.t("exceptions.artist_association_error", artist_name: artist.name, practice_kind: I18n.t("activerecord.enums.practice.kinds.#{practice_kind.to_s}"))) unless has_the_required_practice
     end
 end

@@ -67,22 +67,13 @@ describe Album do
     end
 	end
 
-  describe "artists :" do
-    describe "adding artist of the wrong kind" do
-        let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
-        it "directly should raise ArtistAssociationError" do
-          expect { @album.artists << writer }.to raise_error(Exceptions::ArtistAssociationError)
-        end
-        describe "through save should be invalid" do
-          before do
-            @album.artist_ids = @album.artist_ids + [writer.id]
-            require 'debugger'; debugger
-            @album.valid?
-          end
-          it { should_not be_valid }
-        end
+  describe "when adding artist of the wrong kind" do
+      let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
+      it "should raise ArtistAssociationError" do
+        expect { @album.artists << writer }.to raise_error(Exceptions::ArtistAssociationError)
+        expect { @album.artist_ids += [writer.id] }.to raise_error(Exceptions::ArtistAssociationError)
       end
-  end
+    end
 
 	describe "music label association" do
     describe "when assigning a music label" do

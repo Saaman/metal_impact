@@ -23,7 +23,7 @@ class Album < ActiveRecord::Base
 
 	#associations
   belongs_to :music_label, :autosave => true, :inverse_of => :albums
-  has_and_belongs_to_many :artists, :before_add => :ensure_artist_operates_as_band
+  has_and_belongs_to_many :artists, :include => :practices, :before_add => :ensure_artist_operates_as_band
 
 	attr_accessible :kind
 	attr_protected :music_label_id
@@ -33,8 +33,6 @@ class Album < ActiveRecord::Base
 	validates_as_enum :kind
 	validates :kind, presence: true
 	validates_associated :music_label
-
-	validates :artists, :artist_association => {practice_kind: ALLOWED_PRACTICE_KIND}
 
 	private
 		def ensure_artist_operates_as_band(artist)

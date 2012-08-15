@@ -18,10 +18,8 @@ fr:
           attributes:
             countries:
               array_inclusion: "Le code pays '%{value}' n'est pas valide"
-        album:
-          attributes:
-            artists:
-              artist_wrong_kind: "Impossible d'associer l' artiste '%{artist_name}' car il n'est pas un '%{practice_kind}'"
+  exceptions:
+    artist_association_error: "Impossible d'associer l'artiste '%{artist_name}' car il n'exerce pas la fonction de '%{practice_kind}'"
   recaptcha:
     errors:
       verification_failed: "Le captcha que vous avez saisi n'est pas valide. Merci de recommencer."

@@ -121,12 +121,12 @@ describe AlbumsController do
           post :create, album_params
           response.should redirect_to(Album.last)
         end
-        describe "about music album creation : " do
+        describe "about music label creation : " do
           let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
-          let(:page_attrs) { album_attrs.merge({:music_label => music_label_attrs}) }
+          let!(:page_attrs) { album_attrs.merge({:music_label => music_label_attrs, :create_new_music_label => "true"}) }
           it "creates a new MusicLabel with valid parameters" do
             expect {
-              post :create, album_params.merge({:album => page_attrs})
+              post :create, {:album => page_attrs, :product => {artist_ids: [artist.id]} }
             }.to change(MusicLabel, :count).by(1)
           end
           describe "if MusicLabel params are invalid" do
@@ -157,7 +157,7 @@ describe AlbumsController do
           post :create, {:album => {}}
           response.should render_template("new")
         end
-        describe "with music album creation" do
+        describe "with music label creation" do
           let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
           it "does not create a new MusicLabel" do
             expect {

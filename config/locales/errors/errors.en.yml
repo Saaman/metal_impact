@@ -19,10 +19,8 @@ en:
           attributes:
             countries:
               array_inclusion: "'%{value}' is not a valid 2-letters country code"
-        album:
-          attributes:
-            artists:
-              artist_wrong_kind: "Artist '%{artist_name}' cannot be associated because it is not a '%{practice_kind}'"
+  exceptions:
+    artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a '%{practice_kind}'"
   recaptcha:
     errors:
       verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."

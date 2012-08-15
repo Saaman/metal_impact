@@ -59,14 +59,11 @@ shared_examples "productable model" do
 	      its(:artists) { should have(2).items }
 	    end
 
-	    describe "when adding an artist" do
-	      describe "through product save, should be invalid" do
-	      	before { productable.artist_ids << 100000 }
-	      	it { should_not be_valid }
-	      end
-	      it "directly, should raise ArtistAssociationError" do
-	      	expect { productable.artists << Artist.new }.to raise_error(Exceptions::ArtistAssociationError)
-	      end
+	    describe "when adding an empty/unknown artist" do
+	    	it "should raise ArtistAssociationError" do
+		      expect { productable.artists << Artist.new }.to raise_error(Exceptions::ArtistAssociationError)
+		      expect { productable.artist_ids += [10000] }.to raise_error(ActiveRecord::RecordNotFound)
+		    end
 	    end
 	  end
 	end
