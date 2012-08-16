@@ -2,3 +2,11 @@ fr:
   layout:
     footer:
       site_version: "Version <b>%{version}</b>"
+    menu:
+      login: "Connexion"
+      register: "s'inscrire"
+      edit_registration: "Modifier mon compte"
+      logout: "Déconnexion"
+      users_administration: "Comptes utilisateurs"
+      administration: "Administration"
+      my_account: "Mon compte"

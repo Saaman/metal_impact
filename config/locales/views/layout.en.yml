@@ -2,3 +2,11 @@ en:
   layout:
     footer:
       site_version: "Version <b>%{version}</b>"
+    menu:
+      login: "Login"
+      register: "Register"
+      edit_registration: "Edit account"
+      logout: "Logout"
+      users_administration: "Users' accounts"
+      administration: "Administration"
+      my_account: "My account"
