@@ -22,20 +22,24 @@ class Album < ActiveRecord::Base
 	ALLOWED_PRACTICE_KIND = :band
 
 	#associations
-  belongs_to :music_label, :autosave => true, :inverse_of => :albums
-  has_and_belongs_to_many :artists, :include => :practices, :before_add => :ensure_artist_operates_as_band
+  belongs_to :music_label
+  has_and_belongs_to_many :artists, :before_add => :ensure_artist_operates_as_band
 
+  #persisted attributes
 	attr_accessible :kind
-	attr_protected :music_label_id
 
 	as_enum :kind, album: 0, demo: 1
 
 	validates_as_enum :kind
 	validates :kind, presence: true
-	validates_associated :music_label
+	validates_associated :music_label, :if => :new_music_label?
 
 	private
 		def ensure_artist_operates_as_band(artist)
 			ensure_artist_operates_as(artist, ALLOWED_PRACTICE_KIND)
+		end
+
+		def new_music_label?
+			music_label.nil? || music_label.new_record?
 		end
 end

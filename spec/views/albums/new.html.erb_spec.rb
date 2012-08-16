@@ -1,21 +1,14 @@
 require 'spec_helper'
 
-# TODO : revoir les tests de ces écrans. Il suffit de tester _form en fait, et rajouter le test de tous les champs. Cf vues users
 describe "albums/new" do
   before(:each) do
-    assign(:album, stub_model(Album,
-      :title => "MyString",
-      :kind => nil
-    ).as_new_record)
+    assign(:album, FactoryGirl.build(:album_with_artists))
   end
 
   it "renders new album form" do
+    stub_template "albums/_form.html.erb" => "<div>albums_form.html.erb</div>"
     render
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => albums_path, :method => "post" do
-      assert_select "input#album_title", :name => "album[title]"
-      assert_select "select#album_kind", :name => "album[kind]"
-    end
+    rendered.should =~ /albums_form.html.erb/
   end
 end

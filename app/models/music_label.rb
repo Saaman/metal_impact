@@ -13,13 +13,13 @@
 class MusicLabel < ActiveRecord::Base
 
 	#associations
-  has_many :albums, :inverse_of => :music_label
+  has_many :albums
 
 	#attributes
   attr_accessible :name, :website, :distributor
 	
 	#validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  valid_website_regex = /\Ahttp[s]*:\/\/[\w+\-.]+\.[a-z]+\z/i
+  valid_website_regex = /\Ahttp[s]*:\/\/[\w+\-.]+\.[a-z]+[\w+\-\/.]+\z/i
 	validates :website, format: { with: valid_website_regex },uniqueness: { case_sensitive: false }
 end

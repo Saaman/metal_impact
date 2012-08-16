@@ -3,7 +3,7 @@ require "set"
 
 shared_examples "unauthorized" do
 	 it { should redirect_to root_path }
-   specify { flash[:alert].should include(not_authorized_string) }
+   specify { flash[:alert].should_not be_empty }
  end
 
 shared_examples "protected" do

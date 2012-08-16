@@ -30,7 +30,7 @@ class Artist < ActiveRecord::Base
   validates_associated :practices
   validates :countries, :length => { :in => 1..7 }, :array_inclusion => { :in => References::COUNTRIES_CODES }
   
-  #callbaks
+  #callbacks
   before_validation do |artist|
     #remove duplicates
     artist.countries |= artist.countries

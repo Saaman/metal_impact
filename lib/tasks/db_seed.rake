@@ -54,22 +54,34 @@ end
 def make_albums
   artists = Artist.operates_as(:band)
   20.times do |n|
-    title = Faker::Lorem.words(PRNG.rand(1..4)).join(" ")
+    title = random_string(1..4)
     kind = Album.kinds.key(PRNG.rand(0..1))
     release_date = Time.now - PRNG.rand(1..100).days- PRNG.rand(1..100).minutes
     album = Album.new(title: title, kind: kind, release_date: release_date)
     album.artists = artists.sample(PRNG.rand(1..3))
+    if PRNG.rand(0..1) == 0
+      album.build_music_label(name: random_string(1..2), distributor: random_string(1..2), website: "http://#{Faker::Internet.domain_name}/#{random_word}")
+    else
+      album.music_label_id = PRNG.rand(1..MusicLabel.count) if MusicLabel.all.count > 0
+    end
     album.save!
   end
 end
 
 def make_single_artist(kind)
-  name = Faker::Lorem.words(PRNG.rand(1..2)).join(" ")
-    biography = Faker::Lorem.paragraphs.join(" ")
-    countries = References::COUNTRIES_CODES.sample(PRNG.rand(1..6))
-    Artist.create(name: name, biography: biography, countries: countries, 
-      practices_attributes: [{:kind => kind}])
+  name = random_string(1..2)
+  biography = Faker::Lorem.paragraphs.join(" ")
+  countries = References::COUNTRIES_CODES.sample(PRNG.rand(1..6))
+  Artist.create(name: name, biography: biography, countries: countries, practices_attributes: [{:kind => kind}])
 end
+
+private
+  def random_string(range)
+    Faker::Lorem.words(PRNG.rand(range)).join(" ")
+  end
+  def random_word
+    Faker::Lorem.words(1)[0]
+  end
 
 #from original post :
 

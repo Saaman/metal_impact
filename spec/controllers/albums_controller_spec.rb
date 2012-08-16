@@ -131,10 +131,12 @@ describe AlbumsController do
           end
           describe "if MusicLabel params are invalid" do
             before { page_attrs[:music_label][:name] = "" }
-            it "does not create MusicLabel nor Album" do
+            it "does not create MusicLabel" do
               expect {
                 post :create, album_params.merge({:album => page_attrs})
               }.not_to change(MusicLabel, :count)
+            end
+            it "does not create Album" do
               expect {
                 post :create, album_params.merge({:album => page_attrs})
               }.not_to change(Album, :count)
