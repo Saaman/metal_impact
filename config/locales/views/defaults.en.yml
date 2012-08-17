@@ -9,3 +9,4 @@ en:
       other: "%{count} errors"
     errors_main: "%{error_count} prohibited this %{entity} from being saved."
     errors_help: "Please correct the form below and save again."
+    or: " or "

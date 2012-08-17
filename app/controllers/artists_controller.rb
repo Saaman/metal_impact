@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   load_and_authorize_resource
-  respond_to :js, :html
+  respond_to :json, :html
 
   # GET /artists/search
   # GET /artists/search.json
@@ -21,6 +21,17 @@ class ArtistsController < ApplicationController
   	respond_with artist do |format|
   		format.html { render :layout => false }
   	end
+  end
+
+  # GET /artists/1
+  # GET /artists/1.json
+  def show
+    @artist = Artist.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @artist }
+    end
   end
 
 end

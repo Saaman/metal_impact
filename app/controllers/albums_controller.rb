@@ -90,7 +90,8 @@ class AlbumsController < ApplicationController
   private
     def build_or_update_album(params)
       @album.attributes = params[:album].slice :title, :release_date, :kind
-      @album.artist_ids = params[:product][:artist_ids] if params.has_key? :product
+      begin
+        @album.artist_ids = params[:product][:artist_ids] if params.has_key? :product
 
       #manage music label
       if (params[:album].has_key?(:create_new_music_label) and params[:album][:create_new_music_label].to_bool)

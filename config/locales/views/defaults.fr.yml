@@ -9,3 +9,4 @@ fr:
       other: "%{count} erreurs"
     errors_main: "%{error_count} est survenue lors de l'enregistrement de %{entity}."
     errors_help: "Veuillez corriger les champs ci-dessous avant d'enregistrer à nouveau."
+    or: " ou "

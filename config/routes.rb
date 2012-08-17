@@ -3,7 +3,7 @@ MetalImpact::Application.routes.draw do
   
   resources :albums
   resources :artists do
-    get 'typeahead', :on => :collection
+    get 'search', :on => :collection
     get 'smallblock', :on => :member
   end
   resources :music_labels, :only => [:new, :create]
@@ -85,7 +85,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 17 Aug 2012 10:23
+# Generated on 17 Aug 2012 17:36
 #
 #                                   POST   /albums(.:format)                    albums#create
 #                         new_album GET    /albums/new(.:format)                albums#new
@@ -93,7 +93,7 @@ end
 #                             album GET    /albums/:id(.:format)                albums#show
 #                                   PUT    /albums/:id(.:format)                albums#update
 #                                   DELETE /albums/:id(.:format)                albums#destroy
-#                 typeahead_artists GET    /artists/typeahead(.:format)         artists#typeahead
+#                    search_artists GET    /artists/search(.:format)            artists#search
 #                 smallblock_artist GET    /artists/:id/smallblock(.:format)    artists#smallblock
 #                           artists GET    /artists(.:format)                   artists#index
 #                                   POST   /artists(.:format)                   artists#create
