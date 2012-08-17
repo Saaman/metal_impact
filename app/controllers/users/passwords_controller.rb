@@ -25,7 +25,6 @@ end
 protected
 
     def after_sending_reset_password_instructions_path_for(resource_name)
-      #logger.info("@user = #{@user}")
     	email_sent_user_password_path(id: @user)
     end
 end

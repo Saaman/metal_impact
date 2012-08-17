@@ -39,9 +39,9 @@ describe ArtistsController do
     end
 
     #Non default routes
-    it "routes to #typeahead" do
-      get("/artists/typeahead").should route_to("artists#typeahead")
-      get(typeahead_artists_path).should route_to("artists#typeahead")
+    it "routes to #search" do
+      get("/artists/search").should route_to("artists#search")
+      get(search_artists_path).should route_to("artists#search")
     end
 
     it "routes to #smallblock" do

@@ -5,11 +5,13 @@ describe "albums/new" do
     assign(:album, FactoryGirl.build(:album_with_artists))
   end
 
-  it "renders new album form" do
+  it "renders album form" do
+    stub_template "shared/_error_messages.html.erb" => "<div>shared_error_messages.html.erb</div>"
     render :partial => "albums/form"
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should have_selector "form", :action => albums_path do |form|
+      form.should have_selector "input", id: "album_artists", type: "hidden"
       @album.artists.each do |artist|
         form.should have_selector "input", id: "product_artist_ids_#{artist.id}", :name => "product[artist_ids]"
       end

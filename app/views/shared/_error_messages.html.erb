@@ -6,4 +6,12 @@
   </div>
   <div style="clear: left;"></div>
 
+  <% if user_is_admin? %>
+  	<ul>
+  	<% object.errors.full_messages.each do |msg| %>
+  		<li><%= msg %></li>
+  	<% end %>
+  	</ul>
+  <% end %>
+
 <% end %>

@@ -4,7 +4,8 @@
     <div class="span8">
       <fieldset>
         <legend><%= t 'albums.screens.new.artists' %></legend>
-          <%= render :partial => "artists/artists_for_product", :locals => {:product => @album, product_name: "album" } %>
+          <%= f.input :artists, :as => :hidden %>
+          <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
       </fieldset>
       <fieldset>
         <legend><%= t 'albums.screens.new.informations' %></legend>

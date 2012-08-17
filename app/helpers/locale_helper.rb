@@ -7,7 +7,6 @@ module LocaleHelper
 	def localized_image_tag(image_name, locale_param=I18n.locale, options={})
 		localized_image_name = String.new(image_name)
 		localized_image_name.insert(image_name.rindex('.'), "-#{locale_param}")
-		logger.info "localized_image_name = #{path_to_image(localized_image_name)}"
 		unless MetalImpact::Application.assets.find_asset(localized_image_name).nil?
 			logger.info("asset trouve : #{MetalImpact::Application.assets.find_asset(localized_image_name).inspect()}")
 			image_tag(localized_image_name, options)

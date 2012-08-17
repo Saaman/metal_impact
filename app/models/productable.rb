@@ -32,13 +32,22 @@ module Productable
       validates :title, presence: true, length: { :maximum => 511}
       validates :release_date, presence: true
       validates_attachment_content_type :cover, :content_type => /image/
-      validates :artists, :length => { :minimum => 1}
+      validates :artist_ids, :length => { :minimum => 1}
 
       #callbacks
       before_save do |product|
         #"ride the lightning" turns into "Ride The Lightning"
         product.title = product.title.titleize
       end
+    end
+  end
+
+  def try_set_artist_ids(artist_ids)
+    begin
+      self.artist_ids = artist_ids
+    rescue Exceptions::ArtistAssociationError => exception
+      self.errors["artists"] = exception.message
+      return false;
     end
   end
 

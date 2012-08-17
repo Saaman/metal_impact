@@ -19,8 +19,6 @@ class Album < ActiveRecord::Base
 
 	include Productable
 
-	ALLOWED_PRACTICE_KIND = :band
-
 	#associations
   belongs_to :music_label
 
@@ -34,10 +32,6 @@ class Album < ActiveRecord::Base
 	validates_associated :music_label, :if => :new_music_label?
 
 	private
-		def ensure_artist_operates_as_band(artist)
-			ensure_artist_operates_as(artist, ALLOWED_PRACTICE_KIND)
-		end
-
 		def new_music_label?
 			music_label.nil? || music_label.new_record?
 		end

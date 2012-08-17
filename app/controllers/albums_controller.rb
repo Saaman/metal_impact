@@ -47,7 +47,7 @@ class AlbumsController < ApplicationController
     build_or_update_album(params)
     
     respond_to do |format|
-      if @album.save
+      if associate_artists(params) and @album.save
         format.html { redirect_to @album, notice: 'Album was successfully created.' }
         format.json { render json: @album, status: :created, location: @album }
       else
@@ -65,7 +65,7 @@ class AlbumsController < ApplicationController
     build_or_update_album(params)
 
     respond_to do |format|
-      if @album.save
+      if associate_artists(params) and @album.save
         format.html { redirect_to @album, notice: 'Album was successfully updated.' }
         format.json { render json: @album, status: :created, location: @album }
       else
@@ -90,8 +90,6 @@ class AlbumsController < ApplicationController
   private
     def build_or_update_album(params)
       @album.attributes = params[:album].slice :title, :release_date, :kind
-      begin
-        @album.artist_ids = params[:product][:artist_ids] if params.has_key? :product
 
       #manage music label
       if (params[:album].has_key?(:create_new_music_label) and params[:album][:create_new_music_label].to_bool)
@@ -100,6 +98,10 @@ class AlbumsController < ApplicationController
       else
         @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
       end
+    end
 
+    def associate_artists(params)
+      #return true if not artists to add. Standard validation will make the save fails
+      params.has_key?(:product) ? @album.try_set_artist_ids(params[:product][:artist_ids]) : true
     end
 end

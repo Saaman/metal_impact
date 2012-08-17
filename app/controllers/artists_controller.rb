@@ -8,8 +8,6 @@ class ArtistsController < ApplicationController
   	@artists = Artist.where("name LIKE ?", "%#{params[:name_like]}%")
   	@artists = @artists.limit(5) if params["format"] == "json"
 
-  	logger.info "@artists = #{@artists}"
-
   	respond_with @artists do |format|
       format.json { render :json => @artists.map{ |a| {name: a.name, id: a.id} } }
     end
@@ -17,7 +15,6 @@ class ArtistsController < ApplicationController
 
   def smallblock
   	artist = Artist.find(params[:id])
-  	logger.info "@artist = #{artist}"
   	respond_with artist do |format|
   		format.html { render :layout => false }
   	end

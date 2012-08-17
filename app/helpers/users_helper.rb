@@ -11,7 +11,7 @@ module UsersHelper
   User.roles.keys.each do |role|
     method_name = ("user_is_" + role.to_s + "?").to_sym
     send :define_method, method_name do
-      user_signed_in? and current_user.role == role
+      user_signed_in? ? (current_user.role == role) : false
     end
   end
 
