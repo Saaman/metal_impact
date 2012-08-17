@@ -22,6 +22,10 @@ end
 #######################################################################################
 
 describe Administration::UsersController do
+  before(:each) do
+    request.env["HTTP_REFERER"] = root_path
+  end
+
   subject { response }
 
   context "anonymous user :" do
@@ -81,6 +85,7 @@ describe Administration::UsersController do
       describe "should show error and redirect to previous when trying to delete unknown user" do
         before do
           get :index
+          request.env["HTTP_REFERER"] = administration_users_path
           delete :destroy, id: "300"
         end
         it { should redirect_to administration_users_path }

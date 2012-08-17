@@ -85,7 +85,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 10 Aug 2012 21:51
+# Generated on 17 Aug 2012 10:23
 #
 #                                   POST   /albums(.:format)                    albums#create
 #                         new_album GET    /albums/new(.:format)                albums#new
@@ -93,7 +93,8 @@ end
 #                             album GET    /albums/:id(.:format)                albums#show
 #                                   PUT    /albums/:id(.:format)                albums#update
 #                                   DELETE /albums/:id(.:format)                albums#destroy
-#                    search_artists GET    /artists/search(.:format)            artists#search
+#                 typeahead_artists GET    /artists/typeahead(.:format)         artists#typeahead
+#                 smallblock_artist GET    /artists/:id/smallblock(.:format)    artists#smallblock
 #                           artists GET    /artists(.:format)                   artists#index
 #                                   POST   /artists(.:format)                   artists#create
 #                        new_artist GET    /artists/new(.:format)               artists#new

@@ -29,7 +29,7 @@ module Productable
       validates :release_date, presence: true
       validates_attachment_content_type :cover, :content_type => /image/
       validates :artists, :length => { :minimum => 1}
-      validates_associated :artists
+      #validates_associated :artists
 
       #callbacks
       before_save do |product|

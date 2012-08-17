@@ -59,6 +59,9 @@ end
 describe AlbumsController do
   before(:all) { 50.times { FactoryGirl.create(:album_with_artists) } }
   after(:all)  { Album.all.each {|a| a.destroy } }
+  before(:each) do
+    request.env["HTTP_REFERER"] = root_path
+  end
 
   subject { response }
 

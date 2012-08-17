@@ -6,6 +6,7 @@ fr:
           attributes:
             email:
               invalid: "doit être une adresse e-mail valide."
+              format: "doit être une adresse e-mail valide."
             email_confirmation:
               custom_confirmation: "L'e-mail et la confirmation ne concordent pas."
             password:

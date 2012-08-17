@@ -10,6 +10,9 @@ end
 #######################################################################################
 
 describe MusicLabelsController do
+  before(:each) do
+    request.env["HTTP_REFERER"] = root_path
+  end
   
   subject { response }
 

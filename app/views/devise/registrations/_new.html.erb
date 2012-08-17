@@ -3,7 +3,7 @@
   <h3><%= t('.title') %></h3>
   <%= render 'shared/flashes' %>
 	<% unless resource.errors[:base].empty? %>
-		<%= content_tag(:div, resource.errors[:base].first.html_safe, class: "alert alert-error") %>
+  	<%= render 'shared/single_error', :collection => resource.errors[:base] %>	
 	<% end %>
 </div>
 

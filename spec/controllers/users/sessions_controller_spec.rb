@@ -25,7 +25,10 @@ end
 
 describe Users::SessionsController do
 	subject { response }
-	before(:each) { @request.env["devise.mapping"] = Devise.mappings[:user] }
+	before(:each) do
+		@request.env["devise.mapping"] = Devise.mappings[:user]
+		request.env["HTTP_REFERER"] = root_path
+	end
 
 	context "anonymous user" do
 		describe "DELETE 'destroy'" do
