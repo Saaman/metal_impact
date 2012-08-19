@@ -17,6 +17,7 @@ gem 'webshims-rails', '~> 0.2'
 gem 'country_select' , '~> 1.0'
 gem 'countries', '~> 0.8'
 gem 'globalize3', '~>0.2'
+gem 'squeel', '~>1.0'
 
 #Async engine
 gem 'delayed_job_active_record', '~>0.3'

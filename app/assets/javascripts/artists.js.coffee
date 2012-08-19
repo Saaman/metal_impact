@@ -2,10 +2,8 @@ $ ->
   $('#artist_typeahead').typeahead(
       # source can be a function
       source: (typeahead, query) ->
-        # this function receives the typeahead object and the query string
-        $.getJSON '/artists/search.json', {'name_like': query}, (data) =>
+        $.getJSON '/artists/search.json', {'name_like': query, 'for-product': $('#artist_typeahead').data("product-type")}, (data) =>
           # data must be a list of either strings or objects
-          # data = [{'name': 'Joe', }, {'name': 'Henry'}, ...]
           typeahead.process(data)
       # if we return objects to typeahead.process we must specify the property
       # that typeahead uses to look up the display value

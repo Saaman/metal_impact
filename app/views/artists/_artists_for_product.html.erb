@@ -6,7 +6,7 @@
 		<div class="control-group string" style="margin-top: 10px;">
 			<label class="string control-label"><%= t 'artists.screens.artists_for_products.add_artist_label' %></label>
 			<div class="controls">
-				<%= text_field_tag 'artist_typeahead', nil, :size => 40, :placeholder => t('defaults.search_terms'), class: 'string skipval' %>
+				<%= text_field_tag 'artist_typeahead', nil, :size => 40, :placeholder => t('defaults.search_terms'), class: 'string skipval', "data-product-type" => "#{product.class.name.downcase}" %>
 			</div>
 		</div>
 	</div>

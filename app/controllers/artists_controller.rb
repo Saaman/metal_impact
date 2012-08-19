@@ -2,10 +2,23 @@ class ArtistsController < ApplicationController
   load_and_authorize_resource
   respond_to :json, :html
 
+  #TODO add tests for these
+  #TODO essayer d'enlever le Artist.all tout moche
+
   # GET /artists/search
   # GET /artists/search.json
   def search
-  	@artists = Artist.where("name LIKE ?", "%#{params[:name_like]}%")
+    limit_search_for_product_type = params["for-product"]
+    
+    unless limit_search_for_product_type.blank?
+      raise "'#{limit_search_for_product_type}' is not a known product type." unless Productable::PRODUCT_ARTIST_PRACTICES_MAPPING.has_key? limit_search_for_product_type.to_sym
+      #limit on artists having practices compliant with product type
+      @artists = Artist.operates_as(Productable::PRODUCT_ARTIST_PRACTICES_MAPPING[limit_search_for_product_type.to_sym])
+    else
+      @artists = Artist.all
+    end
+
+    @artists = @artists.where{name.like my{"%#{params[:name_like]}%"}}
   	@artists = @artists.limit(5) if params["format"] == "json"
 
   	respond_with @artists do |format|
