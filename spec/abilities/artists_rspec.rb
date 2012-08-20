@@ -13,6 +13,8 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:read, artist) }
     it{ should_not be_able_to(:destroy, artist) }
     it{ should_not be_able_to(:update, artist) }
+    it{ should_not be_able_to(:search, artist) }
+    it{ should_not be_able_to(:smallblock, artist) }
   end
 
   context "when is basic user" do
@@ -22,6 +24,8 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:read, artist) }
     it{ should_not be_able_to(:destroy, artist) }
     it{ should_not be_able_to(:update, artist) }
+    it{ should be_able_to(:search, artist) }
+    it{ should be_able_to(:smallblock, artist) }
   end
 
   context "when is admin user" do
@@ -31,5 +35,7 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:read, artist) }
     it{ should be_able_to(:destroy, artist) }
     it{ should be_able_to(:update, artist) }
+    it{ should be_able_to(:search, artist) }
+    it{ should be_able_to(:smallblock, artist) }
   end
 end

@@ -37,7 +37,6 @@ class Artist < ActiveRecord::Base
   end
 
   #scopes
-  #TODO voir si ca a été testé
   scope :operates_as, lambda { |practice_kinds| joins(:practices).where(:practices => {:kind_cd => Practice.kind_codes_from_kinds(practice_kinds)}) }
 
   #methods

@@ -11,6 +11,7 @@ class Ability
     cannot :read, User do |other_user| user.id != other_user.id end
 
     unless(user.new_record?)
+        can [:search, :smallblock], Artist
         can [:destroy, :update], User, :id => user.id
         cannot :create, User
     end

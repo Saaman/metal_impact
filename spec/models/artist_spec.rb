@@ -170,4 +170,11 @@ describe Artist do
       specify { Practice.where(artist_id: @artist.id).should have(1).items }
     end
   end
+
+  describe "scopes : " do
+    describe "operates_as(:band) should not get writers" do
+      let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
+      specify { Artist.operates_as(:band).pluck("artists.id").should_not include(writer.id) }
+    end
+  end
 end

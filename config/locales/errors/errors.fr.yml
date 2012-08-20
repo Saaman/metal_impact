@@ -27,7 +27,7 @@ fr:
       verification_failed_on_sign_up: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha."
   unauthorized:
     manage:
-      all: "You are not authorized to %{action} %{subject}."
+      all: "Vous n'avez pas la permission de réaliser l'action '%{action}' pour un(e) %{subject}."
       user: "Vous ne pouvez pas gérer le compte d'un autre utilisateur"
     update:
       album: "Vous n'avez pas les droits pour mettre à jour cet album."

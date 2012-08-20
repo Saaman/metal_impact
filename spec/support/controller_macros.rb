@@ -13,6 +13,14 @@ module ControllerMacros
       sign_in user
     end
   end
+
+  def stub_abilities
+    before do
+      @ability = Object.new
+      @ability.extend(CanCan::Ability)
+      controller.stub(:current_ability).and_return(@ability)
+    end
+  end
 	# def sign_in_with_capybara(user)
 	# 	visit signin_path
 	#   fill_in "Email",    with: user.email
