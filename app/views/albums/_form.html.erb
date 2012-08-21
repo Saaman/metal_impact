@@ -1,46 +1,35 @@
-<%= simple_form_for @album, :html => { :multipart => true, :class => "form-horizontal" } do |f| %>
+<%= simple_form_for @album, :html => { :multipart => true, :class => "form-horizontal-short" } do |f| %>
   <%= render 'shared/error_messages', :object => @album %>
-  <div class="row-fluid">
-    <div class="span8">
-      <fieldset>
-        <legend><%= t 'albums.screens.new.artists' %></legend>
-          <%= f.input :artists, :as => :hidden %>
-          <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
-      </fieldset>
-      <fieldset>
-        <legend><%= t 'albums.screens.new.informations' %></legend>
-        <%= f.input :title %>
-        <%= f.input :release_date, :as => :date_picker %>
-        <%= f.association :music_label, :prompt => t('albums.screens.new.select_label'), input_html: {class: 'skipval'} %>
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label"><%= t 'albums.screens.new.create_label'%></a>
-          </div>
-          <div id="new_music_label" class="accordion-body collapse" style="height: 0px; ">
-            <div class="accordion-inner">
-              <%= hidden_field_tag 'album[create_new_music_label]', false %>
-              <%= f.fields_for :music_label do |music_label_form| %>
-                <%= render :partial => 'music_labels/form', :locals => {:f => music_label_form} %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('albums.screens.new.select_kind') %>
-      </fieldset>
-    </div>
-    
-    <div class="span6">
-      <fieldset>
-        <legend><%= t 'albums.screens.new.cover' %></legend>
+
+  <fieldset>
+    <legend><%= t 'albums.screens.new.informations' %></legend>
+    <div class="row-fluid content">
+      <div class="span5 add-separator">
+          <%= f.input :title %>
+          <%= f.input :release_date, :as => :date_picker %>
+          <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('albums.screens.new.select_kind') %>
         
+      </div>
+      <div class="span6">
         <% if @album.cover? %>
           <div class="center"><%= image_tag @album.cover.url(:medium), :class => "portrait" %></div>
         <% end %>
         
         <%= f.input :cover, :label => t('albums.screens.new.upload_cover'), :wrapper_html => {:class => "well"}, input_html: {class: 'skipval'} %>
-      </fieldset>
+      </div>
     </div>
-  </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t 'albums.screens.new.label' %></legend>
+    <%= render partial: "label_for_album", locals: {f: f} %>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t 'albums.screens.new.artists' %></legend>
+      <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
+      <%= f.input :artists, :as => :hidden %>
+  </fieldset>
   
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>

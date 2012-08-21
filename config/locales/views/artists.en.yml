@@ -3,4 +3,4 @@ en:
     screens:
       defaults:
         cancel_all_deletions: "Cancel all my deletions"
-        add_artist_label: "Find an artist"
+        add_artist_label: "Artist"

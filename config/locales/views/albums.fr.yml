@@ -12,8 +12,9 @@ fr:
     screens:
       new:
         title: "Ajouter un nouvel album"
-        informations: "Informations"
+        informations: "Informations de base"
         artwork: "Artwork"
+        label: "Informations de label"
         select_label: "Sélectionner un label"
         create_label: "... ou créer un nouveau"
         select_kind: "Sélectionner un type d'album"

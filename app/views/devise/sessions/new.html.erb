@@ -1,7 +1,7 @@
 
 <!-- TODO: Try to redo screens translations this way -->
 <h2><%= t('.title') %></h2>
-<div class="centeredblock" id="new_user_session">
+<div class="centered-content" id="new_user_session">
 	<div class="well">
 		<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), defaults: {label: false} do |f| %>
 			<%= render 'form', f: f %>

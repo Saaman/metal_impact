@@ -10,6 +10,32 @@ $gridColumnWidth: 80px;
 
 /*perso*/
 
+div.add-separator {
+	margin-right: 20px;
+}
+
+@mixin horizontal-form-label-width($width) {
+	.control-label {
+	  float: left;
+	  /*original: width: 140px;*/
+	  width: $width;
+	  padding-top: 5px;
+	  text-align: right;
+	}
+	.controls {
+	  /*original: margin-left: 160px;*/
+	  margin-left: $width+20px;
+	}
+	.form-actions {
+    padding-left: $width+20px;
+	}
+}
+
+.form-horizontal-short {
+	@extend .form_horizontal;
+	@include horizontal-form-label-width(85px);
+}
+
 .ajax-result {
   display: inline;
   width: 20px;
@@ -52,17 +78,21 @@ span.insidediv {
 	vertical-align: middle;
 }
 
-.centeredblock {
-	margin-left: auto;
-  margin-right: auto;
-  width: 630px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .content {
 	margin-top: 20px;
   margin-bottom: 20px;
+}
+
+fieldset .content {
+	@extend .content;
+	padding-top: 10px;
+}
+
+.centered-content {
+	@extend .content;
+	margin-left: auto;
+  margin-right: auto;
+  width: 630px;
 }
 
 .all-center {
@@ -70,7 +100,7 @@ span.insidediv {
 	text-align: center;
 	margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
+  #margin-top: 50px;
 }
 
 .align-right {
