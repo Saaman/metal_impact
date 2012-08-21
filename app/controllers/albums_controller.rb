@@ -2,6 +2,8 @@ class AlbumsController < ApplicationController
   load_and_authorize_resource
   skip_load_resource :only => :create
 
+  #TODO use respond_with
+
   # GET /albums
   # GET /albums.json
   def index
@@ -44,17 +46,7 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
     @album = Album.new
-    build_or_update_album(params)
-    
-    respond_to do |format|
-      if associate_artists(params) and @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
-        format.json { render json: @album, status: :created, location: @album }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
-      end
-    end
+    create_or_update_album(params, "new")
   end
 
   # PUT /albums/1
@@ -62,17 +54,7 @@ class AlbumsController < ApplicationController
   def update
 
     @album = Album.find(params[:id])
-    build_or_update_album(params)
-
-    respond_to do |format|
-      if associate_artists(params) and @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
-        format.json { render json: @album, status: :created, location: @album }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
-      end
-    end
+    create_or_update_album(params, "edit")
   end
 
   # DELETE /albums/1
@@ -88,6 +70,21 @@ class AlbumsController < ApplicationController
   end
 
   private
+
+    def create_or_update_album(params, template)
+      build_or_update_album(params)
+
+      respond_to do |format|
+        if associate_artists(params) and @album.save
+          format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
+          format.json { render json: @album, location: @album }
+        else
+          format.html { render action: template }
+          format.json { render json: @album.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
     def build_or_update_album(params)
       @album.attributes = params[:album].slice :title, :release_date, :kind
 

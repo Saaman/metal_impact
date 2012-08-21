@@ -9,3 +9,7 @@ en:
       album:
         kind: "type"
         title: "title"
+    notices:
+      album:
+        create: "Album was successfully created."
+        update: "Album was successfully updated."

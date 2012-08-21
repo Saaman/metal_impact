@@ -4,3 +4,6 @@ $(document).ready ->
 		language: I18n.currentLocale()
 		autoclose: true
 	}
+
+	$('input[name$="typeahead"]').wrap('<div class="input-append">')
+	.parent().append('<span class="add-on"><i class="icon-search"></i></span>')

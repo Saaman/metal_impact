@@ -6,7 +6,7 @@
     <%= render(partial: "music_labels/show", :locals => {music_label: @album.music_label}) unless @album.music_label.nil? %>
   </div>
 </div>
-<% if user_is_admin? %>
+<% if can? :create, MusicLabel %>
   <div class="row-fluid">
     <div class="span2"></div>
     <div class="span8">
