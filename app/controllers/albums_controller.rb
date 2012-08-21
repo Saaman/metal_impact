@@ -1,45 +1,32 @@
 class AlbumsController < ApplicationController
   load_and_authorize_resource
   skip_load_resource :only => :create
-
-  #TODO use respond_with
+  respond_to :html
 
   # GET /albums
-  # GET /albums.json
   def index
     @albums = Album.paginate(page: params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @albums }
-    end
+    respond_with @albums
   end
 
   # GET /albums/1
   # GET /albums/1.json
   def show
     @album = Album.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @album }
-    end
+    respond_with @album
   end
 
   # GET /albums/new
   # GET /albums/new.json
   def new
     @album = Album.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @album }
-    end
+    respond_with @album
   end
 
   # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
+    respond_with @album
   end
 
   # POST /albums
@@ -62,10 +49,8 @@ class AlbumsController < ApplicationController
   def destroy
     @album = Album.find(params[:id])
     @album.destroy
-
-    respond_to do |format|
+    respond_with @album do |format|
       format.html { redirect_to albums_url }
-      format.json { head :no_content }
     end
   end
 

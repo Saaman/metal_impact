@@ -63,7 +63,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   
   #tools
-  gem 'foreman', '~>0'
+  gem 'foreman', '~>0.53.0'
     # Windows gems
     gem 'rb-fchange', '~> 0'
     gem 'win32console', '~> 1.3'

@@ -9,6 +9,8 @@ en:
         kind: "Type"
         cover: "Artwork"
   albums:
+    form:
+      basic_information: "Basic information"
     screens:
       new:
         title: "Add a new album"
