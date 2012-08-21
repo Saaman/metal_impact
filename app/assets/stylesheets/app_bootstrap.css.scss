@@ -55,8 +55,13 @@ span.insidediv {
 .centeredblock {
 	margin-left: auto;
   margin-right: auto;
-  width: 580px;
+  width: 630px;
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.content {
+	margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -103,4 +108,8 @@ h1 {
 
 #cancel_artists_deletions {
 	width: 150px;
+}
+
+.date-part {
+	width: 80px;
 }

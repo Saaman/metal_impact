@@ -1,15 +1,18 @@
 <h2><%= t('.title') %></h2>
-<div class="row centeredblock"  style="width:65%;">
-
-		<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :defaults => { :label_html => { :class => 'span3' }, :placeholder => false}, remote: true) do |f| %>
-			
-			<%= render 'form', f: f %>
-			<div class="row">
-				<div class="span4"><%= my_recaptcha_tags %></div>
-				<div class="span2 all-center">
-					<%= f.button :submit, :class => 'btn-primary' %>
-		    </div>
-			</div>
-		<% end %>
-
+<div class="row-fluid content">
+	<div class="span2"></div>
+	<div class="span8">
+		<div class="well">
+			<%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: "form-horizontal"} do |f| %>
+				
+				<%= render 'form', f: f %>
+				<div class="row-fluid btn-toolbar">
+					<div class="span8"><%= my_recaptcha_tags %></div>
+					<div class="span4 all-center">
+						<%= f.button :submit, :class => 'btn-primary' %>
+			    </div>
+				</div>
+			<% end %>
+		</div>
+	</div>
 </div>

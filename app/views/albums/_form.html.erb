@@ -1,6 +1,6 @@
 <%= simple_form_for @album, :html => { :multipart => true, :class => "form-horizontal" } do |f| %>
   <%= render 'shared/error_messages', :object => @album %>
-  <div class="row">
+  <div class="row-fluid">
     <div class="span8">
       <fieldset>
         <legend><%= t 'albums.screens.new.artists' %></legend>

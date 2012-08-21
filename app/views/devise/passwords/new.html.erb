@@ -3,17 +3,17 @@
 <div class="centeredblock">
 	<div class="well">
 		<p><%= t(".reset_password_expl") %></p>
-		<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :defaults => { :placeholder => false }) do |f| %>
-		  <%= f.input :email, input_html: { class: 'span2', autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
+		<%= simple_form_for resource, :as => resource_name, :url => password_path(resource_name), :defaults => { :placeholder => false }, html: {class: "form-horizontal"} do |f| %>
+		  <%= f.input :email, input_html: { autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
 
 		  <% unless resource.errors[:base].empty? %>
 				<%= content_tag(:div, resource.errors[:base].first.html_safe, class: "alert alert-error", style: "margin-top: 15px;") %>
 			<% end %>
 			<%= render 'shared/flashes' %>
 
-		  <div class="row" style="margin-top: 15px;">
-				<div class="span4"><%= my_recaptcha_tags %></div>
-				<div class="span2 all-center">
+		  <div class="row-fluid" style="margin-top: 15px;">
+				<div class="span8"><%= my_recaptcha_tags %></div>
+				<div class="span4 all-center">
 			  	<%= f.button :submit, t(".reset_password"), :class => 'btn-primary' %>
 			  </div>
 			</div>

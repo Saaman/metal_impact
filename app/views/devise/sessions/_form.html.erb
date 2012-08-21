@@ -1,21 +1,19 @@
-<div class="span6">
-	<div class="row">
-		
-		<div class="span3 left-side">
-			<%= f.input :email, required: true, :label => false, input_html: { class: 'span3', autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
-			<%= f.input :password, :required => true, :pattern => :lookup, :label => false, input_html: { class: 'span3', pattern: User::VALID_PASSWORD_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.password.invalid")}\"}" } %>
-		  <%= f.input :remember_me, :label => false, :inline_label => t('simple_form.labels.defaults.remember_me'), input_html: { class: 'skipval' }, :as => :boolean if devise_mapping.rememberable? %>
-		  <div class="controls">
-		  	<%= f.button :submit, t(".connection"), :class => 'btn-primary' %>
-		  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-				  <span class="insidediv"><%= link_to t(".password_forgotten"), new_password_path(resource_name) %></span>
-				<% end -%>
-		  </div>
-		</div>
-		<div class="span2 right-side">
-			<%= localized_image_tag "fb-connect.png" %>
-			<%= localized_image_tag "twitter-connect.png" %>
-			<%= localized_image_tag "google-connect.png" %>
-		</div>
+<div class="row-fluid">
+	
+	<div class="span5 left-side">
+		<%= f.input :email, required: true, input_html: { autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
+		<%= f.input :password, :required => true, :pattern => :lookup, input_html: { pattern: User::VALID_PASSWORD_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.password.invalid")}\"}" } %>
+	  <%= f.input :remember_me, :inline_label => t('simple_form.labels.defaults.remember_me'), input_html: { class: 'skipval' }, :as => :boolean if devise_mapping.rememberable? %>
+	  <div class="controls">
+	  	<%= f.button :submit, t(".connection"), :class => 'btn-primary' %>
+	  	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+			  <span class="insidediv"><%= link_to t(".password_forgotten"), new_password_path(resource_name) %></span>
+			<% end -%>
+	  </div>
+	</div>
+	<div class="span6 right-side">
+		<%= localized_image_tag "fb-connect.png" %>
+		<%= localized_image_tag "twitter-connect.png" %>
+		<%= localized_image_tag "google-connect.png" %>
 	</div>
 </div>

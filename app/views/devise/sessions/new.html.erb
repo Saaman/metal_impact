@@ -1,13 +1,15 @@
 
+<!-- TODO: Try to redo screens translations this way -->
 <h2><%= t('.title') %></h2>
-<div class="row centeredblock" id="new_user_session">
-	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-		<%= render 'form', f: f %>
-	<% end %>
-</div>
-<div class="span6">
-	<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-		<%= t ".no_account_line" %>
-  	<%= link_to t(".sign_up"), new_registration_path(resource_name), :remote => true %>
-	<% end -%>
+<div class="centeredblock" id="new_user_session">
+	<div class="well">
+		<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), defaults: {label: false} do |f| %>
+			<%= render 'form', f: f %>
+		<% end %>
+
+		<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+			<%= t ".no_account_line" %>
+			<%= link_to t(".sign_up"), new_registration_path(resource_name), :remote => true %>
+		<% end -%>
+	</div>
 </div>

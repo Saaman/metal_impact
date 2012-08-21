@@ -7,7 +7,7 @@
 	<% end %>
 </div>
 
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), remote: true) do |f| %>
+<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), remote: true, defaults: {label: false} do |f| %>
 	
 	<div class="modal-body" id="new_user_session">
 		<%= render 'form', f: f %>
