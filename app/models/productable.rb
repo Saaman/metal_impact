@@ -26,8 +26,8 @@ module Productable
 
     	#attributes
       attr_accessible :release_date, :title, :cover
-      has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
-
+      has_attached_file :cover, :styles => { :medium => ["300x300>", :jpg], :thumb => ["50x50>", :jpg] }
+      
       #validations
       validates :title, presence: true, length: { :maximum => 511}
       validates :release_date, presence: true

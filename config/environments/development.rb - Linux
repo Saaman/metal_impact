@@ -49,6 +49,6 @@ MetalImpact::Application.configure do
   config.action_mailer.delivery_method = :letter_opener
 
   #imageMagic path for PaperClip
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  Paperclip.options[:command_path] = "/usr/local/bin"
   Paperclip.options[:swallow_stderr] = false
 end

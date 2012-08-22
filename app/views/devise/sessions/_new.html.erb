@@ -16,7 +16,7 @@
 	<div class="modal-footer" id="new_user_session_footer">
 		<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
 			<%= t ".no_account_line" %>
-	  	<%= link_to t ".sign_up", new_registration_path(resource_name), :remote => true %>
+	  	<%= link_to t(".sign_up"), new_registration_path(resource_name), :remote => true %>
 		<% end -%>
 	</div>
 <% end %>
