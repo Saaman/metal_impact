@@ -25,7 +25,7 @@ module Productable
       has_and_belongs_to_many :artists, :before_add => :check_artists_practices
 
     	#attributes
-      attr_accessible :release_date, :title
+      attr_accessible :release_date, :title, :cover
       has_attached_file :cover, :styles => { :medium => ["300x300>", :png], :thumb => ["50x50>", :png] }, :default_url => '/system/albums/covers/questionMarkIcon.jpg'
 
       #validations

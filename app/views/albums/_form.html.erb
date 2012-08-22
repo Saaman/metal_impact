@@ -5,17 +5,17 @@
     <legend><%= t '.basic_information' %></legend>
     <div class="row-fluid content">
       <div class="span5 add-separator">
-          <%= f.input :title %>
-          <%= f.input :release_date, :as => :date_picker %>
-          <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
+        <%= f.input :title %>
+        <%= f.input :release_date, :as => :date_picker %>
+        <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
         
       </div>
-      <div class="span6">
+      <div class="span6 well">
         <% if @album.cover? %>
           <div class="center"><%= image_tag @album.cover.url(:medium), :class => "portrait" %></div>
         <% end %>
         
-        <%= f.input :cover, :label => t('.upload_cover'), :wrapper_html => {:class => "well"}, input_html: {class: 'skipval'} %>
+        <%= f.input :cover, :hint => t('.upload_cover'), :wrapper_html => {:class => "fileinputs"}, input_html: {class: 'skipval'}, :wrapper => :file_field %>
       </div>
     </div>
   </fieldset>

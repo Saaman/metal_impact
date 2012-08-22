@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2.5'
 gem 'railties', '~> 3.2.5'
-gem 'jquery-rails', '~> 2.0.0'
 gem 'will_paginate', '~> 3.0.3'
 gem 'devise', '~> 2.1.2'
 gem 'cancan', '~> 1.6.8'
@@ -13,11 +12,16 @@ gem 'http_accept_language', '~> 1.0.2'
 gem 'foreigner', '~> 1.2'
 gem 'validates_timeliness', '~> 3.0.12'
 gem 'simple_enum', '~> 1.6.1'
-gem 'webshims-rails', '~> 0.2'
 gem 'country_select' , '~> 1.0'
 gem 'countries', '~> 0.8'
 gem 'globalize3', '~>0.2'
 gem 'squeel', '~>1.0'
+
+#UI gems
+gem 'webshims-rails', '~> 0.2'
+gem 'jquery-rails', '~> 2.0.0'
+gem 'anjlab-bootstrap-rails', '~> 2.0.4', :require => 'bootstrap-rails'
+gem 'bootstrap-will_paginate', '~> 0.0'
 
 #Async engine
 gem 'delayed_job_active_record', '~>0.3'
