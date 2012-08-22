@@ -1,6 +1,5 @@
 fr:
   artists:
-    screens:
-      artists_for_products:
-        cancel_all_deletions: "Annuler toutes mes suppressions"
-        add_artist_label: "Artiste"
+    artists_for_product:
+      cancel_all_deletions: "Annuler toutes mes suppressions"
+      add_artist_label: "Artiste"

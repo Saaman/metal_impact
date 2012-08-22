@@ -4,13 +4,13 @@
 <div class="row-fluid">
 	<div class="span7 add-separator">
 		<div class="control-group string" style="margin-top: 10px;">
-			<label class="string control-label"><%= t 'artists.screens.artists_for_products.add_artist_label' %></label>
+			<label class="string control-label"><%= t '.add_artist_label' %></label>
 			<div class="controls">
 				<%= text_field_tag 'artist_typeahead', nil, :placeholder => t('defaults.search_terms'), class: 'string skipval input-large', "data-product-type" => "#{product.class.name.downcase}" %>
 			</div>
 		</div>
 	</div>
 	<div class="span3">
-		<button type="button" id="cancel_artists_deletions" class="btn" disabled="true"><%= t 'artists.screens.artists_for_products.cancel_all_deletions' %></button>
+		<button type="button" id="cancel_artists_deletions" class="btn" disabled="true"><%= t '.cancel_all_deletions' %></button>
 	</div>
 </div>

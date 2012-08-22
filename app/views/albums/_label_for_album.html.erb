@@ -1,6 +1,6 @@
 <div class="row-fluid content">
   <div class="span5 add-separator">
-    <%= f.association :music_label, :prompt => t('albums.screens.new.select_label'), input_html: {class: 'skipval'}, :wrapper_html => { style: "margin-top:30px;" } %>
+    <%= f.association :music_label, :prompt => t('.select_label'), input_html: {class: 'skipval'}, :wrapper_html => { style: "margin-top:30px;" } %>
   </div>
   <div class="span6 well">
     <%= render(partial: "music_labels/show", :locals => {music_label: @album.music_label}) unless @album.music_label.nil? %>
@@ -12,7 +12,7 @@
     <div class="span8">
       <div class="accordion-group">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label"><%= t 'albums.screens.new.create_label'%></a>
+          <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label"><%= t '.create_label'%></a>
         </div>
         <div id="new_music_label" class="accordion-body collapse" style="height: 0px; ">
           <div class="accordion-inner">

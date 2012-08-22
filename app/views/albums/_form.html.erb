@@ -7,7 +7,7 @@
       <div class="span5 add-separator">
           <%= f.input :title %>
           <%= f.input :release_date, :as => :date_picker %>
-          <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('albums.screens.new.select_kind') %>
+          <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
         
       </div>
       <div class="span6">
@@ -15,18 +15,18 @@
           <div class="center"><%= image_tag @album.cover.url(:medium), :class => "portrait" %></div>
         <% end %>
         
-        <%= f.input :cover, :label => t('albums.screens.new.upload_cover'), :wrapper_html => {:class => "well"}, input_html: {class: 'skipval'} %>
+        <%= f.input :cover, :label => t('.upload_cover'), :wrapper_html => {:class => "well"}, input_html: {class: 'skipval'} %>
       </div>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend><%= t 'albums.screens.new.label' %></legend>
+    <legend><%= t '.label' %></legend>
     <%= render partial: "label_for_album", locals: {f: f} %>
   </fieldset>
 
   <fieldset>
-    <legend><%= t 'albums.screens.new.artists' %></legend>
+    <legend><%= t '.artists' %></legend>
       <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
       <%= f.input :artists, :as => :hidden %>
   </fieldset>

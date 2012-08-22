@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button class="close" data-dismiss="modal">×</button>
-  <h3><%= t('.title') %></h3>
+  <h3><%= t '.title'  %></h3>
   <%= render 'shared/flashes' %>
 	<% unless resource.errors[:base].empty? %>
   	<%= render 'shared/single_error', :collection => resource.errors[:base] %>	
@@ -23,7 +23,7 @@
 		<%= render "links" %>
 		<div class="btn-toolbar">
 			<%= f.button :submit, :class => 'btn-primary' %>
-		  <button class="btn btn-small" data-dismiss="modal"><%= t("helpers.cancel") %></button>
+		  <button class="btn btn-small" data-dismiss="modal"><%= t "helpers.cancel" %></button>
     </div>
 	</div>
 

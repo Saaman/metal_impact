@@ -11,20 +11,17 @@ en:
   albums:
     form:
       basic_information: "Basic information"
-    screens:
-      new:
-        title: "Add a new album"
-        informations: "Base information"
-        artwork: "Artwork"
-        label: "Label information"
-        select_label: "Select a label"
-        create_label: "... or create a new one"
-        select_kind: "Select a kind of album"
-        cover: "Cover"
-        upload_cover : "Upload a cover"
-        artists: "Artists"
-      edit:
+      label: "Label information"
+      artists: "Artists"
+      select_kind: "Select a kind of album"
+      upload_cover : "Upload a cover"
+    label_for_album:
+      select_label: "Select a label"
+      create_label: "... or create a new one"
+    edit:
         title: "Edit album"
+    new:
+        title: "Add a new album"  
   helpers:
     submit:
       album:

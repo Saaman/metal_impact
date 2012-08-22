@@ -11,20 +11,17 @@ fr:
   albums:
     form:
       basic_information: "Informations de base"
-    screens:
-      new:
-        title: "Ajouter un nouvel album"
-        informations: "Informations de base"
-        artwork: "Artwork"
-        label: "Informations de label"
-        select_label: "Sélectionner un label"
-        create_label: "... ou créer un nouveau"
-        select_kind: "Sélectionner un type d'album"
-        cover: "Artwork"
-        upload_cover : "Publier un artwork"
-        artists: "Artistes"
-      edit:
+      label: "Informations de label"
+      artists: "Artistes"
+      select_kind: "Sélectionner un type d'album"
+      upload_cover : "Publier un artwork"
+    label_for_album:
+      select_label: "Sélectionner un label"
+      create_label: "... ou créer un nouveau"
+    edit:
         title: "Modifier un album"
+    new:
+        title: "Ajouter un nouvel album"  
   helpers:
     submit:
       album:

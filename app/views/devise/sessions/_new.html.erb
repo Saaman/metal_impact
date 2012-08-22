@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button class="close" data-dismiss="modal">×</button>
-  <h3><%= t('.title') %></h3>
+  <h3><%= t '.title' %></h3>
   <%= render 'shared/flashes' %>
   <% unless resource.errors[:base].empty? %>
   	<%= render 'shared/single_error', :collection => resource.errors[:base] %>	
@@ -16,7 +16,7 @@
 	<div class="modal-footer" id="new_user_session_footer">
 		<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
 			<%= t ".no_account_line" %>
-	  	<%= link_to t(".sign_up"), new_registration_path(resource_name), :remote => true %>
+	  	<%= link_to t ".sign_up", new_registration_path(resource_name), :remote => true %>
 		<% end -%>
 	</div>
 <% end %>
