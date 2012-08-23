@@ -1,6 +1,6 @@
 fr:
   music_labels:
-    show:
+    smallblock:
       name: "Nom : "
       website: "Site web : "
       distributor: "Distributeur : "

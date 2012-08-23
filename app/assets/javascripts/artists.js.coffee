@@ -13,10 +13,12 @@ $ ->
           $('#artists_association').append(data)
     )
 
+  #hide artist label when unchecking artist
   $('#artists_association').on 'change', '.artist_label', (e) ->
     $(e.currentTarget).hide 'fast'
     $('#cancel_artists_deletions').addClass('btn-info').prop 'disabled', false
 
+  #undo all hides, reset screens with all artists shown
   $('#cancel_artists_deletions').on 'click', (e) ->
     $('#artists_association input:checkbox').prop 'checked', true
     $('#artists_association .artist_label').show 'fast'

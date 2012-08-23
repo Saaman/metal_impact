@@ -12,6 +12,7 @@ class Ability
 
     unless(user.new_record?)
         can [:search, :smallblock], Artist
+        can [:smallblock], MusicLabel
         can [:destroy, :update], User, :id => user.id
         cannot :create, User
     end

@@ -34,8 +34,7 @@ class ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
+    respond_with @artist do |format|
       format.json { render json: @artist }
     end
   end

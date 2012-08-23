@@ -61,7 +61,7 @@ describe ArtistsController do
   describe "GET smallblock :" do
   	let(:artist) { FactoryGirl.create(:artist) }
   	describe "(unauthorized)" do
-			before { get :search, {name_like: "rot"} }
+			before { get :smallblock, {id: artist.id} }
 			its_access_is "unauthorized"
   	end
   	describe "(authorized)" do

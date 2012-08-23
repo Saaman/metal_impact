@@ -10,6 +10,7 @@ end
 #######################################################################################
 
 describe MusicLabelsController do
+  stub_abilities
   before(:each) do
     request.env["HTTP_REFERER"] = root_path
   end
@@ -35,10 +36,25 @@ describe MusicLabelsController do
     login_admin
 
     describe "GET new" do
-      it "assigns a new music label as @musicLabel" do
+      it "assigns a new music label as @music_label" do
         get :new
-        assigns(:musicLabel).should be_a_new(MusicLabel)
+        assigns(:music_label).should be_a_new(MusicLabel)
       end
+    end
+  end
+
+
+  describe "GET smallblock :" do
+    let(:music_label) { FactoryGirl.create(:music_label) }
+    describe "(unauthorized)" do
+      before { get :smallblock, {id: music_label.id} }
+      its_access_is "unauthorized"
+    end
+    describe "(authorized)" do
+      before(:each) { @ability.can :smallblock, MusicLabel }
+      before { get :smallblock, {id: music_label.id} }
+      it { should render_template("smallblock") }
+      specify { assigns(:music_label).should == music_label }
     end
   end
 end
