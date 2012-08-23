@@ -1,28 +1,40 @@
 <div class="row-fluid content">
-  <div class="span5 add-separator">
-    <%= f.association :music_label, :prompt => t('.select_label'), input_html: {class: 'skipval'}, :wrapper_html => { style: "margin-top:30px;" } %>
-  </div>
-  <div class="span6 well">
-    <%= render(partial: "music_labels/show", :locals => {music_label: @album.music_label}) unless @album.music_label.nil? %>
-  </div>
-</div>
+
 <% if can? :create, MusicLabel %>
-  <div class="row-fluid">
-    <div class="span2"></div>
-    <div class="span8">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-target="#new_music_label"><%= t '.create_label'%></a>
-        </div>
-        <div id="new_music_label" class="accordion-body collapse" style="height: 0px; ">
-          <div class="accordion-inner">
-            <%= hidden_field_tag 'album[create_new_music_label]', false %>
-            <%= f.fields_for :music_label do |music_label_form| %>
-              <%= render :partial => 'music_labels/form', :locals => {:f => music_label_form} %>
-            <% end %>
-          </div>
-        </div>
+
+  <div class="span4">
+    <ul class="nav nav-pills nav-stacked side-padded" id="label-for-album-pills">
+      <li class="active">
+        <a href="#label_finder" data-toggle="pill"><%= t '.select_existing_label' %></a>
+      </li>
+      <li><a href="#label_form" data-toggle="pill"><%= t '.create_label'%></a></li>
+    </ul>
+  </div>
+
+  <div class="span7">
+    <div class="tab-content">
+      <div class="tab-pane active" id="label_finder">
+
+<% end %>
+
+        <div><%= f.association :music_label, :prompt => t('.select_label'), input_html: {class: 'skipval'} %></div>
+        <div class="side-padded"><div class="well">
+          <%= render(partial: "music_labels/show", :locals => {music_label: @album.music_label}) unless @album.music_label.nil? %>
+        </div></div>
+
+<% if can? :create, MusicLabel %>
+
+      </div>
+
+      <div class="tab-pane" id="label_form">
+        <%= hidden_field_tag 'album[create_new_music_label]', false %>
+        <%= f.fields_for :music_label do |music_label_form| %>
+          <%= render :partial => 'music_labels/form', :locals => {:f => music_label_form} %>
+        <% end %>
       </div>
     </div>
   </div>
+
 <% end %>
+
+</div>

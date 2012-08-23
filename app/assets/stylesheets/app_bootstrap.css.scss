@@ -27,7 +27,7 @@ div.add-separator {
 
 .form-horizontal-short {
 	@extend .form_horizontal;
-	@include horizontal-form-label-width(85px);
+	@include horizontal-form-label-width(100px);
 }
 
 .ajax-result {
@@ -136,4 +136,9 @@ h1 {
 
 .date-part {
 	width: 80px;
+}
+
+.side-padded{
+	padding-left: 15px;
+	padding-right: 15px;
 }

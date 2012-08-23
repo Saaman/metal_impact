@@ -26,4 +26,15 @@ fr:
     buttons:
       or: 'or'
       cancel: 'cancel'
+    labels:
+      defaults:
+        title: "Titre"
+        artist_ids: "Artistes"
+        release_date: "Date de sortie"
+        music_label_id: "Label"
+        kind: "Type"
+        cover: "Artwork"
+        name: "Nom"
+        website: "Site web"
+        distributor: "Distributeur"
 

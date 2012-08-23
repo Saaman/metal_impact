@@ -19,21 +19,7 @@ en:
       errors:
         email_taken: "<b>Unknown account</b><br/>No account is associated to <b>%{email}</b> e-mail address."
       email_sent:
-        reset_password_result: "You will receive an email at <b>%{user}</b> with instructions about how to reset your password in a few minutes."
-  simple_form:
-    labels:
-      defaults:
-        email: "E-mail address"
-        email_confirmation: "E-mail address confirmation"
-        password: "Password"
-        pseudo: "Pseudo"
-        gender: "Gender"
-        date_of_birth: "Date of birth"
-        remember_me: "Remember my credentials"
-    placeholders:
-      user:
-        email: "E-mail address"
-        password: "Password"
+        reset_password_result: "You will receive an email at <b>%{user}</b> with instructions about how to reset your password in a few minutes."      
   helpers:
     submit:
       user:

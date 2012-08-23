@@ -1,0 +1,6 @@
+en:
+  music_labels:
+    show:
+      name: "Name : "
+      website: "Website : "
+      distributor: "Distributor : "

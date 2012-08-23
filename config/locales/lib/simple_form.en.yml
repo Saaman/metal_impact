@@ -26,4 +26,26 @@ en:
     buttons:
       or: 'or'
       cancel: 'cancel'
+    labels:
+      defaults:
+        title: "Title"
+        artist_ids: "Artists"
+        release_date: "Release date"
+        music_label_id: "Label"
+        kind: "Type"
+        cover: "Artwork"
+        name: "Name"
+        website: "Website url"
+        distributor: "distributor"
+        email: "E-mail address"
+        email_confirmation: "E-mail address confirmation"
+        password: "Password"
+        pseudo: "Pseudo"
+        gender: "Gender"
+        date_of_birth: "Date of birth"
+        remember_me: "Remember my credentials"
+    placeholders:
+      user:
+        email: "E-mail address"
+        password: "Password"
 

@@ -20,20 +20,6 @@ fr:
         email_taken: "<b>Compte inconnu</b><br/>Aucun compte associé à l'adresse e-mail <b>%{email}</b> n'a été trouvé."
       email_sent:
         reset_password_result: "Vous allez recevoir sous quelques minutes un email à l'adresse <b>%{user}</b> vous indiquant comment réinitialiser votre mot de passe."
-  simple_form:
-    labels:
-      defaults:
-        email: "Adresse e-mail"
-        email_confirmation: "Confirmez votre adresse e-mail"
-        password: "Mot de passe"
-        pseudo: "Pseudo"
-        gender: "Genre"
-        date_of_birth: "Date de naissance"
-        remember_me: "Mémoriser mes identifiants"
-    placeholders:
-      user:
-        email: "Adresse e-mail"
-        password: "Mot de passe"
   helpers:
     submit:
       user:

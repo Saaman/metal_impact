@@ -1,13 +1,4 @@
 en:
-  simple_form:
-    labels:
-      defaults:
-        title: "Title"
-        artist_ids: "Artists"
-        release_date: "Release date"
-        music_label_id: "Label"
-        kind: "Type"
-        cover: "Artwork"
   albums:
     form:
       basic_information: "Basic information"
@@ -17,7 +8,8 @@ en:
       upload_cover : "Upload a cover"
     label_for_album:
       select_label: "Select a label"
-      create_label: "... or create a new one"
+      select_existing_label: "Choose an existing label"
+      create_label: "Create a new label"
     edit:
         title: "Edit album"
     new:
