@@ -22,8 +22,4 @@ class Practice < ActiveRecord::Base
 	#validations
 	validates_as_enum :kind
 	validates_presence_of :artist
-
-	def self.kind_codes_from_kinds(kinds)
-		Array.new.push(kinds).flatten.map{|x| Practice.kinds(x)}
-  end
 end

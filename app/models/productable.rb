@@ -53,10 +53,9 @@ module Productable
 
   private
     def check_artists_practices(artist)
-      practice_kinds = Array.new.push(PRODUCT_ARTIST_PRACTICES_MAPPING[self.class.name.downcase.to_sym]).flatten
-      has_the_required_practice = artist.practices.exists? :kind_cd => Practice.kind_codes_from_kinds(practice_kinds)
-      unless has_the_required_practice
-        practices_kinds_names = practice_kinds.collect { |x| "'" + I18n.t("activerecord.enums.practice.kinds.#{x.to_s}") + "'" }
+      practice_kinds = Array(PRODUCT_ARTIST_PRACTICES_MAPPING[self.class.name.downcase.to_sym])
+      unless artist.practices.exists? :kind_cd => Practice.kinds(*practice_kinds)
+        practices_kinds_names = practice_kinds.collect { |x|  "'" + Practice.human_enum_name(:kinds, x) + "'" }
         raise Exceptions::ArtistAssociationError.new(I18n.t("exceptions.artist_association_error", artist_name: artist.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or"))))
       end
     end
