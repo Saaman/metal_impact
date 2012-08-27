@@ -46,3 +46,6 @@ config/database.yml
 #sensible data
 .*env
 deploy.sh
+
+#business data
+/db/fixtures/*.*

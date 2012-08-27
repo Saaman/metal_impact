@@ -132,14 +132,12 @@ describe User do
           it { should be_invalid }
       end
 
-      describe "have upper case" do
-          before { @user.password = "aahHHHFklz56" }
+      describe "has correct format" do
+        valid_passwords =  %w[aahHHHFklz56 aefD2!er JB99999]
+        valid_passwords.each do |valid_password|
+          before { @user.password = valid_password }
           it { should be_valid }
-      end
-
-      describe "is well formed" do
-          before { @user.password = "aefD2!er" }
-          it { should be_valid }
+        end
       end
     end
 
