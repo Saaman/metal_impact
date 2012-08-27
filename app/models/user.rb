@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   after_initialize :default_values
 
-  VALID_PASSWORD_PATTERN = '^(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-z]).*$'
+  VALID_PASSWORD_PATTERN = '^(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-zA-Z]).*$'
 	VALID_EMAIL_PATTERN = '\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}\b'
 
 	validates :email, presence: true, format: { with: /#{VALID_EMAIL_PATTERN}/ }, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
