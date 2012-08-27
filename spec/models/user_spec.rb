@@ -161,7 +161,7 @@ describe User do
     describe "when date of birth" do
       describe "is invalid" do
         before { @user.date_of_birth = "tata" }
-        it { should be_valid }
+        it { should_not be_valid }
         its(:date_of_birth) { should be_nil }
       end
       describe "is in the future" do

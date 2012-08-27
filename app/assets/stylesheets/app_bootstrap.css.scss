@@ -29,6 +29,10 @@ div.add-separator {
 	@extend .form_horizontal;
 	@include horizontal-form-label-width(100px);
 }
+.form-horizontal-large {
+	@extend .form_horizontal;
+	@include horizontal-form-label-width(220px);
+}
 
 .ajax-result {
   display: inline;
@@ -94,7 +98,7 @@ fieldset .content {
 	text-align: center;
 	margin-left: auto;
   margin-right: auto;
-  #margin-top: 50px;
+  margin-top: 50px;
 }
 
 .align-right {

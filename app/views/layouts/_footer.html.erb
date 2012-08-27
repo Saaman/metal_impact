@@ -1,6 +1,6 @@
 <footer class="footer">
 	<% unless ENV["SITE_VERSION"].empty? || !user_is_admin? %>
-  	<small><%= t("layout.footer.site_version", version: ENV["SITE_VERSION"]).html_safe %></small>
+  	<small><%= t(".site_version", version: ENV["SITE_VERSION"]).html_safe %></small>
   <% end %>
   <small>Copyright 2012</small>
   <nav>

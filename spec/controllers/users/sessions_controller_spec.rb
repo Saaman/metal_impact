@@ -36,7 +36,7 @@ describe Users::SessionsController do
 			it {should redirect_to root_path}
 	  end
 	  describe "GET 'new'" do
-	  	before { get :new }
+	  	before { get :new, :format => :js }
 			it { should render_template(:new) }
 	  end
 	  describe "POST 'create'" do

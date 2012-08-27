@@ -1,3 +1,1 @@
-$("#modal-container").bind('show', function() {
-  $(this).html("<%= escape_javascript(render(:partial => 'new')) %>")
-}).modal();
+$("#modal-container").html("<%= j render(:partial => 'new') %>");

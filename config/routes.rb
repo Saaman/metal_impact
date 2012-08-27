@@ -87,7 +87,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 23 Aug 2012 17:41
+# Generated on 26 Aug 2012 19:27
 #
 #                                   POST   /albums(.:format)                      albums#create
 #                         new_album GET    /albums/new(.:format)                  albums#new

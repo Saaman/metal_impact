@@ -3,26 +3,25 @@
     <% if user_is_admin? %>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= t 'layout.menu.administration' %><b class="caret"></b>
+          <%= t '.administration' %><b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to t('layout.menu.users_administration'), administration_users_path %></li>
+          <li><%= link_to t('.users_administration'), administration_users_path %></li>
         </ul>
       </li>
     <% end %>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <%= t 'layout.menu.my_account' %><b class="caret"></b>
+        <%= t '.my_account' %><b class="caret"></b>
       </a>
       <ul class="dropdown-menu">
-        <li><%= link_to t('layout.menu.edit_registration'), edit_user_registration_path %></li>
-        <li class="divider"></li>
-        <li><%= link_to t('layout.menu.logout'), destroy_user_session_path, :method => :delete %></li>
+        <li><%= link_to t('.edit_registration'), edit_user_registration_path %></li>
+        <li><%= link_to t('.logout'), destroy_user_session_path, :method => :delete %></li>
       </ul>
     </li>
   <% else %>
-    <li><%= link_to t('layout.menu.login'), new_user_session_path, :remote => true  %></li>
-    <li><%= link_to t('layout.menu.register'), new_user_registration_path, :remote => true  %></li>
+    <li><%= link_to t('.login'), new_user_session_path, :remote => true, class: "modal-trigger"  %></li>
+    <li><%= link_to t('.register'), new_user_registration_path, :remote => true, class: "modal-trigger" %></li>
   <% end %>
   <%= render 'layouts/languages' %>
 </ul>

@@ -1,5 +1,5 @@
 en:
-  layout:
+  layouts:
     footer:
       site_version: "Version <b>%{version}</b>"
     menu:

@@ -3,16 +3,22 @@
 	<div class="span2"></div>
 	<div class="span8">
 		<div class="well">
-			<%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: "form-horizontal"} do |f| %>
-				
-				<%= render 'form', f: f %>
-				<div class="row-fluid btn-toolbar">
-					<div class="span8"><%= my_recaptcha_tags %></div>
-					<div class="span4 all-center">
-						<%= f.button :submit, :class => 'btn-primary' %>
-			    </div>
+			<div class="row-fluid">
+				<div class="span1"></div>
+				<div class="span10">
+					<%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: "form-horizontal-large"} do |f| %>
+						
+						<%= render 'form', f: f %>
+						<div class="row-fluid btn-toolbar">
+							<div class="span1"></div>
+							<div class="span6"><%= my_recaptcha_tags %></div>
+							<div class="span2 all-center">
+								<%= f.button :submit, :class => 'btn-primary' %>
+					    </div>
+						</div>
+					<% end %>
 				</div>
-			<% end %>
+			</div>
 		</div>
 	</div>
 </div>
