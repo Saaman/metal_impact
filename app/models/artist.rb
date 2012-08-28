@@ -35,6 +35,10 @@ class Artist < ActiveRecord::Base
     #remove duplicates
     artist.countries |= artist.countries
   end
+  before_save do |artist|
+    #"CANNIBAL CORPSE" turns into "Cannibal Corpse"
+    artist.name = artist.name.titleize
+  end
 
   #scopes
   scope :operates_as, lambda { |practice_kinds| joins(:practices).where(:practices => {:kind_cd => Practice.kinds(*practice_kinds)}) }

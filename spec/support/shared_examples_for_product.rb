@@ -77,14 +77,14 @@ shared_examples "productable model" do
 	end
 
 	describe "callbacks before save" do
-      before do
-        productable.artist_ids << artist.id
-        productable.title = "ride the lightning"
-        productable.save
-      end
-      it { should be_valid }
-      its(:title) { should == "Ride The Lightning" }
-      its(:artist_ids) { should == [artist.id] }
+    before do
+      productable.artist_ids << artist.id
+      productable.title = "ride the lightning"
+      productable.save
     end
+    it { should be_valid }
+    its(:title) { should == "Ride The Lightning" }
+    its(:artist_ids) { should == [artist.id] }
+  end
 
 end

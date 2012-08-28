@@ -109,6 +109,15 @@ describe Artist do
     end
   end
 
+  describe "callbacks before save" do
+    before do
+      @artist.name = "CANNIBAL CORPSE"
+      @artist.save
+    end
+    it { should be_valid }
+    its(:name) { should == "Cannibal Corpse" }
+  end
+
   describe "cascading saves" do
     describe "on practices" do
       describe "when practices are valid" do

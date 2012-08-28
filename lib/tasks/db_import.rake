@@ -1,16 +1,18 @@
 namespace :db do
   desc "Import data from old Metal Impact"
-  task import: :environment do
+  task :import, [:file_name] do|t, args|
 
-    Dir[File.join([Rails.root, 'db', 'fixtures', '*.rb'])].sort.each do |fixture|
+    args.with_defaults(:file_name => '*')
+    
+    Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
       puts "Import #{fixture}..."
       load fixture
+      puts "--------------------------------------------------------------------"
       puts ""
     end
 
     puts "create root user"
-
-    create_admin
+    #create_admin
   end
   
   desc "This drops the db, builds the db, and import the data. Takes more time than simple import"
