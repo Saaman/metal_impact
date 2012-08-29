@@ -42,9 +42,13 @@ describe Album do
 
     #methods
     it { should respond_to(:album?) }
-    it { should respond_to(:album?) }
+    it { should respond_to(:album!) }
+    it { should respond_to(:demo?) }
     it { should respond_to(:demo!) }
-    it { should respond_to(:demo!) }
+    it { should respond_to(:mini_album?) }
+    it { should respond_to(:mini_album!) }
+    it { should respond_to(:live?) }
+    it { should respond_to(:live!) }
   end
   describe "Validations" do
 		it { should be_valid }

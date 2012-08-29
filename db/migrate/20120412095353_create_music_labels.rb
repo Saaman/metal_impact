@@ -3,7 +3,7 @@ class CreateMusicLabels < ActiveRecord::Migration
   def up
     create_table :music_labels do |t|
       t.string :name, null: false
-      t.string :website, null: false
+      t.string :website
       t.string :distributor
 
       t.timestamps

@@ -68,6 +68,11 @@ describe MusicLabel do
       end
       it { should_not be_valid }
     end
+
+    describe "when website is not given" do
+      before { @musicLabel.website = nil }
+      it { should be_valid }
+    end
   end
 
   describe "albums association :" do

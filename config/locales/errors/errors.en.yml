@@ -15,10 +15,24 @@ en:
             pseudo:
               taken: "This user name is already taken. Please choose another one."
               too_short: "is too short (at least 4 characters)."
+            gender:
+              invalid_enum: "'%{value}' is not recognized as a valid gender."
+            role:
+              invalid_enum: "'%{value}' is not recognized as a valid user's role."
+            date_of_birth:
+              before: "Your date of birth must be in the past."
         artist:
           attributes:
             countries:
               array_inclusion: "'%{value}' is not a valid 2-letters country code"
+        album:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' is not recognized as a valid album kind."
+        practice:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' is not recognized as a valid practice for an artist."
   exceptions:
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
   recaptcha:

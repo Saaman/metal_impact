@@ -5,6 +5,8 @@ fr:
         kinds:
           album:: Album
           demo: Démo
+          mini_album: Mini abum
+          live: Album live
     attributes:
       album:
         kind: "type"

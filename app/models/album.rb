@@ -25,7 +25,7 @@ class Album < ActiveRecord::Base
   #persisted attributes
 	attr_accessible :kind
 
-	as_enum :kind, album: 0, demo: 1
+	as_enum :kind, album: 0, demo: 1, mini_album: 2, live: 3
 
 	validates_as_enum :kind
 	validates :kind, presence: true

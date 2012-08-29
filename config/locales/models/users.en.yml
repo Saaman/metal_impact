@@ -9,7 +9,3 @@ en:
         genders:
           male: Male
           female: Female
-      album:
-        kinds:
-          album:: Album
-          demo: Demo

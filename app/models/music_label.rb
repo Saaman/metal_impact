@@ -21,5 +21,5 @@ class MusicLabel < ActiveRecord::Base
 	#validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   valid_website_regex = /\Ahttp[s]*:\/\/[\w+\-.]+\.[a-z]+[\w+\-\/.]+\z/i
-	validates :website, format: { with: valid_website_regex },uniqueness: { case_sensitive: false }
+	validates :website, format: { with: valid_website_regex }, uniqueness: { case_sensitive: false }, :allow_nil => true
 end

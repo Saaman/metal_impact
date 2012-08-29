@@ -7,12 +7,12 @@ namespace :db do
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
       puts "Import #{fixture}..."
       load fixture
-      puts "--------------------------------------------------------------------"
+      puts "==============================================================================="
       puts ""
     end
 
     puts "create root user"
-    #create_admin
+    create_admin
   end
   
   desc "This drops the db, builds the db, and import the data. Takes more time than simple import"
@@ -36,18 +36,25 @@ def bulk_save(models)
     return
   end
 
-  failures = 0
+  success_instances_count = 0
   models.each do |model|
-    unless model.save
-      failures += 1
+    begin
+      is_saved = model.save
+      success_instances_count += 1 if is_saved
+    rescue Exception => ex
+      puts "an exception occurs : #{ex.message}"
+      puts ""
+      next
+    end
+    unless is_saved
       puts "cannot create #{model.class.name.downcase} : #{model.inspect}"
       puts "errors :"
       model.errors.full_messages.each do |msg|
-        puts "     #{msg}"
+        puts "     - #{msg}"
       end
       puts ""
-
     end
   end
-  puts "#{models.length-failures} out of #{models.length} #{models.first.class.name.downcase.pluralize} have been created"
+
+  puts "#{success_instances_count} out of #{models.length} #{models.first.class.name.downcase.pluralize} have been created"
 end
