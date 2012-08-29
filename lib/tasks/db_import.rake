@@ -22,10 +22,10 @@ end
 
 def create_admin
   admin = User.new(email: "romain.magny@gmail.com",
-                       password: "password1",
-                       email_confirmation: "romain.magny@gmail.com",
-                       pseudo: "Roro",
-                       role: :admin)
+                   password: "password1",
+                   email_confirmation: "romain.magny@gmail.com",
+                   pseudo: "Roro",
+                   role: :admin)
   admin.skip_confirmation!
   admin.save
 end
@@ -54,6 +54,13 @@ def bulk_save(models)
       end
       puts ""
     end
+  end
+
+  #correct sequence number
+  if ActiveRecord::Base.configurations[Rails.env]['adapter'] == 'postgresql'
+    query = "SELECT setval('#{models.first.class.name.tableize}_id_seq', #{success_instances_count})"
+    puts query
+    ActiveRecord::Base.connection.execute(query)
   end
 
   puts "#{success_instances_count} out of #{models.length} #{models.first.class.name.downcase.pluralize} have been created"
