@@ -4,6 +4,6 @@
 	</div>
 	<div>
 		<div><h3><%= artist.name.upcase %></h3></div>
-		<div><%= truncate artist.countries_labels().join(" / "), :length => 40, class: "check_boxes optional" %></div>
+		<div><%= truncate artist.get_countries_string(), :length => 40, class: "check_boxes optional" %></div>
 	</div>
 </div>

@@ -71,4 +71,24 @@ describe ArtistsController do
 	  	specify { assigns(:artist).should == artist }
 	  end
   end
+
+  describe "GET show :" do
+  	let(:artist) { FactoryGirl.create(:artist) }
+  	describe "(unauthorized)" do
+			before { get :show, {id: artist.id} }
+			its_access_is "unauthorized"
+  	end
+  	describe "(authorized)" do
+  		before(:each) { @ability.can :show, Artist }
+	  	before { get :show, {id: artist.id} }
+	  	it { should render_template("show") }
+	  	specify { assigns(:artist).should == artist }
+	  end
+	  describe "(RecordNotFound exception)" do
+  		before(:each) { @ability.can :show, Artist }
+	  	before { get :show, {id: 10000} }
+	  	it { should redirect_to root_path }
+	  end
+  end
+
 end

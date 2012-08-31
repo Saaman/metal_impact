@@ -3,3 +3,6 @@ fr:
     artists_for_product:
       cancel_all_deletions: "Annuler toutes mes suppressions"
       add_artist_label: "Artiste"
+    show:
+      origin_countries: "Pays d'origine : "
+      activities: "Activités artistiques : "

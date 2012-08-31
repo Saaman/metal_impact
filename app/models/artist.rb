@@ -32,6 +32,9 @@ class Artist < ActiveRecord::Base
   
   #callbacks
   before_validation do |artist|
+    return if artist.countries.blank?
+    #turns all to uppercase
+    artist.countries.map! { |c| c.upcase }
     #remove duplicates
     artist.countries |= artist.countries
   end
@@ -44,8 +47,14 @@ class Artist < ActiveRecord::Base
   scope :operates_as, lambda { |practice_kinds| joins(:practices).where(:practices => {:kind_cd => Practice.kinds(*practice_kinds)}) }
 
   #methods
-  def countries_labels
-    References::translate_countries self.countries
+  def get_countries_string
+    return "" if self.countries.blank?
+    References::translate_countries(self.countries).join " / "
+  end
+
+  def get_practices_string
+    return "" if self.practices.blank?
+    self.practices.collect {|x| "#{Practice.human_enum_name(:kinds, x.kind)}"}.join(" / ")
   end
 
 end

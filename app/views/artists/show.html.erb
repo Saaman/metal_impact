@@ -1,0 +1,11 @@
+<h1><%= @artist.name.upcase %>
+</h1>
+
+<div>
+	<i><%= t ".origin_countries" %></i><%= @artist.get_countries_string() %>
+</div>
+<div>
+	<i><%= t ".activities" %></i><%= @artist.get_practices_string() %>
+</div>
+<br />
+<%= link_to t('defaults.back_link'), :back %>

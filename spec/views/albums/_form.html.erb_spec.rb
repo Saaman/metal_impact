@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "albums/new" do
+describe "albums/_form" do
   before(:each) do
     assign(:album, FactoryGirl.build(:album_with_artists))
     reset_abilities

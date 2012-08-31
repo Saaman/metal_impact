@@ -35,6 +35,8 @@ describe Artist do
     it { should respond_to(:updated_at) }
 
     #methods
+    it { should respond_to(:get_countries_string) }
+    it { should respond_to(:get_practices_string) }
   end
   
   describe "Validations" do
@@ -110,12 +112,22 @@ describe Artist do
   end
 
   describe "callbacks before save" do
-    before do
-      @artist.name = "CANNIBAL CORPSE"
-      @artist.save
+    describe "on name" do
+      before do
+        @artist.name = "CANNIBAL CORPSE"
+        @artist.save
+      end
+      it { should be_valid }
+      its(:name) { should == "Cannibal Corpse" }
     end
-    it { should be_valid }
-    its(:name) { should == "Cannibal Corpse" }
+    describe "on countries" do
+      before do
+        @artist.countries << "FR" << "fr" << "de" << "GB"
+        @artist.save
+      end
+      it { should be_valid }
+      its(:countries) { should == ["FR", "DE", "GB"] }
+    end
   end
 
   describe "cascading saves" do
@@ -184,6 +196,18 @@ describe Artist do
     describe "operates_as(:band) should not get writers" do
       let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
       specify { Artist.operates_as(:band).pluck("artists.id").should_not include(writer.id) }
+    end
+  end
+
+  describe "helper methods" do
+    before { I18n.locale = "en" }
+    describe "get_countries_string" do
+      before { @artist.countries << "GB" << "DE" }
+      it { should satisfy { |a| a.get_countries_string() == "France / United Kingdom / Germany" } }
+    end
+    describe "get_practices_string" do
+      before { @artist.practices.build(:kind => :writer) }
+      it { should satisfy { |a| a.get_practices_string() == "band / writer" } }
     end
   end
 end
