@@ -27,15 +27,16 @@
       </div>
 
       <div class="tab-pane" id="label_form">
-        <%= f.fields_for :music_label do |music_label_form| %>
-          <%= render :partial => 'music_labels/form', :locals => {:f => music_label_form} %>
+        <%= f.fields_for "new_music_label", @new_music_label do |presenter_fields| %>
+          <%= presenter_fields.input :create_new, :as => :hidden %>
+          <%= presenter_fields.fields_for "music_label", presenter_fields.object.music_label do |new_music_label_fields| %>
+            <%= render :partial => 'music_labels/form', :locals => {:f => new_music_label_fields} %>
+            <% end %>
         <% end %>
       </div>
     </div>
   </div>
 
 <% end %>
-  
-  <%= hidden_field_tag 'album[create_new_music_label]', false %>
 
 </div>

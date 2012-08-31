@@ -3,11 +3,14 @@ en:
     back_link: "Back"
     edit_link: "Edit..."
     search_terms: "Enter your search term..."
-    album: "album"
-    artist: "artist"
-    errors_count:
-      one: "One error"
-      other: "%{count} errors"
-    errors_main: "%{error_count} prohibited this %{entity} from being saved."
-    errors_help: "Please correct the form below and save again."
     or: " or "
+  shared:
+    error_messages:
+      album: "album"
+      artist: "artist"
+      music_label: "label"
+      errors_count:
+        one: "One error"
+        other: "%{count} errors"
+      errors_main: "%{error_count} prohibited this %{entity} from being saved."
+      errors_help: "Please correct the form below and save again."

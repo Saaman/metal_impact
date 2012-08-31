@@ -3,11 +3,14 @@ fr:
     back_link: "Retour"
     edit_link: "Modifier..."
     search_terms: "Commencez à taper..."
-    album: "cet album"
-    artist: "cet artiste"
-    errors_count:
-      one: "une erreur"
-      other: "%{count} erreurs"
-    errors_main: "%{error_count} est survenue lors de l'enregistrement de %{entity}."
-    errors_help: "Veuillez corriger les champs ci-dessous avant d'enregistrer à nouveau."
     or: " ou "
+  shared:
+    error_messages:
+      album: "cet album"
+      artist: "cet artiste"
+      music_label: "ce label"
+      errors_count:
+        one: "une erreur est survenue"
+        other: "%{count} erreurs sont survenues"
+      errors_main: "%{error_count} lors de l'enregistrement de %{entity}."
+      errors_help: "Veuillez corriger les champs ci-dessous avant d'enregistrer à nouveau."

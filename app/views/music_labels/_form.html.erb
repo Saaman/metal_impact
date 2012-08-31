@@ -1,3 +1,5 @@
-<%= f.input :name %>
-<%= f.input :distributor %>
-<%= f.input :website %>
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.input :name, required: true %>
+<%= f.input :distributor, input_html: {class: 'skipval'} %>
+<%= f.input :website, input_html: { pattern: MusicLabel::VALID_WEBSITE_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.music_label.attributes.website.invalid")}\"}" } %>

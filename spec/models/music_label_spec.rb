@@ -70,10 +70,20 @@ describe MusicLabel do
     end
 
     describe "when website is not given" do
-      before { @musicLabel.website = nil }
+      before { @musicLabel.website = "" }
       it { should be_valid }
     end
   end
+
+  describe "callbacks before save" do
+    describe "on name" do
+      before do
+        @musicLabel.name = "relapse records"
+        @musicLabel.save
+      end
+      it { should be_valid }
+      its(:name) { should == "Relapse Records" }
+    end
 
   describe "albums association :" do
     describe "when adding an album" do

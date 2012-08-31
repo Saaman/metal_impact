@@ -33,6 +33,12 @@ en:
           attributes:
             kind:
               invalid_enum: "'%{value}' is not recognized as a valid practice for an artist."
+        music_label:
+          attributes:
+            name:
+              taken: "is already taken by an existing label"
+            website:
+              invalid: "is not a valid url"
   exceptions:
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
   recaptcha:

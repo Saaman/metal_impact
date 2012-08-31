@@ -24,6 +24,7 @@ class Album < ActiveRecord::Base
 
   #persisted attributes
 	attr_accessible :kind
+	accepts_nested_attributes_for :music_label
 
 	as_enum :kind, album: 0, demo: 1, mini_album: 2, live: 3
 

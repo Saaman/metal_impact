@@ -5,9 +5,9 @@
     <legend><%= t '.basic_information' %></legend>
     <div class="row-fluid content">
       <div class="span5 add-separator">
-        <%= f.input :title %>
-        <%= f.input :release_date, :as => :date_picker %>
-        <%= f.input :kind, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
+        <%= f.input :title, required: true %>
+        <%= f.input :release_date, :as => :date_picker, required: true %>
+        <%= f.input :kind, required: true, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
         
       </div>
       <div class="span6 well">

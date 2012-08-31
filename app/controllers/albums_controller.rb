@@ -20,12 +20,14 @@ class AlbumsController < ApplicationController
   # GET /albums/new.json
   def new
     @album = Album.new
+    @new_music_label = MusicLabelPresenter.new
     respond_with @album
   end
 
   # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
+    @new_music_label = MusicLabelPresenter.new
     respond_with @album
   end
 
@@ -74,9 +76,11 @@ class AlbumsController < ApplicationController
       @album.attributes = params[:album].slice :title, :release_date, :kind, :cover
 
       #manage music label
-      if (params[:album].has_key?(:create_new_music_label) and params[:album][:create_new_music_label].to_bool)
-        @album.build_music_label(params[:album][:music_label]) if params[:album].has_key? :music_label
-        authorize! :new, @album.music_label
+      #TODO essayer d'initialiser le presenter de manière plus sexy, avec la liste de params brute
+      @new_music_label = MusicLabelPresenter.new params[:album][:new_music_label]
+      if @new_music_label.create_new
+        authorize! :new, @new_music_label.music_label
+        @album.music_label = @new_music_label.music_label
       else
         @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
       end
