@@ -17,5 +17,7 @@ describe "albums/show" do
     rendered.should match(/Ride The Lightning/)
     rendered.should match(/Mini album/)
     rendered.should match(/METALLICA/)
+    rendered.should match(/Edit/)
+    rendered.should match(/Back/)
   end
 end

@@ -1,6 +1,7 @@
 en:
   defaults:
     back_link: "Back"
+    edit_link: "Edit..."
     search_terms: "Enter your search term..."
     album: "album"
     artist: "artist"

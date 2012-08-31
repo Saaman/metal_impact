@@ -1,6 +1,7 @@
 fr:
   defaults:
     back_link: "Retour"
+    edit_link: "Modifier..."
     search_terms: "Commencez à taper..."
     album: "cet album"
     artist: "cet artiste"

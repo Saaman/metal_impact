@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
   check_authorization :unless => :devise_controller?
-  before_filter :set_locale
+  before_filter :set_locale, :authorize_mini_profiler
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to_back :alert => exception.message
@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionController::RedirectBackError do |exception|
     handle_redirect_back_error(exception)
+  end
+
+  def authorize_mini_profiler
+    Rack::MiniProfiler.authorize_request if user_is_admin?
   end
 
   private
