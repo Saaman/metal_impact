@@ -31,6 +31,11 @@ class Album < ActiveRecord::Base
 	validates :kind, presence: true
 	validates_associated :music_label, :if => :new_music_label?
 
+	def get_artists_string
+		return t("special.album.various_artists") if @artists.size > 3
+		@artists.collect {|a| a.name.upcase}.join("-")
+	end
+
 	private
 		def new_music_label?
 			music_label.nil? || music_label.new_record?

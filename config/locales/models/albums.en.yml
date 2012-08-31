@@ -5,7 +5,7 @@ en:
         kinds:
           album:: Album
           demo: Demo
-          mini_album: Mini abum
+          mini_album: Mini album
           live: Live album
     attributes:
       album:
@@ -15,3 +15,6 @@ en:
     album:
       create: "Album was successfully created."
       update: "Album was successfully updated."
+  special:
+    album:
+      various_artists: "Various Artists"

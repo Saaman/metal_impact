@@ -222,4 +222,31 @@ describe AlbumsController do
       end
     end
   end
+
+  ###################################################################################### 
+
+  describe "new way tests" do
+    before(:all) { Artist.all.each {|a| a.destroy } }
+    stub_abilities
+
+    describe "GET show :" do
+      let(:album) { FactoryGirl.create(:album_with_artists) }
+      describe "(unauthorized)" do
+        before { get :show, {id: album.id} }
+        its_access_is "unauthorized"
+      end
+      describe "(authorized)" do
+        before(:each) { @ability.can :show, Album }
+        before { get :show, {id: album.id} }
+        it { should render_template("show") }
+        specify { assigns(:album).should == album }
+      end
+      describe "(RecordNotFound exception)" do
+        before(:each) { @ability.can :show, Album }
+        before { get :show, {id: 10000} }
+        it { should redirect_to root_path }
+      end
+    end
+  end
+
 end

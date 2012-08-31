@@ -49,6 +49,7 @@ describe Album do
     it { should respond_to(:mini_album!) }
     it { should respond_to(:live?) }
     it { should respond_to(:live!) }
+
   end
   describe "Validations" do
 		it { should be_valid }

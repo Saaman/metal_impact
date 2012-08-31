@@ -11,9 +11,13 @@ en:
       select_existing_label: "Choose an existing label"
       create_label: "Create a new label"
     edit:
-        title: "Edit album"
+      title: "Edit album"
     new:
-        title: "Add a new album"  
+      title: "Add a new album"  
+    show:
+      label: "Label : "
+      release_date: "Release date : "
+      type: "Type : "
   helpers:
     submit:
       album:

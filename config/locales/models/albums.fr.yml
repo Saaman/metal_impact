@@ -5,7 +5,7 @@ fr:
         kinds:
           album:: Album
           demo: Démo
-          mini_album: Mini abum
+          mini_album: Mini album
           live: Album live
     attributes:
       album:
@@ -15,3 +15,6 @@ fr:
     album:
       create: "Le nouvel album a été crée."
       update: "L'album a été mis à jour."
+  special:
+    album:
+      various_artists: "Various Artists"

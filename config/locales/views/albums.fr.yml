@@ -11,9 +11,13 @@ fr:
       select_existing_label: "Choisir un label existant"
       create_label: "Créer un nouveau label"
     edit:
-        title: "Modifier un album"
+      title: "Modifier un album"
     new:
-        title: "Ajouter un nouvel album"  
+      title: "Ajouter un nouvel album"
+    show:
+      label: "Label : "
+      release_date: "Sortie du Scud : "
+      type: "Type : "
   helpers:
     submit:
       album:

@@ -161,7 +161,7 @@ describe Artist do
         before do
           @artist.biography = "tatatoto"
           @artist.save
-          I18n.locale = 'en'
+          #I18n.locale = 'en'
         end
         it { should satisfy {|a| a.persisted? == true} }
         its(:translations)  { should have(1).items }
@@ -200,7 +200,7 @@ describe Artist do
   end
 
   describe "helper methods" do
-    before { I18n.locale = "en" }
+    #before { I18n.locale = "en" }
     describe "get_countries_string" do
       before { @artist.countries << "GB" << "DE" }
       it { should satisfy { |a| a.get_countries_string() == "France / United Kingdom / Germany" } }

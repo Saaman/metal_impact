@@ -1,17 +1,20 @@
 <p>
-  <span class="album-title"><%= "#{@album.title} (#{@album.release_date.year})" %></span>
+  <span class="album-title">
+  	<%= artists_links_for(@album) %>
+  	<%= " / #{@album.title} (#{@album.release_date.year})" %>
+  </span>
 </p>
 
 <div class="portrait"><%= image_tag @album.cover.url(:medium) %></div>
 <div>
 	<div>
-		<i>Label : </i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label.name %>
+		<i><%= t ".label" %></i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label.name %>
 	</div>
 	<div>
-		<i>Sortie du Scud : </i><%= l @album.release_date, :format => :long %>
+		<i><%= t ".release_date" %></i><%= l @album.release_date, :format => :long %>
 	</div>
 	<div>
-		<i>Type : </i><%= @album.kind %>
+		<i><%= t ".type" %></i><%= Album.human_enum_name(:kinds, @album.kind) %>
 	</div>
 </div>
 
