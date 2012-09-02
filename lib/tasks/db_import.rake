@@ -1,9 +1,9 @@
 namespace :db do
   desc "Import data from old Metal Impact"
-  task :import, [:file_name] do|t, args|
+  task :import, [:file_name] do |t, args|
 
     args.with_defaults(:file_name => '*')
-    
+
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
       puts "Import #{fixture}..."
       load fixture
@@ -14,9 +14,38 @@ namespace :db do
     puts "create root user"
     create_admin
   end
+
+  desc "Import data from old Metal Impact"
+  task :dl_fixtures do
+
+    puts "clean existing fixtures..."
+    puts ""
+    Dir[File.join([Rails.root, 'db', 'fixtures', "*.rb"])].each { |f| File.delete f }
+
+    #open a session at Google
+    session = GoogleDrive.login ENV["GD_USER"], ENV["GD_PWD"]
+
+    #Get all files of collection name "Fixtures v{version}" and download them
+    collection = session.files :title => "Fixtures v#{ENV["SITE_VERSION"].chomp}", "title-exact" => true, showfolders: true
+    if collection.length != 1
+      puts "collection 'Fixtures v#{ENV["SITE_VERSION"]}' was not found"
+      break
+    end
+
+    collection[0].files.each do |file|
+      puts "download #{file.title}..."
+      file.download_to_file File.join([Rails.root, 'db', 'fixtures', "#{file.title}"])
+    end
+
+    puts "#{collection[0].files.size} files downloaded succesfully"
+    puts ""
+  end
   
   desc "This drops the db, builds the db, and import the data. Takes more time than simple import"
   task :drop_and_import => ['db:drop', 'db:create', 'db:migrate', 'db:import']
+
+  desc "This drops the db, builds the db, download fixtures from Google Drive and import the data."
+  task :import_from_gdrive => ['db:dl_fixtures', 'db:drop', 'db:create', 'db:migrate', 'db:import']
 
 end
 

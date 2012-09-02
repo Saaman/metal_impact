@@ -40,6 +40,9 @@ gem 'routing-filter', '~>0.3'
 # Tools
 gem 'rack-mini-profiler'
 
+#thir parties
+gem 'google_drive'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
