@@ -20,7 +20,7 @@ namespace :db do
 
     puts "clean existing fixtures..."
     puts ""
-    Dir.mkdir(File.join([Rails.root, 'db', 'fixtures'])) if File.directory? File.join([Rails.root, 'db', 'fixtures'])
+    Dir.mkdir(File.join([Rails.root, 'db', 'fixtures'])) unless File.directory? File.join([Rails.root, 'db', 'fixtures'])
     Dir[File.join([Rails.root, 'db', 'fixtures', "*.rb"])].each { |f| File.delete f }
 
     #open a session at Google
