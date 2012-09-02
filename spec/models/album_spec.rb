@@ -103,7 +103,7 @@ describe Album do
         @album.reload
       end
       its(:music_label_id) { should_not be_blank } 
-      it { should satisfy {|a| a.music_label.name.should == "tata" } }
+      it { should satisfy {|a| a.music_label.name.should == music_label_attr[:name].titleize } }
     end
     describe "should not save new album when music label is invalid" do
       let!(:music_label_attr) { FactoryGirl.attributes_for(:music_label, name: "") }

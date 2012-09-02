@@ -66,6 +66,7 @@ class AlbumsController < ApplicationController
           format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
           format.json { render json: @album, location: @album }
         else
+          logger.info "errors : #{@album.errors.full_messages}"
           format.html { render action: template }
           format.json { render json: @album.errors, status: :unprocessable_entity }
         end
@@ -73,10 +74,10 @@ class AlbumsController < ApplicationController
     end
 
     def build_or_update_album(params)
+      
       @album.attributes = params[:album].slice :title, :release_date, :kind, :cover
 
       #manage music label
-      #TODO essayer d'initialiser le presenter de manière plus sexy, avec la liste de params brute
       @new_music_label = MusicLabelPresenter.new params[:album][:new_music_label]
       if @new_music_label.create_new
         authorize! :new, @new_music_label.music_label
@@ -84,6 +85,7 @@ class AlbumsController < ApplicationController
       else
         @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
       end
+
     end
 
     def associate_artists(params)

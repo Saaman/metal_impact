@@ -84,6 +84,7 @@ describe MusicLabel do
       it { should be_valid }
       its(:name) { should == "Relapse Records" }
     end
+  end
 
   describe "albums association :" do
     describe "when adding an album" do

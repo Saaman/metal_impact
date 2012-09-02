@@ -106,9 +106,9 @@ describe AlbumsController do
     end
 
     describe "POST create" do
-      let(:album_attrs) { FactoryGirl.attributes_for(:album) }
+      let(:album) { FactoryGirl.build(:album) }
       let(:artist) { FactoryGirl.create(:artist) }
-      let!(:album_params) { { :album => album_attrs, :product => {artist_ids: [artist.id]} } }
+      let!(:album_params) { build_params_for_albums_controller album, [artist.id] }
       describe "with valid params" do
         it "creates a new Album" do
           expect { post :create, album_params }.to change(Album, :count).by(1)
@@ -125,23 +125,23 @@ describe AlbumsController do
           response.should redirect_to(Album.last)
         end
         describe "about music label creation : " do
-          let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
-          let!(:page_attrs) { album_attrs.merge({:music_label => music_label_attrs, :create_new_music_label => "true"}) }
+          let(:new_music_label) { FactoryGirl.build(:music_label) }
+          let!(:album_params) { build_params_for_albums_controller album, [artist.id], true, new_music_label }
           it "creates a new MusicLabel with valid parameters" do
             expect {
-              post :create, {:album => page_attrs, :product => {artist_ids: [artist.id]} }
+              post :create, album_params
             }.to change(MusicLabel, :count).by(1)
           end
           describe "if MusicLabel params are invalid" do
-            before { page_attrs[:music_label][:name] = "" }
+            before { album_params[:album][:new_music_label][:music_label][:name] = "" }
             it "does not create MusicLabel" do
               expect {
-                post :create, album_params.merge({:album => page_attrs})
+                post :create, album_params
               }.not_to change(MusicLabel, :count)
             end
             it "does not create Album" do
               expect {
-                post :create, album_params.merge({:album => page_attrs})
+                post :create, album_params
               }.not_to change(Album, :count)
             end
           end
@@ -152,21 +152,21 @@ describe AlbumsController do
         before { Album.any_instance.stub(:save).and_return(false) }
         it "assigns a newly created but unsaved album as @album" do
           # Trigger the behavior that occurs when invalid params are submitted
-          post :create, {:album => {}}
+          post :create, build_params_for_albums_controller
           assigns(:album).should be_a_new(Album)
         end
 
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
           Album.any_instance.stub(:save).and_return(false)
-          post :create, {:album => {}}
+          post :create, build_params_for_albums_controller
           response.should render_template("new")
         end
         describe "with music label creation" do
-          let(:music_label_attrs) { FactoryGirl.attributes_for(:music_label) }
+          let(:music_label) { FactoryGirl.build(:music_label) }
           it "does not create a new MusicLabel" do
             expect {
-              post :create, {:album => {:music_label => music_label_attrs}}
+              post :create, build_params_for_albums_controller(Album.new, [], true, music_label)
             }.not_to change(MusicLabel, :count)
           end
         end
@@ -174,20 +174,19 @@ describe AlbumsController do
     end
 
     describe "PUT update" do
-      let(:album_attrs) { FactoryGirl.attributes_for(:album) }
+      let(:album) { FactoryGirl.build(:album) }
       let(:artist) { FactoryGirl.create(:artist) }
-      let!(:album_params) { { :album => album_attrs, :product => {artist_ids: [artist.id]} } }
-      let!(:album) { FactoryGirl.create(:album_with_artists) }
+      let!(:persisted_album) { FactoryGirl.create(:album_with_artists) }
       describe "with valid params" do
         before do
           Album.any_instance.stub(:save).and_return(true)
-          put :update, album_params.merge({:id => album.id})
+          put :update, {id: persisted_album.id}.merge(build_params_for_albums_controller(album, [artist.id]))
         end
         it "redirects to the album" do
-          response.should redirect_to(album)
+          response.should redirect_to(persisted_album)
         end
-        it "assigns the requested album as @album" do
-          assigns(:album).should eq(album)
+        it "udaptes the album" do
+          assigns(:album)[:title].should == album[:title]
         end
       end
 
@@ -195,14 +194,14 @@ describe AlbumsController do
         it "assigns the album as @album" do
           # Trigger the behavior that occurs when invalid params are submitted
           Album.any_instance.stub(:save).and_return(false)
-          put :update, {:id => album.id, :album => {}}
-          assigns(:album).should eq(album)
+          put :update, {:id => persisted_album.id}.merge(build_params_for_albums_controller)
+          assigns(:album)[:id].should == persisted_album.id
         end
 
         it "re-renders the 'edit' template" do
           # Trigger the behavior that occurs when invalid params are submitted
           Album.any_instance.stub(:save).and_return(false)
-          put :update, {:id => album.id, :album => {}}
+          put :update, {:id => persisted_album.id}.merge(build_params_for_albums_controller)
           response.should render_template("edit")
         end
       end

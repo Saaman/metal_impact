@@ -18,7 +18,7 @@ class MusicLabel < ActiveRecord::Base
 	#attributes
   attr_accessible :name, :website, :distributor
 	
-	VALID_WEBSITE_PATTERN = '^\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}\b$'
+	VALID_WEBSITE_PATTERN = '^http[s]*:\/\/[\w+\-.]+\.[a-z]+[\w+\-\/.]+$'
 
 	#validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }
