@@ -54,6 +54,11 @@ group :development do
   gem 'annotate', '~> 2.5.0.pre'
   gem 'letter_opener', '~> 0.0'
   gem 'debugger'
+  gem 'thin'
+end
+
+group :production do
+  gem 'thin'
 end
 
 group :test do
