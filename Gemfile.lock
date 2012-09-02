@@ -334,7 +334,7 @@ DEPENDENCIES
   spork
   sqlite3 (~> 1.3.5)
   squeel (~> 1.0)
-  thin
+  thin (~> 1.4.1)
   uglifier (~> 1.2.3)
   validates_timeliness (~> 3.0.12)
   webshims-rails (~> 0.2)
