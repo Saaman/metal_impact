@@ -49,4 +49,4 @@ bundler_stubs/
 deploy.sh
 
 #business data
-/db/fixtures/*.*
+/db/fixtures/*.rb

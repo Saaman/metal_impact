@@ -62,3 +62,4 @@ bundle exec rake:* RAILS_ENV=production
 bundle exec rake i18n:js:export
 assets pre-compilation : bundle exec rake assets:precompile
 rails s -e production
+heroku pg:reset (to drop / create db)
