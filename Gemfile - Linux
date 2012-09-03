@@ -19,7 +19,7 @@ gem 'squeel', '~>1.0'
 
 #UI gems
 gem 'webshims-rails', '~> 0.2'
-gem 'jquery-rails', '~> 2.0.3'
+gem 'jquery-rails', '~> 2.1.0'
 gem 'anjlab-bootstrap-rails', '~> 2.0.4', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0'
 
@@ -48,7 +48,7 @@ gem 'google_drive'
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.2'
-  gem 'uglifier', '~> 1.2.3'
+  gem 'uglifier', '~> 1.3.0' #Original was 1.2.3
 end
 
 group :development do
@@ -76,7 +76,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   
   #tools
-  gem 'foreman', '~>0'
+  gem 'foreman', '~>0.53'
     #Linux gems
     gem 'rb-inotify'
     gem 'libnotify', '~>0.7'

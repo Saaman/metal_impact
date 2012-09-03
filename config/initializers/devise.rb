@@ -199,7 +199,10 @@ Devise.setup do |config|
   config.navigational_formats = ["*/*", :html, :js]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  #FIX : this is a temporay fix to allow sign-out link inside Bootstrap dropdown to work.
+  #FIX : Check here for original issue : https://github.com/twitter/bootstrap/issues/4688
+  #FIX : Boostrap issue is going to be fixed officially soon. Once it's corrected, put value :delete again
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting

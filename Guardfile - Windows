@@ -15,7 +15,7 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--format doc' d
   watch('app/controllers/application_controller.rb')  { "spec" }
 
   #self
-  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^spec/(.+)_spec\.rb$})                   { |m| "spec/#{m[1]}_spec.rb" }
   
   #app
   watch(%r{^app/(.+)\.rb$})                       { |m| "spec/#{m[1]}_spec.rb" }

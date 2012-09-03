@@ -1,6 +1,6 @@
 // import original bootstrap
 
-@import "bootstrap";
+@import "twitter/bootstrap";
 
 /*perso*/
 
@@ -26,11 +26,11 @@ div.add-separator {
 }
 
 .form-horizontal-short {
-	@extend .form_horizontal;
+	@extend .form-horizontal;
 	@include horizontal-form-label-width(100px);
 }
 .form-horizontal-large {
-	@extend .form_horizontal;
+	@extend .form-horizontal;
 	@include horizontal-form-label-width(220px);
 }
 

@@ -13,8 +13,8 @@
 
 //= require jquery
 //= require jquery-ui
-//= require bootstrap
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require lib
 //= require i18n
 //= require i18n/translations

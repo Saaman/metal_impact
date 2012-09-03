@@ -1,4 +1,4 @@
 en:
   time:
     formats:
-      js_date: 'mm/dd/yyyy'
+      js_date: 'yyyy-mm-dd'

@@ -16,7 +16,11 @@ MetalImpact::Application.routes.draw do
 
   devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }, :skip => [:sessions]
   devise_scope :user do
+    #FIX : this is a temporay fix to allow sign-out link inside Bootstrap dropdown to work.
+  #FIX : Check here for original issue : https://github.com/twitter/bootstrap/issues/4688
+  #FIX : Boostrap issue is going to be fixed officially soon. Once it's corrected, put value :delete again
     delete "logout" => "users/sessions#destroy", :as => :destroy_user_session
+    get "logout" => "users/sessions#destroy", :as => :destroy_user_session
     get "login" => "users/sessions#new", :as => :new_user_session
     post "login" => "users/sessions#create", :as => :user_session
     get "signup" => "users/registrations#new"
