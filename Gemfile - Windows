@@ -78,12 +78,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '~> 0.14'
   gem 'thin'
-end
-
-group :local_prod do
-  gem 'pg', '~> 0.14'
 end
 
 # To use Jbuilder templates for JSON

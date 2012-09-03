@@ -29,14 +29,14 @@ public/system/albums/covers/
 bundler_stubs/
 
 #OS dependent files
-#Gemfile
-#Gemfile.lock
-#Guardfile
-#spec/spec_helper.rb
-#.rspec
-#config/initializers/recaptcha.rb
-#config/environments/development.rb
-#config/database.yml
+Gemfile
+Gemfile.lock
+Guardfile
+spec/spec_helper.rb
+.rspec
+config/initializers/recaptcha.rb
+config/environments/development.rb
+config/database.yml
 
 # git rm --ignore-unmatch -f Gemfile Gemfile.lock Guardfile spec/spec_helper.rb .rspec config/initializers/recaptcha.rb config/environments/development.rb config/database.yml
 
@@ -46,7 +46,7 @@ bundler_stubs/
 
 #sensible data
 .*env
-deploy.sh
+/execs/*.sh
 
 #business data
 /db/fixtures/*.rb
