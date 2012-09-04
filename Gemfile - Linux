@@ -20,7 +20,7 @@ gem 'squeel', '~>1.0'
 #UI gems
 gem 'webshims-rails', '~> 0.2'
 gem 'jquery-rails', '~> 2.1.0'
-gem 'anjlab-bootstrap-rails', '~> 2.0.4', :require => 'bootstrap-rails'
+gem 'anjlab-bootstrap-rails', '~> 2.1.0', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0'
 
 #Async engine
