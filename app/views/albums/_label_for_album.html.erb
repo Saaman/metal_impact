@@ -4,8 +4,8 @@
 
   <div class="span4">
     <ul class="nav nav-pills nav-stacked side-padded" id="label_for_album_pills">
-      <li class="active">
-        <a href="#label_finder" data-toggle="pill"><%= t '.select_existing_label' %></a>
+      <li>
+        <a href="#label_finder" data-toggle="pill" id="select_existing_label_pill"><%= t '.select_existing_label' %></a>
       </li>
       <li><a href="#label_form" data-toggle="pill" id="create_new_music_label_pill"><%= t '.create_label'%></a></li>
     </ul>
@@ -13,7 +13,7 @@
 
   <div class="span7">
     <div class="tab-content">
-      <div class="tab-pane active" id="label_finder">
+      <div class="tab-pane" id="label_finder">
 
 <% end %>
 
