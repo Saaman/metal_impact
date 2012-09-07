@@ -1,13 +1,13 @@
 class CreateApprovals < ActiveRecord::Migration
   def self.up
     create_table :approvals do |t|
-      t.string  :approvable_type, :null => false
+      t.string :approvable_type, :null => false
       t.integer :approvable_id,   :null => false
-      t.integer  :event_cd,  			:null => false
+      t.integer :event_cd,  			:null => false
       t.integer :state_cd,   			:null => false
-			t.text    :object,			    :limit => 16777216
-      t.text    :original,			  :limit => 16777216
-      t.text	  :reason
+			t.text :object
+      t.text :original
+      t.text :reason
 
       t.timestamps
     end

@@ -21,8 +21,8 @@ class Approval < ActiveRecord::Base
   #persisted attributes
 	attr_accessible :state, :event, :object, :original, :reason
 
-	as_enum :state, pending: 0, accepted: 1, refused: 2, fail: 3
-	as_enum :event, create: 0, update: 1, translate: 2
+	as_enum :state, pending: 0, approved: 1, refused: 2, fail: 3
+	as_enum :event, { create: 0, update: 1, translate: 2 }, prefix: true
 	serialize :object
   serialize :original
 
@@ -33,7 +33,7 @@ class Approval < ActiveRecord::Base
 
 	private
 		def object_and_original_must_match
-			retunr if original.nil?
+			return if original.nil?
 			errors.add(:object, :entity_type_mismatch, old_type: original.class.humanize, new_type: object.class.humanize) unless object.class == original.class
 			errors.add(:object, :id_mismatch, old_type: original.id, new_type: object.id) unless object.id == original.id
 		end

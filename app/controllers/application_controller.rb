@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :devise_controller?
   before_filter :set_locale, :authorize_mini_profiler
 
+  #force Rails 3 to reload libs files in Development Mode:
+  before_filter :_reload_libs, :if => :_reload_libs?
+
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to_back :alert => exception.message
   end
@@ -38,4 +42,17 @@ class ApplicationController < ActionController::Base
       logger.info "Cannot find any referer : #{exception.message}"
       redirect_to root_path, options
     end
+
+
+    #############################
+    def _reload_libs
+      RELOAD_LIBS.each do |lib|
+        require_dependency lib
+      end
+    end
+
+    def _reload_libs?
+      defined? RELOAD_LIBS
+    end
+    #############################
 end

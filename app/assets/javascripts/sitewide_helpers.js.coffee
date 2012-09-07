@@ -7,8 +7,8 @@ $(document).ready ->
 	}
 
 	#add icon search in typeahead fields
-	#$('input[name$="typeahead"]').wrap('<div class="input-append">')
-	#.parent().append('<span class="add-on"><i class="icon-search"></i></span>')
+	$('input[name$="typeahead"]').wrap('<div class="input-append">')
+	.parent().append('<span class="add-on"><i class="icon-search"></i></span>')
 
 	#activate ajaxed links to modals
 	$('.modal-trigger').on 'ajax:success', (event, xhr, status) ->
