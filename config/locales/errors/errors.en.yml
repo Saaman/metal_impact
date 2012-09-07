@@ -39,6 +39,10 @@ en:
               taken: "is already taken by an existing label"
             website:
               invalid: "is not a valid url"
+        approval:
+          new_record_invalidity:  "you can't an approval for an existing entity without providing the original entity"
+          entity_type_mismatch: "Your approval is inconsistent as the object is of type '%{new_type}' whereas the original object is of type '%{old_type}'"
+          id_mismatch: "Your approval is inconsistent as the object is of id '%{new_id}' whereas the original object is of id '%{old_id}'"
   exceptions:
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
   recaptcha:

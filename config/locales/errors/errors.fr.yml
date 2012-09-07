@@ -39,6 +39,10 @@ fr:
               taken: "est déjà affecté à un label existant"
             website:
               invalid: "n'est pas une url valide"
+        approval:
+          new_record_invalidity:  "Il n'est pas possible de créer une Approbation pour une mise à jour d'entité sans fournir la version d'origine"
+          entity_type_mismatch: "L'Approbation est invalide car le type de l'entité est '%{new_type}' tandis que l'object d'origine est de type '%{old_type}'"
+          id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{new_type}' tandis que l'object d'origine est d'id '%{old_type}'"
   exceptions:
     artist_association_error: "Impossible d'associer l'artiste '%{artist_name}' car il n'exerce pas la fonction de %{practice_kind}"
   recaptcha:

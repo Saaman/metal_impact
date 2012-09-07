@@ -28,7 +28,7 @@ bundle exec rake refresh_ws:<OS>
 
 Annotate models / routes
 ------------------------
-bundle exec annotate -p before
+bundle exec annotate -p before (--model-dir dir)
 bundle exec annotate -r
 
 Generate "request" tests

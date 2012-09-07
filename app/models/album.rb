@@ -28,6 +28,7 @@ class Album < ActiveRecord::Base
 
 	as_enum :kind, album: 0, demo: 1, mini_album: 2, live: 3
 
+	#validations
 	validates_as_enum :kind
 	validates :kind, presence: true
 	validates_associated :music_label, :if => :new_music_label?
