@@ -17,8 +17,8 @@
 
 class Album < ActiveRecord::Base
 
+	#behavior
 	include Productable
-	include HasContributions
 
 	#associations
   belongs_to :music_label

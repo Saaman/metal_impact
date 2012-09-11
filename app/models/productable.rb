@@ -21,6 +21,9 @@ module Productable
   def self.included(klazz)  # klazz is that class object that included this module
     klazz.class_eval do
 
+      #behavior
+      include HasContributions
+      
       #associations
       has_and_belongs_to_many :artists, :before_add => :check_artists_practices
 

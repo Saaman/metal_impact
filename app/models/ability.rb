@@ -21,6 +21,7 @@ class Ability
         can :manage, :all
         cannot :destroy, User, :id => user.id
         cannot :create, User
+        can :bypass_validation, :all
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
