@@ -59,7 +59,7 @@ class Approval < ActiveRecord::Base
 		end
 
 		def nil_original_means_create_event
-			errors.add(:event, :invalid_event) if (not original.nil?) && event_create?
+			errors.add(:event, :invalid_event) unless original.nil? ^ event_update?
 		end
 
 		def object_and_approvable_must_match
@@ -68,6 +68,6 @@ class Approval < ActiveRecord::Base
 		end
 
 		def Approval.check_object_has_contributions(object)
-			raise Exceptions::HasContributionsError.new("Object of type '#{object.nil? ? nil : object.class.humanize}' dos not support contributions mechanism") unless object.kind_of? HasContributions
+			raise Exceptions::HasContributionsError.new("Object of type '#{object.nil? ? nil : object.class.name.humanize}' dos not support contributions mechanism") unless object.kind_of? HasContributions
 		end
 end

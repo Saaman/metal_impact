@@ -74,7 +74,11 @@ describe Approval do
 
     describe "when original" do
       describe "and event does not match" do
-        before { @approval.event = :update }
+        before do 
+          @approval.event = :update
+          @approval.original = nil
+          @approval.valid?
+        end
         it { should_not be_valid }
       end
 
@@ -82,6 +86,7 @@ describe Approval do
         before do
           @approval.event = :create
           @approval.original = album
+          @approval.valid?
         end
         it { should_not be_valid }
       end
@@ -133,8 +138,9 @@ describe Approval do
   describe "class methods" do
     describe "new_for_creation" do
       describe "with nil object" do
-        before { @approval = Approval.new_for_creation nil }
-        it { should_not be_valid }
+        it "should raise HasContributionsError" do
+          expect { Approval.new_for_creation nil }.to raise_error(Exceptions::HasContributionsError)
+        end
       end
       describe "with invalid object" do
         it "should raise HasContributionsError" do
@@ -142,7 +148,10 @@ describe Approval do
         end
       end
       describe "with valid object" do
-        before { @approval = Approval.new_for_creation album }
+        before do
+          @approval = Approval.new_for_creation album
+          @approval.valid?
+        end
         it { should be_valid }
         its(:pending?) { should be_true }
         its(:event_create?) { should be_true }
@@ -153,8 +162,9 @@ describe Approval do
     end
     describe "new_for_update" do
       describe "with nil object and original" do
-        before { @approval = Approval.new_for_update nil, nil }
-        it { should_not be_valid }
+        it "should raise HasContributionsError" do
+          expect { Approval.new_for_update not_contributable_obj, nil }.to raise_error(Exceptions::HasContributionsError)
+        end
       end
       describe "with invalid object" do
         it "should raise HasContributionsError" do
@@ -166,10 +176,15 @@ describe Approval do
         it { should_not be_valid }
       end
       describe "with valid object and original" do
-        before do
+        let(:modified_album) do
           modified_album = album.dup
           modified_album.title = "toto"
-          @approval = Approval.new_for_creation modified_album, album
+          modified_album.id = album.id
+          modified_album
+        end
+        before do
+          @approval = Approval.new_for_update modified_album, album
+          @approval.valid?
         end
         it { should be_valid }
         its(:pending?) { should be_true }
