@@ -138,13 +138,13 @@ describe Approval do
   describe "class methods" do
     describe "new_from" do
       describe "with nil object" do
-        it "should raise HasContributionsError" do
-          expect { Approval.new_from nil }.to raise_error(Exceptions::HasContributionsError)
+        it "should raise ContributableError" do
+          expect { Approval.new_from nil }.to raise_error(Exceptions::ContributableError)
         end
       end
       describe "with invalid object" do
-        it "should raise HasContributionsError" do
-          expect { Approval.new_from not_contributable_obj }.to raise_error(Exceptions::HasContributionsError)
+        it "should raise ContributableError" do
+          expect { Approval.new_from not_contributable_obj }.to raise_error(Exceptions::ContributableError)
         end
       end
       describe "with valid object" do

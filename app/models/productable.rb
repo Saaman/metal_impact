@@ -22,7 +22,7 @@ module Productable
     klazz.class_eval do
 
       #behavior
-      include HasContributions
+      include Contributable
       
       #associations
       has_and_belongs_to_many :artists, :before_add => :check_artists_practices

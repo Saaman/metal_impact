@@ -2,6 +2,6 @@ module Exceptions
 	class ArtistAssociationError < StandardError
 	end
 
-	class HasContributionsError < StandardError
+	class ContributableError < StandardError
 	end
 end

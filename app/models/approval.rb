@@ -63,6 +63,6 @@ class Approval < ActiveRecord::Base
 		end
 
 		def Approval.check_object_has_contributions(object)
-			raise Exceptions::HasContributionsError.new("Object of type '#{object.nil? ? nil : object.class.name.humanize}' dos not support contributions mechanism") unless object.kind_of? HasContributions
+			raise Exceptions::ContributableError.new("Object of type '#{object.nil? ? nil : object.class.name.humanize}' dos not support contributions mechanism") unless object.kind_of? Contributable
 		end
 end
