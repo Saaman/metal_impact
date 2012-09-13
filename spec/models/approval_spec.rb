@@ -136,20 +136,20 @@ describe Approval do
   end
 
   describe "class methods" do
-    describe "new_for_creation" do
+    describe "new_from" do
       describe "with nil object" do
         it "should raise HasContributionsError" do
-          expect { Approval.new_for_creation nil }.to raise_error(Exceptions::HasContributionsError)
+          expect { Approval.new_from nil }.to raise_error(Exceptions::HasContributionsError)
         end
       end
       describe "with invalid object" do
         it "should raise HasContributionsError" do
-          expect { Approval.new_for_creation not_contributable_obj }.to raise_error(Exceptions::HasContributionsError)
+          expect { Approval.new_from not_contributable_obj }.to raise_error(Exceptions::HasContributionsError)
         end
       end
       describe "with valid object" do
         before do
-          @approval = Approval.new_for_creation album
+          @approval = Approval.new_from album
           @approval.valid?
         end
         it { should be_valid }
@@ -159,22 +159,7 @@ describe Approval do
         its(:approvable) { should == album }
         its(:object) { should == album }
       end
-    end
-    describe "new_for_update" do
-      describe "with nil object and original" do
-        it "should raise HasContributionsError" do
-          expect { Approval.new_for_update not_contributable_obj, nil }.to raise_error(Exceptions::HasContributionsError)
-        end
-      end
-      describe "with invalid object" do
-        it "should raise HasContributionsError" do
-          expect { Approval.new_for_update not_contributable_obj, nil }.to raise_error(Exceptions::HasContributionsError)
-        end
-      end
-      describe "with valid object and without original" do
-        before { @approval = Approval.new_for_update album, nil }
-        it { should_not be_valid }
-      end
+      
       describe "with valid object and original" do
         let(:modified_album) do
           modified_album = album.dup
@@ -183,7 +168,7 @@ describe Approval do
           modified_album
         end
         before do
-          @approval = Approval.new_for_update modified_album, album
+          @approval = Approval.new_from modified_album, album
           @approval.valid?
         end
         it { should be_valid }

@@ -40,16 +40,11 @@ class Approval < ActiveRecord::Base
     approval.event ||= (original.nil? && :create) || :update
   end
 
-  def Approval.new_for_creation(object)
+  def Approval.new_from(object, original = nil)
   	check_object_has_contributions object
-  	Approval.new object: object, approvable: object
+  	return Approval.new object: object, approvable: object if original.nil?
+  	return Approval.new object: object, approvable: original, original: original
   end
-
-  def Approval.new_for_update(object, original)
-  	check_object_has_contributions object
-  	Approval.new object: object, approvable: original, original: original
-  end
-
 
 	private
 		def object_and_original_must_match

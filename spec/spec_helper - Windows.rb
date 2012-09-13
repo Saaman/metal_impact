@@ -37,7 +37,9 @@ RSpec.configure do |config|
 
   #insert devise support
   config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, :type => :helper
   config.extend ControllerMacros, :type => :controller
+  config.extend HelperMacros, :type => :helper
 
   #alias it_behaves_like
   config.alias_it_should_behave_like_to :its_access_is, 'access is'

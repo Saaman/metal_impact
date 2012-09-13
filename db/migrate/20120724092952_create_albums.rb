@@ -9,6 +9,9 @@ class CreateAlbums < ActiveRecord::Migration
       #album specific informations
       t.integer :kind_cd, :null => false
 
+      #has_contributions data
+      t.boolean :published, :null => false, default: true
+
       t.timestamps
     end
 
