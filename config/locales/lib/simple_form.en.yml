@@ -40,7 +40,7 @@ en:
         email: "E-mail address"
         email_confirmation: "E-mail address confirmation"
         password: "Password"
-        pseudo: "Pseudo"
+        pseudo: "Nickname"
         gender: "Gender"
         date_of_birth: "Date of birth"
         remember_me: "Remember my credentials"

@@ -89,7 +89,6 @@ def bulk_save(models)
   #correct sequence number
   if ActiveRecord::Base.configurations[Rails.env]['adapter'] == 'postgresql'
     query = "SELECT setval('#{models.first.class.name.tableize}_id_seq', #{success_instances_count})"
-    puts query
     ActiveRecord::Base.connection.execute(query)
   end
 
