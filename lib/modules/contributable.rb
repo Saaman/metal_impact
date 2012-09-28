@@ -9,7 +9,7 @@ module Contributable
       attr_accessible :published
 
       #validations
-      validates :published, presence: true
+      validates :published, :inclusion => { :in => [true, false] }
 	 	end
   end
 end

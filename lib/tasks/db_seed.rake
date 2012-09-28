@@ -15,10 +15,10 @@ namespace :db do
   end
   
   desc "This drops the db, builds the db, and seeds the data. Takes more time than simple reseed"
-  task :full_reseed => [:environment, 'db:drop', 'db:create', 'db:migrate', 'db:seed']
+  task :full_reseed => ['db:drop', 'db:create', 'db:migrate', 'db:seed']
 
   desc "This reset the db, and seeds the data. Usually don't work as partial seeding will make reseed fails"
-  task :reseed => [:environment, 'db:reset', 'db:seed']
+  task :reseed => ['db:reset', 'db:seed']
 end
 
 def make_users

@@ -40,7 +40,7 @@ class Approval < ActiveRecord::Base
     approval.event ||= (original.nil? && :create) || :update
   end
 
-  def Approval.new_from(object, original = nil)
+  def self.new_from(object, original = nil)
   	check_object_has_contributions object
   	return Approval.new object: object, approvable: object if original.nil?
   	return Approval.new object: object, approvable: original, original: original
@@ -62,7 +62,7 @@ class Approval < ActiveRecord::Base
 			errors.add(:object, :approvable_mismatch, obj_type: object.class.name.humanize, obj_id: object.id, appr_type: approvable.class.name.humanize, appr_id: approvable.id) unless (object.class == approvable.class) and (object.id == approvable.id)
 		end
 
-		def Approval.check_object_has_contributions(object)
+		def self.check_object_has_contributions(object)
 			raise Exceptions::ContributableError.new("Object of type '#{object.nil? ? nil : object.class.name.humanize}' dos not support contributions mechanism") unless object.kind_of? Contributable
 		end
 end

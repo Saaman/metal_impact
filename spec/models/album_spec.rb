@@ -32,6 +32,10 @@ describe Album do
     let(:artist) { FactoryGirl.create(:artist) }
 	end
 
+  it_should_behave_like "contributable model" do
+    let(:contributable) { @album }
+  end
+
 	describe "attributes and methods" do
 		it { should respond_to(:kind) }
 		it { should respond_to(:kind_cd) }

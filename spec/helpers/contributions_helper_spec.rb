@@ -3,12 +3,14 @@ require 'spec_helper'
 describe ContributionsHelper do
 
   describe "contribute_with" do
+
     describe "with invalid object" do
       let(:not_contributable_obj) { FactoryGirl.create(:music_label) }
       it "should raise ContributableError" do
         expect { helper.contribute_with not_contributable_obj }.to raise_error(Exceptions::ContributableError)
       end
     end
+
     describe "with object.valid? is false" do
       let(:invalid_object) { FactoryGirl.build(:album) }
       it "should should return false" do
@@ -39,6 +41,9 @@ describe ContributionsHelper do
         it "should save the object" do
           expect { helper.contribute_with object }.to change(Album, :count).by(1)
         end
+        
+        it { helper.contribute_with(object).should == true }
+
         describe "object should be published" do
           before { helper.contribute_with object }
           specify { Album.last.published.should == true }
@@ -48,7 +53,7 @@ describe ContributionsHelper do
             object.published = false
             helper.contribute_with object
           end
-          specify { object.reload.published.should == false }
+          specify { Album.last.published.should be_false }
         end
       end
     end
@@ -73,9 +78,7 @@ describe ContributionsHelper do
           helper.contribute_with(existing_object).should == true
         end
       end
-      
       describe "when something goes wrong" do
-        
         it "should return false" do
           helper.should_receive(:request_approval).with(object).and_return true
           helper.should_receive(:save).with(object).and_return false
@@ -87,16 +90,25 @@ describe ContributionsHelper do
         end
       end
       describe "when saving a new record" do
+        describe " then" do
+          it "should save the album" do
+            expect { helper.contribute_with(object) }.to change(Album, :count)
+          end
+        end
+
         describe "it should be unpublished" do
-          before { helper.contribute_with object }
-          specify { object.reload.published.should == false }
+          before { helper.contribute_with(object) }
+          specify { Album.last.title.should == object.title }
+          specify { object.published.should == false }
+          specify { Album.last.published.should == false }
         end
         describe "even if told otherwise" do
           before do
             object.published = true
             helper.contribute_with object
           end
-          specify { object.reload.published.should == false }
+          specify { object.published.should == false }
+          specify { Album.last.published.should == false }
         end
       end
     end

@@ -26,10 +26,13 @@ module ContributionsHelper
 
 	private
 		def save(object)
+			logger.info "save the object"
 			if can? :bypass_approval, object
 				object.published = true if object.published.nil?
+				logger.info "can skip approval, so published is set to true"
 			else
 				object.published = false
+				logger.info "cannot bypass approval, so published is set to false"
 			end
 			object.save
 		end

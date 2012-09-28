@@ -16,6 +16,10 @@ shared_examples "contributable model" do
 	      before { contributable.published = " " }
 	      it { should_not be_valid }
 	    end
+	    describe "is false" do
+	      before { contributable.published = false }
+	      it { should be_valid }
+	    end
 	  end
 	end
 end
