@@ -14,25 +14,39 @@ describe "authorizations on MusicLabel" do
     it{ should_not be_able_to(:destroy, music_label) }
     it{ should_not be_able_to(:update, music_label) }
     it{ should_not be_able_to(:smallblock, music_label) }
+    it{ should_not be_able_to(:bypass_approval, music_label) }
   end
 
   context "when is basic user" do
-    let(:user) { FactoryGirl.create (:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     it{ should_not be_able_to(:create, music_label) }
     it{ should be_able_to(:read, music_label) }
     it{ should_not be_able_to(:destroy, music_label) }
     it{ should_not be_able_to(:update, music_label) }
     it{ should be_able_to(:smallblock, music_label) }
+    it{ should_not be_able_to(:bypass_approval, music_label) }
+  end
+
+  context "when is staff user" do
+    let(:user) { FactoryGirl.create(:user, :role => :staff) }
+
+    it{ should_not be_able_to(:create, music_label) }
+    it{ should be_able_to(:read, music_label) }
+    it{ should_not be_able_to(:destroy, music_label) }
+    it{ should_not be_able_to(:update, music_label) }
+    it{ should be_able_to(:smallblock, music_label) }
+    it{ should_not be_able_to(:bypass_approval, music_label) }
   end
 
   context "when is admin user" do
-    let(:user) { FactoryGirl.create (:admin) }
+    let(:user) { FactoryGirl.create(:user, :role => :admin) }
 
     it{ should be_able_to(:create, music_label) }
     it{ should be_able_to(:read, music_label) }
     it{ should be_able_to(:destroy, music_label) }
     it{ should be_able_to(:update, music_label) }
     it{ should be_able_to(:smallblock, music_label) }
+    it{ should be_able_to(:bypass_approval, music_label) }
   end
 end

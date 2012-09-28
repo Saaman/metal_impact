@@ -41,6 +41,6 @@ class Album < ActiveRecord::Base
 
 	private
 		def new_music_label?
-			music_label.nil? || music_label.new_record?
+			music_label.nil? ? false : music_label.new_record?
 		end
 end

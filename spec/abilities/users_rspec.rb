@@ -20,7 +20,7 @@ describe "authorizations on User" do
   end
 
   context "when is basic user" do
-    let(:user) { FactoryGirl.create (:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     it{ should_not be_able_to(:create, User.new) }
     it{ should_not be_able_to(:create, user) }
@@ -32,8 +32,21 @@ describe "authorizations on User" do
     it{ should be_able_to(:update, user) }
   end
 
+  context "when is staff user" do
+    let(:user) { FactoryGirl.create(:user, :role => :staff) }
+
+    it{ should_not be_able_to(:create, User.new) }
+    it{ should_not be_able_to(:create, user) }
+    it{ should be_able_to(:read, user) }
+    it{ should_not be_able_to(:read, other_user) }
+    it{ should_not be_able_to(:destroy, other_user) }
+    it{ should_not be_able_to(:destroy, user) }
+    it{ should_not be_able_to(:update, other_user) }
+    it{ should be_able_to(:update, user) }
+  end
+
   context "when is admin user" do
-    let(:user) { FactoryGirl.create (:admin) }
+    let(:user) { FactoryGirl.create(:user, :role => :admin) }
 
     it{ should_not be_able_to(:create, User.new) }
     it{ should_not be_able_to(:create, user) }

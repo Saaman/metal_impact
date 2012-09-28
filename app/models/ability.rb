@@ -23,6 +23,13 @@ class Ability
         cannot :create, User
         can :bypass_approval, :all
     end
+
+    if user.staff?
+        can :manage, [Album, Artist]
+        cannot :create, User
+        cannot :destroy, User, :id => user.id
+        cannot :bypass_approval, :all
+    end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

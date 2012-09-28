@@ -2,6 +2,8 @@ module Contributable
 	def self.included(klazz)  # klazz is that class object that included this module
 		klazz.class_eval do
 
+      #Considering default value set in DB, published is set to 'false' by default
+
 			#associations
 			has_many :approvals, :as => :approvable
 

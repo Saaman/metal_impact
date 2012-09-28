@@ -10,7 +10,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.integer :kind_cd, :null => false
 
       #has_contributions data
-      t.boolean :published, :null => false, default: true
+      t.boolean :published, :null => false, default: false
 
       t.timestamps
     end

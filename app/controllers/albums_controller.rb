@@ -65,7 +65,7 @@ class AlbumsController < ApplicationController
       build_or_update_album(params)
 
       respond_to do |format|
-        if associate_artists(params) and contribute_with(@album)
+        if associate_artists(params) && contribute_with(@album)
           format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
           format.json { render json: @album, location: @album }
         else

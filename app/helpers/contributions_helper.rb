@@ -10,7 +10,9 @@ module ContributionsHelper
 			#TODO : check if it's transactional or not. It should be
 			return save(object) && reward_contribution(object)
 		end
-		return request_approval(object) && ((not object.new_record?) || save(object))
+
+		original = object.new_record? ? nil : object.class.find(object.id)
+		return ((not object.new_record?) || save(object)) && request_approval(object, original)
 	end
 
 	def reward_contribution(object)
@@ -18,22 +20,15 @@ module ContributionsHelper
 		return true
 	end
 
-	def request_approval(object)
-		original = object.new_record? ? nil : object.class.find(object.id)
-		approval = Approval.new_from object, original
-		approval.save
-	end
-
 	private
+
+		def request_approval(object, original)
+			approval = Approval.new_from object, original
+			approval.save
+		end
+
 		def save(object)
-			logger.info "save the object"
-			if can? :bypass_approval, object
-				object.published = true if object.published.nil?
-				logger.info "can skip approval, so published is set to true"
-			else
-				object.published = false
-				logger.info "cannot bypass approval, so published is set to false"
-			end
+			object.published = true if can? :bypass_approval, object
 			object.save
 		end
 end

@@ -14,12 +14,12 @@
 ActiveRecord::Schema.define(:version => 20120907144837) do
 
   create_table "albums", :force => true do |t|
-    t.string   "title",              :limit => 511,                   :null => false
-    t.date     "release_date",                                        :null => false
-    t.integer  "kind_cd",                                             :null => false
-    t.boolean  "published",                         :default => true, :null => false
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.string   "title",              :limit => 511,                    :null => false
+    t.date     "release_date",                                         :null => false
+    t.integer  "kind_cd",                                              :null => false
+    t.boolean  "published",                         :default => false, :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.string   "cover_file_name"
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
