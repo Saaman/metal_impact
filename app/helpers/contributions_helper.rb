@@ -6,13 +6,20 @@ module ContributionsHelper
 
 		return(false) unless object.valid?
 
-		if can? :bypass_approval, object
-			#TODO : check if it's transactional or not. It should be
-			return save(object) && reward_contribution(object)
-		end
+		begin
+			ActiveRecord::Base.transaction do
+				if can? :bypass_approval, object
+					return save(object) && reward_contribution(object)
+				end
 
-		original = object.new_record? ? nil : object.class.find(object.id)
-		return ((not object.new_record?) || save(object)) && request_approval(object, original)
+				original = object.new_record? ? nil : object.class.find(object.id)
+				return ((not object.new_record?) || save(object)) && request_approval(object, original)
+			end
+		rescue Exception => exception
+			logger.info "an exception occured : #{exception.message}"
+			flash[:error] = t 'errors.exceptions.default'
+			return false
+		end
 	end
 
 	def reward_contribution(object)
@@ -24,11 +31,11 @@ module ContributionsHelper
 
 		def request_approval(object, original)
 			approval = Approval.new_from object, original
-			approval.save
+			approval.save!
 		end
 
 		def save(object)
 			object.published = true if can? :bypass_approval, object
-			object.save
+			object.save!
 		end
 end

@@ -46,6 +46,7 @@ fr:
           invalid_event: "Il est obligatoire de renseigner un 'original' non nul pour un évènement de création"
           approvable_mismatch: "L'approbation contenant l'objet %{obj_type}(%{obj_id}) ne peux pas faire référence à %{appr_type}(%{appr_id})"
   exceptions:
+    default: "Une erreur est survenue, merci de recommencer l'opération. Si le problème persiste, veuillez signaler le bug."
     artist_association_error: "Impossible d'associer l'artiste '%{artist_name}' car il n'exerce pas la fonction de %{practice_kind}"
   recaptcha:
     errors:

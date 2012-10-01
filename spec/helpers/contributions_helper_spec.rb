@@ -27,13 +27,12 @@ describe ContributionsHelper do
         helper.contribute_with(object).should == true
       end
       describe "when something goes wrong" do
+        before { helper.should_receive(:reward_contribution).with(object).and_raise("something wrong happened") }
         it "should return false" do
-          helper.should_receive(:reward_contribution).with(object).and_return false
           helper.should_receive(:save).with(object).and_return true
           helper.contribute_with(object).should == false
         end
         it "should rollback object save" do
-          helper.should_receive(:reward_contribution).with(object).and_return false
           expect { helper.contribute_with(object) }.to_not change(Album, :count)
         end
       end
@@ -73,13 +72,12 @@ describe ContributionsHelper do
         end
       end
       describe "when something goes wrong" do
+        before { helper.should_receive(:request_approval).with(object, nil).and_raise("something wrong happened") }
         it "should return false" do
-          helper.should_receive(:request_approval).with(object, nil).and_return false
           helper.should_receive(:save).with(object).and_return true
           helper.contribute_with(object).should == false
         end
         it "should rollback approval request" do
-          helper.should_receive(:request_approval).and_return false
           expect { helper.contribute_with(object) }.to_not change(Album, :count)
         end
       end

@@ -186,7 +186,7 @@ describe AlbumsController do
           response.should redirect_to(persisted_album)
         end
         it "udaptes the album" do
-          assigns(:album)[:title].should == album[:title]
+          assigns(:album)[:title].should == album[:title].titleize
         end
       end
 
