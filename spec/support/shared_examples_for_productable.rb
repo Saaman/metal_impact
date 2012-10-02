@@ -3,6 +3,10 @@ require "set"
 
 shared_examples "productable model" do
 
+	it_should_behave_like "contributable model" do
+    let(:contributable) { productable }
+  end
+
 	describe "attributes and methods" do
     #attributes
     it { should respond_to(:title) }

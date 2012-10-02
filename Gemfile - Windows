@@ -16,6 +16,7 @@ gem 'country_select' , '~> 1.0'
 gem 'countries', '~> 0.8'
 gem 'globalize3', '~>0.2'
 gem 'squeel', '~>1.0'
+gem 'userstamp', :git => "https://github.com/theepan/userstamp.git"
 
 #UI gems
 gem 'webshims-rails', '~> 0.2'

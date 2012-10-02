@@ -3,6 +3,10 @@ require "set"
 
 shared_examples "contributable model" do
 
+	it_should_behave_like "trackable model" do
+    let(:trackable) { contributable }
+  end
+
 	describe "attributes and methods" do
     #attributes
     it { should respond_to(:published) }

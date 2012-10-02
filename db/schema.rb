@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
     t.date     "release_date",                                         :null => false
     t.integer  "kind_cd",                                              :null => false
     t.boolean  "published",                         :default => false, :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
     t.string   "cover_file_name"

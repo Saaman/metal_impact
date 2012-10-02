@@ -29,6 +29,8 @@ FactoryGirl.define do
   factory :album do
   	title { generate(:random_string) }
   	release_date { 1.month.ago.to_date }
+    creator { User.first || FactoryGirl.create(:user) }
+    updater { creator }
     kind :album
     factory :album_with_artists do
       after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, PRNG.rand(1..2), albums: [album]) }

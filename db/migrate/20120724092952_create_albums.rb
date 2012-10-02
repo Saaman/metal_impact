@@ -12,6 +12,7 @@ class CreateAlbums < ActiveRecord::Migration
       #has_contributions data
       t.boolean :published, :null => false, default: false
 
+      t.userstamps
       t.timestamps
     end
 

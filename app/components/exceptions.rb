@@ -4,4 +4,7 @@ module Exceptions
 
 	class ContributableError < StandardError
 	end
+
+	class TrackableError < StandardError
+	end
 end

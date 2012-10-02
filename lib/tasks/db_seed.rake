@@ -57,8 +57,11 @@ def make_albums
     title = random_string(1..4)
     kind = Album.kinds.key(PRNG.rand(0..1))
     release_date = Time.now - PRNG.rand(1..100).days- PRNG.rand(1..100).minutes
+    admin_user = User.find(1)
     album = Album.new(title: title, kind: kind, release_date: release_date)
     album.artists = artists.sample(PRNG.rand(1..3))
+    album.creator = admin_user
+    album.updater = admin_user
     if PRNG.rand(0..1) == 0
       album.build_music_label(name: random_string(1..2), distributor: random_string(1..2), website: "http://#{Faker::Internet.domain_name}/#{random_word}")
     else

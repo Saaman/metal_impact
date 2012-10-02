@@ -20,9 +20,12 @@ require 'spec_helper'
 describe Album do
 
 	let!(:artist) { FactoryGirl.create(:artist) }
+  let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @album = Album.new title: "Ride The Lightning", release_date: 1.month.ago, :kind => :album
     @album.artists << artist
+    @album.creator = owner
+    @album.updater = owner
   end
 
 	subject { @album }
@@ -31,10 +34,6 @@ describe Album do
 		let(:productable) { @album }
     let(:artist) { FactoryGirl.create(:artist) }
 	end
-
-  it_should_behave_like "contributable model" do
-    let(:contributable) { @album }
-  end
 
 	describe "attributes and methods" do
 		it { should respond_to(:kind) }
