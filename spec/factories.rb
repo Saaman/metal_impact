@@ -21,6 +21,8 @@ FactoryGirl.define do
     ignore do
       practice_kind :band
     end
+    creator { User.first || FactoryGirl.create(:user) }
+    updater { creator }
     name { generate(:random_string) }
     practices { [Practice.new(:kind => practice_kind)] }
     countries ["FR"]

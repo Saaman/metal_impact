@@ -11,6 +11,9 @@
 
 class Artist < ActiveRecord::Base
   
+  #behavior
+  include Contributable
+
 	#associations
 	has_and_belongs_to_many :albums
 	#no need of inverse_of here, as it preloads artist when accessing a practice. No use here

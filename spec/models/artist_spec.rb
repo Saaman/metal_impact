@@ -13,12 +13,19 @@ require 'spec_helper'
 
 describe Artist do
 
+  let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @artist = Artist.new name: "Metallica", :countries => ["FR"]
     @artist.practices.build :kind => :band
+    @artist.creator = owner
+    @artist.updater = owner
   end
 
   subject { @artist }
+
+  it_should_behave_like "contributable model" do
+    let(:contributable) { @artist }
+  end
 
   describe "attributes and methods" do
     #attributes

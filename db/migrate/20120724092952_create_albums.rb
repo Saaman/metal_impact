@@ -28,6 +28,9 @@ class CreateAlbums < ActiveRecord::Migration
     add_index :albums, :created_at, order: {created_at: :desc}
     add_index :albums, :release_date
     add_index :albums, :kind_cd
+
+    add_index :albums, :creator_id
+    add_index :albums, :updater_id
   end
 
   def down
@@ -36,6 +39,9 @@ class CreateAlbums < ActiveRecord::Migration
     remove_index :albums, :created_at
     remove_index :albums, :release_date
     remove_index :albums, :kind_cd
+
+    remove_index :albums, :creator_id
+    remove_index :albums, :updater_id
 
     #cover
     remove_attachment :albums, :cover

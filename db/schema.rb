@@ -30,9 +30,11 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   end
 
   add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
+  add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
   add_index "albums", ["title"], :name => "index_albums_on_title"
+  add_index "albums", ["updater_id"], :name => "index_albums_on_updater_id"
 
   create_table "albums_artists", :id => false, :force => true do |t|
     t.integer "artist_id", :null => false
@@ -67,14 +69,19 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "artist_translations", ["locale"], :name => "index_artist_translations_on_locale"
 
   create_table "artists", :force => true do |t|
-    t.string   "name",       :limit => 127, :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.string   "name",       :limit => 127,                    :null => false
+    t.boolean  "published",                 :default => false, :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "countries",  :limit => 127
   end
 
   add_index "artists", ["created_at"], :name => "index_artists_on_created_at"
+  add_index "artists", ["creator_id"], :name => "index_artists_on_creator_id"
   add_index "artists", ["name"], :name => "index_artists_on_name"
+  add_index "artists", ["updater_id"], :name => "index_artists_on_updater_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

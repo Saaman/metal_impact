@@ -57,13 +57,11 @@ def make_albums
     title = random_string(1..4)
     kind = Album.kinds.key(PRNG.rand(0..1))
     release_date = Time.now - PRNG.rand(1..100).days- PRNG.rand(1..100).minutes
-    admin_user = User.find(1)
     album = Album.new(title: title, kind: kind, release_date: release_date)
     album.artists = artists.sample(PRNG.rand(1..3))
-    album.creator = admin_user
-    album.updater = admin_user
+    stamp_users album
     if PRNG.rand(0..1) == 0
-      album.build_music_label(name: random_string(1..2), distributor: random_string(1..2), website: "http://#{Faker::Internet.domain_name}/#{random_word}")
+      album.build_music_label(name: random_string(1..3), distributor: random_string(1..2), website: "http://#{Faker::Internet.domain_name}/#{random_word}")
     else
       album.music_label_id = PRNG.rand(1..MusicLabel.count) if MusicLabel.all.count > 0
     end
@@ -75,7 +73,9 @@ def make_single_artist(kind)
   name = random_string(1..2)
   biography = Faker::Lorem.paragraphs.join(" ")
   countries = References::COUNTRIES_CODES.sample(PRNG.rand(1..6))
-  Artist.create(name: name, biography: biography, countries: countries, practices_attributes: [{:kind => kind}])
+  artist = Artist.new name: name, biography: biography, countries: countries, practices_attributes: [{:kind => kind}]
+  stamp_users artist
+  artist.save!
 end
 
 private
@@ -85,17 +85,8 @@ private
   def random_word
     Faker::Lorem.words(1)[0]
   end
-
-#from original post :
-
-# namespace :db do
-#   desc "This loads the development data."
-#   task :seed => :environment do
-#     require 'active_record/fixtures'
-#     Dir.glob(RAILS_ROOT + '/db/fixtures/*.yml').each do |file|
-#       base_name = File.basename(file, '.*')
-#       say "Loading #{base_name}..."
-#       Fixtures.create_fixtures('db/fixtures', base_name)
-#     end
-#   end
-# end
+  def stamp_users(object)
+    object.creator = User.find(PRNG.rand(1..User.count))
+    object.updater = User.find(PRNG.rand(1..User.count))
+    object
+  end
