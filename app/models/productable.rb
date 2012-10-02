@@ -22,7 +22,7 @@ module Productable
     klazz.class_eval do
 
       #associations
-      has_and_belongs_to_many :artists, :before_add => :check_artists_practices
+      has_and_belongs_to_many :artists, :before_add => :check_artists_practices, :before_remove => :check_artists_length
 
     	#attributes
       attr_accessible :release_date, :title, :cover
@@ -45,6 +45,7 @@ module Productable
   def try_set_artist_ids(artist_ids)
     begin
       self.artist_ids = artist_ids
+      logger.info "affect artist_ids = #{artist_ids.inspect}"
     rescue Exceptions::ArtistAssociationError => exception
       self.errors["artists"] = exception.message
       return false;
@@ -59,4 +60,8 @@ module Productable
         raise Exceptions::ArtistAssociationError.new(I18n.t("exceptions.artist_association_error", artist_name: artist.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or"))))
       end
     end
+
+    def check_artists_length(artist)
+      raise Exceptions::ArtistAssociationError.new(I18n.t("exceptions.artist_removal_error", artist_name: artist.name)) if self.artists.size == 1
+    end 
 end

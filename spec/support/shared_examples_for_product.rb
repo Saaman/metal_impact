@@ -46,14 +46,16 @@ shared_examples "productable model" do
 	    end
 	  end
 
-	  describe "when artists" do
-	    describe "is empty" do
-	      before { productable.artists = [] }
-	      it { should_not be_valid }
-	      its(:artists) { should be_empty }
+	  describe "artists association :" do
+	    describe "when empty" do
+	    	let(:productable_without_artists) { FactoryGirl.build(:album) }
+	    	before { productable_without_artists.valid? }
+	      specify { productable_without_artists.should_not be_valid }
+	      specify { productable_without_artists.artists.should be_empty }
+	      specify { productable_without_artists.errors[:artist_ids].first.should =~ /associate/ }
 	    end
 
-	    describe "has more than one artist" do
+	    describe "when has more than one artist" do
 	      before { productable.artists << FactoryGirl.create(:artist) }
 	      it { should be_valid }
 	      its(:artists) { should have(2).items }
@@ -63,6 +65,12 @@ shared_examples "productable model" do
 	    	it "should raise ArtistAssociationError" do
 		      expect { productable.artists << Artist.new }.to raise_error(Exceptions::ArtistAssociationError)
 		      expect { productable.artist_ids += [10000] }.to raise_error(ActiveRecord::RecordNotFound)
+		    end
+	    end
+	    describe "when removing all artists on an album" do
+	    	it "should raise ArtistAssociationError" do
+		      expect { productable.artists = [] }.to raise_error(Exceptions::ArtistAssociationError)
+		      expect { productable.artists.clear }.to raise_error(Exceptions::ArtistAssociationError)
 		    end
 	    end
 	  end

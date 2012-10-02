@@ -90,6 +90,11 @@ class AlbumsController < ApplicationController
 
     def associate_artists(params)
       #return true if not artists to add. Standard validation will make the save fails
-      params.has_key?(:product) ? @album.try_set_artist_ids(params[:product][:artist_ids]) : true
+      if params.has_key?(:product)
+        @album.try_set_artist_ids(params[:product][:artist_ids])
+      else
+        @album.errors.add(:artist_ids, :too_short)
+        false
+      end
     end
 end

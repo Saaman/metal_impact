@@ -29,6 +29,8 @@ en:
           attributes:
             kind:
               invalid_enum: "'%{value}' is not recognized as a valid album kind."
+            artist_ids:
+              too_short: "You must associate this album with at least one artist. Please use the typeahead field above to search for existing artists."
         practice:
           attributes:
             kind:
@@ -41,6 +43,7 @@ en:
               invalid: "is not a valid url"
   exceptions:
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
+    artist_removal_error: "You cannot remove artist '%{artist_name}' from the album, otherwise there will be no artist associated anymore"
   recaptcha:
     errors:
       verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."

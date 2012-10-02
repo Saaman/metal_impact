@@ -28,7 +28,7 @@
   <fieldset>
     <legend><%= t '.artists' %></legend>
       <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
-      <%= f.input :artists, :as => :hidden %>
+      <%= f.input :artist_ids, :as => :hidden %>
   </fieldset>
   
   <div class="form-actions">

@@ -29,6 +29,8 @@ fr:
           attributes:
             kind:
               invalid_enum: "'%{value}' n'est pas un type d'album valide."
+            artist_ids:
+              too_short: "Vous devez associer au moins un artiste à cet album. Veuillez utiliser le champ de recherche rapide ci-dessus."
         practice:
           attributes:
             kind:
@@ -41,6 +43,7 @@ fr:
               invalid: "n'est pas une url valide"
   exceptions:
     artist_association_error: "Impossible d'associer l'artiste '%{artist_name}' car il n'exerce pas la fonction de %{practice_kind}"
+    artist_removal_error: "Impossible de retirer l'artiste '%{artist_name}', sinon l'album ne sera plus associé à aucun artiste"
   recaptcha:
     errors:
       verification_failed: "Le captcha que vous avez saisi n'est pas valide. Merci de recommencer."
