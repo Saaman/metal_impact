@@ -4,6 +4,10 @@ namespace :db do
 
     args.with_defaults(:file_name => '*')
 
+    puts "create root user"
+    create_admin
+    puts ""
+
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
       puts "Import #{fixture}..."
       load fixture
@@ -11,11 +15,9 @@ namespace :db do
       puts ""
     end
 
-    puts "create root user"
-    create_admin
   end
 
-  desc "Import data from old Metal Impact"
+  desc "download fixtures files from Google Drive"
   task :dl_fixtures do
 
     puts "clean existing fixtures..."
