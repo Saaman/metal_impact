@@ -11,9 +11,9 @@ $(document).ready ->
 	.parent().append('<span class="add-on"><i class="icon-search"></i></span>')
 
 	#activate ajaxed links to modals
-	$('.modal-trigger').on 'ajax:success', (event, xhr, status) ->
-	  $('#modal-container').modal()
+	$('link.modal-trigger').on 'ajax:success', (event, xhr, status) ->
+	  $('div#modal-container').modal()
 	.on 'ajax:error', (event, xhr, status) ->
-		$('#modal-container').html xhr.responseText
-		$('#modal-container').modal()
+		$('div#modal-container').html xhr.responseText
+		$('div#modal-container').modal()
 		alert 'error happened'

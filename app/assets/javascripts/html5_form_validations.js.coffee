@@ -32,8 +32,8 @@ jQuery.fn.displayDynamicError = (message = "") ->
 	errorMessage = $(this).prop('validationMessage') if !errorMessage
 	
 	$(this).siblings('span.help-inline').remove().end()
-	.after('<span class="help-inline">' + errorMessage + '</span>').parents('.control-group').addClass('error').removeClass("success")
+	.after('<span class="help-inline">' + errorMessage + '</span>').parents('div.control-group').addClass('error').removeClass("success")
 
 jQuery.fn.displayDynamicSuccess = () ->
 	$(this).siblings('span.help-inline').remove().end()
-	.parents('.control-group').addClass('success').removeClass("error")
+	.parents('div.control-group').addClass('success').removeClass("error")
