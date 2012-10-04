@@ -13,12 +13,13 @@ module Productable
 
     	#attributes
       attr_accessible :release_date, :title, :cover
-      has_attached_file :cover, :styles => { :medium => ["300x300>", :jpg], :thumb => ["50x50>", :jpg] }
       
+      #Cover
+      mount_uploader :cover, CoverUploader
+
       #validations
       validates :title, presence: true, length: { :maximum => 511}
       validates :release_date, presence: true
-      validates_attachment_content_type :cover, :content_type => /image/
       validates :artist_ids, :length => { :minimum => 1}
 
       #callbacks

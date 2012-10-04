@@ -12,10 +12,11 @@
       </div>
       <div class="span6 well">
         <% if @album.cover? %>
-          <div class="center"><%= image_tag @album.cover.url(:medium), :class => "portrait" %></div>
+          <div class="center"><%= image_tag @album.cover_url :class => "portrait" %></div>
         <% end %>
         
         <%= f.input :cover, :hint => t('.upload_cover'), :wrapper_html => {:class => "fileinputs"}, input_html: {class: 'skipval'}, :wrapper => :file_field %>
+        <%= f.input :cover_cache, :as => :hidden %>
       </div>
     </div>
   </fieldset>

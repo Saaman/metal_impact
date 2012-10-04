@@ -16,20 +16,17 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   create_table "albums", :force => true do |t|
     t.string   "title",              :limit => 511,                    :null => false
     t.date     "release_date",                                         :null => false
+    t.string   "cover"
     t.integer  "kind_cd",                                              :null => false
     t.boolean  "published",                         :default => false, :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
-    t.string   "cover_file_name"
-    t.string   "cover_content_type"
-    t.integer  "cover_file_size"
-    t.datetime "cover_updated_at"
     t.integer  "music_label_id"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
@@ -157,12 +154,5 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-
-  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
-
-  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
-  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
-
-  add_foreign_key "practices", "artists", :name => "practices_artist_id_fk"
 
 end

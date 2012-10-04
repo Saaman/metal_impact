@@ -18,6 +18,10 @@ gem 'globalize3', '~>0.2'
 gem 'squeel', '~>1.0'
 gem 'userstamp', :git => "https://github.com/theepan/userstamp.git"
 
+#image uploads management
+gem 'mini_magick'
+gem 'carrierwave'
+
 #UI gems
 gem 'webshims-rails', '~> 0.2'
 gem 'jquery-rails', '~> 2.1.0'

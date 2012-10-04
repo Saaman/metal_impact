@@ -5,6 +5,7 @@ class CreateAlbums < ActiveRecord::Migration
       #product basic informations
       t.string :title, :null => false, limit: 511
       t.date :release_date, :null => false
+      t.string :cover
 
       #album specific informations
       t.integer :kind_cd, :null => false
@@ -15,9 +16,6 @@ class CreateAlbums < ActiveRecord::Migration
       t.userstamps
       t.timestamps
     end
-
-    #cover
-    add_attachment :albums, :cover
 
     #music labels
     add_column :albums, :music_label_id, :integer
