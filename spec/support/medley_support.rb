@@ -11,3 +11,7 @@ def reset_abilities
   @ability.extend(CanCan::Ability)
   controller.stub(:current_ability).and_return(@ability)
 end
+
+def uploaders_fixtures_path
+	File.join([Rails.root, 'spec', 'uploaders', 'fixtures'])
+end
