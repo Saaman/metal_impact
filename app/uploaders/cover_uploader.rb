@@ -29,7 +29,9 @@ class CoverUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [500, 500]
+  process :resize_to_limit => [500, 500] do |img|
+    img.format 'jpg'
+  end
 
   # Create different versions of your uploaded files:
   version :thumb do
@@ -49,7 +51,7 @@ class CoverUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{model.artists.map{|a| a.name}.join('-').gsub(/\s+/, '')}_#{model.title.gsub(/\s+/, '')}#{File.extname original_filename}" if original_filename
+    "#{model.artists.map{|a| a.name}.join('-').gsub(/\s+/, '')}_#{model.title.gsub(/\s+/, '')}.jpg" if original_filename
   end
 
 end
