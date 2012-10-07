@@ -6,6 +6,9 @@
 #  title              :string(511)      not null
 #  release_date       :date             not null
 #  kind_cd            :integer          not null
+#  published          :boolean          default(FALSE), not null
+#  creator_id         :integer
+#  updater_id         :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  cover_file_name    :string(255)

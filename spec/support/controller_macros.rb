@@ -14,6 +14,12 @@ module ControllerMacros
     end
   end
 
+  def set_referer
+    before(:each) do
+      request.env["HTTP_REFERER"] = root_path
+    end
+  end
+
   def stub_abilities
     before do
       @ability = Object.new

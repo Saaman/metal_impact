@@ -2,47 +2,37 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
+    
+    alias_action :search, :smallblock, :to => :read
     
     user ||= User.new # guest user (not logged in)
     
     can :read, :all
     can :create, User
+    cannot :read, Productable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end
 
-    unless(user.new_record?)
-        can [:search, :smallblock], Artist
-        can [:smallblock], MusicLabel
-        can [:destroy, :update], User, :id => user.id
-        cannot :create, User
-    end
+    return if user.new_record?
 
-    if user.admin?
+    #########  signed-in users only  #########
+
+    can [:destroy, :update], User, :id => user.id
+
+    if user.role_cd >= User.roles[:staff]
+      can :manage, [Productable, Artist]
+      cannot :manage, Productable do |product| !product.published && product.updater_id != user.id end
+      cannot :bypass_approval, :all
+
+      if user.admin?
         can :manage, :all
-        cannot :destroy, User, :id => user.id
-        cannot :create, User
         can :bypass_approval, :all
+      end
+
+      #common cannots for users >= staff
+      cannot :destroy, User, :id => user.id
     end
 
-    if user.staff?
-        can :manage, [Album, Artist]
-        cannot :create, User
-        cannot :destroy, User, :id => user.id
-        cannot :bypass_approval, :all
-    end
-    #
-    # The first argument to `can` is the action you are giving the user permission to do.
-    # If you pass :manage it will apply to every action. Other common actions here are
-    # :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. If you pass
-    # :all it will apply to every resource. Otherwise pass a Ruby class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
+    #common cannots for signed-in users
+    cannot :create, User
   end
 end

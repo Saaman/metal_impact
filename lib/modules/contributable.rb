@@ -13,6 +13,7 @@ module Contributable
 
       #validations
       validates :published, :inclusion => { :in => [true, false] }
+
 	 	end
   end
 end

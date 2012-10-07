@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: approvals
+#
+#  id              :integer          not null, primary key
+#  approvable_type :string(255)      not null
+#  approvable_id   :integer          not null
+#  event_cd        :integer          not null
+#  state_cd        :integer          not null
+#  object          :text
+#  original        :text
+#  reason          :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Approval do

@@ -26,6 +26,7 @@ FactoryGirl.define do
     name { generate(:random_string) }
     practices { [Practice.new(:kind => practice_kind)] }
     countries ["FR"]
+    published { true }
   end
 
   factory :album do
