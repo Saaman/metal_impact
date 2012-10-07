@@ -13,8 +13,8 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:read, artist) }
     it{ should_not be_able_to(:destroy, artist) }
     it{ should_not be_able_to(:update, artist) }
-    it{ should_not be_able_to(:search, artist) }
-    it{ should_not be_able_to(:smallblock, artist) }
+    it{ should be_able_to(:search, artist) }
+    it{ should be_able_to(:smallblock, artist) }
     it{ should_not be_able_to(:bypass_approval, artist) }
   end
 

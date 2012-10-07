@@ -14,6 +14,8 @@ module Contributable
       #validations
       validates :published, :inclusion => { :in => [true, false] }
 
+      scope :published, where(:published => true)
+
 	 	end
   end
 end

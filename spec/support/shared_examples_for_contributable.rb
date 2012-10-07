@@ -41,4 +41,12 @@ shared_examples "contributable model" do
 			its(:published) { should be_true }
 		end
 	end
+
+	describe "scopes : " do
+    describe "published scope should retrieve only published albums" do
+      let(:unpublished_album) { FactoryGirl.create(:album_with_artists, published: false) }
+      specify { Album.published.pluck("id").should_not include(unpublished_album.id) }
+    end
+  end
+
 end

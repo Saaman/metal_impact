@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe "authorizations on User" do
   subject { ability }
+  before(:all) { User.all.each { |u| u.destroy } }
   let(:ability){ Ability.new(user) }
   let(:other_user) { FactoryGirl.create(:user) }
 

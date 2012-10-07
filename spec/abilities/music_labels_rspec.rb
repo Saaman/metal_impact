@@ -13,7 +13,7 @@ describe "authorizations on MusicLabel" do
     it{ should be_able_to(:read, music_label) }
     it{ should_not be_able_to(:destroy, music_label) }
     it{ should_not be_able_to(:update, music_label) }
-    it{ should_not be_able_to(:smallblock, music_label) }
+    it{ should be_able_to(:smallblock, music_label) }
     it{ should_not be_able_to(:bypass_approval, music_label) }
   end
 
