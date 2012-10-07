@@ -8,7 +8,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums
   def index
-    @albums = Album.published.paginate(page: params[:page])
+    @albums = Album.published.order("updated_at DESC").paginate(page: params[:page])
     respond_with @albums
   end
 

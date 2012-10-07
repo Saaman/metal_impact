@@ -19,7 +19,7 @@
 </div>
 
 <br style="clear: left" />
-<p>Some text for Fun</p>
+<p>Dernière modification par : <%= link_to @album.updater.pseudo, '#' %> le <%= l @album.updated_at , :format => :short%></p>
 
 <%= link_to t('defaults.edit_link'), edit_album_path(@album) %> |
 <%= link_to t('defaults.back_link'), albums_path %>
