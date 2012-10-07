@@ -58,6 +58,7 @@ group :development do
   gem 'annotate', '~> 2.5.0.pre'
   gem 'letter_opener', '~> 0.0'
   gem 'debugger'
+  gem 'bullet', '~>4.2.0'
 end
 
 group :test do
