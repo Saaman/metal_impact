@@ -14,18 +14,9 @@ shared_examples "productable model" do
     it { should respond_to(:artists) }
     it { should respond_to(:artist_ids) }
     it { should respond_to(:cover) }
-    it { should respond_to(:cover_file_name) }
-    it { should respond_to(:cover_content_type) }
-    it { should respond_to(:cover_file_size) }
-    it { should respond_to(:cover_updated_at) }
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }
 
-    #validators
-    it { should have_attached_file(:cover) }
-    it { should validate_attachment_content_type(:cover).
-      allowing('image/png', 'image/jpg').
-      rejecting('text/plain', 'text/xml') }
   end
 
   describe "validations" do

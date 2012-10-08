@@ -35,7 +35,7 @@ module ContributionsHelper
 		end
 
 		def save(object)
-			object.published = true if can? :bypass_approval, object
+			object.published = can? :bypass_approval, object
 			object.save!
 		end
 end

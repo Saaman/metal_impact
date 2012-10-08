@@ -48,7 +48,7 @@ namespace :db do
   task :drop_and_import => ['db:drop', 'db:create', 'db:migrate', 'db:import']
 
   desc "This drops the db, builds the db, download fixtures from Google Drive and import the data."
-  task :import_from_gdrive => ['db:dl_fixtures', 'db:migrate', 'db:import']
+  task :download_drop_and_import => ['db:dl_fixtures', 'db:drop_and_import']
 
 end
 

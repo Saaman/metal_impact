@@ -26,7 +26,7 @@ FactoryGirl.define do
     name { generate(:random_string) }
     practices { [Practice.new(:kind => practice_kind)] }
     countries ["FR"]
-    published { true }
+    published true
   end
 
   factory :album do
@@ -34,6 +34,7 @@ FactoryGirl.define do
   	release_date { 1.month.ago.to_date }
     creator { User.first || FactoryGirl.create(:user) }
     updater { creator }
+    published true
     kind :album
     factory :album_with_artists do
       after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, PRNG.rand(1..2), albums: [album]) }

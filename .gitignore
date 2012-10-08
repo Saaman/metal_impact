@@ -9,6 +9,7 @@ db/backups
 /log/*.log*
 /tmp
 *.log
+public/covers
 
 # Ignore other unneeded files.
 doc/
@@ -20,7 +21,6 @@ doc/
 *.sublime-project
 *.dat
 *.sqlite3-journal
-public/uploads
 
 #Ignore files compiled for production
 /public/assets
@@ -37,6 +37,7 @@ spec/spec_helper.rb
 config/initializers/recaptcha.rb
 config/environments/development.rb
 config/database.yml
+db/schema.rb
 
 # git rm --ignore-unmatch -f Gemfile Gemfile.lock Guardfile spec/spec_helper.rb .rspec config/initializers/recaptcha.rb config/environments/development.rb config/database.yml
 
@@ -47,6 +48,4 @@ config/database.yml
 #sensible data
 .*env
 /execs/*.sh
-
-#business data
 /db/fixtures/*.rb

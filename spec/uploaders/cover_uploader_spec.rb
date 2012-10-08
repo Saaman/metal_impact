@@ -36,12 +36,12 @@ describe CoverUploader do
     end
   end
 
-  it "should make the image readable for everyone, writable by owner & group" do
-    @uploader.should have_permissions(0664)
-  end
-
   it "should be named after artist names & album title" do
     expected_file_name = "#{album.artists.map{|a| a.name}.join('-').gsub(/\s+/, '')}_#{album.title.gsub(/\s+/, '')}"
     @uploader.current_path.should include expected_file_name
+  end
+
+  it "should be stored as a jpg" do
+    @uploader.current_path.should include '.jpg'
   end
 end

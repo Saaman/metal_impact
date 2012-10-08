@@ -5,9 +5,14 @@ describe "authorizations on Artist" do
   subject { ability }
   let(:ability){ Ability.new(user) }
   let(:artist) { FactoryGirl.create(:artist) }
+  let(:unpublished_artist) { FactoryGirl.create(:artist, published: false) }
 
   context "when is anonymous user" do
     let(:user) { User.new }
+    it{ should_not be_able_to(:create, unpublished_artist) }
+    it{ should_not be_able_to(:read, unpublished_artist) }
+    it{ should_not be_able_to(:destroy, unpublished_artist) }
+    it{ should_not be_able_to(:update, unpublished_artist) }
 
     it{ should_not be_able_to(:create, artist) }
     it{ should be_able_to(:read, artist) }
@@ -20,6 +25,10 @@ describe "authorizations on Artist" do
 
   context "when is basic user" do
     let(:user) { FactoryGirl.create(:user) }
+    it{ should_not be_able_to(:create, unpublished_artist) }
+    it{ should_not be_able_to(:read, unpublished_artist) }
+    it{ should_not be_able_to(:destroy, unpublished_artist) }
+    it{ should_not be_able_to(:update, unpublished_artist) }
 
     it{ should_not be_able_to(:create, artist) }
     it{ should be_able_to(:read, artist) }
@@ -32,6 +41,10 @@ describe "authorizations on Artist" do
 
   context "when is staff user" do
     let(:user) { FactoryGirl.create(:user, :role => :staff) }
+    it{ should_not be_able_to(:create, unpublished_artist) }
+    it{ should_not be_able_to(:read, unpublished_artist) }
+    it{ should_not be_able_to(:destroy, unpublished_artist) }
+    it{ should_not be_able_to(:update, unpublished_artist) }
 
     it{ should be_able_to(:create, artist) }
     it{ should be_able_to(:read, artist) }
@@ -40,10 +53,22 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
     it{ should_not be_able_to(:bypass_approval, artist) }
+
+    describe "can read unpublished album for which he is the last updater" do
+      before { unpublished_artist.updater_id = user.id }
+      it{ should be_able_to(:read, unpublished_artist) }
+      it{ should be_able_to(:destroy, unpublished_artist) }
+      it{ should be_able_to(:update, unpublished_artist) }
+    end
   end
 
   context "when is admin user" do
     let(:user) { FactoryGirl.create(:user, :role => :admin) }
+
+    it{ should be_able_to(:create, unpublished_artist) }
+    it{ should be_able_to(:read, unpublished_artist) }
+    it{ should be_able_to(:destroy, unpublished_artist) }
+    it{ should be_able_to(:update, unpublished_artist) }
 
     it{ should be_able_to(:create, artist) }
     it{ should be_able_to(:read, artist) }

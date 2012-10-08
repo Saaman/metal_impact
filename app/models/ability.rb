@@ -9,7 +9,7 @@ class Ability
     
     can :read, :all
     can :create, User
-    cannot :read, Productable, published: false
+    cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end
 
     return if user.new_record?
@@ -19,8 +19,10 @@ class Ability
     can [:destroy, :update], User, :id => user.id
 
     if user.role_cd >= User.roles[:staff]
-      can :manage, [Productable, Artist]
-      cannot :manage, Productable do |product| !product.published && product.updater_id != user.id end
+      can :manage, Contributable
+      cannot :manage, Contributable do |contributable|
+        !contributable.published && contributable.updater_id != user.id
+      end
       cannot :bypass_approval, :all
 
       if user.admin?

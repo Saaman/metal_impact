@@ -3,8 +3,8 @@ require 'spec_helper'
 #######################################################################################
 shared_examples "albums actions granted for anybody" do
   describe "GET 'index'" do
-    let(:first_page)  { Album.paginate(page: 1) }
-    let(:second_page) { Album.paginate(page: 2) }
+    let(:first_page)  { Album.order("updated_at DESC").paginate(page: 1) }
+    let(:second_page) { Album.order("updated_at DESC").paginate(page: 2) }
     it "should return the first page of albums" do
       get :index
       should render_template("index")
