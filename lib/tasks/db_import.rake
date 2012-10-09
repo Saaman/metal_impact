@@ -63,6 +63,9 @@ def create_admin
 end
 
 def bulk_save(models)
+
+  limit_uploads(models, 100)
+
   if models.blank?
     puts "no records to create"
     return
@@ -96,4 +99,14 @@ def bulk_save(models)
   end
 
   puts "#{success_instances_count} out of #{models.length} #{models.first.class.name.downcase.pluralize} have been created"
+end
+
+def limit_uploads(entities, max_count)
+  return if max_count > entities.size
+  entities.last(entities.size-max_count).each do |entity|
+    case entity.class.name
+    when "Album"
+      entity.remote_cover_url = nil
+    end
+  end
 end
