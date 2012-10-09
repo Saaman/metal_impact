@@ -54,6 +54,16 @@ Spork.prefork do
 
     #include paperclip matchers
     config.include Paperclip::Shoulda::Matchers
+
+    #Erase all existing records
+    config.before(:suite) do
+      Approval.delete_all
+      Album.delete_all
+      Practice.delete_all
+      Artist.delete_all
+      MusicLabel.delete_all
+      User.delete_all
+    end
   end
 end
 
