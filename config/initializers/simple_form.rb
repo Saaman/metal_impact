@@ -82,13 +82,13 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :file_field, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+  config.wrappers :file_field, :tag => 'div', :class => 'control-group file-wrapper', :error_class => 'error' do |b|
     b.use :html5
-    b.wrapper :tag => 'div', :class => 'controls file-wrapper' do |ba|
-      ba.use :input
-      ba.use :hint, :wrap_with => { :tag => 'button', :class => 'file-button btn btn-inverse', type: 'button' }
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-    end
+    #b.wrapper :tag => 'div', :class => 'controls file-wrapper' do |ba|
+      b.use :input
+      b.use :hint, :wrap_with => { :tag => 'button', :class => 'file-button btn btn-inverse', type: 'button' }
+      b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+    #end
   end
 
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.

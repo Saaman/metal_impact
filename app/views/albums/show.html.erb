@@ -5,7 +5,7 @@
   </span>
 </p>
 
-<div class="portrait"><%= image_tag @album.cover.thumb.url %></div>
+<div class="portrait"><%= image_tag @album.cover.url %></div>
 <div>
 	<div>
 		<i><%= t ".label" %></i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label.name %>

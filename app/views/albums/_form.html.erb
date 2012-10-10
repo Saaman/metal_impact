@@ -11,12 +11,17 @@
         
       </div>
       <div class="span6 well">
-        <% if @album.cover? %>
-          <div class="center"><%= image_tag @album.cover_url :class => "portrait" %></div>
-        <% end %>
-        
-        <%= f.input :cover, :hint => t('.upload_cover'), :wrapper_html => {:class => "fileinputs"}, input_html: {class: 'skipval'}, :wrapper => :file_field %>
-        <%= f.input :cover_cache, :as => :hidden %>
+        <div class="row-fluid">
+          <div class="span5">
+            <%= f.input :cover, :hint => t('.upload_cover'), :wrapper_html => {:class => "fileinputs", :style => "margin-top:75px"}, input_html: {class: 'skipval'}, :wrapper => :file_field %>
+            <%= f.input :cover_cache, :as => :hidden %>
+          </div>
+          <div class="span7">
+            <% if @album.cover? %>
+              <div class="center"><%= image_tag @album.cover.normal.url %></div>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </fieldset>
