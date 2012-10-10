@@ -12,10 +12,10 @@ $ ->
 	#Don't use valid state for ajax controls as it's impossible to force validation to happen
 	#The display will look like webshims Html5 validations, except the validityState is not up to date!
 	#Have in mind this won't prevent the form from being submitted
-	$('#modal-container').on 'changedvalid', '#user_pseudo', (e) ->
+	$('div#modal-container').on 'changedvalid', '#user_pseudo', (e) ->
 		CheckIfPseudoTaken $(e.target)
 	
-	$('#modal-container').on 'focusout', '#user_pseudo', (e) ->
+	$('div#modal-container').on 'focusout', '#user_pseudo', (e) ->
 		return if !$(e.target).prop('validity').valid #do not perform ajax checks on focusout until field is valid
 		CheckIfPseudoTaken $(e.target)
 

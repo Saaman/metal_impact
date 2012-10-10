@@ -40,15 +40,11 @@ MetalImpact::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
 
   #devise configuration
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # use letter opener
   config.action_mailer.delivery_method = :letter_opener
-
-  #imageMagic path for PaperClip
-  Paperclip.options[:command_path] = 'C:\Program Files (x86)\ImageMagick-6.7.6-Q16'
-  Paperclip.options[:swallow_stderr] = false
 end

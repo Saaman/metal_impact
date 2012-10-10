@@ -22,6 +22,9 @@ module Productable
       validates :release_date, presence: true
       validates :artist_ids, :length => { :minimum => 1}
 
+      validates_integrity_of :cover
+      validates_processing_of :cover
+
       #callbacks
       before_save do |product|
         #"ride the lightning" turns into "Ride The Lightning"
