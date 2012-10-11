@@ -37,7 +37,7 @@ class CoverUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "#{model.artists.map{|a| a.name}.join('-')}_#{model.title}.jpg".gsub(/[^0-9A-Za-z_\-\.]+/, '') if original_filename
+    "#{model.artists.map{|a| a.name}.join('-')}_#{model.title}_#{Date.today.strftime "%Y%m%d" }.jpg".gsub(/[^0-9A-Za-z_\-\.]+/, '') if original_filename
   end
 
 end
