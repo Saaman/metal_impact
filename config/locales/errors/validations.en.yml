@@ -1,0 +1,50 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: "must be a valid e-mail address."
+              format: "must be a valid e-mail address."
+            email_confirmation:
+              custom_confirmation: "E-mail and confirmation don't match."
+            password:
+              too_short: "is too short (at least 6 characters)."
+              invalid: "must contain 7 characters including at least one that is not a letter."
+            pseudo:
+              taken: "This user name is already taken. Please choose another one."
+              too_short: "is too short (at least 4 characters)."
+            gender:
+              invalid_enum: "'%{value}' is not recognized as a valid gender."
+            role:
+              invalid_enum: "'%{value}' is not recognized as a valid user's role."
+            date_of_birth:
+              before: "Your date of birth must be in the past."
+        artist:
+          attributes:
+            countries:
+              array_inclusion: "'%{value}' is not a valid 2-letters country code"
+        album:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' is not recognized as a valid album kind."
+        practice:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' is not recognized as a valid practice for an artist."
+        music_label:
+          attributes:
+            name:
+              taken: "is already taken by an existing label"
+            website:
+              invalid: "is not a valid url"
+        approval:
+          new_record_invalidity:  "you can't an approval for an existing entity without providing the original entity"
+          entity_type_mismatch: "Your approval is inconsistent as the object is of type '%{new_type}' whereas the original object is of type '%{old_type}'"
+          id_mismatch: "Your approval is inconsistent as the object is of id '%{new_id}' whereas the original object is of id '%{old_id}'"
+          invalid_event: "You cannot create an 'creation' approval without providing an non-nil original object"
+          approvable_mismatch: "Your approval containing %{obj_type}(%{obj_id}) should not refer to %{appr_type}(%{appr_id})"
+      messages:
+        carrierwave_processing_error: failed to be processed
+        carrierwave_integrity_error: is not an allowed file type

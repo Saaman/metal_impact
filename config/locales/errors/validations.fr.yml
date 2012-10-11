@@ -1,0 +1,50 @@
+fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: "doit être une adresse e-mail valide."
+              format: "doit être une adresse e-mail valide."
+            email_confirmation:
+              custom_confirmation: "L'e-mail et la confirmation ne concordent pas."
+            password:
+              too_short: "est trop court (au moins 7 caractères)."
+              invalid: "doit contenir au moins 7 caractères dont un qui n'est pas une lettre."
+            pseudo:
+              taken: "Ce pseudo est déjà utilisé. Merci d'en choisir un autre."
+              too_short: "est trop court (au moins 4 caractères)."
+            gender:
+              invalid_enum: "'%{value}' n'est pas valide. Il n'existe que 2 genres."
+            role:
+              invalid_enum: "'%{value}' n'est pas un rôle utilisateur reconnu."
+            date_of_birth:
+              before: "Votre date de naissance doit être dans le passé."
+        artist:
+          attributes:
+            countries:
+              array_inclusion: "Le code pays '%{value}' n'est pas valide"
+        album:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' n'est pas un type d'album valide."
+        practice:
+          attributes:
+            kind:
+              invalid_enum: "'%{value}' n'est pas une pratique artistique valide."
+        music_label:
+          attributes:
+            name:
+              taken: "est déjà affecté à un label existant"
+            website:
+              invalid: "n'est pas une url valide"
+        approval:
+          new_record_invalidity:  "Il n'est pas possible de créer une Approbation pour une mise à jour d'entité sans fournir la version d'origine"
+          entity_type_mismatch: "L'Approbation est invalide car le type de l'entité est '%{new_type}' tandis que l'object d'origine est de type '%{old_type}'"
+          id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{new_type}' tandis que l'object d'origine est d'id '%{old_type}'"
+          invalid_event: "Il est obligatoire de renseigner un 'original' non nul pour un évènement de création"
+          approvable_mismatch: "L'approbation contenant l'objet %{obj_type}(%{obj_id}) ne peux pas faire référence à %{appr_type}(%{appr_id})"
+      messages:
+        carrierwave_processing_error: "le traitement a échoué"
+        carrierwave_integrity_error: "n'est pas un type de fichier valide"

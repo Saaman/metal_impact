@@ -1,0 +1,30 @@
+en:
+  exceptions:
+    default: "An exception occurs. Please try again. If the problem persists, please submit a bug"
+    artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
+  recaptcha:
+    errors:
+      verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."
+      verification_failed_on_sign_up: "Captcha response is incorrect. Please try again."
+  unauthorized:
+    manage:
+      all: "You are not authorized to %{action} %{subject}."
+      user: "You cannot manage other user accounts."
+    update:
+      album: "You are not allowed to update this album."
+  #validates timeliness
+  errors:
+    messages:
+      invalid_date: "is not a valid date"
+      invalid_time: "is not a valid time"
+      invalid_datetime: "is not a valid datetime"
+      is_at: "must be at %{restriction}"
+      before: "must be before %{restriction}"
+      on_or_before: "must be on or before %{restriction}"
+      after: "must be after %{restriction}"
+      on_or_after: "must be on or after %{restriction}"
+  validates_timeliness:
+    error_value_formats:
+      date: '%Y-%m-%d'
+      time: '%H:%M:%S'
+      datetime: '%Y-%m-%d %H:%M:%S'

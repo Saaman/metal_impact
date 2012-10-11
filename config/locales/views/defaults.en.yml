@@ -14,3 +14,52 @@ en:
         other: "%{count} errors"
       errors_main: "%{error_count} prohibited this %{entity} from being saved."
       errors_help: "Please correct the form below and save again."
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Some errors were found, please take a look:"
+    # Labels and hints examples
+    # labels:
+    #   password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail para efetuar o sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   username: 'User name to sign in.'
+    #   password: 'No special characters, please.'
+    creating: "Creating..."
+    updating: 'Updating...'
+    buttons:
+      or: 'or'
+      cancel: 'cancel'
+    labels:
+      defaults:
+        title: "Title"
+        artist_ids: "Artists"
+        release_date: "Release date"
+        music_label_id: "Label"
+        kind: "Type"
+        cover: "Artwork"
+        name: "Name"
+        website: "Website url"
+        distributor: "distributor"
+        email: "E-mail address"
+        email_confirmation: "E-mail address confirmation"
+        password: "Password"
+        pseudo: "Pseudo"
+        gender: "Gender"
+        date_of_birth: "Date of birth"
+        remember_me: "Remember my credentials"
+    placeholders:
+      user:
+        email: "E-mail address"
+        password: "Password"
