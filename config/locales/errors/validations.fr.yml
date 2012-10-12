@@ -49,3 +49,6 @@ fr:
         carrierwave_processing_error: "le traitement a échoué"
         carrierwave_integrity_error: "n'est pas un type de fichier valide"
         extension_white_list_error: "ce type de fichier n'est pas autorisé"
+        wrong_size: "is the wrong size (should be %{file_size})"
+        size_too_small: "is too small (should be at least %{file_size})"
+        size_too_big: "is too big (should be at most %{file_size})"

@@ -33,7 +33,7 @@ class CoverUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(jpg jpeg gif png bmp)
+    %w(jpg jpeg gif png bmp tif tiff)
   end
 
   def filename
