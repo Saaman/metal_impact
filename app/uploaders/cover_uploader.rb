@@ -25,11 +25,11 @@ class CoverUploader < CarrierWave::Uploader::Base
   end
 
   version :normal do
-    process :resize_to_fit => [200,200]
+    process resize_to_fill: [200,200]
   end
 
   version :thumb, :from_version => :normal do
-    process resize_to_fit: [50, 50]
+    process resize_to_fill: [50, 50]
   end
 
   def extension_white_list

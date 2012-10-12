@@ -24,15 +24,15 @@ describe CoverUploader do
   end
 
   context 'the thumb version' do
-    it "should scale down a landscape image to be exactly 100 by 100 pixels" do
-      @uploader.thumb.should have_dimensions(100, 100)
+    it "should scale down a landscape image to be exactly 200 by 200 pixels" do
+      @uploader.normal.should have_dimensions(200, 200)
     end
   end
 
   context 'the small version' do
     it "should scale down a landscape image to be exactly 50 by 50 pixels" do
       #@uploader.small_thumb.should be_no_larger_than(50, 50)
-      @uploader.small_thumb.should have_dimensions(50, 50)
+      @uploader.thumb.should have_dimensions(50, 50)
     end
   end
 

@@ -8,6 +8,12 @@ Spork.prefork do
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
 
+  #start test coverage
+  unless ENV['DRB']
+    require 'simplecov'
+  end
+
+
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
@@ -69,6 +75,10 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
+
+  if ENV['DRB']
+    require 'simplecov'
+  end
 
 end
 

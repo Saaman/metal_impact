@@ -9,7 +9,10 @@ db/backups
 /log/*.log*
 /tmp
 *.log
+
+#Ignore tests files
 public/covers
+coverage
 
 # Ignore other unneeded files.
 doc/
