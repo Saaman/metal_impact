@@ -4,6 +4,12 @@ class ArtistsController < ApplicationController
   respond_to :json, only: [:search, :show]
   respond_to :js, :only => [:new, :create]
 
+  # GET /artists
+  def index
+    @artists = Artist.published.order("updated_at DESC").paginate(page: params[:page])
+    respond_with @artists
+  end
+
   # GET /artists/search
   # GET /artists/search.json
   def search

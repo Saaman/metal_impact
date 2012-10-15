@@ -3,10 +3,10 @@ require "spec_helper"
 describe ArtistsController do
   describe "routing" do
 
-    # it "routes to #index" do
-    #   get("/artists").should route_to("artists#index")
-    #   get(artists_path).should route_to("artists#index")
-    # end
+    it "routes to #index" do
+      get("/artists").should route_to("artists#index")
+      get(artists_path).should route_to("artists#index")
+    end
 
     it "routes to #new" do
       get("/artists/new").should route_to("artists#new")

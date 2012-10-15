@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe ArtistsController do
 	#Initialization stuff
-  before(:all) { Artist.all.each {|a| a.destroy } }
+  before(:all) do
+  	Artist.all.each {|a| a.destroy }
+  	30.times { FactoryGirl.create(:artist) }
+  	10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
+  end
   stub_abilities
   
   before(:each) do
@@ -13,10 +17,6 @@ describe ArtistsController do
 
 
   describe "GET search :" do
-  	before(:all) do
-  		9.times { FactoryGirl.create(:artist) }
-  		4.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
-  	end
   	let(:artist) { FactoryGirl.create(:artist) }
   	let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
 
@@ -55,6 +55,29 @@ describe ArtistsController do
 	  			assigns(:artists).should include(writer)
 	  		end
 	  	end
+	  end
+  end
+
+  describe "GET index :" do
+  	describe "(unauthorized)" do
+			before { get :index }
+			its_access_is "unauthorized"
+  	end
+  	
+  	describe "(authorized)" do
+  		before(:each) { @ability.can :index, Artist }
+  		it "should 30 display artists" do
+  			get :index
+  			assigns(:artists).size.should == 30
+  		end
+  		it "should have a second page to display" do
+  			get :index, page: 2
+  			assigns(:artists).size.should > 0
+  		end
+  		it "should sort by updated_dt desc" do
+  			get :index
+  			assigns(:artists).first.updated_at.should > assigns(:artists)[10].updated_at
+  		end
 	  end
   end
 
