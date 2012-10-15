@@ -23,6 +23,7 @@ fr:
       on_or_before: "doit être antérieur ou égal à %{restriction}"
       after: "doit être supérieur à %{restriction}"
       on_or_after: "doit être supérieur ou égal à %{restriction}"
+      mini_magick_processing_error: "une erreur s'est produite lors du traitement de l'image téléchargée"
   validates_timeliness:
     error_value_formats:
       date: '%d-%m-%Y'

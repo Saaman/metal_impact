@@ -23,6 +23,7 @@ en:
       on_or_before: "must be on or before %{restriction}"
       after: "must be after %{restriction}"
       on_or_after: "must be on or after %{restriction}"
+      mini_magick_processing_error: "an error occured when processing the uploaded image"
   validates_timeliness:
     error_value_formats:
       date: '%Y-%m-%d'
