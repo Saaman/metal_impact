@@ -23,10 +23,10 @@ describe ArtistsController do
     #   get(edit_artist_path(1)).should route_to("artists#edit", :id => "1")
     # end
 
-    # it "routes to #create" do
-    #   post("/artists").should route_to("artists#create")
-    #   post(artists_path).should route_to("artists#create")
-    # end
+    it "routes to #create" do
+      post("/artists").should route_to("artists#create")
+      post(artists_path).should route_to("artists#create")
+    end
 
     # it "routes to #update" do
     #   put("/artists/1").should route_to("artists#update", :id => "1")

@@ -2,7 +2,9 @@ en:
   artists:
     artists_for_product:
       cancel_all_deletions: "Cancel all my deletions"
-      add_artist_label: "Artist"
+      add_artist_label: "Look for the album band"
+      create_new_artist: "create a new artist"
+      create_new_artist_expl: " if it does not exist yet."
     show:
       origin_countries: "Origin countries : "
       activities: "Artistical activities : "

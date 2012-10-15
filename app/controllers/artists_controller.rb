@@ -2,6 +2,7 @@ class ArtistsController < ApplicationController
   load_and_authorize_resource
   respond_to :html
   respond_to :json, only: [:search, :show]
+  respond_to :js, :only => [:new, :create]
 
   # GET /artists/search
   # GET /artists/search.json
@@ -38,6 +39,9 @@ class ArtistsController < ApplicationController
   def new
     @artist = Artist.new
     respond_with @artist
+  end
+
+  def create
   end
 
 end

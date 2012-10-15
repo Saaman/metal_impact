@@ -2,7 +2,7 @@ MetalImpact::Application.routes.draw do
   filter :locale
   
   resources :albums
-  resources :artists, :only => [:new, :show] do
+  resources :artists, :only => [:new, :show, :create] do
     get 'search', :on => :collection
     get 'smallblock', :on => :member
   end
@@ -91,7 +91,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 26 Aug 2012 19:27
+# Generated on 15 Oct 2012 17:15
 #
 #                                   POST   /albums(.:format)                      albums#create
 #                         new_album GET    /albums/new(.:format)                  albums#new
@@ -101,13 +101,9 @@ end
 #                                   DELETE /albums/:id(.:format)                  albums#destroy
 #                    search_artists GET    /artists/search(.:format)              artists#search
 #                 smallblock_artist GET    /artists/:id/smallblock(.:format)      artists#smallblock
-#                           artists GET    /artists(.:format)                     artists#index
-#                                   POST   /artists(.:format)                     artists#create
+#                           artists POST   /artists(.:format)                     artists#create
 #                        new_artist GET    /artists/new(.:format)                 artists#new
-#                       edit_artist GET    /artists/:id/edit(.:format)            artists#edit
 #                            artist GET    /artists/:id(.:format)                 artists#show
-#                                   PUT    /artists/:id(.:format)                 artists#update
-#                                   DELETE /artists/:id(.:format)                 artists#destroy
 #            smallblock_music_label GET    /music_labels/:id/smallblock(.:format) music_labels#smallblock
 #                      music_labels POST   /music_labels(.:format)                music_labels#create
 #                   new_music_label GET    /music_labels/new(.:format)            music_labels#new
@@ -131,6 +127,7 @@ end
 #                   new_user_unlock GET    /users/unlock/new(.:format)            devise/unlocks#new
 #                                   GET    /users/unlock(.:format)                devise/unlocks#show
 #              destroy_user_session DELETE /logout(.:format)                      users/sessions#destroy
+#              destroy_user_session GET    /logout(.:format)                      users/sessions#destroy
 #                  new_user_session GET    /login(.:format)                       users/sessions#new
 #                      user_session POST   /login(.:format)                       users/sessions#create
 #                            signup GET    /signup(.:format)                      users/registrations#new
