@@ -1,5 +1,7 @@
 fr:
   activerecord:
+    models:
+      user: utilisateur
     attributes:
       user:
         email: "e-mail"

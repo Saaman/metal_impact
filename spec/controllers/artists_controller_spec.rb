@@ -91,4 +91,17 @@ describe ArtistsController do
 	  end
   end
 
+  describe "GET new :" do
+  	describe "(unauthorized)" do
+			before { get :new }
+			its_access_is "unauthorized"
+  	end
+  	describe "(authorized)" do
+  		before(:each) { @ability.can :create, Artist }
+	  	before { get :new }
+	  	it { should render_template("new") }
+	  	specify { assigns(:artist).should be_new_record }
+	  end
+  end
+
 end

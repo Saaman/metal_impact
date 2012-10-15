@@ -28,4 +28,8 @@ fr:
   global:
     info:
       errors: "Le formulaire contient des erreurs. Veuillez les corriger et soumettre à nouveau"
-
+  simple_form:
+    placeholders:
+      user:
+        email: "Adresse e-mail"
+        password: "Mot de passe"

@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
   
-  <div class="alert alert-warning" style="float: left; margin-left: 20px;">
-    <h3><%= t ".errors_main", error_count: t(".errors_count", count: object.errors.count), entity: t(".#{object.class.to_s.underscore}") %></h3>
+  <div class="alert alert-error" style="float: left; margin-left: 20px;">
+    <h3><%= t ".errors_main", error_count: t(".errors_count", count: object.errors.count), entity: "#{object.class.model_name.human}" %></h3>
     <p><%= t ".errors_help" %></p>
   </div>
   <div style="clear: left;"></div>

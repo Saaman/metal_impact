@@ -6,9 +6,6 @@ fr:
     or: " ou "
   shared:
     error_messages:
-      album: "cet album"
-      artist: "cet artiste"
-      music_label: "ce label"
       errors_count:
         one: "une erreur est survenue"
         other: "%{count} erreurs sont survenues"
@@ -59,7 +56,3 @@ fr:
         gender: "Genre"
         date_of_birth: "Date de naissance"
         remember_me: "Mémoriser mes identifiants"
-    placeholders:
-      user:
-        email: "Adresse e-mail"
-        password: "Mot de passe"

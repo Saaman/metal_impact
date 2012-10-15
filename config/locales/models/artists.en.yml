@@ -1,5 +1,8 @@
 en:
   activerecord:
+    models:
+      artist: artist
+      practice: artistical activity
     enums:
       practice:
         kinds:

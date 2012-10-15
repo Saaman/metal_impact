@@ -6,9 +6,6 @@ en:
     or: " or "
   shared:
     error_messages:
-      album: "album"
-      artist: "artist"
-      music_label: "label"
       errors_count:
         one: "One error"
         other: "%{count} errors"
@@ -59,7 +56,3 @@ en:
         gender: "Gender"
         date_of_birth: "Date of birth"
         remember_me: "Remember my credentials"
-    placeholders:
-      user:
-        email: "E-mail address"
-        password: "Password"

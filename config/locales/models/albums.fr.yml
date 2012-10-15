@@ -1,5 +1,9 @@
 fr:
   activerecord:
+    models:
+      album: album
+      music_label: label
+      approval: approbation
     enums:
       album:
         kinds:

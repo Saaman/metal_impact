@@ -1,5 +1,8 @@
 fr:
   activerecord:
+    models:
+      artist: artiste
+      practice: pratique artistique
     enums:
       practice:
         kinds:

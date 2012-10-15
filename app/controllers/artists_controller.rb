@@ -35,4 +35,9 @@ class ArtistsController < ApplicationController
     @artist = Artist.find(params[:id])
   end
 
+  def new
+    @artist = Artist.new
+    respond_with @artist
+  end
+
 end

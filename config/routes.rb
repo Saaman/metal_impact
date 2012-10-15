@@ -2,7 +2,7 @@ MetalImpact::Application.routes.draw do
   filter :locale
   
   resources :albums
-  resources :artists do
+  resources :artists, :only => [:new, :show] do
     get 'search', :on => :collection
     get 'smallblock', :on => :member
   end
