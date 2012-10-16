@@ -29,6 +29,10 @@ div.add-separator {
 	@extend .form-horizontal;
 	@include horizontal-form-label-width(100px);
 }
+.form-horizontal-medium {
+	@extend .form-horizontal;
+	@include horizontal-form-label-width(150px);
+}
 .form-horizontal-large {
 	@extend .form-horizontal;
 	@include horizontal-form-label-width(220px);

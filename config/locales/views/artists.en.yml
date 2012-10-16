@@ -8,3 +8,10 @@ en:
     show:
       origin_countries: "Origin countries : "
       activities: "Artistical activities : "
+    new:
+      title: "New artist creation"
+  helpers:
+    submit:
+      artist:
+        create: "Create artist"
+        update: "Update artist"
