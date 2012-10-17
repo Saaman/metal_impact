@@ -145,7 +145,7 @@ describe Artist do
       describe "when practices are valid" do
         before { @artist.save }
         its(:practices) { should have(1).items}
-        specify { Practice.find_by_artist_id(@artist.id).nil?.should be_false }
+        it { should satisfy {|a| a.practices[0].artists = [a] } }
       end
       describe "when practices are not valid" do
         before do
@@ -180,27 +180,6 @@ describe Artist do
     end
   end
 
-  describe "cascading deletes" do
-    describe "on artist" do
-      before do
-        @artist.save!
-        @artist_id = @artist.id
-        @artist.destroy
-      end
-      it { should satisfy {|a| a.persisted? == false} }
-      specify { Practice.find_by_artist_id(@artist_id).nil?.should be_true }
-    end
-    describe "on practices" do
-      before do
-        new_practice = @artist.practices.build :kind => :musician
-        @artist.save!
-        @artist.attributes = { :practices_attributes => [{:id => new_practice.reload.id, _destroy: '1'}] }
-        @artist.save!
-      end
-      it { should satisfy {|a| a.persisted? == true} }
-      specify { Practice.where(artist_id: @artist.id).should have(1).items }
-    end
-  end
 
   describe "scopes : " do
     describe "operates_as(:band) should not get writers" do

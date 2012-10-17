@@ -11,9 +11,7 @@
 
 class Practice < ActiveRecord::Base
 	#associations
-	#no need of inverse_of here, as it preloads artist when accessing apractice. No use here
-	#touch makes update the artist timestamp when associating a new practice
-	belongs_to :artist, :inverse_of => :practices, touch: true
+	has_and_belongs_to_many :artists
 
 	#attributes
 	attr_accessible :kind
@@ -21,5 +19,4 @@ class Practice < ActiveRecord::Base
 
 	#validations
 	validates_as_enum :kind
-	validates_presence_of :artist
 end

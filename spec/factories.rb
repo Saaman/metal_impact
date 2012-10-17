@@ -24,7 +24,7 @@ FactoryGirl.define do
     creator { User.first || FactoryGirl.create(:user) }
     updater { creator }
     name { generate(:random_string) }
-    practices { [Practice.new(:kind => practice_kind)] }
+    practices { [Practice.find_by_kind_cd(Practice.kinds(practice_kind))] }
     countries ["FR"]
     published true
   end

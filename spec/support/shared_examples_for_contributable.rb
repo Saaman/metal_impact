@@ -43,9 +43,12 @@ shared_examples "contributable model" do
 	end
 
 	describe "scopes : " do
-    describe "published scope should retrieve only published albums" do
-      let(:unpublished_album) { FactoryGirl.create(:album_with_artists, published: false) }
-      specify { Album.published.pluck("id").should_not include(unpublished_album.id) }
+    describe "published scope should retrieve only published objects" do
+    	before do
+    		contributable.published = false
+    		contributable.save
+    	end
+      specify { contributable.class.published.pluck("id").should_not include(contributable.id) }
     end
   end
 

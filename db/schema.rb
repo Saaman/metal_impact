@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907144837) do
+ActiveRecord::Schema.define(:version => 20121017150547) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",          :limit => 511,                    :null => false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
     t.integer  "music_label_id"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
@@ -34,9 +34,11 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "albums", ["updater_id"], :name => "index_albums_on_updater_id"
 
   create_table "albums_artists", :id => false, :force => true do |t|
-    t.integer "artist_id", :null => false
     t.integer "album_id",  :null => false
+    t.integer "artist_id", :null => false
   end
+
+  add_index "albums_artists", ["album_id", "artist_id"], :name => "index_albums_artists_on_album_id_and_artist_id", :unique => true
 
   create_table "approvals", :force => true do |t|
     t.string   "approvable_type", :null => false
@@ -80,6 +82,13 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "artists", ["name"], :name => "index_artists_on_name"
   add_index "artists", ["updater_id"], :name => "index_artists_on_updater_id"
 
+  create_table "artists_practices", :id => false, :force => true do |t|
+    t.integer "artist_id",   :null => false
+    t.integer "practice_id", :null => false
+  end
+
+  add_index "artists_practices", ["artist_id", "practice_id"], :name => "index_artists_practices_on_artist_id_and_practice_id", :unique => true
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -107,13 +116,10 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "music_labels", ["name"], :name => "index_music_labels_on_name", :unique => true
 
   create_table "practices", :force => true do |t|
-    t.integer  "artist_id",  :null => false
-    t.integer  "kind_cd",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "kind_cd", :null => false
   end
 
-  add_index "practices", ["artist_id", "kind_cd"], :name => "index_practices_on_artist_id_and_kind_cd", :unique => true
+  add_index "practices", ["kind_cd"], :name => "index_practices_on_kind_cd", :unique => true
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -154,12 +160,5 @@ ActiveRecord::Schema.define(:version => 20120907144837) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-
-  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
-
-  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
-  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
-
-  add_foreign_key "practices", "artists", :name => "practices_artist_id_fk"
 
 end
