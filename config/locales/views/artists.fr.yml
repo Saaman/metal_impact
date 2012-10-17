@@ -15,3 +15,7 @@ fr:
       artist:
         create: "Créer l'artiste"
         update: "Mettre à jour l'artiste"
+  simple_form:
+    labels:
+      artist:
+        biography: "Biographie :"
