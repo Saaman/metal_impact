@@ -33,7 +33,6 @@ bundler_stubs/
 
 #OS dependent files
 Gemfile
-Gemfile.lock
 Guardfile
 spec/spec_helper.rb
 .rspec

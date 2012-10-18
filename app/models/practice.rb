@@ -25,4 +25,8 @@ class Practice < ActiveRecord::Base
 		raise "'Practice.find_by_kind : argument should be a symbol" unless kind_sym.is_a? Symbol
 		self.find_by_kind_cd self.kinds(kind_sym)
 	end
+
+	def i18n_kind
+		Practice.human_enum_name(:kinds, kind)
+	end
 end

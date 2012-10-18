@@ -1,4 +1,6 @@
-<%= f.collection_check_boxes :practice_ids, Practice.all, :id, :kind, :wrapper => :bstp_lonely_in %>
+<div style="margin-bottom:20px;">
+	<%= f.collection_check_boxes( :practice_ids, Practice.all, :id, :i18n_kind, {:checked => @artist.practice_ids, :disabled => @artist.practice_ids}, {:class => 'checkbox'} ) { |input| input.label(:class => 'checkbox inline', :style => 'margin-right: 25px;') { input.check_box + input.text } } %>
+</div>
 <%= f.input :name, required: true %>
 <%= f.input :countries, required: true, :as => :multiple_countries %>
 <div style='text-align: center;'>

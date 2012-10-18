@@ -44,6 +44,7 @@ class ArtistsController < ApplicationController
 
   def new
     @artist = Artist.new
+    @artist.practices = [Practice.find_by_kind(:band)]
     respond_with @artist
   end
 
