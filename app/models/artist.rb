@@ -21,10 +21,8 @@ class Artist < ActiveRecord::Base
 	has_and_belongs_to_many :albums
   has_and_belongs_to_many :practices
 	
-  accepts_nested_attributes_for :practices, :allow_destroy => true
-  
   #attributes
-  attr_accessible :name, :practices_attributes, :countries, :biography
+  attr_accessible :name, :countries, :biography
   serialize :countries, Array
   translates :biography
 

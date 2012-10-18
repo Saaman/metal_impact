@@ -19,7 +19,7 @@ describe Artist do
   let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @artist = Artist.new name: "Metallica", :countries => ["FR"]
-    @artist.practices.build :kind => :band
+    @artist.practices = [Practice.find_by_kind(:band)]
     @artist.creator = owner
     @artist.updater = owner
   end
@@ -77,11 +77,6 @@ describe Artist do
         before { @artist.practices.build :kind => :musician }
         it { should be_valid }
         its(:practices) { should have(2).items }
-      end
-
-      describe "has an invalid practice" do
-        before { @artist.practices << Practice.new }
-        it { should_not be_valid }
       end
     end
 
@@ -147,14 +142,20 @@ describe Artist do
         its(:practices) { should have(1).items}
         it { should satisfy {|a| a.practices[0].artists = [a] } }
       end
-      describe "when practices are not valid" do
+      describe "when practices are not valid, they are forgotten" do
         before do
           @artist.practices << Practice.new
           @artist.save
         end
-        it { should satisfy {|a| a.persisted? == false} }
-        it { should satisfy {|a| a.practices[0].persisted? == false} }
+        it { should satisfy {|a| a.persisted? == true} }
+        it { should satisfy {|a| a.practices[0].persisted? == true} }
         it { should satisfy {|a| a.practices[1].persisted? == false} }
+      end
+      describe "when practices can't be created" do
+        let (:artist) { FactoryGirl.create(:artist) }
+        it "saving will raise an error" do
+          expect { artist.practices = [Practice.new] }.to raise_error
+        end
       end
     end
 

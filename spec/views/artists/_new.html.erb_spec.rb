@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe "artists/_new" do
+  let (:artist) { FactoryGirl.build(:artist) }
   before(:each) do
-    assign(:artist, FactoryGirl.build(:artist))
+    assign(:artist, artist)
     reset_abilities
   end
 
@@ -11,7 +12,6 @@ describe "artists/_new" do
     render :partial => "artists/new"
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should render_template(:partial => "shared/_error_messages", :locals => { :object => artist } )
     rendered.should have_selector "form", :action => artists_path do |form|
       form.should have_selector "input", id: "artist_name", type: "text"
       form.should have_selector "select", id: "artist_countries"

@@ -17,6 +17,7 @@ FactoryGirl.define do
     after(:create) { |user, evaluator| user.confirm! }
   end
 
+  #create an artist. This will be a band by default, give a practice_kind to change
   factory :artist do
     ignore do
       practice_kind :band
@@ -24,7 +25,7 @@ FactoryGirl.define do
     creator { User.first || FactoryGirl.create(:user) }
     updater { creator }
     name { generate(:random_string) }
-    practices { [Practice.find_by_kind_cd(Practice.kinds(practice_kind))] }
+    practices { [Practice.find_by_kind(practice_kind)] }
     countries ["FR"]
     published true
   end
