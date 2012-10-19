@@ -121,10 +121,41 @@ describe ArtistsController do
   	end
   	describe "(authorized)" do
   		before(:each) { @ability.can :create, Artist }
-	  	before { get :new, :format => :js }
-	  	it { should render_template("new") }
-	  	specify { assigns(:artist).should be_new_record }
+      describe "out of context creation" do
+  	  	before { get :new, :format => :js }
+  	  	it { should render_template("new") }
+  	  	specify { assigns(:artist).should be_new_record }
+        specify { assigns(:product_type_targeted).should be_nil }
+      end
+      describe "specific context creation" do
+        before { get :new, product_type: "tata", :format => :js }
+        it { should render_template("new") }
+        specify { assigns(:artist).should be_new_record }
+        specify { assigns(:product_type_targeted).should == "tata" }
+      end
 	  end
+  end
+
+  describe "POST create :" do
+    describe "(unauthorized)" do
+      before { post :create, :format => :js }
+      its_access_is "unauthorized"
+    end
+    describe "(authorized)" do
+      before(:each) { @ability.can :create, Artist }
+      describe "out of context creation" do
+        before { get :new, :format => :js }
+        it { should render_template("new") }
+        specify { assigns(:artist).should be_new_record }
+        specify { assigns(:product_type_targeted).should be_nil }
+      end
+      describe "specific context creation" do
+        before { get :new, product_type: "tata", :format => :js }
+        it { should render_template("new") }
+        specify { assigns(:artist).should be_new_record }
+        specify { assigns(:product_type_targeted).should == "tata" }
+      end
+    end
   end
 
 end

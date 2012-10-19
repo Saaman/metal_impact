@@ -36,6 +36,7 @@ describe Artist do
     it { should respond_to(:albums) }
     it { should_not respond_to(:products) }
     it { should respond_to(:practices) }
+    it { should respond_to(:practice_ids) }
     it { should respond_to(:album_ids) }
     it { should respond_to(:biography) }
     it { should respond_to(:translations) }
@@ -47,6 +48,7 @@ describe Artist do
     #methods
     it { should respond_to(:get_countries_string) }
     it { should respond_to(:get_practices_string) }
+    it { should respond_to(:is_suitable_for_product_type) }
   end
   
   describe "Validations" do
@@ -182,15 +184,14 @@ describe Artist do
   end
 
 
-  describe "scopes : " do
+  describe "scopes :" do
     describe "operates_as(:band) should not get writers" do
       let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
       specify { Artist.operates_as(:band).pluck("artists.id").should_not include(writer.id) }
     end
   end
 
-  describe "helper methods" do
-    #before { I18n.locale = "en" }
+  describe "helper methods :" do
     describe "get_countries_string" do
       before { @artist.countries << "GB" << "DE" }
       it { should satisfy { |a| a.get_countries_string() == "France / United Kingdom / Germany" } }
@@ -198,6 +199,16 @@ describe Artist do
     describe "get_practices_string" do
       before { @artist.practices.build(:kind => :writer) }
       it { should satisfy { |a| a.get_practices_string() == "band / writer" } }
+    end
+    describe "is_suitable_for_product_type" do
+      describe "arguments validations" do
+        it { should satisfy { @artist.is_suitable_for_product_type(nil) == {error: false} }
+        it { should satisfy { @artist.is_suitable_for_product_type("") == {error: false} }
+        it "should raise exception in case argument is of invalid type" do
+          expect { @artist.is_suitable_for_product_type(45) }.to raise_error(ArgumentException)
+          expect { @artist.is_suitable_for_product_type([45, "tata"]) }.to raise_error(ArgumentException)
+        end
+      end
     end
   end
 end

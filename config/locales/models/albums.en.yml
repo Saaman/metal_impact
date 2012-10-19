@@ -19,6 +19,9 @@ en:
     album:
       create: "Album was successfully created."
       update: "Album was successfully updated."
+    artist:
+      create: "Artist was successfully created."
+      update: "Artist was successfully updated."
   special:
     album:
       various_artists: "Various Artists"

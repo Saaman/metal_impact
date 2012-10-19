@@ -19,6 +19,9 @@ fr:
     album:
       create: "Le nouvel album a été crée."
       update: "L'album a été mis à jour."
+    artist:
+      create: "Le nouvel artist a été crée."
+      update: "L'artiste a été mis à jour."
   special:
     album:
       various_artists: "Various Artists"

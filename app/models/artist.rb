@@ -13,6 +13,8 @@
 #
 
 class Artist < ActiveRecord::Base
+
+  PRODUCT_ARTIST_PRACTICES_MAPPING ||= {:album => :band, :interview => [:band, :writer, :musician]}
   
   #behavior
   include Contributable
@@ -22,7 +24,7 @@ class Artist < ActiveRecord::Base
   has_and_belongs_to_many :practices
 	
   #attributes
-  attr_accessible :name, :countries, :biography
+  attr_accessible :name, :countries, :biography, :practice_ids
   serialize :countries, Array
   translates :biography
 
@@ -56,6 +58,19 @@ class Artist < ActiveRecord::Base
   def get_practices_string
     return "" if self.practices.blank?
     self.practices.collect {|x| "#{Practice.human_enum_name(:kinds, x.kind)}"}.join(" / ")
+  end
+
+  def is_suitable_for_product_type(product_type)
+    return { error: false } if product_type.empty?
+    product_type = product_type.to_sym if product_type.is_a?(String)
+    raise ArgumentError.new("product_type '#{product_type}' cannot be converted to a symbol") unless product_type.is_a?(Symbol)
+
+    practice_kinds = Array(PRODUCT_ARTIST_PRACTICES_MAPPING[product_type])
+    unless self.practices.exists? :kind_cd => Practice.kinds(*practice_kinds)
+      practices_kinds_names = practice_kinds.collect { |x|  "'" + Practice.human_enum_name(:kinds, x) + "'" }
+      return {error: true, message: I18n.t("exceptions.artist_association_error", artist_name: self.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or"))) }
+    end
+    return { error: false }
   end
 
 end

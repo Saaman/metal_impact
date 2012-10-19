@@ -1,6 +1,4 @@
 module Productable
-	
-  PRODUCT_ARTIST_PRACTICES_MAPPING ||= {:album => :band, :interview => [:band, :writer, :musician]}
 
   def self.included(klazz)  # klazz is that class object that included this module
     klazz.class_eval do
@@ -44,10 +42,8 @@ module Productable
 
   private
     def check_artists_practices(artist)
-      practice_kinds = Array(PRODUCT_ARTIST_PRACTICES_MAPPING[self.class.name.downcase.to_sym])
-      unless artist.practices.exists? :kind_cd => Practice.kinds(*practice_kinds)
-        practices_kinds_names = practice_kinds.collect { |x|  "'" + Practice.human_enum_name(:kinds, x) + "'" }
-        raise Exceptions::ArtistAssociationError.new(I18n.t("exceptions.artist_association_error", artist_name: artist.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or"))))
-      end
+      #will raise exception if check does not pass
+      checkObj = artist.is_suitable_for_product_type(self.class.name.downcase)
+      raise Exceptions::ArtistAssociationError.new(checkObj[:message]) if checkObj[:error]
     end
 end

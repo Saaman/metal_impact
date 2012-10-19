@@ -1,4 +1,7 @@
 class ArtistsController < ApplicationController
+
+  include ContributionsHelper
+
   load_and_authorize_resource
   respond_to :html
   respond_to :json, only: [:search, :show]
@@ -18,9 +21,9 @@ class ArtistsController < ApplicationController
 
     limit_search_for_product_type = params["for-product"]
     unless limit_search_for_product_type.blank?
-      raise "'#{limit_search_for_product_type}' is not a known product type." unless Productable::PRODUCT_ARTIST_PRACTICES_MAPPING.has_key? limit_search_for_product_type.to_sym
+      raise "'#{limit_search_for_product_type}' is not a known product type." unless Artist::PRODUCT_ARTIST_PRACTICES_MAPPING.has_key? limit_search_for_product_type.to_sym
       #limit on artists having practices compliant with product type
-      @artists = @artists.operates_as(Productable::PRODUCT_ARTIST_PRACTICES_MAPPING[limit_search_for_product_type.to_sym])
+      @artists = @artists.operates_as(Artist::PRODUCT_ARTIST_PRACTICES_MAPPING[limit_search_for_product_type.to_sym])
     end
 
   	respond_with @artists do |format|
@@ -49,6 +52,29 @@ class ArtistsController < ApplicationController
   end
 
   def create
+    @artist = Artist.new
+    @artist.attributes = params[:artist].slice :name, :practice_ids, :biography, :countries
+    @product_type_targeted = params[:product_type_targeted]
+
+    checkObj = @artist.is_suitable_for_product_type(@product_type_targeted)
+
+    if checkObj[:error]
+      respond_with @artist do |format|
+        logger.info "errors : #{@artist.errors.full_messages}"
+        format.html { render :action => :new }
+        format.js  { render 'new' }
+      end
+    end
+
+    respond_with @artist do |format|
+      if contribute_with(@artist)
+        format.html { redirect_to @artist, notice: t("notices.artist.#{params[:action]}") }
+      else
+        logger.info "errors : #{@artist.errors.full_messages}"
+        format.html { render :action => :new }
+        format.js  { render 'new' }
+      end
+    end
   end
 
 end
