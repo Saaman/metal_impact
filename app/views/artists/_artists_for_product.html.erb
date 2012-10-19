@@ -6,12 +6,12 @@
 		<div class="control-group string" style="margin-top: 10px;">
 			<label class="string control-label"><%= t '.add_artist_label' %></label>
 			<div class="controls">
-				<%= text_field_tag 'artist_typeahead', nil, :placeholder => t('defaults.search_terms'), class: 'string skipval input-large', "data-product-type" => "#{product.class.name.downcase}" %>
+				<%= text_field_tag 'artist_typeahead', nil, :placeholder => t('defaults.search_terms'), class: 'string skipval input-large', "data-product-type" => "#{product.class.name.underscore}" %>
 			</div>
 		</div>
 		<div>
 			<%= "#{t 'defaults.or'} " %>
-			<%= link_to t('.create_new_artist'), new_artist_path, :remote => true, class: "modal-trigger"  %>
+			<%= link_to t('.create_new_artist'), new_artist_path(product_type: product.class.name.underscore ), :remote => true, class: "modal-trigger"  %>
 			<%= t '.create_new_artist_expl' %>
 		</div>
 	</div>

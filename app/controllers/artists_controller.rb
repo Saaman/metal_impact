@@ -44,7 +44,7 @@ class ArtistsController < ApplicationController
 
   def new
     @artist = Artist.new
-    @artist.practices = [Practice.find_by_kind(:band)]
+    @product_type_targeted = params[:product_type]
     respond_with @artist
   end
 
