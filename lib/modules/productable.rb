@@ -43,7 +43,8 @@ module Productable
   private
     def check_artists_practices(artist)
       #will raise exception if check does not pass
-      checkObj = artist.is_suitable_for_product_type(self.class.name.downcase)
-      raise Exceptions::ArtistAssociationError.new(checkObj[:message]) if checkObj[:error]
+      unless artist.is_suitable_for_product_type(self.class.name.underscore)
+        raise Exceptions::ArtistAssociationError.new(artist.errors[:base])
+      end
     end
 end

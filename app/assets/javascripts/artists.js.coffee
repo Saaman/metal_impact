@@ -1,3 +1,7 @@
+add_artist_block = (artist_id) ->
+  $.get '/artists/'+artist_id+'/smallblock.html', (data) ->
+    $('#artists_association').append(data)
+
 $ ->
   $('#artist_typeahead').typeahead(
       # source can be a function
@@ -9,8 +13,7 @@ $ ->
       # that typeahead uses to look up the display value
       property: 'name'
       onselect: (obj) ->
-        $.get '/artists/'+obj.id+'/smallblock.html', (data) ->
-          $('#artists_association').append(data)
+        add_artist_block obj.id
     )
 
   #hide artist label when unchecking artist

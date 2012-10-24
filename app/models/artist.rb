@@ -20,7 +20,7 @@ class Artist < ActiveRecord::Base
   include Contributable
 
 	#associations
-	has_and_belongs_to_many :albums
+	has_and_belongs_to_many :albums, :before_add => :check_product_type_is_allowed
   has_and_belongs_to_many :practices
 	
   #attributes
@@ -61,18 +61,27 @@ class Artist < ActiveRecord::Base
   end
 
   def is_suitable_for_product_type(product_type)
-    return { error: false } if product_type.nil?
+    return true if product_type.nil?
     product_type = product_type.to_sym if product_type.is_a?(String)
     raise ArgumentError.new("product_type '#{product_type}' cannot be converted to a symbol") unless product_type.is_a?(Symbol)
 
     practice_kinds = Array(PRODUCT_ARTIST_PRACTICES_MAPPING[product_type])
     raise ArgumentError.new("product_type '#{product_type}' is not recognized as a valid product type") if practice_kinds.empty?
 
-    unless self.practices.exists? :kind_cd => Practice.kinds(*practice_kinds)
+    unless self.practices.index { |p| practice_kinds.include?(p.kind) }
       practices_kinds_names = practice_kinds.collect { |x|  "'" + Practice.human_enum_name(:kinds, x) + "'" }
-      return {error: true, message: I18n.t("exceptions.artist_association_error", artist_name: self.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or"))) }
+      self.errors[:base] = I18n.t("exceptions.artist_association_error", artist_name: self.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or")))
+      return false
     end
-    return { error: false }
+    return true
   end
+
+  private
+    def check_product_type_is_allowed(product)
+      #will raise exception if check does not pass
+      unless self.is_suitable_for_product_type(product.class.name.underscore)
+        raise Exceptions::ArtistAssociationError.new(self.errors[:base])
+      end
+    end
 
 end

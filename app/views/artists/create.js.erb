@@ -1,0 +1,3 @@
+$("div#modal-container").modal('hide');
+$("div#artists_association").prepend("<%= escape_javascript(render(:partial => 'shared/flashes')) %>");
+$('#artists_association').append("<%= escape_javascript(render(:partial => 'artists/smallblock', locals: {artist: @artist})) %>")

@@ -56,23 +56,26 @@ class ArtistsController < ApplicationController
     @artist.attributes = params[:artist].slice :name, :practice_ids, :biography, :countries
     @product_type_targeted = params[:product_type_targeted]
 
-    checkObj = @artist.is_suitable_for_product_type(@product_type_targeted)
-
-    if checkObj[:error]
+    unless @artist.is_suitable_for_product_type(@product_type_targeted)
       respond_with @artist do |format|
         logger.info "errors : #{@artist.errors.full_messages}"
-        format.html { render :action => :new }
-        format.js  { render 'new' }
+        format.html { render :new }
+        format.js  { render :new }
       end
+      return
     end
 
     respond_with @artist do |format|
       if contribute_with(@artist)
         format.html { redirect_to @artist, notice: t("notices.artist.#{params[:action]}") }
+        format.js do
+          flash.now[:notice] = t("notices.artist.#{params[:action]}")
+          render :create
+        end
       else
         logger.info "errors : #{@artist.errors.full_messages}"
-        format.html { render :action => :new }
-        format.js  { render 'new' }
+        format.html { render :new }
+        format.js  { render :new }
       end
     end
   end

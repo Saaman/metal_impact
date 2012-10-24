@@ -202,7 +202,7 @@ describe Artist do
     end
     describe "is_suitable_for_product_type" do
       describe "arguments validations" do
-        it { should satisfy { |a| a.is_suitable_for_product_type(nil) == {error: false}} }
+        it { should satisfy { |a| a.is_suitable_for_product_type(nil) == true} }
         it "should raise exception in case argument is of invalid type or has invalid value" do
           expect { @artist.is_suitable_for_product_type(45) }.to raise_error(ArgumentError)
           expect { @artist.is_suitable_for_product_type([45, "tata"]) }.to raise_error(ArgumentError)
@@ -210,14 +210,18 @@ describe Artist do
         end
       end
       describe 'band example' do
-        let (:band) { FactoryGirl.create(:artist)}
-        it { should satisfy { band.is_suitable_for_product_type("album") == {error: false}} }
-        it { should satisfy { band.is_suitable_for_product_type(:interview) == {error: false}} }
+        let (:band) { FactoryGirl.build(:artist)}
+        it { should satisfy { band.is_suitable_for_product_type("album") == true} }
+        it { should satisfy { band.is_suitable_for_product_type(:interview) == true} }
       end
       describe 'writer example' do
         let (:writer) { FactoryGirl.create(:artist, :practice_kind => :writer)}
-        it { should satisfy { writer.is_suitable_for_product_type(:interview) == {error: false}} }
-        it { should satisfy { writer.is_suitable_for_product_type(:album)[:error] == true} }
+        it { should satisfy { writer.is_suitable_for_product_type(:interview) == true} }
+        it { should satisfy { writer.is_suitable_for_product_type(:album) == false} }
+        describe "should add a error on the artist" do
+          before { writer.is_suitable_for_product_type(:album) }
+          it { should satisfy { writer.errors[:base].size > 0 } }
+        end
       end
 
     end
