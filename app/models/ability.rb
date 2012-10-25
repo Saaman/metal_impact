@@ -19,9 +19,9 @@ class Ability
     can [:destroy, :update], User, :id => user.id
 
     if user.role_cd >= User.roles[:staff]
-      can :manage, Contributable
-      cannot :manage, Contributable do |contributable|
-        !contributable.published && contributable.updater_id != user.id
+      can :create, Contributable
+      can [:read, :update], Contributable do |contributable|
+        contributable.published || contributable.updater_id == user.id
       end
       cannot :bypass_approval, :all
 
