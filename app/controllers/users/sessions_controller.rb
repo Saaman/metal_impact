@@ -12,8 +12,9 @@ class Users::SessionsController < Devise::SessionsController
   # POST /login
   def create
     build_resource
-    user = User.find_by_email(params["user"]["email"])
-    if user.nil? or not user.valid_password?(params["user"]["password"])
+    logger.info "resource : #{resource}"
+    if resource.nil? or not resource.valid_password?(params["user"]["password"])
+      logger.info "resource.valid_password?(params['user']['password'] = #{user.valid_password?(params["user"]["password"])})"
       flash[:error] = t "devise.failure.invalid"
     	clean_up_passwords resource
     	respond_with resource do |format|
