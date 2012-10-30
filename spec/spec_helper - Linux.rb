@@ -69,7 +69,7 @@ Spork.prefork do
       #Erase all existing records
       Approval.delete_all
       Album.delete_all
-      Artist.delete_all
+      Artist.each { |a| a.destroy }
       Practice.delete_all
       MusicLabel.delete_all
       User.delete_all
