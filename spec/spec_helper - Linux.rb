@@ -19,7 +19,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
-  require "paperclip/matchers"
+  require 'capybara/rspec'
+  require 'paperclip/matchers'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -60,6 +61,9 @@ Spork.prefork do
 
     #include paperclip matchers
     config.include Paperclip::Shoulda::Matchers
+
+    #change capybara javascript driver
+    Capybara.javascript_driver = :webkit
 
     config.before(:suite) do
       #Erase all existing records
