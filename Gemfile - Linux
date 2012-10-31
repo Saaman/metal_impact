@@ -6,7 +6,6 @@ gem 'will_paginate', '~> 3.0.3'
 gem 'devise', '~> 2.1.2'
 gem 'cancan', '~> 1.6.8'
 gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
-gem 'paperclip', '~> 3.1.2'
 gem 'simple_form', '~> 2.0.2'
 gem 'http_accept_language', '~> 1.0.2'
 gem 'foreigner', '~> 1.2'
