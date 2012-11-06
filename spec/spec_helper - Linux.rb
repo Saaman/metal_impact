@@ -20,7 +20,6 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rspec'
-  require 'paperclip/matchers'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -59,11 +58,9 @@ Spork.prefork do
     #alias it_behaves_like
     config.alias_it_should_behave_like_to :its_access_is, 'access is'
 
-    #include paperclip matchers
-    config.include Paperclip::Shoulda::Matchers
-
     #change capybara javascript driver
     Capybara.javascript_driver = :webkit
+    Capybara.default_wait_time = 10
 
     config.before(:suite) do
       #Erase all existing records

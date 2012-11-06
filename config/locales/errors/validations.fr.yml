@@ -7,6 +7,7 @@ fr:
             email:
               invalid: "doit être une adresse e-mail valide."
               format: "doit être une adresse e-mail valide."
+              taken: "cet adresse mail est déjà enregistrée. Si vous avez perdu votre mot de passe, merci d'utiliser le lien ci-dessous pour en regénérer un."
             email_confirmation:
               custom_confirmation: "L'e-mail et la confirmation ne concordent pas."
             password:

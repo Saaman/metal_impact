@@ -7,13 +7,14 @@ en:
             email:
               invalid: "must be a valid e-mail address."
               format: "must be a valid e-mail address."
+              taken: "this email is already registered. If you have lost your password, please use the link below to retrieve it."
             email_confirmation:
               custom_confirmation: "E-mail and confirmation don't match."
             password:
               too_short: "is too short (at least 6 characters)."
               invalid: "must contain 7 characters including at least one that is not a letter."
             pseudo:
-              taken: "This user name is already taken. Please choose another one."
+              taken: "This nickname is already taken. Please choose another one."
               too_short: "is too short (at least 4 characters)."
             gender:
               invalid_enum: "'%{value}' is not recognized as a valid gender."

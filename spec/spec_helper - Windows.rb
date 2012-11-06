@@ -7,7 +7,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
-require 'paperclip/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -46,18 +45,9 @@ RSpec.configure do |config|
   #alias it_behaves_like
   config.alias_it_should_behave_like_to :its_access_is, 'access is'
 
-  #include paperclip matchers
-  config.include Paperclip::Shoulda::Matchers
-
-  #Configure Selenium web driver
-  require 'selenium-webdriver'
-  Capybara.register_driver :selenium do |app|
-    proxy = Selenium::WebDriver::Proxy.new(:http => ENV['HTTP_PROXY'] || ENV['http_proxy'])
-    ENV['HTTP_PROXY'] = ENV['http_proxy'] = nil
-    profile = Selenium::WebDriver::Firefox::Profile.new
-    profile["intl.accept_languages"] =  "fr-FR"
-    Capybara::Selenium::Driver.new(app, :browser => :firefox, :proxy => proxy, profile: profile)
-  end
+  #change capybara javascript driver
+  Capybara.javascript_driver = :webkit
+  Capybara.default_wait_time = 10
 
   config.before(:suite) do
     #Erase all existing records

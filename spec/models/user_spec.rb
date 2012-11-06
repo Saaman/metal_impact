@@ -154,6 +154,15 @@ describe User do
         before { @user.pseudo = "a" * 128 }
         it { should_not be_valid }
       end
+      describe "address is already taken" do
+        before do
+          user_with_same_pseudo = @user.dup
+          user_with_same_pseudo.pseudo = @user.pseudo.upcase
+          user_with_same_pseudo.save
+        end
+
+        it { should_not be_valid }
+      end
     end
 
     describe "when date of birth" do

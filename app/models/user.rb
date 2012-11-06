@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 	validates :email, custom_confirmation: true, on: :create
 	validates :email_confirmation, presence: true, on: :create
 	validates :password, length: { :in => 7..127 }, format: { with: /#{VALID_PASSWORD_PATTERN}/ }, on: :create
-	validates :pseudo, presence: true, length: { :in => 4..127 }
+	validates :pseudo, presence: true, length: { :in => 4..127 }, uniqueness: { case_sensitive: false }
 	validates :date_of_birth, :timeliness => { :before => :today, :type => :date }, :allow_blank => true
 	validates_as_enum :gender, allow_blank: true
 	validates_as_enum :role
