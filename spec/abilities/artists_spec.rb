@@ -41,14 +41,14 @@ describe "authorizations on Artist" do
 
   context "when is staff user" do
     let(:user) { FactoryGirl.create(:user, :role => :staff) }
-    it{ should_not be_able_to(:create, unpublished_artist) }
+    it{ should be_able_to(:create, unpublished_artist) }
     it{ should_not be_able_to(:read, unpublished_artist) }
     it{ should_not be_able_to(:destroy, unpublished_artist) }
     it{ should_not be_able_to(:update, unpublished_artist) }
 
     it{ should be_able_to(:create, artist) }
     it{ should be_able_to(:read, artist) }
-    it{ should be_able_to(:destroy, artist) }
+    it{ should_not be_able_to(:destroy, artist) }
     it{ should be_able_to(:update, artist) }
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
@@ -57,7 +57,7 @@ describe "authorizations on Artist" do
     describe "can read unpublished album for which he is the last updater" do
       before { unpublished_artist.updater_id = user.id }
       it{ should be_able_to(:read, unpublished_artist) }
-      it{ should be_able_to(:destroy, unpublished_artist) }
+      it{ should_not be_able_to(:destroy, unpublished_artist) }
       it{ should be_able_to(:update, unpublished_artist) }
     end
   end

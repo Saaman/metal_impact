@@ -30,7 +30,7 @@ shared_examples "is_pseudo_taken json access" do
   	user.pseudo = "tata"
   	user.save!
   	get :is_pseudo_taken, pseudo: 'tata', :format => :json
-  	response.body.should == {isPseudoTaken: true, :errorMessage => "This user name is already taken. Please choose another one."}.to_json
+  	response.body.should == {isPseudoTaken: true, :errorMessage => "This nickname is already taken. Please choose another one."}.to_json
   end
 end
 #######################################################################################

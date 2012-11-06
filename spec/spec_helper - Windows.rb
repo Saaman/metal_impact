@@ -51,12 +51,12 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     #Erase all existing records
-    Approval.delete_all
-    Album.delete_all
-    Artist.delete_all
-    Practice.delete_all
-    MusicLabel.delete_all
-    User.delete_all
+    Approval.destroy_all
+    Album.destroy_all
+    Artist.destroy_all
+    Practice.destroy_all
+    MusicLabel.destroy_all
+    User.destroy_all
 
     #Insert the necessary data
     Practice.kinds.each_key do |key|

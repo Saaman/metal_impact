@@ -40,14 +40,14 @@ describe "authorizations on Album" do
   context "when is staff user" do
     let(:user) { FactoryGirl.create(:user, :role => :staff) }
 
-    it{ should_not be_able_to(:create, unpublished_album) }
+    it{ should be_able_to(:create, unpublished_album) }
     it{ should_not be_able_to(:read, unpublished_album) }
     it{ should_not be_able_to(:destroy, unpublished_album) }
     it{ should_not be_able_to(:update, unpublished_album) }
 
     it{ should be_able_to(:create, album) }
     it{ should be_able_to(:read, album) }
-    it{ should be_able_to(:destroy, album) }
+    it{ should_not be_able_to(:destroy, album) }
     it{ should be_able_to(:update, album) }
     it{ should_not be_able_to(:bypass_approval, album) }
 
@@ -55,7 +55,7 @@ describe "authorizations on Album" do
       before { unpublished_album.updater_id = user.id }
       it{ should be_able_to(:create, unpublished_album) }
       it{ should be_able_to(:read, unpublished_album) }
-      it{ should be_able_to(:destroy, unpublished_album) }
+      it{ should_not be_able_to(:destroy, unpublished_album) }
       it{ should be_able_to(:update, unpublished_album) }
     end
   end

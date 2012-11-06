@@ -37,7 +37,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     unless User.where("pseudo LIKE ?", params[:pseudo]).exists?
       respond_with({ isPseudoTaken: false }, status: :ok )
     else
-      logger.info "the pseudo is already taken"
       respond_with({ isPseudoTaken: true, :errorMessage => t('activerecord.errors.models.user.attributes.pseudo.taken') }, status: :ok)
     end
   end
