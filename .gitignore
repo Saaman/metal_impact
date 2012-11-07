@@ -12,6 +12,7 @@ db/backups
 
 #Ignore tests files
 public/covers
+public/uploads
 coverage
 
 # Ignore other unneeded files.

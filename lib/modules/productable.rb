@@ -16,9 +16,10 @@ module Productable
       mount_uploader :cover, CoverUploader
 
       #validations
-      validates :title, presence: true, length: { :maximum => 511}
+      validates :cover, :file_size => { :in => (5.kilobytes.to_i..1.megabytes.to_i) }, :allow_blank => true
+      validates :title, presence: true, length: { :maximum => 511 }
       validates :release_date, presence: true
-      validates :artist_ids, :length => { :minimum => 1}
+      validates :artist_ids, :length => { :minimum => 1 }
 
       validates_integrity_of :cover
       validates_processing_of :cover
