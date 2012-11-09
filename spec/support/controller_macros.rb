@@ -30,8 +30,8 @@ module ControllerMacros
   
 	def sign_in_with_capybara(user)
 		visit signin_path
-	  fill_in "Email",    with: user.email
-	  fill_in "Password", with: user.password
-	  click_button "Sign in"
+	  find('form#new_user').fill_in "user_email", with: user.email
+	  find('form#new_user').fill_in "user_password", with: user.password
+	  click_button "Connection"
 	end
 end

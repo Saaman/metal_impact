@@ -30,6 +30,7 @@ FactoryGirl.define do
     published true
   end
 
+
   factory :album do
   	title { generate(:random_string) }
   	release_date { 1.month.ago.to_date }
@@ -37,10 +38,20 @@ FactoryGirl.define do
     updater { creator }
     published true
     kind :album
-    factory :album_with_artists do
+    
+    trait :with_cover do
+      cover { File.open(File.join([uploaders_fixtures_path, 'test_img.png'])) }
+    end
+    
+    trait :with_artists do
       after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, PRNG.rand(1..2), albums: [album]) }
     end
+    
+    factory :album_with_artists,            traits: [:with_artists]
+    factory :album_with_cover,              traits: [:with_cover]
+    factory :album_with_artists_and_cover,  traits: [:with_artists, :with_cover]
   end
+
 
   factory :music_label do
     name { generate(:random_string) }
