@@ -30,6 +30,8 @@ fr:
           attributes:
             kind:
               invalid_enum: "'%{value}' n'est pas un type d'album valide."
+            artist_ids:
+              too_short: "Vous devez associer au moins un artiste à cet album. Veuillez utiliser le champ de recherche rapide ci-dessus."
         practice:
           attributes:
             kind:
