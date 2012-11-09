@@ -12,6 +12,8 @@ en:
       user: "You cannot manage other user accounts."
     update:
       album: "You are not allowed to update this album."
+    show_image:
+      all: "You are not allowed to display original images. Please login first."
   #validates timeliness
   errors:
     messages:

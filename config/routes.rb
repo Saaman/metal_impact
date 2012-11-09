@@ -30,6 +30,8 @@ MetalImpact::Application.routes.draw do
       get 'users/is-pseudo-taken' => 'users/registrations#is_pseudo_taken', :as => :is_pseudo_taken_user_registration
     end
   end
+
+  get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
   
   root to: 'home#index'
   

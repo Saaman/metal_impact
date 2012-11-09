@@ -8,6 +8,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     
     can :read, :all
+    cannot :show_image, :home
     can :create, User
     cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end
@@ -17,6 +18,7 @@ class Ability
     #########  signed-in users only  #########
 
     can [:destroy, :update], User, :id => user.id
+    can :show_image, :home
 
     if user.role_cd >= User.roles[:staff]
       can :create, Contributable

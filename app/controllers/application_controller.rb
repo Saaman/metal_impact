@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
 
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to_back :alert => exception.message
+    logger.info "access denied : #{exception.message}"
+    redirect_to new_session_path("user"), :format => :js, :alert => exception.message
   end
 
 	rescue_from ActiveRecord::RecordNotFound do |exception|

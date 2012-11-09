@@ -8,10 +8,7 @@ describe ArtistsController do
   	10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
   end
   stub_abilities
-  
-  before(:each) do
-    request.env["HTTP_REFERER"] = root_path
-  end
+  set_referer
 
   subject { response }
 

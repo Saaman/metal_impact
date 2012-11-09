@@ -31,7 +31,7 @@ describe CoverUploader do
       @uploader.remove!
     end
 
-    context 'the thumb version' do
+    context 'the original version' do
       it "should scale down an image to be no larger than 666 by 666 pixels" do
         @uploader.should be_no_larger_than(666, 666)
       end

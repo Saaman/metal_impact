@@ -12,6 +12,8 @@ fr:
       user: "Vous ne pouvez pas gérer le compte d'un autre utilisateur"
     update:
       album: "Vous n'avez pas les droits pour mettre à jour cet album."
+    show_image:
+      all: "Merci de vous authentifier pour afficher les images en taille originale."
   #validates timeliness
   errors:
     messages:

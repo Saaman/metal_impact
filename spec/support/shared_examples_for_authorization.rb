@@ -2,7 +2,7 @@ require "rspec/expectations"
 require "set"
 
 shared_examples "unauthorized" do
-	 it { should redirect_to root_path }
+	 it { should redirect_to new_user_session_path }
    specify { flash[:alert].should_not be_empty }
  end
 
