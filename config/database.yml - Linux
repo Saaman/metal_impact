@@ -19,8 +19,8 @@ test:
   encoding: unicode
   database: mi_test
   pool: 5
-  username: metalimpact
-  password: <%= ENV['MI_DEV_PASSWORD'] %>
+  username: metalimpact_test
+  password: <%= ENV['MI_TEST_PASSWORD'] %>
 
 production:
   adapter: sqlite3

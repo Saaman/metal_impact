@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe ArtistsController do
 	#Initialization stuff
-  before(:all) do
-  	Artist.all.each {|a| a.destroy }
-  	30.times { FactoryGirl.create(:artist) }
-  	10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
-  end
   stub_abilities
   set_referer
 
@@ -24,6 +19,10 @@ describe ArtistsController do
   	
   	describe "(authorized)" do
   		before(:each) { @ability.can :search, Artist }
+      before do
+        30.times { FactoryGirl.create(:artist) }
+        10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
+      end
 	  	describe "without product kind" do
 	  		it "should retrieve band" do
 	  			get :search, name_like: artist.name.split(' ')[0], :format => :json
@@ -62,6 +61,10 @@ describe ArtistsController do
   	end
   	
   	describe "(authorized)" do
+      before(:all) do
+        30.times { FactoryGirl.create(:artist) }
+        10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
+      end
   		before(:each) { @ability.can :index, Artist }
   		it "should 30 display artists" do
   			get :index

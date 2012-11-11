@@ -62,12 +62,6 @@ shared_examples "productable model" do
 		      expect { productable.artist_ids += [10000] }.to raise_error(ActiveRecord::RecordNotFound)
 		    end
 	    end
-	    describe "when removing all artists on an album" do
-	    	it "should raise ArtistAssociationError" do
-		      expect { productable.artists = [] }.to raise_error(Exceptions::ArtistAssociationError)
-		      expect { productable.artists.clear }.to raise_error(Exceptions::ArtistAssociationError)
-		    end
-	    end
 	  end
 	end
 

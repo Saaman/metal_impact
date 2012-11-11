@@ -74,6 +74,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov', '~> 0.7.0', :require => false
   gem 'capybara-webkit', git: "https://github.com/Saaman/capybara-webkit.git"
+  gem 'database_cleaner', '~>0.9.1'
   
   #tools
   gem 'foreman', '~>0.53.0'

@@ -28,10 +28,16 @@ module ControllerMacros
     end
   end
   
-	def sign_in_with_capybara(user)
-		visit signin_path
-	  find('form#new_user').fill_in "user_email", with: user.email
-	  find('form#new_user').fill_in "user_password", with: user.password
-	  click_button "Connection"
+	def sign_in_with_capybara(role = :basic)
+    let!(:user) { FactoryGirl.create(:user, role: role) }
+    before do
+      visit '/'
+      click_link "Login"
+      find('form#new_user').fill_in "user_email", with: user.email
+      find('form#new_user').fill_in "user_password", with: user.password
+      click_button "Connection"
+      #print page.html
+      find('div#notice')
+    end
 	end
 end

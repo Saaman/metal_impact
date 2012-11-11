@@ -7,7 +7,7 @@ module Productable
       include Contributable
       
       #associations
-      has_and_belongs_to_many :artists, :before_add => :check_artists_practices, :before_remove => :check_artists_length
+      has_and_belongs_to_many :artists, :before_add => :check_artists_practices
  
 
     	#attributes
@@ -50,8 +50,4 @@ module Productable
         raise Exceptions::ArtistAssociationError.new(artist.errors[:base])
       end
     end
-
-    def check_artists_length(artist)
-      raise Exceptions::ArtistAssociationError.new(I18n.t("exceptions.artist_removal_error", artist_name: artist.name)) if self.artists.size == 1
-    end 
 end

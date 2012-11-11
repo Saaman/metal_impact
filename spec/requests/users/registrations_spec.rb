@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Users::Registrations" do
+describe "Users::Registrations", :type => :request do
   describe "Registering", :js => true do
   	let(:new_user) { FactoryGirl.build(:user) }
   	before do
@@ -36,8 +36,7 @@ describe "Users::Registrations" do
 
     context "uniqueness checks" do
       #this way the user is really commited in another transaction. Otherwise, it's in a rollbacked transaction and in a different thread than webkit, so the test fails.
-      before(:all) { FactoryGirl.create(:user, pseudo: "toto", email: new_user.email) }
-      after(:all) { User.delete_all }
+      before { FactoryGirl.create(:user, pseudo: "toto", email: new_user.email) }
       it "should warn that the user if the nickname is already taken" do
         find('form#new_user').fill_in "user_pseudo", with: "toto"
         find('input#user_gender_male').trigger 'focus'

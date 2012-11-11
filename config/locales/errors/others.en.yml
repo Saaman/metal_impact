@@ -2,7 +2,6 @@ en:
   exceptions:
     default: "An exception occurs. Please try again. If the problem persists, please submit a bug"
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
-    artist_removal_error: "You cannot remove artist '%{artist_name}' from the album, otherwise there will be no artist associated anymore"
   recaptcha:
     errors:
       verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."

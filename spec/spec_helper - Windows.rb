@@ -40,7 +40,7 @@ RSpec.configure do |config|
 
   #insert devise support
   config.include Devise::TestHelpers, :type => :controller
-  config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros
 
   #alias it_behaves_like
   config.alias_it_should_behave_like_to :its_access_is, 'access is'
