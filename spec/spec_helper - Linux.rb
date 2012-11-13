@@ -62,19 +62,31 @@ Spork.prefork do
     Capybara.javascript_driver = :webkit
     Capybara.default_wait_time = 10
 
-    config.before(:suite) do
-      #Erase all existing records
-      Approval.destroy_all
-      Album.destroy_all
-      Artist.destroy_all
-      Practice.destroy_all
-      MusicLabel.destroy_all
-      User.destroy_all
 
+    #Database cleaning
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with :deletion
       #Insert the necessary data
       Practice.kinds.each_key do |key|
         Practice.create! kind: key
       end
+    end
+
+    config.before(:all, :type => :request) do
+      DatabaseCleaner.strategy = :deletion, { :except => %w[practices] }
+    end
+
+    config.after(:all, :type => :request) do
+      DatabaseCleaner.strategy = :transaction
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    config.after(:each) do
+      DatabaseCleaner.clean
     end
   end
 end
