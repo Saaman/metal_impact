@@ -17,7 +17,7 @@ module ContributionsHelper
 			end
 		rescue Exception => exception
 			logger.info "an exception occured : #{exception.message}"
-			flash[:error] = t 'errors.exceptions.default'
+			flash[:error] = t 'exceptions.default'
 			return false
 		end
 	end

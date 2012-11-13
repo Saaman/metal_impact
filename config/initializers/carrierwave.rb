@@ -14,7 +14,7 @@ CarrierWave.configure do |config|
       :google_storage_access_key_id     => ENV['GOOGLE_STORAGE_API_KEY'],
       :google_storage_secret_access_key => ENV['GOOGLE_STORAGE_API_SECRET']
     }
-    config.fog_directory = 'metalimpact'
+    config.fog_directory = Rails.env.production? ? 'metalimpact' : 'metalimpactdev'
   end
 end
 

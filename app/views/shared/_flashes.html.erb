@@ -1,4 +1,6 @@
 <% flash.each do |key, value| %>
-	<%= content_tag(:div, value, class: "alert alert-#{key}", id: "#{key}") unless key.to_s.eql?('recaptcha_error') %>
+	<% completemsg = value %>
+	<% completemsg = completemsg + " (#{l(Time.now, :format => :short)})" if key == :error %>
+	<%= content_tag(:div, completemsg, class: "alert alert-#{key}", id: "#{key}") unless key.to_s.eql?('recaptcha_error') %>
 <% end %>
 <% flash.discard %>

@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def normal_image_tag(mount_uploader, options = {})
-    link_to show_image_path(image_link: Rack::Utils.escape(mount_uploader.url)), :remote => true, class: "modal-trigger" do 
+    link_to show_image_path(image_link: Rack::Utils.escape(mount_uploader.url)), :remote => true, "data-toggle" => "modal", "data-target" => "div#modal-image" do 
       image_tag mount_uploader.normal.url, options
     end
   end
