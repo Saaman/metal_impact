@@ -93,7 +93,7 @@ MetalImpact::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 15 Oct 2012 17:57
+# Generated on 14 Nov 2012 22:20
 #
 #                                   POST   /albums(.:format)                      albums#create
 #                         new_album GET    /albums/new(.:format)                  albums#new
@@ -137,4 +137,5 @@ end
 #                                   POST   /signup(.:format)                      users/registrations#create
 #          email_sent_user_password GET    /users/password/email-sent(.:format)   users/passwords#email_sent
 # is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)       users/registrations#is_pseudo_taken {:format=>:json}
+#                        show_image GET    /show_image(.:format)                  home#show_image {:format=>"js"}
 #                              root        /                                      home#index

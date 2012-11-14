@@ -43,6 +43,7 @@ git push heroku
 heroku logs
 heroku config:add RECAPTCHA_PUBLIC_KEY=''
 heroku config:add RECAPTCHA_PRIVATE_KEY=''
+heroku pg:reset (to drop / create db)
 
 GIT
 ---
@@ -62,7 +63,6 @@ bundle exec rake:* RAILS_ENV=production
 bundle exec rake i18n:js:export
 assets pre-compilation : bundle exec rake assets:precompile
 rails s -e production
-heroku pg:reset (to drop / create db)
 
 To be automated
 ---------------

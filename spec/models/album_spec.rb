@@ -2,20 +2,17 @@
 #
 # Table name: albums
 #
-#  id                 :integer          not null, primary key
-#  title              :string(511)      not null
-#  release_date       :date             not null
-#  kind_cd            :integer          not null
-#  published          :boolean          default(FALSE), not null
-#  creator_id         :integer
-#  updater_id         :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  cover_file_name    :string(255)
-#  cover_content_type :string(255)
-#  cover_file_size    :integer
-#  cover_updated_at   :datetime
-#  music_label_id     :integer
+#  id             :integer          not null, primary key
+#  title          :string(511)      not null
+#  release_date   :date             not null
+#  cover          :string(255)
+#  kind_cd        :integer          not null
+#  published      :boolean          default(FALSE), not null
+#  creator_id     :integer
+#  updater_id     :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  music_label_id :integer
 #
 
 require 'spec_helper'

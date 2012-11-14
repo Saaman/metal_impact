@@ -2,11 +2,8 @@
 #
 # Table name: practices
 #
-#  id         :integer          not null, primary key
-#  artist_id  :integer          not null
-#  kind_cd    :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id      :integer          not null, primary key
+#  kind_cd :integer          not null
 #
 
 class Practice < ActiveRecord::Base
