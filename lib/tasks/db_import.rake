@@ -4,8 +4,8 @@ namespace :db do
 
     args.with_defaults(:file_name => '*')
 
-    puts "create root user"
-    create_admin
+    puts "create test users"
+    create_test_accounts
     puts ""
 
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
@@ -52,14 +52,28 @@ namespace :db do
 
 end
 
-def create_admin
-  admin = User.new(email: "romain.magny@gmail.com",
-                   password: "password1",
-                   email_confirmation: "romain.magny@gmail.com",
-                   pseudo: "Roro",
+def create_test_accounts
+  admin = User.new(email: "admin@metal-impact.com",
+                   password: "admin10MI",
+                   email_confirmation: "admin@metal-impact.com",
+                   pseudo: "Admin",
                    role: :admin)
   admin.skip_confirmation!
   admin.save
+  staff = User.new(email: "staff@metal-impact.com",
+                   password: "staff5MI",
+                   email_confirmation: "staff@metal-impact.com",
+                   pseudo: "Staff",
+                   role: :staff)
+  staff.skip_confirmation!
+  staff.save
+  basic = User.new(email: "basic@metal-impact.com",
+                   password: "basic0MI",
+                   email_confirmation: "basic@metal-impact.com",
+                   pseudo: "Basic",
+                   role: :basic)
+  basic.skip_confirmation!
+  basic.save
 end
 
 def bulk_save(models)
