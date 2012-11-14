@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Users::Registrations", :type => :request do
+describe "Users::Registrations" do
   describe "Registering", :js => true do
   	let(:new_user) { FactoryGirl.build(:user) }
   	before do

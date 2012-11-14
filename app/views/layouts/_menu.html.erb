@@ -20,8 +20,8 @@
       </ul>
     </li>
   <% else %>
-    <li><%= link_to t('.login'), new_user_session_path, :remote => true, class: "modal-trigger"  %></li>
-    <li><%= link_to t('.register'), new_user_registration_path, :remote => true, class: "modal-trigger" %></li>
+    <li><%= link_to t('.login'), new_user_session_path, :remote => true, "data-toggle" => "modal", "data-target" => "div#modal-container"  %></li>
+    <li><%= link_to t('.register'), new_user_registration_path, :remote => true, "data-toggle" => "modal", "data-target" => "div#modal-container" %></li>
   <% end %>
   <%= render 'layouts/languages' %>
 </ul>

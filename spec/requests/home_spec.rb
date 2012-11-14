@@ -1,11 +1,6 @@
 require 'spec_helper'
 
-# RSpec.configure do |c|
-#   c.use_transactional_examples = false
-#   c.order = "default"
-# end
-
-describe "Home", :type => :request do
+describe "Home" do
 
   describe "GET /" do
     it "should display home page" do      
@@ -21,7 +16,18 @@ describe "Home", :type => :request do
     describe "when displaying an album" do
       before { visit "/albums/#{album.id}" }
       it "should show a clickable image" do
-        page.should have_selector 'a.modal-trigger img'
+        page.should have_selector 'a[data-target="div#modal-image"] img'
+      end
+      describe "when clicking the image" do
+        before { find('a[data-target="div#modal-image"] img').click }
+        it "should display the full-size image in a modal" do
+          page.should have_selector 'span.centered-img-helper'
+          page.should have_selector 'img.img-rounded'
+        end
+        it "and close the modal when clicking again" do
+          find('img.img-rounded').trigger 'click'
+          page.should_not have_selector 'div#modal-image[aria-hidden="false"]'
+        end
       end
     end
   end

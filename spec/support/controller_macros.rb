@@ -36,7 +36,6 @@ module ControllerMacros
       find('form#new_user').fill_in "user_email", with: user.email
       find('form#new_user').fill_in "user_password", with: user.password
       click_button "Connection"
-      #print page.html
       find('div#notice')
     end
 	end

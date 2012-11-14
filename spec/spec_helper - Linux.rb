@@ -44,7 +44,8 @@ Spork.prefork do
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
+    config.order = "default"
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -65,7 +66,6 @@ Spork.prefork do
 
     #Database cleaning
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with :deletion
       #Insert the necessary data
       Practice.kinds.each_key do |key|
@@ -73,19 +73,16 @@ Spork.prefork do
       end
     end
 
-    config.before(:all, :type => :request) do
-      DatabaseCleaner.strategy = :deletion, { :except => %w[practices] }
-    end
-
-    config.after(:all, :type => :request) do
-      DatabaseCleaner.strategy = :transaction
-    end
-
-    config.before(:each) do
+    config.before :each do
+      if Capybara.current_driver == :rack_test
+        DatabaseCleaner.strategy = :transaction
+      else
+        DatabaseCleaner.strategy = :deletion, { :except => %w[practices] }
+      end
       DatabaseCleaner.start
     end
 
-    config.after(:each) do
+    config.after :each do
       DatabaseCleaner.clean
     end
   end
