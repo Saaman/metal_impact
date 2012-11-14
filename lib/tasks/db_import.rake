@@ -4,8 +4,8 @@ namespace :db do
 
     args.with_defaults(:file_name => '*')
 
-    puts "create test users"
-    create_test_accounts
+    puts "create admin user"
+    create_admin_account
     puts ""
 
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
@@ -14,6 +14,10 @@ namespace :db do
       puts "==============================================================================="
       puts ""
     end
+
+    puts "create test users"
+    create_test_accounts
+    puts ""
 
   end
 
@@ -52,7 +56,7 @@ namespace :db do
 
 end
 
-def create_test_accounts
+def create_admin_account
   admin = User.new(email: "admin@metal-impact.com",
                    password: "admin10MI",
                    email_confirmation: "admin@metal-impact.com",
@@ -60,6 +64,9 @@ def create_test_accounts
                    role: :admin)
   admin.skip_confirmation!
   admin.save
+end
+
+def create_test_accounts
   staff = User.new(email: "staff@metal-impact.com",
                    password: "staff5MI",
                    email_confirmation: "staff@metal-impact.com",
