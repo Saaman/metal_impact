@@ -81,6 +81,7 @@ group :test do
   gem 'simplecov', '~> 0.7.0', :require => false
   gem 'capybara-webkit', '~> 0.12.1'
   gem 'database_cleaner', '~>0.9.1'
+  gem 'rails_best_practices'
   
   #tools
   gem 'foreman', '~>0.53'

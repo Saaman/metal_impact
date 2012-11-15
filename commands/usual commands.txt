@@ -1,22 +1,20 @@
-apply last db migrations
-------------------------
-bundle exec rake db:migrate
-reverse : bundle exec rake db:rollback
+migrations
+----------
+apply migrations : rake db:migrate
+roolback migrations : rake db:rollback
 
-Create a migration
-------------------
-rails generate migration add_password_digest_to_users password_digest:string
-
-Generate a model
-----------------
+Generators
+----------
+Create a migration : rails generate migration add_password_digest_to_users password_digest:string
+Create request test : rails generate integration_test <controller_name> --integration-tool=rspec
 
 synch test db with dev DB (in terms of structure)
 -------------------------------------------------
-bundle exec rake db:test:prepare
+rake db:test:prepare
 
 load Fake data in dev DB
 ------------------------
-bundle exec rake db:(re)seed
+rake db:(re)seed
 
 Generate bundler stubs
 ----------------------
@@ -24,16 +22,16 @@ bundle --binstubs=./bundler_stubs
 
 Switch OS
 ---------
-bundle exec rake refresh_ws:<OS>
+rake refresh_ws:<OS>
 
 Annotate models / routes
 ------------------------
-bundle exec annotate -p before (--model-dir dir)
-bundle exec annotate -r
+annotate -p before (--model-dir dir)
+annotate -r
 
-Generate "request" tests
-------------------------
-rails generate integration_test <controller_name> --integration-tool=rspec
+Tests & code metrics
+--------------------
+rails_best_practices -f html .
 
 Heroku commands
 ---------------

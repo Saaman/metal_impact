@@ -14,6 +14,8 @@ db/backups
 public/covers
 public/uploads
 coverage
+/*.html
+
 
 # Ignore other unneeded files.
 doc/
@@ -33,15 +35,15 @@ doc/
 bundler_stubs/
 
 #OS dependent files
-#Gemfile
-#Gemfile.lock
-#Guardfile
-#spec/spec_helper.rb
-#.rspec
-#config/initializers/recaptcha.rb
-#config/environments/development.rb
-#config/database.yml
-#db/schema.rb
+Gemfile
+Gemfile.lock
+Guardfile
+spec/spec_helper.rb
+.rspec
+config/initializers/recaptcha.rb
+config/environments/development.rb
+config/database.yml
+db/schema.rb
 
 # git rm --ignore-unmatch -f Gemfile Gemfile.lock Guardfile spec/spec_helper.rb .rspec config/initializers/recaptcha.rb config/environments/development.rb config/database.yml
 
