@@ -61,6 +61,8 @@ bundle exec rake:* RAILS_ENV=production
 bundle exec rake i18n:js:export
 assets pre-compilation : bundle exec rake assets:precompile
 rails s -e production
+rake maintenance:start reason="Someone told me I should type <code>sudo rm -rf /</code>" allowed_paths="^/help,^/contact_us" allowed_ips="127.0.0.1,192.168.0.0/24"
+rake maintenance:end
 
 To be automated
 ---------------

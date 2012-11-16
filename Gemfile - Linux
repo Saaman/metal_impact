@@ -47,6 +47,7 @@ gem 'i18n_country_select', '~>1.0.12'
 gem 'http_accept_language', '~> 1.0.2'
 gem 'squeel', '~>1.0.13'
 gem 'routing-filter', '~>0.3.1' #used for url filtering on languages codes
+gem 'turnout', '~>0.2.2' #maintenance mode gem
 
 # Tools
 gem 'rack-mini-profiler', '~>0'
