@@ -24,7 +24,7 @@ gem 'carrierwave', '~> 0.7.0'
 #UI gems
 gem 'webshims-rails', '~> 0.4.4'
 gem 'jquery-rails', '~> 2.1.0'
-gem 'anjlab-bootstrap-rails', '~> 2.1.0', :require => 'bootstrap-rails'
+gem 'anjlab-bootstrap-rails', '~> 2.2.1.2', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
 gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
