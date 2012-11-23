@@ -97,7 +97,7 @@ def bulk_save(models)
     begin
       is_saved = model.save
       success_instances_count += 1 if is_saved
-    rescue Exception => ex
+    rescue => ex
       puts "an exception occurs : #{ex.message}"
       puts ""
       next

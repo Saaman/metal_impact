@@ -15,7 +15,7 @@ module ContributionsHelper
 				original = object.new_record? ? nil : object.class.find(object.id)
 				return ((not object.new_record?) || save(object)) && request_approval(object, original)
 			end
-		rescue Exception => exception
+		rescue => exception
 			logger.info "an exception occured : #{exception.message}"
 			flash[:error] = t 'exceptions.default'
 			return false

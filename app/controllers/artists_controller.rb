@@ -52,8 +52,7 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    @artist = Artist.new
-    @artist.attributes = params[:artist].slice :name, :practice_ids, :biography, :countries
+    @artist = Artist.new params[:artist].slice :name, :practice_ids, :biography, :countries
     @product_type_targeted = params[:product_type_targeted]
 
     unless @artist.is_suitable_for_product_type(@product_type_targeted)

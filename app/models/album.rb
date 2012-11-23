@@ -27,6 +27,8 @@ class Album < ActiveRecord::Base
 	attr_accessible :kind
 	accepts_nested_attributes_for :music_label
 
+	delegate :name, :to => :music_label, :prefix => true
+
 	as_enum :kind, album: 0, demo: 1, mini_album: 2, live: 3
 
 	#validations

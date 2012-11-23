@@ -8,7 +8,7 @@
 <div class="portrait"><%= normal_image_tag @album.cover %></div>
 <div>
 	<div>
-		<i><%= t ".label" %></i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label.name %>
+		<i><%= t ".label" %></i><%= @album.music_label.nil? ? "autoproduction" : @album.music_label_name %>
 	</div>
 	<div>
 		<i><%= t ".release_date" %></i><%= l @album.release_date, :format => :long %>
@@ -19,7 +19,7 @@
 </div>
 
 <br style="clear: left" />
-<p>Dernière modification par : <%= link_to @album.updater.pseudo, '#' %> le <%= l @album.updated_at , :format => :short%></p>
+<p>Dernière modification par : <%= link_to @album.updater_pseudo, '#' %> le <%= l @album.updated_at , :format => :short%></p>
 
 <%= link_to t('defaults.edit_link'), edit_album_path(@album) %> |
 <%= link_to t('defaults.back_link'), albums_path %>

@@ -9,6 +9,9 @@ module Trackable
         raise Exceptions::TrackableError.new("You can't create a '#{trackable.class.name.humanize}' without creator") if trackable.creator.nil?
         raise Exceptions::TrackableError.new("You can't update a '#{trackable.class.name.humanize}' without updater") if trackable.updater.nil?
       end
+
+      delegate :pseudo, :to => :updater, :prefix => true
+
     end
   end
 end
