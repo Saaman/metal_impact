@@ -32,8 +32,6 @@ annotate -r
 Tests & code metrics
 --------------------
 rails_best_practices -f html .
-rake db:index_migration
-rake db:find_query_indexes
 
 Heroku commands
 ---------------

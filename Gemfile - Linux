@@ -73,7 +73,6 @@ group :development do
   #tools
   gem 'bullet', '~>4.2'
   gem 'rails_best_practices', '~> 1'
-  gem "rails_indexes", :git => "https://github.com/warpc/rails_indexes"
 end
 
 group :test do
