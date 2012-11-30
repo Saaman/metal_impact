@@ -36,17 +36,17 @@ MetalImpact::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.log_level = :info
-  
+
   #english by default for tests to run
   config.i18n.default_locale = :en
-  
+
   #logger configuration
   if $0 == "irb"
     config.logger = Logger.new(STDOUT)
   else
-    config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)  
+    config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)
   end
-  
+
   #devise configuration
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 

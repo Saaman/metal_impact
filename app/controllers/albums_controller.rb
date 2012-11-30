@@ -70,14 +70,14 @@ class AlbumsController < ApplicationController
           format.json { render json: @album, location: @album }
         else
           logger.info "errors : #{@album.errors.full_messages}"
-          format.html { render action: template }
+          format.html { render template }
           format.json { render json: @album.errors, status: :unprocessable_entity }
         end
       end
     end
 
     def build_or_update_album(params)
-      
+
       @album.attributes = params[:album].slice :title, :release_date, :kind, :cover
 
       #manage music label

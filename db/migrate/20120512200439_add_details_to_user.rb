@@ -5,6 +5,6 @@ class AddDetailsToUser < ActiveRecord::Migration
       t.date :date_of_birth
       t.integer :gender_cd
     end
-    
+
   end
 end

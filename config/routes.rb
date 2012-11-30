@@ -1,6 +1,6 @@
 MetalImpact::Application.routes.draw do
   filter :locale
-  
+
   resources :albums
   resources :artists, :except => [:destroy, :update, :edit] do
     get 'search', :on => :collection
@@ -32,9 +32,9 @@ MetalImpact::Application.routes.draw do
   end
 
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
-  
+
   root to: 'home#index'
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

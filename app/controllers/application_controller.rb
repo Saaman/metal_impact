@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include LocaleHelper
   include Exceptions
   include Userstamp
-  
+
   protect_from_forgery
   check_authorization :unless => :devise_controller?
   before_filter :set_locale, :authorize_mini_profiler

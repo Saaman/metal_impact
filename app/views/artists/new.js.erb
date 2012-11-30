@@ -1,1 +1,1 @@
-$("div#modal-container").html("<%= j render(:partial => 'new') %>");
+$("div#modal-container").html("<%= j render(:partial => 'new', artist: @artist, product_type_targeted: @product_type_targeted) %>");

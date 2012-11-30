@@ -15,14 +15,14 @@
 class Artist < ActiveRecord::Base
 
   PRODUCT_ARTIST_PRACTICES_MAPPING ||= {:album => :band, :interview => [:band, :writer, :musician]}
-  
+
   #behavior
   include Contributable
 
 	#associations
 	has_and_belongs_to_many :albums, :before_add => :check_product_type_is_allowed
   has_and_belongs_to_many :practices
-	
+
   #attributes
   attr_accessible :name, :countries, :biography, :practice_ids
   serialize :countries, Array
@@ -32,7 +32,7 @@ class Artist < ActiveRecord::Base
   validates :name, presence: true, length: { :maximum => 127 }
   validates :practices, :length => { :minimum => 1}
   validates :countries, :length => { :in => 1..7 }, :array_inclusion => { :in => References::COUNTRIES_CODES }
-  
+
   #callbacks
   before_validation do |artist|
     return if artist.countries.blank?

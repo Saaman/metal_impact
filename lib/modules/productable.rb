@@ -5,14 +5,14 @@ module Productable
 
       #behavior
       include Contributable
-      
+
       #associations
       has_and_belongs_to_many :artists, :before_add => :check_artists_practices
- 
+
 
     	#attributes
       attr_accessible :release_date, :title, :cover
-      
+
       #Cover
       mount_uploader :cover, CoverUploader
 

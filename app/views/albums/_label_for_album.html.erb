@@ -19,7 +19,7 @@
 
         <div><%= f.association :music_label, :prompt => t('.select_label'), input_html: {class: 'skipval'} %></div>
         <div class="side-padded"><div class="well" id="music_label_block">
-          <%= render(partial: "music_labels/smallblock", :locals => {music_label: @album.music_label}) unless @album.music_label.nil? %>
+          <%= render(partial: "music_labels/smallblock", :locals => {music_label: album.music_label}) unless album.music_label.nil? %>
         </div></div>
 
 <% if can? :create, MusicLabel %>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="tab-pane" id="label_form">
-        <%= f.fields_for "new_music_label", @new_music_label do |presenter_fields| %>
+        <%= f.fields_for "new_music_label", new_music_label do |presenter_fields| %>
           <%= presenter_fields.input :create_new, :as => :hidden %>
           <%= presenter_fields.fields_for "music_label", presenter_fields.object.music_label do |new_music_label_fields| %>
             <%= render :partial => 'music_labels/form', :locals => {:f => new_music_label_fields} %>

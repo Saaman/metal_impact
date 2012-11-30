@@ -1,5 +1,5 @@
-<%= simple_form_for @album, :html => { :multipart => true, :class => "form-horizontal-medium" } do |f| %>
-  <%= render 'shared/error_messages', :object => @album %>
+<%= simple_form_for album, :html => { :multipart => true, :class => "form-horizontal-medium" } do |f| %>
+  <%= render 'shared/error_messages', :object => album %>
 
   <fieldset>
     <legend><%= t '.basic_information' %></legend>
@@ -8,7 +8,7 @@
         <%= f.input :title, required: true %>
         <%= f.input :release_date, :as => :date_picker, required: true %>
         <%= f.input :kind, required: true, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
-        
+
       </div>
       <div class="span6 well">
         <div class="row-fluid">
@@ -17,8 +17,8 @@
             <%= f.input :cover_cache, :as => :hidden %>
           </div>
           <div class="span7">
-            <% if @album.cover? %>
-              <div class="center"><%= image_tag @album.cover.normal.url %></div>
+            <% if album.cover? %>
+              <div class="center"><%= image_tag album.cover.normal.url %></div>
             <% end %>
           </div>
         </div>
@@ -28,15 +28,15 @@
 
   <fieldset>
     <legend><%= t '.label' %></legend>
-    <%= render partial: "label_for_album", locals: {f: f} %>
+    <%= render "label_for_album", f: f, album: album, new_music_label: new_music_label %>
   </fieldset>
 
   <fieldset>
     <legend><%= t '.artists' %></legend>
-      <%= render :partial => "artists/artists_for_product", :locals => {:product => @album } %>
+      <%= render "artists/artists_for_product", :product => album %>
       <%= f.input :artist_ids, :as => :hidden %>
   </fieldset>
-  
+
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('defaults.back_link'), :back, { :class => "btn" } %>

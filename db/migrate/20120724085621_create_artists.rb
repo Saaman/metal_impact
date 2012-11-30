@@ -11,7 +11,7 @@ class CreateArtists < ActiveRecord::Migration
     end
     add_index :artists, :name
     add_index :artists, :created_at
-    
+
     add_index :artists, :creator_id
     add_index :artists, :updater_id
   end

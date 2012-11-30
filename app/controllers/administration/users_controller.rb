@@ -8,7 +8,7 @@ class Administration::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update_attributes(:role => params[:user][:role])
-    
+
     respond_to do |format|
       format.js
       format.html { redirect_to administration_users_path }

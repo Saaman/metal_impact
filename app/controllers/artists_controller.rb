@@ -16,7 +16,7 @@ class ArtistsController < ApplicationController
   # GET /artists/search
   # GET /artists/search.json
   def search
-       
+
     @artists = Artist.where{name.like my{"%#{params[:name_like]}%"}}
 
     limit_search_for_product_type = params["for-product"]

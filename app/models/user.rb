@@ -30,7 +30,7 @@
 class User < ActiveRecord::Base
 
 	model_stamper
-	
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :validatable, :encryptable and :omniauthable
   devise :database_authenticatable, :registerable,
