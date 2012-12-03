@@ -47,7 +47,7 @@ namespace :db do
     puts "#{collection[0].files.size} files downloaded succesfully"
     puts ""
   end
-  
+
   desc "This drops the db, builds the db, and import the data. Takes more time than simple import"
   task :drop_and_import => ['db:drop', 'db:create', 'db:migrate', 'db:import']
 

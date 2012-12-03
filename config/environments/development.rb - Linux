@@ -23,7 +23,7 @@ MetalImpact::Application.configure do
   if $0 == "irb"
     config.logger = Logger.new(STDOUT)
   else
-    config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)  
+    config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)
   end
 
   # Only use best-standards-support built into browsers

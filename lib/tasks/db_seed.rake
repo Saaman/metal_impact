@@ -13,7 +13,7 @@ namespace :db do
     puts "Create albums..."
     make_albums
   end
-  
+
   desc "This drops the db, builds the db, and seeds the data. Takes more time than simple reseed"
   task :full_reseed => ['db:drop', 'db:create', 'db:migrate', 'db:seed']
 
