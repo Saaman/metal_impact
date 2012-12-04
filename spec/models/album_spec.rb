@@ -64,11 +64,11 @@ describe Album do
           expect { @album.kind = 45 }.to raise_error(ArgumentError, /Invalid enumeration/)
         end
       end
-      describe "is nil" do 
+      describe "is nil" do
         before { @album.kind = nil }
         it { should_not be_valid }
       end
-      describe "is blank" do 
+      describe "is blank" do
         before { @album.kind = " " }
         it { should_not be_valid }
       end
@@ -102,10 +102,12 @@ describe Album do
       let!(:music_label_attr) { FactoryGirl.attributes_for(:music_label, name: "tata") }
       before do
         @album.build_music_label(music_label_attr)
+        #the automatic injection of user is only available at controller level.
+        @album.music_label.creator = @album.music_label.updater = owner
         @album.save
         @album.reload
       end
-      its(:music_label_id) { should_not be_blank } 
+      its(:music_label_id) { should_not be_blank }
       it { should satisfy {|a| a.music_label.name.should == music_label_attr[:name].titleize } }
     end
     describe "should not save new album when music label is invalid" do
@@ -118,5 +120,5 @@ describe Album do
       it { should satisfy {|a| a.music_label.persisted? == false} }
     end
   end
-	  
+
 end

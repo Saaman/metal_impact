@@ -159,8 +159,6 @@ ActiveRecord::Schema.define(:version => 20121017150547) do
     t.datetime "locked_at"
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
     t.integer  "role_cd",                               :default => 0,  :null => false
     t.string   "pseudo",                 :limit => 127, :default => "", :null => false
     t.date     "date_of_birth"
@@ -168,10 +166,8 @@ ActiveRecord::Schema.define(:version => 20121017150547) do
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["creator_id"], :name => "index_users_on_creator_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-  add_index "users", ["updater_id"], :name => "index_users_on_updater_id"
 
 end

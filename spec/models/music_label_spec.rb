@@ -8,13 +8,20 @@
 #  distributor :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  creator_id  :integer
+#  updater_id  :integer
 #
 
 require 'spec_helper'
 
 describe MusicLabel do
-  before { @musicLabel = MusicLabel.new(name: "Relapse Records", website: "http://www.google.com") }
-  
+  let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
+  before do
+    @musicLabel = MusicLabel.new(name: "Relapse Records", website: "http://www.google.com")
+    @musicLabel.creator = owner
+    @musicLabel.updater = owner
+  end
+
   subject { @musicLabel }
 
   describe "attributes and methods" do

@@ -12,6 +12,8 @@
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  creator_id      :integer
+#  updater_id      :integer
 #
 
 class Approval < ActiveRecord::Base
@@ -22,7 +24,7 @@ class Approval < ActiveRecord::Base
   belongs_to :approvable, polymorphic: true
 
   #persisted attributes
-	attr_accessible :state, :event, :object, :original, :reason, :approvable
+	attr_accessible :state, :event, :object, :original, :reason, :approvable, :creator, :updater
 
 	as_enum :state, pending: 0, approved: 1, refused: 2, fail: 3
 	as_enum :event, { create: 0, update: 1 }, prefix: true
@@ -45,8 +47,9 @@ class Approval < ActiveRecord::Base
 
   def self.new_from(object, original = nil)
   	check_object_has_contributions object
-  	return Approval.new object: object, approvable: object if original.nil?
-  	return Approval.new object: object, approvable: original, original: original
+  	#stampable can't work in this context, we set userstamps manually
+  	return Approval.new object: object, approvable: object, creator: object.updater, updater: object.updater if original.nil?
+  	return Approval.new object: object, approvable: original, original: original, creator: object.updater, updater: object.updater
   end
 
 	private

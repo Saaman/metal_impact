@@ -12,6 +12,8 @@
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  creator_id      :integer
+#  updater_id      :integer
 #
 
 require 'spec_helper'

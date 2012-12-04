@@ -72,9 +72,9 @@ describe Users::SessionsController do
   #######################################################################################
 
 	context "admin user" do
-		login_admin
+		login_user :admin
   	it_should_behave_like "common sessions actions for signed-in users" do
-			login_user
+			login_user :admin
 	  end
 	end
 end

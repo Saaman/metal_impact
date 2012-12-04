@@ -14,7 +14,7 @@ describe MusicLabelsController do
   before(:each) do
     request.env["HTTP_REFERER"] = root_path
   end
-  
+
   subject { response }
 
   context "anonymous user :" do
@@ -29,11 +29,11 @@ describe MusicLabelsController do
     end
   end
 
-  ###################################################################################### 
+  ######################################################################################
 
   context "admin user :" do
-    
-    login_admin
+
+    login_user :admin
 
     describe "GET new" do
       it "assigns a new music label as @music_label" do

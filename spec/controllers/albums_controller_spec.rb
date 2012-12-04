@@ -59,7 +59,7 @@ end
 describe AlbumsController do
   before(:all) { FactoryGirl.create_list(:album_with_artists, 50) }
   after(:all)  { Album.all.each {|a| a.destroy } }
-  
+
   set_referer
 
   subject { response }
@@ -80,14 +80,14 @@ describe AlbumsController do
     # end
   end
 
-  ###################################################################################### 
+  ######################################################################################
 
   context "admin user :" do
     it_should_behave_like "albums actions granted for anybody" do
-      login_admin
+      login_user :admin
     end
 
-    login_admin
+    login_user :admin
 
     describe "GET new" do
       it "assigns a new album as @album" do
@@ -221,7 +221,7 @@ describe AlbumsController do
     end
   end
 
-  ###################################################################################### 
+  ######################################################################################
 
   describe "new way tests" do
     before(:all) { Artist.all.each {|a| a.destroy } }

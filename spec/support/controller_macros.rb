@@ -1,13 +1,6 @@
 module ControllerMacros
-  def login_user
-    let(:user) {FactoryGirl.create(:user) }
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      sign_in user
-    end
-  end
-  def login_admin
-    let(:user) {FactoryGirl.create(:admin) }
+  def login_user(role = :basic)
+    let(:user) {FactoryGirl.create(:user, role: role) }
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in user
@@ -27,7 +20,7 @@ module ControllerMacros
       controller.stub(:current_ability).and_return(@ability)
     end
   end
-  
+
 	def sign_in_with_capybara(role = :basic)
     let!(:user) { FactoryGirl.create(:user, role: role) }
     before do

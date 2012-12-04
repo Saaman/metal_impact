@@ -88,16 +88,16 @@ describe Users::RegistrationsController do
   #######################################################################################
 
 	context "admin user" do
-  	login_admin
+  	login_user :admin
 		describe "DELETE 'destroy'" do
 			before { delete :destroy }
 			its_access_is "unauthorized"
 		end
 		it_should_behave_like "common registrations actions for signed-in users" do
-			login_admin
+			login_user :admin
 		end
 		it_should_behave_like "is_pseudo_taken json access" do
-	  	login_admin
+	  	login_user :admin
 	  end
 	end
 end

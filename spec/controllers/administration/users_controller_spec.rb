@@ -43,7 +43,7 @@ describe Administration::UsersController do
   #######################################################################################
 
   context "admin user :" do
-    login_admin
+    login_user :admin
     describe "GET 'index'" do
       before(:all) { 50.times { FactoryGirl.create(:user) } }
       after(:all)  { User.delete_all }

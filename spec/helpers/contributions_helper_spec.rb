@@ -17,7 +17,7 @@ describe ContributionsHelper do
         helper.contribute_with(invalid_object).should == false
       end
     end
-    
+
     context "(can bypass_approval)" do
       let(:object) { FactoryGirl.build(:album_with_artists) }
       before { helper.stub(:can?).with(:bypass_approval, an_instance_of(Album)).and_return true }
@@ -40,7 +40,7 @@ describe ContributionsHelper do
         it "should save the object" do
           expect { helper.contribute_with object }.to change(Album, :count).by(1)
         end
-        
+
         it { helper.contribute_with(object).should == true }
 
         describe "object should be published" do
@@ -93,6 +93,8 @@ describe ContributionsHelper do
           specify { Album.last.title.should == object.title }
           specify { object.published.should == false }
           specify { Album.last.published.should == false }
+          specify { Approval.last.creator.should == object.updater }
+          specify { Approval.last.updater.should == object.updater }
         end
       end
     end
