@@ -11,7 +11,7 @@
 		</div>
 		<div>
 			<%= "#{t 'defaults.or'} " %>
-			<%= link_to t('.create_new_artist'), new_artist_path(product_type: product.class.name.underscore ), :remote => true, class: "modal-trigger"  %>
+			<%= link_to t('.create_new_artist'), new_artist_path(product_type: product.class.name.underscore ), :remote => true, "data-toggle" => "modal", "data-target" => "div#modal-container"  %>
 			<%= t '.create_new_artist_expl' %>
 		</div>
 	</div>

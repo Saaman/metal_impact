@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20121017150547) do
   add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
   add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
+  add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
   add_index "albums", ["title"], :name => "index_albums_on_title"
   add_index "albums", ["updater_id"], :name => "index_albums_on_updater_id"

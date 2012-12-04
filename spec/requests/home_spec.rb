@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Home" do
 
   describe "GET /" do
-    it "should display home page" do      
+    it "should display home page" do
       visit '/'
       page.should have_selector('h1', :text => 'Home page')
     end

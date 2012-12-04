@@ -14,6 +14,8 @@ db/backups
 public/covers
 public/uploads
 coverage
+rails_best_practices_output.html
+
 
 # Ignore other unneeded files.
 doc/
