@@ -1,5 +1,5 @@
 class CreateApprovals < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :approvals do |t|
       t.string :approvable_type, :null => false
       t.integer :approvable_id,   :null => false
@@ -10,17 +10,17 @@ class CreateApprovals < ActiveRecord::Migration
       t.text :reason
 
       t.timestamps
+      t.userstamps
     end
 
-    add_index :approvals, [:state_cd]
-    add_index :approvals, [:created_at]
+    add_index :approvals, :state_cd
+    add_index :approvals, :created_at
     add_index :approvals, [:approvable_type, :approvable_id]
-  end
 
-  def self.down
-    remove_index :approvals, [:state_cd]
-    remove_index :approvals, [:created_at]
-    remove_index :approvals, [:approvable_type, :approvable_id]
-		drop_table :approvals
+    #userstamps
+    add_foreign_key :approvals, :users, column: 'creator_id'
+    add_foreign_key :approvals, :users, column: 'updater_id'
+    add_index :approvals, :creator_id
+    add_index :approvals, :updater_id
   end
 end

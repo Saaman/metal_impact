@@ -38,6 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
 
       t.timestamps
+      t.userstamps
     end
 
     add_index :users, :email,                :unique => true
@@ -45,5 +46,11 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
+
+    #userstamps
+    add_foreign_key :users, :users, column: 'creator_id'
+    add_foreign_key :users, :users, column: 'updater_id'
+    add_index :users, :creator_id
+    add_index :users, :updater_id
   end
 end

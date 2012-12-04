@@ -1,5 +1,5 @@
 class CreateAlbums < ActiveRecord::Migration
-  def up
+  def change
   	#table
     create_table :albums do |t|
       #product basic informations
@@ -13,8 +13,8 @@ class CreateAlbums < ActiveRecord::Migration
       #has_contributions data
       t.boolean :published, :null => false, default: false
 
-      t.userstamps
       t.timestamps
+      t.userstamps
     end
 
     #music labels
@@ -28,26 +28,10 @@ class CreateAlbums < ActiveRecord::Migration
     add_index :albums, :kind_cd
     add_index :albums, :music_label_id
 
+    #userstamps
+    add_foreign_key :albums, :users, column: 'creator_id'
+    add_foreign_key :albums, :users, column: 'updater_id'
     add_index :albums, :creator_id
     add_index :albums, :updater_id
-  end
-
-  def down
-  	#indexes
-    remove_index :albums, :title
-    remove_index :albums, :created_at
-    remove_index :albums, :release_date
-    remove_index :albums, :kind_cd
-    remove_index :albums, :music_label_id
-
-    remove_index :albums, :creator_id
-    remove_index :albums, :updater_id
-
-    #music labels
-    remove_foreign_key :albums, :music_labels
-    remove_column :albums, :music_label_id
-
-    #table
-    drop_table :albums
   end
 end

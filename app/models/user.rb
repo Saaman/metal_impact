@@ -29,6 +29,8 @@
 
 class User < ActiveRecord::Base
 
+	include Trackable
+
 	model_stamper
 
   # Include default devise modules. Others available are:

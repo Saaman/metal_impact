@@ -15,6 +15,9 @@
 #
 
 class Approval < ActiveRecord::Base
+
+	include Trackable
+
 	#associations
   belongs_to :approvable, polymorphic: true
 
