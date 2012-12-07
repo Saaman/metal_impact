@@ -1,7 +1,7 @@
 <h2><%= t ".title" %></h2>
 <div class="centered-content" id="new_user_session">
 	<div class="well">
-		<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), defaults: {label: false} do |f| %>
+		<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), defaults: {label: false}, html: {novalidate: true} do |f| %>
 			<%= render 'form', f: f %>
 		<% end %>
 

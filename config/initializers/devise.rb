@@ -56,7 +56,7 @@ Devise.setup do |config|
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
-  # config.http_authenticatable_on_xhr = true
+  config.http_authenticatable_on_xhr = false
 
   # The realm used in Http Basic Authentication. "Application" by default.
   # config.http_authentication_realm = "Application"
@@ -213,9 +213,9 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  #config.warden do |manager|
+  # config.warden do |manager|
   #   manager.intercept_401 = true
-  #   manager.failure_app = CustomFailure
+  #   manager.failure_app = CustomDeviseFailureApp
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
-  #end
+  # end
 end

@@ -1,6 +1,6 @@
 MetalImpact::Application.routes.draw do
   filter :locale
-  
+
   resources :albums
   resources :artists, :except => [:destroy, :update, :edit] do
     get 'search', :on => :collection
@@ -14,15 +14,15 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
   end
 
-  devise_for :users,:controllers => { :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }, :skip => [:sessions]
+  devise_for :users,:controllers => { :registrations => "users/registrations", :passwords => "users/passwords" }, :skip => [:sessions]
   devise_scope :user do
     #FIX : this is a temporay fix to allow sign-out link inside Bootstrap dropdown to work.
-  #FIX : Check here for original issue : https://github.com/twitter/bootstrap/issues/4688
-  #FIX : Boostrap issue is going to be fixed officially soon. Once it's corrected, put value :delete again
-    delete "logout" => "users/sessions#destroy", :as => :destroy_user_session
-    get "logout" => "users/sessions#destroy", :as => :destroy_user_session
-    get "login" => "users/sessions#new", :as => :new_user_session
-    post "login" => "users/sessions#create", :as => :user_session
+    #FIX : Check here for original issue : https://github.com/twitter/bootstrap/issues/4688
+    #FIX : Boostrap issue is going to be fixed officially soon. Once it's corrected, put value :delete again
+    delete "logout" => "devise/sessions#destroy", :as => :destroy_user_session
+    get "logout" => "devise/sessions#destroy", :as => :destroy_user_session
+    get "login" => "devise/sessions#new", :as => :new_user_session
+    post "login" => "devise/sessions#create", :as => :user_session
     get "signup" => "users/registrations#new"
     post "signup" => "users/registrations#create"
     get 'users/password/email-sent' => 'users/passwords#email_sent', :as => :email_sent_user_password
@@ -32,9 +32,9 @@ MetalImpact::Application.routes.draw do
   end
 
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
-  
+
   root to: 'home#index'
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

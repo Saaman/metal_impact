@@ -3,12 +3,12 @@
   <h3><%= t '.title' %></h3>
   <%= render 'shared/flashes' %>
   <% unless resource.errors[:base].empty? %>
-  	<%= render 'shared/single_error', :collection => resource.errors[:base] %>	
+  	<%= render 'shared/single_error', :collection => resource.errors[:base] %>
 	<% end %>
 </div>
 
-<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), remote: true, defaults: {label: false} do |f| %>
-	
+<%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), remote: true, defaults: {label: false}, html: {novalidate: true} do |f| %>
+
 	<div class="modal-body" id="new_user_session">
 		<%= render 'form', f: f %>
 	</div>

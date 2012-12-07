@@ -54,14 +54,15 @@ describe "Users::Registrations" do
     end
 
     it "should be notified about confirmation mail" do
-      within('form#new_user') do 
+      within('form#new_user') do
         fill_in "user_email", with: new_user.email
         fill_in "user_email_confirmation", with: new_user.email
         fill_in "user_password", with: new_user.password
         fill_in "user_pseudo", with: new_user.pseudo
         click_button "Submit"
       end
-    	page.should have_selector "div.alert-notice", text: "A message with a confirmation link"
+    	page.should have_selector "div.alert-info", text: "A message with a confirmation link"
+      page.should_not have_selector "form#new_user"
     end
   end
 end
