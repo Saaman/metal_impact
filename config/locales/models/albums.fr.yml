@@ -23,5 +23,4 @@ fr:
       create: "Le nouvel artist a été crée."
       update: "L'artiste a été mis à jour."
   special:
-    album:
-      various_artists: "Various Artists"
+    various_artists: "Various Artists"

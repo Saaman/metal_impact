@@ -18,6 +18,9 @@ fr:
       label: "Label : "
       release_date: "Sortie du Scud : "
       type: "Type : "
+    index:
+      title: "Liste des albums"
+      create_new_album: "Ajouter un nouvel album"
   helpers:
     submit:
       album:

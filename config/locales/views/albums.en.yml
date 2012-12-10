@@ -13,11 +13,14 @@ en:
     edit:
       title: "Edit album"
     new:
-      title: "Add a new album"  
+      title: "Add a new album"
     show:
       label: "Label : "
       release_date: "Release date : "
       type: "Type : "
+    index:
+      title: "Albums list"
+      create_new_album: "Add a new album"
   helpers:
     submit:
       album:

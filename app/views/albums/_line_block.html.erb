@@ -1,0 +1,17 @@
+<tr>
+  <td>
+  	<div class="media">
+  		<%= link_to product, class: "pull-left" do %>
+				<%= image_tag product.cover.thumb.url class: "media-object" %>
+			<% end %>
+
+			<div class="media-body">
+				<h4 class="media-heading"><%= product.title %></h4>
+				<p>
+					<%= artists_links_for(product) %>
+				</p>
+			</div>
+		</div>
+
+  </td>
+</tr>

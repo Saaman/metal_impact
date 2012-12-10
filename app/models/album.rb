@@ -37,7 +37,7 @@ class Album < ActiveRecord::Base
 	validates_associated :music_label, :if => :new_music_label?
 
 	def get_artists_string
-		return t("special.album.various_artists") if @artists.size > 3
+		return t("special.various_artists") if @artists.size > 3
 		@artists.collect {|a| a.name.upcase}.join("-")
 	end
 
