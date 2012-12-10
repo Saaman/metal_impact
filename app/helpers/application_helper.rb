@@ -17,4 +17,12 @@ module ApplicationHelper
       user_signed_in? ? (current_user.role == role) : false
     end
   end
+
+  def map_alert_keys(key)
+    key = key.to_sym unless key.is_a? Symbol
+    return 'error' if key == :alert
+    return 'info' if key == :notice
+    key
+  end
+
 end

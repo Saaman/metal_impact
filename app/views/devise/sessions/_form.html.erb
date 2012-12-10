@@ -1,8 +1,8 @@
 <div class="row-fluid">
-	
+
 	<div class="span6 left-side">
-		<%= f.input :email, required: true, input_html: { autofocus: 'true', pattern: User::VALID_EMAIL_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.email.invalid")}\"}" } %>
-		<%= f.input :password, :required => true, :pattern => :lookup, input_html: { pattern: User::VALID_PASSWORD_PATTERN, "data-errormessage" => "{\"patternMismatch\": \"#{t("activerecord.errors.models.user.attributes.password.invalid")}\"}", class: 'skipval'} %>
+		<%= f.input :email, required: true, input_html: { autofocus: 'true', class: 'skipval' } %>
+		<%= f.input :password, :required => true, input_html: { class: 'skipval'} %>
 	  <%= f.input :remember_me, :inline_label => t('simple_form.labels.defaults.remember_me'), input_html: { class: 'skipval' }, :as => :boolean if devise_mapping.rememberable? %>
 	  <div class="controls">
 	  	<%= f.button :submit, t(".connection"), :class => 'btn-primary' %>

@@ -54,6 +54,7 @@ push a new branch to GitHub : 									git push origin <branch>
 merge a branch (checkout the main first) :			git merge <branch>
 delete a branch (locally) :											git branch -D <branch>
 delete a branch (on GitHub) :										git push origin --delete <branch>
+Tag with Git :																	git tag -a v1.4 -m 'my version 1.4'
 
 Production
 ----------
@@ -70,12 +71,12 @@ To be automated
 CarrierWave.clean_cached_files!
 
 #recreate versions for fog storage
-YourModel.all.each do |ym| 
+YourModel.all.each do |ym|
   begin
-    ym.your_uploader.cache_stored_file! 
-    ym.your_uploader.retrieve_from_cache!(ym.your_uploader.cache_name) 
-    ym.your_uploader.recreate_versions! 
-    ym.save! 
+    ym.your_uploader.cache_stored_file!
+    ym.your_uploader.retrieve_from_cache!(ym.your_uploader.cache_name)
+    ym.your_uploader.recreate_versions!
+    ym.save!
   rescue => e
     puts  "ERROR: #{CLASS}: #{object.id} -> #{e.to_s}"
   end
