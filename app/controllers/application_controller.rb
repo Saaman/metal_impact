@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_mini_profiler
-    Rack::MiniProfiler.authorize_request if user_is_admin?
+    Rack::MiniProfiler.authorize_request if can_debug?
   end
 
   private

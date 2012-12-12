@@ -11,11 +11,8 @@ module ApplicationHelper
     end
   end
 
-  User.roles.keys.each do |role|
-    method_name = ("user_is_" + role.to_s + "?").to_sym
-    send :define_method, method_name do
-      user_signed_in? ? (current_user.role == role) : false
-    end
+  def user_is_admin?
+    user_signed_in? ? (current_user.admin?) : false
   end
 
   def map_alert_keys(key)
@@ -23,6 +20,11 @@ module ApplicationHelper
     return 'error' if key == :alert
     return 'info' if key == :notice
     key
+  end
+
+  def can_debug?
+    # TODO : leverage this by the addition of an environment variable
+    user_is_admin?
   end
 
 end

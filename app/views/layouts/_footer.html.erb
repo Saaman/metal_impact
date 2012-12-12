@@ -1,5 +1,5 @@
 <footer class="footer">
-	<% unless ENV["SITE_VERSION"].empty? || !user_is_admin? %>
+	<% if !ENV["SITE_VERSION"].empty? && can_debug? %>
   	<small><%= t(".site_version", version: ENV["SITE_VERSION"]).html_safe %></small>
   <% end %>
   <small>Copyright 2012</small>
