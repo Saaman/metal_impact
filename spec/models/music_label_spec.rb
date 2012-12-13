@@ -24,6 +24,10 @@ describe MusicLabel do
 
   subject { @musicLabel }
 
+  it_should_behave_like "trackable model" do
+    let(:trackable) { @musicLabel }
+  end
+
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:name) }

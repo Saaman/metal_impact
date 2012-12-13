@@ -52,7 +52,7 @@ FactoryGirl.define do
 
   factory :music_label do
     name { generate(:random_string) }
-    sequence(:website) { "http://www.#{Faker::Internet.domain_name}" }
+    website { "http://www.#{Faker::Internet.domain_name}" }
     distributor { generate(:random_string) }
     creator
     updater

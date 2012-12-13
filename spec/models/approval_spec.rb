@@ -29,8 +29,12 @@ describe Approval do
 
   subject { @approval }
 
+  it_should_behave_like "trackable model" do
+    let(:trackable) { @approval }
+  end
+
   describe "attributes and methods" do
-    
+
     #attributes
     it { should respond_to(:state) }
     it { should respond_to(:event) }
@@ -39,7 +43,7 @@ describe Approval do
     it { should respond_to(:approvable_type) }
     it { should respond_to(:approvable_id) }
     it { should respond_to(:reason) }
-    
+
     #methods
     it { should respond_to(:pending?) }
     it { should respond_to(:pending!) }
@@ -55,7 +59,7 @@ describe Approval do
     it { should respond_to(:event_update?) }
     it { should respond_to(:event_update!) }
   end
-  
+
   describe "Validations" do
     before(:each) { @approval.valid? }
     it { should be_valid }
@@ -92,7 +96,7 @@ describe Approval do
 
     describe "when original" do
       describe "and event does not match" do
-        before do 
+        before do
           @approval.event = :update
           @approval.original = nil
           @approval.valid?
@@ -177,7 +181,7 @@ describe Approval do
         its(:approvable) { should == album }
         its(:object) { should == album }
       end
-      
+
       describe "with valid object and original" do
         let(:modified_album) do
           modified_album = album.dup

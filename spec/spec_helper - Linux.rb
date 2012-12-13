@@ -74,10 +74,10 @@ Spork.prefork do
     end
 
     config.before :each do
-      if Capybara.current_driver == :rack_test
-        DatabaseCleaner.strategy = :transaction
-      else
+      if Capybara.current_driver == :webkit
         DatabaseCleaner.strategy = :deletion, { :except => %w[practices] }
+      else
+        DatabaseCleaner.strategy = :transaction
       end
       DatabaseCleaner.start
     end
