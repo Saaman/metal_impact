@@ -30,6 +30,7 @@ class Ability
       if user.admin?
         can :manage, :all
         can :bypass_approval, :all
+        can :dashboard, :monitoring
       end
 
       #common cannots for users >= staff

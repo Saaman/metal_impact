@@ -23,8 +23,7 @@ module ApplicationHelper
   end
 
   def can_debug?
-    # TODO : leverage this by the addition of an environment variable
-    user_is_admin?
+    Rails.cache.fetch(:allow_debug) && user_is_admin?
   end
 
 end

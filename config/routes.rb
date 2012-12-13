@@ -32,6 +32,7 @@ MetalImpact::Application.routes.draw do
   end
 
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
+  match 'dashboard' => 'administration/monitoring#dashboard', :via => [:get, :post]
 
   root to: 'home#index'
 
