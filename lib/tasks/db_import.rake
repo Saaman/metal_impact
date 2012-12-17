@@ -4,20 +4,12 @@ namespace :db do
 
     args.with_defaults(:file_name => '*')
 
-    puts "create admin user"
-    create_admin_account
-    puts ""
-
     Dir[File.join([Rails.root, 'db', 'fixtures', "#{args[:file_name]}.rb"])].sort.each do |fixture|
       puts "Import #{fixture}..."
       load fixture
       puts "==============================================================================="
       puts ""
     end
-
-    puts "create test users"
-    create_test_accounts
-    puts ""
 
   end
 
@@ -54,33 +46,6 @@ namespace :db do
   desc "This drops the db, builds the db, download fixtures from Google Drive and import the data."
   task :download_drop_and_import => ['db:dl_fixtures', 'db:drop_and_import']
 
-end
-
-def create_admin_account
-  admin = User.new(email: "admin@metal-impact.com",
-                   password: "admin10MI",
-                   email_confirmation: "admin@metal-impact.com",
-                   pseudo: "Admin",
-                   role: :admin)
-  admin.skip_confirmation!
-  admin.save
-end
-
-def create_test_accounts
-  staff = User.new(email: "staff@metal-impact.com",
-                   password: "staff5MI",
-                   email_confirmation: "staff@metal-impact.com",
-                   pseudo: "Staff",
-                   role: :staff)
-  staff.skip_confirmation!
-  staff.save
-  basic = User.new(email: "basic@metal-impact.com",
-                   password: "basic0MI",
-                   email_confirmation: "basic@metal-impact.com",
-                   pseudo: "Basic",
-                   role: :basic)
-  basic.skip_confirmation!
-  basic.save
 end
 
 def bulk_save(models)
