@@ -1,0 +1,5 @@
+users:
+  - name: "toto"
+    date: "01/12/2003"
+  - name: "tata"
+    date: "24/03/2009"

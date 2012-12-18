@@ -23,5 +23,18 @@ namespace :import do
   	end
 
   	puts "#{User.roles.length} test users have been created."
+
+  end
+
+  desc "Import YAML fixtures into import engine"
+  task :yaml_inputs => :environment do
+
+    Dir[File.join([Rails.root, 'db', 'fixtures', "*.yml"])].sort.each do |fixture|
+      puts "Import #{fixture}..."
+      inputs = HashWithIndifferentAccess.new YAML.load(File.read(fixture))
+      puts inputs.inspect
+      puts "==============================================================================="
+      puts ""
+    end
   end
 end
