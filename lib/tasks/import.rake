@@ -27,7 +27,7 @@ namespace :import do
   end
 
   desc "Import YAML fixtures into import engine"
-  task :yaml_inputs => :environment do
+  task :fixtures => :environment do
 
     Dir[File.join([Rails.root, 'db', 'fixtures', "*.yml"])].sort.each do |fixture|
       puts "Import #{fixture}..."
