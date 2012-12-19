@@ -32,8 +32,13 @@ namespace :import do
     Dir[File.join([Rails.root, 'db', 'source_files', "*.yml"])].sort.each do |source_file|
       puts "Import #{source_file}..."
 
-
-      inputs = HashWithIndifferentAccess.new YAML.load_file(source_file)
+      File.open(source_file, 'r') do |io|
+        YAML.load_stream(io) do |record|
+          puts "record"
+          puts record.inspect
+        end
+      end
+      #inputs = HashWithIndifferentAccess.new YAML.load_file(source_file)
     end
   end
 end
