@@ -3,7 +3,7 @@ class CreateImportSourceFiles < ActiveRecord::Migration
     create_table :import_source_files do |t|
       t.string :name, :null => false
       t.string :source, :null => false
-      t.string :sha1_checksum, :null => false
+      t.integer :status_cd, :null => false
 
       t.timestamps
     end

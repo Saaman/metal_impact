@@ -111,11 +111,11 @@ ActiveRecord::Schema.define(:version => 20121218224902) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "import_source_files", :force => true do |t|
-    t.string   "name",          :null => false
-    t.string   "source",        :null => false
-    t.string   "sha1_checksum", :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "name",       :null => false
+    t.string   "source",     :null => false
+    t.integer  "status_cd",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "import_source_files", ["created_at"], :name => "index_import_source_files_on_created_at"
