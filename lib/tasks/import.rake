@@ -27,14 +27,13 @@ namespace :import do
   end
 
   desc "Import YAML fixtures into import engine"
-  task :fixtures => :environment do
+  task :yaml_files => :environment do
 
-    Dir[File.join([Rails.root, 'db', 'fixtures', "*.yml"])].sort.each do |fixture|
-      puts "Import #{fixture}..."
-      inputs = HashWithIndifferentAccess.new YAML.load(File.read(fixture))
-      puts inputs.inspect
-      puts "==============================================================================="
-      puts ""
+    Dir[File.join([Rails.root, 'db', 'source_files', "*.yml"])].sort.each do |source_file|
+      puts "Import #{source_file}..."
+
+
+      inputs = HashWithIndifferentAccess.new YAML.load_file(source_file)
     end
   end
 end
