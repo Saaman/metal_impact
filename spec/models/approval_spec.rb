@@ -22,9 +22,12 @@ describe Approval do
 
   let(:album) {FactoryGirl.create :album_with_artists}
   let(:not_contributable_obj) { FactoryGirl.create(:music_label) }
+  let!(:owner) { FactoryGirl.create(:user) }
 
   before do
     @approval = Approval.new object: album, approvable: album
+    @approval.creator = owner
+    @approval.updater = owner
   end
 
   subject { @approval }

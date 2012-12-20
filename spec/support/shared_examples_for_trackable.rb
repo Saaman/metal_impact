@@ -35,7 +35,7 @@ shared_examples "trackable model" do
 				trackable.save
 				trackable.updater = nil
 			end
-			it "should raise a TrackableException if creator is nil" do
+			it "should raise a TrackableException if updater is nil" do
 				expect { trackable.save }.to raise_error(Exceptions::TrackableError)
 			end
 		end

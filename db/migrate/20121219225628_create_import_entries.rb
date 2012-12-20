@@ -6,8 +6,7 @@ class CreateImportEntries < ActiveRecord::Migration
       t.integer :target_id
       t.references :import_source_file
       t.text :data, :null => false
-      t.integer :status_cd
-      t.integer :previous_status_cd
+      t.string :state
       t.string :error
 
       t.timestamps
@@ -16,7 +15,7 @@ class CreateImportEntries < ActiveRecord::Migration
     add_index :import_entries, :import_source_file_id
     add_index :import_entries, [:source_id, :target_model_cd]
     add_index :import_entries, [:target_id, :target_model_cd]
-    add_index :import_entries, :status_cd
+    add_index :import_entries, :state
     add_index :import_entries, :created_at, order: {created_at: :asc}
 
     add_foreign_key :import_entries, :import_source_files
@@ -26,7 +25,7 @@ class CreateImportEntries < ActiveRecord::Migration
     remove_index :import_entries, :import_source_file_id
     remove_index :import_entries, [:source_id, :target_model_cd]
     remove_index :import_entries, [:target_id, :target_model_cd]
-    remove_index :import_entries, :status_cd
+    remove_index :import_entries, :state
     remove_index :import_entries, :created_at
     remove_foreign_key :import_entries, :import_source_files
     drop_table :import_entries

@@ -16,6 +16,7 @@ gem 'foreigner', '~> 1.2.1'
 gem 'validates_timeliness', '~> 3.0.12'
 gem 'simple_enum', '~> 1.6.1'
 gem 'globalize3', '~>0.2.0'
+gem 'state_machine', '~>1.1.2'
 
 #image uploads management
 gem 'mini_magick', '~> 3.4.0'
@@ -83,11 +84,11 @@ group :test do
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'capybara-webkit', '~> 0.12.1'
   gem 'database_cleaner', '~>0.9.1'
-  
+
   # Tools
   gem 'simplecov', '~> 0.7', :require => false
   gem 'guard-brakeman', '~> 0'
-  
+
     #Linux gems
     gem 'rb-inotify', '~> 0.8.8'
     gem 'libnotify', '~> 0.8.0'

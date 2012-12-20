@@ -15,6 +15,7 @@ gem 'foreigner', '~> 1.2.1'
 gem 'validates_timeliness', '~> 3.0.12'
 gem 'simple_enum', '~> 1.6.1'
 gem 'globalize3', '~>0.2.0'
+gem 'state_machine', '~>1.1.2'
 
 #image uploads management
 gem 'mini_magick', '~> 3.4.0'
@@ -79,10 +80,10 @@ group :test do
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'capybara-webkit', git: "https://github.com/Saaman/capybara-webkit.git"
   gem 'database_cleaner', '~>0.9.1'
-  
+
   # Tools
   gem 'simplecov', '~> 0.7', :require => false
-  
+
     # Windows gems
     gem 'rb-fchange', '~> 0'
     gem 'win32console', '~> 1.3'
