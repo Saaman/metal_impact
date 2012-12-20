@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218224902) do
+ActiveRecord::Schema.define(:version => 20121219225628) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",          :limit => 511,                    :null => false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20121218224902) do
     t.integer  "music_label_id"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
@@ -110,6 +110,25 @@ ActiveRecord::Schema.define(:version => 20121218224902) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "import_entries", :force => true do |t|
+    t.integer  "target_model_cd"
+    t.integer  "source_id"
+    t.integer  "target_id"
+    t.integer  "import_source_file_id"
+    t.text     "data",                  :null => false
+    t.integer  "status_cd"
+    t.integer  "previous_status_cd"
+    t.string   "error"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "import_entries", ["created_at"], :name => "index_import_entries_on_created_at"
+  add_index "import_entries", ["import_source_file_id"], :name => "index_import_entries_on_import_source_file_id"
+  add_index "import_entries", ["source_id", "target_model_cd"], :name => "index_import_entries_on_source_id_and_target_model_cd"
+  add_index "import_entries", ["status_cd"], :name => "index_import_entries_on_status_cd"
+  add_index "import_entries", ["target_id", "target_model_cd"], :name => "index_import_entries_on_target_id_and_target_model_cd"
+
   create_table "import_source_files", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "source",     :null => false
@@ -179,24 +198,5 @@ ActiveRecord::Schema.define(:version => 20121218224902) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-
-  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
-  add_foreign_key "albums", "users", :name => "albums_creator_id_fk", :column => "creator_id"
-  add_foreign_key "albums", "users", :name => "albums_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
-  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
-
-  add_foreign_key "approvals", "users", :name => "approvals_creator_id_fk", :column => "creator_id"
-  add_foreign_key "approvals", "users", :name => "approvals_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "artists", "users", :name => "artists_creator_id_fk", :column => "creator_id"
-  add_foreign_key "artists", "users", :name => "artists_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "artists_practices", "artists", :name => "artists_practices_artist_id_fk"
-  add_foreign_key "artists_practices", "practices", :name => "artists_practices_practice_id_fk"
-
-  add_foreign_key "music_labels", "users", :name => "music_labels_creator_id_fk", :column => "creator_id"
-  add_foreign_key "music_labels", "users", :name => "music_labels_updater_id_fk", :column => "updater_id"
 
 end
