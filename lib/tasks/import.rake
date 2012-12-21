@@ -48,6 +48,7 @@ namespace :import do
         end
       end
       Import::Entry.import entries
+      puts ""
       puts "Succesfully imported #{entries_count} entries"
       puts "------------------------------------------------------"
     end
