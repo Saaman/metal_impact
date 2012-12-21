@@ -2,31 +2,35 @@
 #
 # Table name: import_source_files
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)      not null
-#  source     :string(255)      not null
-#  status_cd  :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  name           :string(255)      not null
+#  source_type_cd :integer
+#  state          :string(255)      not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class Import::SourceFile < ActiveRecord::Base
 
 	#attributes
-  attr_accessible :name, :status, :source
-  as_enum :status, {:not_started => 0, :in_progress => 1, :partial => 2, :complete => 3, :has_errors => 4 }, prefix: 'import'
+  attr_accessible :name, :source_type
+  as_enum :source_type, {:metal_impact => 0}, prefix: 'is_of_type'
 
   #validations
-  validates_as_enum :status
-  validates :name, :status, :source, :presence => true
+  validates_as_enum :source_type, :allow_nil => true
+  validates :name, :presence => true
 
-  #callbacks
-  before_validation do |source_file|
-    source_file.status ||= :not_started
+  #state machine
+  state_machine :initial => :new do
+    before_transition :new => :discovering, :do => :discover_entries
+
+    event :discover_entries do
+      transition :new => :discovering, :if => lambda {|source_file| !source_file.source_type.nil?}
+    end
   end
 
-  before_save do |source_file|
-  	#"metal_impact" becomes "Metal Impact"
-    source_file.source = source_file.source.titleize
-  end
+  private
+    def discover_entries
+      puts "I'm discovering!"
+    end
 end

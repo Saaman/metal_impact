@@ -8,8 +8,7 @@
 #  target_id             :integer
 #  import_source_file_id :integer
 #  data                  :text             not null
-#  status_cd             :integer
-#  previous_status_cd    :integer
+#  state                 :string(255)      default("new"), not null
 #  error                 :string(255)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
