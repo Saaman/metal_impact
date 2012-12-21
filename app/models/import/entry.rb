@@ -16,17 +16,17 @@
 
 class Import::Entry < ActiveRecord::Base
 	#associations
-  belongs_to :import_source_file
+  belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id'
 
   #persisted attributes
-  attr_accessible :data, :error, :source_id, :target_id, :target_model
+  attr_accessible :data, :error, :source_id, :target_id, :target_model, :source_file
 
 	as_enum :target_model, user: 0
 	serialize :data
 
 	#validations
 	validates_as_enum :target_model, :allow_nil => true
-	validates_presence_of :data, :state
+	validates_presence_of :data, :state, :source_file
 
 	#state machine
   state_machine :initial => :new do

@@ -17,19 +17,10 @@
 require 'spec_helper'
 
 
-shared_examples "a status change" do |status, previous_status, validation_result|
-  before do
-    @entry.status = status
-    @entry.previous_status = previous_status
-  end
-  it "should match validation" do
-    @entry.save.should == validation_result
-  end
-end
-
 describe Import::Entry do
+  let(:source_file) { FactoryGirl.create(:source_file) }
   before do
-    @entry = Import::Entry.new data: {'toto' => 1, :essai => "tata"}
+    @entry = Import::Entry.new data: {'toto' => 1, :essai => "tata"}, source_file: source_file
   end
 
   subject { @entry }
@@ -41,52 +32,26 @@ describe Import::Entry do
     it { should respond_to(:source_id) }
     it { should respond_to(:target_id) }
     it { should respond_to(:target_model) }
-    #it { should respond_to(:status) }
-    #it { should respond_to(:previous_status) }
+    it { should respond_to(:source_file) }
+    it { should_not respond_to(:source_file_id) }
 
     #methods
-    # it { should respond_to(:entry_new?) }
-    # it { should respond_to(:entry_new!) }
-    # it { should respond_to(:entry_ready?) }
-    # it { should respond_to(:entry_ready!) }
-    # it { should respond_to(:entry_pre_processed?) }
-    # it { should respond_to(:entry_pre_processed!) }
-    # it { should respond_to(:entry_imported?) }
-    # it { should respond_to(:entry_imported!) }
-    # it { should respond_to(:entry_processed?) }
-    # it { should respond_to(:entry_processed!) }
-    # it { should respond_to(:entry_in_error?) }
-    # it { should respond_to(:entry_in_error!) }
-    # it { should respond_to(:entry_in_treatment?) }
-    # it { should respond_to(:entry_in_treatment!) }
-    # it { should respond_to(:entry_waiting?) }
-    # it { should respond_to(:entry_waiting!) }
-
-    # it { should respond_to(:entry_was_new?) }
-    # it { should respond_to(:entry_was_new!) }
-    # it { should respond_to(:entry_was_ready?) }
-    # it { should respond_to(:entry_was_ready!) }
-    # it { should respond_to(:entry_was_pre_processed?) }
-    # it { should respond_to(:entry_was_pre_processed!) }
-    # it { should respond_to(:entry_was_imported?) }
-    # it { should respond_to(:entry_was_imported!) }
-    # it { should respond_to(:entry_was_processed?) }
-    # it { should respond_to(:entry_was_processed!) }
-    # it { should respond_to(:entry_was_in_error?) }
-    # it { should respond_to(:entry_was_in_error!) }
-    # it { should respond_to(:status=) }
-    # it { should_not respond_to(:previous_status=) }
   end
 
   describe "Validations" do
   	it { should be_valid }
 
-    describe "on creation :" do
-      describe "when data is not present" do
-        before { @entry.data = " " }
-        it { should_not be_valid }
-      end
+    describe "when data is not present" do
+      before { @entry.data = " " }
+      it { should_not be_valid }
     end
+
+    describe "when source_file is not present" do
+      before { @entry.source_file = nil }
+      it { should_not be_valid }
+    end
+
+
     # describe "on update" do
     #   before { @entry.save! }
     #   describe "when previous_status is not present" do

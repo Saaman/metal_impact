@@ -57,4 +57,8 @@ FactoryGirl.define do
     creator
     updater
   end
+
+  factory :source_file, :class => Import::SourceFile do
+    name { generate(:random_string) }
+  end
 end

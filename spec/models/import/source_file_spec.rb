@@ -26,6 +26,8 @@ describe Import::SourceFile do
     it { should respond_to(:source_type) }
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }
+    it { should respond_to(:entries) }
+    it { should respond_to(:entry_ids) }
 
     #methods
     it { should respond_to(:is_of_type_metal_impact?) }

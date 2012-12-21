@@ -12,8 +12,11 @@
 
 class Import::SourceFile < ActiveRecord::Base
 
+  #associations
+  has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id'
+
 	#attributes
-  attr_accessible :name, :source_type
+  attr_accessible :name, :source_type, :entry_ids
   as_enum :source_type, {:metal_impact => 0}, prefix: 'is_of_type'
 
   #validations
