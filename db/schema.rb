@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20121219225628) do
     t.text     "data",                                     :null => false
     t.string   "state",                 :default => "new", :null => false
     t.string   "error"
+    t.string   "type"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
   end
@@ -129,7 +130,7 @@ ActiveRecord::Schema.define(:version => 20121219225628) do
   add_index "import_entries", ["target_id", "target_model_cd"], :name => "index_import_entries_on_target_id_and_target_model_cd"
 
   create_table "import_source_files", :force => true do |t|
-    t.string   "name",           :null => false
+    t.string   "path",           :null => false
     t.integer  "source_type_cd"
     t.string   "state",          :null => false
     t.datetime "created_at",     :null => false

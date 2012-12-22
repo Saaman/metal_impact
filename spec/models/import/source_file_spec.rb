@@ -32,6 +32,8 @@ describe Import::SourceFile do
     #methods
     it { should respond_to(:is_of_type_metal_impact?) }
     it { should respond_to(:is_of_type_metal_impact!) }
+    it { should respond_to(:initialize_import) }
+    it { should respond_to(:can_initialize_import?) }
   end
 
   describe "Validations" do
@@ -52,10 +54,10 @@ describe Import::SourceFile do
   end
 
   describe "State Machine" do
-    it "it can discover entries only if source_type is set" do
-      @source_file.can_discover_entries?.should be_false
+    it "it can prepare entries only if source_type is set" do
+      @source_file.can_initialize_import?.should be_false
       @source_file.is_of_type_metal_impact!
-      @source_file.can_discover_entries?.should be_true
+      @source_file.can_initialize_import?.should be_true
     end
   end
 

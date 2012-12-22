@@ -10,6 +10,7 @@
 #  data                  :text             not null
 #  state                 :string(255)      default("new"), not null
 #  error                 :string(255)
+#  type                  :string(255)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #
@@ -36,6 +37,8 @@ describe Import::Entry do
     it { should_not respond_to(:source_file_id) }
 
     #methods
+    it { should respond_to(:auto_discover) }
+    it { should respond_to(:can_auto_discover?) }
   end
 
   describe "Validations" do
@@ -50,31 +53,11 @@ describe Import::Entry do
       before { @entry.source_file = nil }
       it { should_not be_valid }
     end
-
-
-    # describe "on update" do
-    #   before { @entry.save! }
-    #   describe "when previous_status is not present" do
-    #     before { @entry.previous_status = nil }
-    #     it { should_not be_valid }
-    #   end
-    # end
   end
 
-  # describe "Callbacks" do
-  #   describe "it set status to :new when empty" do
-  #     before do
-  #       @entry.status = nil
-  #       @entry.valid?
-  #     end
-  #     its(:status) { should == :new }
-  #   end
-  # end
-
-  # describe "Life cycle enforcement" do
-  #   before { @entry.save! }
-  #   describe "should refuse invalid statuses changes" do
-  #     it_behaves_like "a status change", :new, :new, false
-  #   end
-  # end
+  describe "State Machine" do
+    it "it can auto-discover when state is :new" do
+      @entry.can_auto_discover?.should be_true
+    end
+  end
 end

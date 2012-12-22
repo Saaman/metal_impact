@@ -1,7 +1,7 @@
 class CreateImportSourceFiles < ActiveRecord::Migration
   def change
     create_table :import_source_files do |t|
-      t.string :name, :null => false
+      t.string :path, :null => false
       t.integer :source_type_cd
       t.string :state, :null => false
 
