@@ -33,10 +33,7 @@ namespace :import do
       puts "Import #{source_file}..."
 
       sf = Import::SourceFile.new path: source_file
-
-      sf.transaction do
-        sf.save!
-      end
+      sf.save!
 
     end
   end

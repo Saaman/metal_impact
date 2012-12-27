@@ -34,11 +34,21 @@ class Import::SourceFile < ActiveRecord::Base
 
 
     #transitions
-    before_transition :new => :preparing_entries, :do => :prepare_entries
+    before_transition :new => :loaded, :do => :load_entries
+    before_transition :loaded => :preparing_entries do |source_file, transition|
+      source_file.delay(:queue => 'import_engine').prepare
+    end
+    before_transition :preparing_entries => :prepared, :do => :prepare_entries
 
     #events
-    event :initialize_import do
-      transition :new => :preparing_entries, :if => lambda {|source_file| !source_file.source_type.nil?}
+    event :load_file do
+      transition :new => :loaded, :if => lambda {|source_file| !source_file.source_type.nil?}
+    end
+    event :start_preparing do
+      transition :loaded => :preparing_entries
+    end
+    event :prepare do
+      transition :preparing_entries => :prepared
     end
   end
 
@@ -47,13 +57,6 @@ class Import::SourceFile < ActiveRecord::Base
   end
 
   private
-    def prepare_entries
-      load_entries
-
-      self.entries.each do |entry|
-        entry.auto_discover
-      end
-    end
 
     def load_entries
       entries_count = 0
@@ -71,5 +74,13 @@ class Import::SourceFile < ActiveRecord::Base
         end
       end
       klass.import entries
+    end
+
+    def prepare_entries
+      self.reload
+      puts "source file : #{self.inspect}"
+      self.entries.each do |entry|
+        entry.auto_discover
+      end
     end
 end
