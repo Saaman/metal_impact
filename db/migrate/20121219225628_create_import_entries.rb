@@ -7,7 +7,6 @@ class CreateImportEntries < ActiveRecord::Migration
       t.references :import_source_file
       t.text :data, :null => false
       t.string :state, :null => false, default: 'new'
-      t.string :error
       t.string :type
 
       t.timestamps

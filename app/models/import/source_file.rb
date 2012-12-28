@@ -3,7 +3,7 @@
 # Table name: import_source_files
 #
 #  id             :integer          not null, primary key
-#  name           :string(255)      not null
+#  path           :string(255)      not null
 #  source_type_cd :integer
 #  state          :string(255)      not null
 #  created_at     :datetime         not null
@@ -14,6 +14,7 @@ class Import::SourceFile < ActiveRecord::Base
 
   #associations
   has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file
+  has_many :failures, :through => :entries
 
 	#attributes
   attr_accessible :source_type, :entry_ids, :path
@@ -32,11 +33,10 @@ class Import::SourceFile < ActiveRecord::Base
       end
     end
 
-
     #transitions
     before_transition :new => :loaded, :do => :load_entries
     before_transition :loaded => :preparing_entries do |source_file, transition|
-      source_file.delay(:queue => 'import_engine').prepare
+      source_file.delay(:queue => 'import_engine').async_prepare_entries
     end
     before_transition :preparing_entries => :prepared, :do => :prepare_entries
 
@@ -45,15 +45,21 @@ class Import::SourceFile < ActiveRecord::Base
       transition :new => :loaded, :if => lambda {|source_file| !source_file.source_type.nil?}
     end
     event :start_preparing do
-      transition :loaded => :preparing_entries
+      transition :loaded => :preparing_entries, :unless => :has_failures?
     end
-    event :prepare do
+    event :refresh_status do
+      transition :preparing_entries => :loaded, :if => :has_failures?
       transition :preparing_entries => :prepared
+      transition all => same
     end
   end
 
   def name
     File.basename(path)
+  end
+
+  def has_failures?
+    !self.failures.empty?
   end
 
   private
@@ -76,11 +82,11 @@ class Import::SourceFile < ActiveRecord::Base
       klass.import entries
     end
 
-    def prepare_entries
-      self.reload
-      puts "source file : #{self.inspect}"
-      self.entries.each do |entry|
-        entry.auto_discover
+    def async_prepare_entries
+      self.reload.transaction do
+        self.entries.each do |entry|
+          entry.auto_discover
+        end
       end
     end
 end

@@ -7,4 +7,7 @@ module Exceptions
 
 	class TrackableError < StandardError
 	end
+
+	class ImportException < StandardError
+	end
 end

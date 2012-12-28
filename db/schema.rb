@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219225628) do
+ActiveRecord::Schema.define(:version => 20121228104637) do
 
   create_table "albums", :force => true do |t|
     t.string   "title",          :limit => 511,                    :null => false
@@ -117,7 +117,6 @@ ActiveRecord::Schema.define(:version => 20121219225628) do
     t.integer  "import_source_file_id"
     t.text     "data",                                     :null => false
     t.string   "state",                 :default => "new", :null => false
-    t.string   "error"
     t.string   "type"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
@@ -128,6 +127,17 @@ ActiveRecord::Schema.define(:version => 20121219225628) do
   add_index "import_entries", ["source_id", "target_model_cd"], :name => "index_import_entries_on_source_id_and_target_model_cd"
   add_index "import_entries", ["state"], :name => "index_import_entries_on_state"
   add_index "import_entries", ["target_id", "target_model_cd"], :name => "index_import_entries_on_target_id_and_target_model_cd"
+
+  create_table "import_failures", :force => true do |t|
+    t.text     "description"
+    t.string   "code"
+    t.integer  "import_entry_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "import_failures", ["created_at"], :name => "index_import_failures_on_created_at"
+  add_index "import_failures", ["import_entry_id"], :name => "index_import_failures_on_import_entry_id"
 
   create_table "import_source_files", :force => true do |t|
     t.string   "path",           :null => false

@@ -59,6 +59,11 @@ FactoryGirl.define do
   end
 
   factory :source_file, :class => Import::SourceFile do
-    name { generate(:random_string) }
+    path { File.join([Rails.root] + Faker::Lorem.words + ["toto.yml"]) }
+  end
+
+  factory :entry, :class => Import::Entry do
+    data { {"toto" => generate(:random_string), "tata" => 21} }
+    source_file
   end
 end

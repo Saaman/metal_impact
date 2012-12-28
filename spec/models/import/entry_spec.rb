@@ -9,7 +9,6 @@
 #  import_source_file_id :integer
 #  data                  :text             not null
 #  state                 :string(255)      default("new"), not null
-#  error                 :string(255)
 #  type                  :string(255)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
@@ -29,7 +28,6 @@ describe Import::Entry do
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:data) }
-    it { should respond_to(:error) }
     it { should respond_to(:source_id) }
     it { should respond_to(:target_id) }
     it { should respond_to(:target_model) }
