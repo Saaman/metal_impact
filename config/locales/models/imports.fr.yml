@@ -1,0 +1,7 @@
+en:
+  activerecord:
+    enums:
+      import:
+        source_file:
+          source_type:
+            metal_impact:: Metal Impact

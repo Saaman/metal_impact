@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    enums:
+      import:
+        source_file:
+          source_type:

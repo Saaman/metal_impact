@@ -3,3 +3,13 @@ fr:
     monitoring:
       dashboard:
         title: "Tableau de bord"
+    imports:
+      index:
+        title: "Import de données : fichiers source"
+        name: "Nom du fichier"
+        import_type: "Type d'import"
+        added_on: "Ajouté le"
+        entries_count: "Nombre d'entrées"
+        entries:
+          one: "entrée"
+          other: "entrées"

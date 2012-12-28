@@ -31,6 +31,7 @@ describe Import::SourceFile do
     it { should respond_to(:entry_ids) }
     it { should respond_to(:failures) }
     it { should respond_to(:failure_ids) }
+    it { should respond_to(:entries_count) }
 
     #methods
     it { should respond_to(:is_of_type_metal_impact?) }

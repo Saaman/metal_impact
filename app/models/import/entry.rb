@@ -16,7 +16,7 @@
 
 class Import::Entry < ActiveRecord::Base
 	#associations
-  belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries
+  belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries, :counter_cache => :entries_count
   has_many :failures, class_name: 'Import::Failure', foreign_key: 'import_entry_id'
 
   #persisted attributes
@@ -38,8 +38,7 @@ class Import::Entry < ActiveRecord::Base
     end
 
     after_failure do |entry, transition|
-      puts "a failure occured"
-      puts "transition : #{transition.inspect}"
+      Rails.logger.info "a failure occured on transition : #{transition.inspect}"
       entry.errors.full_messages.each do |msg|
         Import::Failure.new(description: msg, entry: entry).save!
       end

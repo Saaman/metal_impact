@@ -3,3 +3,13 @@ en:
     monitoring:
       dashboard:
         title: "Dashboard"
+    imports:
+      index:
+        title: "Data import : source files"
+        name: "File name"
+        import_type: "Import type"
+        added_on: "Added on"
+        entries_count: "Entries count"
+        entries:
+          one: entry
+          other: entries

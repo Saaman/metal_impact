@@ -4,6 +4,7 @@ fr:
     edit_link: "Modifier..."
     search_terms: "Commencez à taper..."
     or: " ou "
+    none: "-"
   shared:
     error_messages:
       errors_count:

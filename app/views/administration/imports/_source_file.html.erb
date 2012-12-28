@@ -1,0 +1,8 @@
+<tr>
+  <td>
+		<%= link_to "#{source_file.name}", administration_import_path(source_file) %>
+  </td>
+  <td><%= display_source_type source_file.source_type %></td>
+  <td><%= display_entries source_file.entries_count %>
+  <td><%= l source_file.created_at, :format => :short %></td>
+</tr>

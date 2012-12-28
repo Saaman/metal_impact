@@ -9,6 +9,7 @@ class Ability
 
     can :read, :all
     cannot :show_image, :home
+    cannot :manage, Import::SourceFile
     can :create, User
     cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end
