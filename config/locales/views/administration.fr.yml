@@ -8,6 +8,7 @@ fr:
         title: "Import de données : fichiers source"
         name: "Nom du fichier"
         import_type: "Type d'import"
+        state: "Status"
         added_on: "Ajouté le"
         entries_count: "Nombre d'entrées"
         entries:

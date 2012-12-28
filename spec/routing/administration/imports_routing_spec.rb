@@ -13,15 +13,15 @@ describe Administration::ImportsController do
       get(administration_import_path(1)).should route_to("administration/imports#show", :id => "1")
     end
 
-    # it "routes to #update" do
-    #   put("/administration/users/1").should route_to(controller: "administration/users", action: "update", id: "1")
-    #   put(administration_user_path(1)).should route_to(controller: "administration/users", action: "update", id: "1")
-    # end
+    it "routes to #update" do
+      put("/administration/imports/1").should route_to("administration/imports#update", id: "1")
+      put(administration_import_path(1)).should route_to("administration/imports#update", id: "1")
+    end
 
-    # it "routes to #destroy" do
-    #   delete("/administration/users/1").should route_to(controller: "administration/users", action: "destroy", id: "1")
-    #   delete(administration_user_path(1)).should route_to(controller: "administration/users", action: "destroy", id: "1")
-    # end
+   it "routes to #edit" do
+      get("/administration/imports/1/edit").should route_to("administration/imports#edit", :id => "1")
+      get(edit_administration_import_path(1)).should route_to("administration/imports#edit", :id => "1")
+    end
 
   end
 end

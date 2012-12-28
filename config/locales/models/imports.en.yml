@@ -4,3 +4,9 @@ en:
       import:
         source_file:
           source_type:
+            metal_impact:: Metal Impact
+    states:
+      import:
+        source_file:
+          new: New
+          loaded: Loaded
