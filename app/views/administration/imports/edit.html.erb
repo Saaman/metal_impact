@@ -1,0 +1,19 @@
+<h1><%= t '.title' %><%= @source_file.name %></h1>
+
+<br/><br/>
+
+<p><%= t '.description1' %></p>
+<p><%= t '.description2' %></p>
+
+<br/><br/>
+
+<%= simple_form_for @source_file, :url => administration_import_path, :html => { :class => "form-horizontal-large", novalidate: true } do |f| %>
+  <%= render 'shared/error_messages', :object => @source_file %>
+
+	<%= f.input :source_type, required: true, :collection => Import::SourceFile.source_types_for_select, prompt: t('.select_source_type'), input_html: {class: "input-xlarge"} %>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('defaults.back_link'), :back, { :class => "btn" } %>
+  </div>
+<% end %>

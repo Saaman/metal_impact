@@ -14,3 +14,12 @@ en:
         entries:
           one: entry
           other: entries
+      edit:
+        title: "Source file : "
+        description1: "You must set a source type for this source file, and then load the file into the system."
+        description2: "This will read the file and copy its data to import them afterwards."
+        select_source_type: "Choose a source type..."
+  helpers:
+    submit:
+      import_source_file:
+        update: "Load file"

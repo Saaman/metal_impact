@@ -14,3 +14,12 @@ fr:
         entries:
           one: "entrée"
           other: "entrées"
+      edit:
+        title: "Fichier source : "
+        description1: "Vous devez renseigner le type de source de ce fichier avant de le charger dans le système."
+        description2: "Cela permettra de lire le fichier, charger ces données et par la suite les importer."
+        select_source_type: "Choisissez un type de source..."
+  helpers:
+    submit:
+      import_source_file:
+        update: "Charger le fichier"
