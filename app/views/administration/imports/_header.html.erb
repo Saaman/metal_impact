@@ -1,7 +1,11 @@
 <div class="page-header">
+	<div class="pull-right" style="margin-top: 5px;margin-right:25px;">
+		<%= link_to(administration_imports_path, {:class => "btn"}) do %>
+			<i class="icon-list"></i><%= t('defaults.back_to_list') %>
+		<% end %>
+	</div>
 	<h2><%= source_file.name %><small><%= t '.title' %></small></h2>
-	<br/>
-	<div class="row-fluid content">
+	<div class="row-fluid header-content">
   	<div class="span2">
 			<p><%= display_state source_file.state_name %></p>
 			<strong><%= display_entries source_file.entries.size %></strong>

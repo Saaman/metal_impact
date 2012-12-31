@@ -1,6 +1,7 @@
 fr:
   defaults:
     back_link: "Retour"
+    back_to_list: " Retour à la liste"
     edit_link: "Modifier..."
     search_terms: "Commencez à taper..."
     or: " ou "
