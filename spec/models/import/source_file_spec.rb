@@ -55,9 +55,17 @@ describe Import::SourceFile do
     end
   end
 
-  describe "Callbacks" do
+  describe "Behaviors" do
     describe "it set status to new on initializing" do
       its(:state_name) { should == :new }
+    end
+    describe 'Path is read-only' do
+      before { @source_file.save! }
+      it 'must not be alterable' do
+        @source_file.path = "toto"
+        @source_file.save
+        @source_file.reload.path.should_not == "toto"
+      end
     end
   end
 
@@ -67,7 +75,6 @@ describe Import::SourceFile do
       its(:name) { should == "toto.yml" }
     end
   end
-
 
   describe "State Machine" do
     it "it can prepare entries only if source_type is set" do

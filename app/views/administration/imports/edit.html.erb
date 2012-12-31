@@ -7,13 +7,13 @@
 
 <br/><br/>
 
-<%= simple_form_for @source_file, :url => administration_import_path, :html => { :class => "form-horizontal-large", novalidate: true } do |f| %>
+<%= simple_form_for @source_file, :url => administration_import_path, :html => { :class => "form-horizontal-large", :novalidate => true } do |f| %>
   <%= render 'shared/error_messages', :object => @source_file %>
 
-	<%= f.input :source_type, required: true, :collection => Import::SourceFile.source_types_for_select, prompt: t('.select_source_type'), input_html: {class: "input-xlarge"} %>
+	<%= f.input :source_type, required: true, :collection => Import::SourceFile.source_types_for_select, prompt: t('.select_source_type'), input_html: {class: 'input-xlarge skipval'} %>
 
   <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
+  	<%= load_file_button(f, @source_file) %>
     <%= link_to t('defaults.back_link'), :back, { :class => "btn" } %>
   </div>
 <% end %>

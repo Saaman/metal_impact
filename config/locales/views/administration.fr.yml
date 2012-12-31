@@ -23,3 +23,4 @@ fr:
     submit:
       import_source_file:
         update: "Charger le fichier"
+        reload: "Recharger le fichier"

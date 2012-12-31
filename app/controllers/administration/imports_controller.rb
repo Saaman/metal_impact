@@ -18,10 +18,21 @@ class Administration::ImportsController < ApplicationController
 
 	def edit
 		@source_file = Import::SourceFile.find(params[:id])
-		unless @source_file.new?
+		unless @source_file.can_set_source_type?
 			redirect_to :action => :show
 		else
     	respond_with @source_file
     end
+	end
+
+	def update
+		@source_file = Import::SourceFile.find(params[:id])
+		if @source_file.set_source_type_and_load_entries params[:import_source_file][:source_type]
+			redirect_to :action => :show
+		else
+			respond_with @source_file do |format|
+				format.html { render 'edit' }
+			end
+		end
 	end
 end

@@ -8,5 +8,10 @@ module Administration
 			return t("defaults.none") unless source_type
 			Import::SourceFile.human_enum_name(:source_types, source_type)
 		end
+		def load_file_button(form, source_file)
+			options = {:class => 'btn-primary'}
+			return form.button :submit, t('helpers.submit.import_source_file.reload'), options if source_file.can_unload_file?
+			form.button :submit, options
+		end
 	end
 end

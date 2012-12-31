@@ -17,7 +17,8 @@ class Import::SourceFile < ActiveRecord::Base
   has_many :failures, :through => :entries
 
 	#attributes
-  attr_accessible :source_type, :entry_ids, :path
+  attr_accessible :source_type, :entry_ids
+  attr_readonly :path
   as_enum :source_type, {:metal_impact => 0}, prefix: 'is_of_type'
 
   #validations
@@ -35,6 +36,7 @@ class Import::SourceFile < ActiveRecord::Base
 
     #transitions
     before_transition :new => :loaded, :do => :load_entries
+    before_transition :loaded => :new, :do => :unload_entries
     before_transition :loaded => :preparing_entries do |source_file, transition|
       source_file.delay(:queue => 'import_engine').async_prepare_entries
     end
@@ -43,6 +45,9 @@ class Import::SourceFile < ActiveRecord::Base
     #events
     event :load_file do
       transition :new => :loaded, :if => lambda {|source_file| !source_file.source_type.nil?}
+    end
+    event :unload_file do
+      transition :loaded => :new
     end
     event :start_preparing do
       transition :loaded => :preparing_entries, :unless => :has_failures?
@@ -60,6 +65,16 @@ class Import::SourceFile < ActiveRecord::Base
 
   def has_failures?
     !self.failures.empty?
+  end
+
+  def can_set_source_type?
+    self.new? || self.loaded?
+  end
+
+  def set_source_type_and_load_entries(source_type)
+    self.update_attributes(source_type: source_type)
+    self.unload_file! if self.can_unload_file?
+    self.load_file
   end
 
   private
@@ -80,6 +95,10 @@ class Import::SourceFile < ActiveRecord::Base
         end
       end
       klass.import entries
+    end
+
+    def unload_entries
+      self.entries.destroy_all
     end
 
     def async_prepare_entries

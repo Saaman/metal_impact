@@ -62,7 +62,7 @@ describe Administration::ImportsController do
   		before(:each) { @ability.can :edit, Import::SourceFile }
   		describe "when source_file is not new, redirect to show" do
   			before do
-  				Import::SourceFile.any_instance.stub(:new?).and_return(false)
+  				Import::SourceFile.any_instance.stub(:can_set_source_type?).and_return(false)
   				get :edit, {id: source_file.id}
   			end
   			it { should redirect_to administration_import_path(source_file) }
@@ -73,5 +73,26 @@ describe Administration::ImportsController do
 		  	specify { assigns(:source_file).should == source_file }
 		  end
 	  end
+  end
+
+  describe "PUT update :" do
+    let(:source_file) { FactoryGirl.create(:entry) }
+    describe "(unauthorized)" do
+      before { put :update, {id: source_file.id} }
+      its_access_is "unauthorized"
+    end
+    describe "(authorized)" do
+      before(:each) do
+        @ability.can :update, Import::SourceFile
+        Import::SourceFile.any_instance.stub(:load_file).and_return(true)
+      end
+      before { put :update, {id: source_file.id, :import_source_file => {:source_type => :metal_impact}} }
+      it "redirects to the source file" do
+        response.should redirect_to administration_import_path(source_file)
+      end
+      it "updates the source_file" do
+        assigns(:source_file).source_type.should == :metal_impact
+      end
+    end
   end
 end

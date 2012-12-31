@@ -4,7 +4,6 @@ class CreateImportSourceFiles < ActiveRecord::Migration
       t.string :path, :null => false
       t.integer :source_type_cd
       t.string :state, :null => false
-      t.integer :entries_count
 
       t.timestamps
     end

@@ -16,7 +16,7 @@
 
 class Import::Entry < ActiveRecord::Base
 	#associations
-  belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries, :counter_cache => :entries_count
+  belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries
   has_many :failures, class_name: 'Import::Failure', foreign_key: 'import_entry_id'
 
   #persisted attributes
