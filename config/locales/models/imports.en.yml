@@ -5,6 +5,9 @@ en:
         source_file:
           source_type:
             metal_impact:: Metal Impact
+    attributes:
+      import/source_file:
+          source_type: "Import type"
     states:
       import:
         source_file:

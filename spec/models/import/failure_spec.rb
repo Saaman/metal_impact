@@ -3,9 +3,9 @@
 # Table name: import_failures
 #
 #  id              :integer          not null, primary key
-#  description     :text
+#  description     :text             not null
 #  code            :string(255)
-#  import_entry_id :integer
+#  import_entry_id :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

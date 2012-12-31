@@ -7,18 +7,21 @@ fr:
       index:
         title: "Import de données : fichiers source"
         name: "Nom du fichier"
-        import_type: "Type d'import"
         state: "Status"
         added_on: "Ajouté le"
         entries_count: "Nombre d'entrées"
+      defaults:
         entries:
-          one: "entrée"
-          other: "entrées"
+          one: "une entrée"
+          other: "%{count} entrées"
+      header:
+        title: " (fichier source d'import de données)"
       edit:
-        title: "Fichier source : "
         description1: "Vous devez renseigner le type de source de ce fichier avant de le charger dans le système."
         description2: "Cela permettra de lire le fichier, charger ces données et par la suite les importer."
         select_source_type: "Choisissez un type de source..."
+      show:
+        change_source_type: "Changez le type de source..."
   helpers:
     submit:
       import_source_file:

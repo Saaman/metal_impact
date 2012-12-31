@@ -13,11 +13,11 @@
 class Import::SourceFile < ActiveRecord::Base
 
   #associations
-  has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file
+  has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file, :dependent => :destroy
   has_many :failures, :through => :entries
 
 	#attributes
-  attr_accessible :source_type, :entry_ids
+  attr_accessible :source_type, :entry_ids, :path
   attr_readonly :path
   as_enum :source_type, {:metal_impact => 0}, prefix: 'is_of_type'
 
@@ -98,7 +98,7 @@ class Import::SourceFile < ActiveRecord::Base
     end
 
     def unload_entries
-      self.entries.destroy_all
+      self.entries.delete_all
     end
 
     def async_prepare_entries

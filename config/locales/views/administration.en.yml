@@ -7,18 +7,21 @@ en:
       index:
         title: "Data import : source files"
         name: "File name"
-        import_type: "Import type"
         state: "Status"
         added_on: "Added on"
         entries_count: "Entries count"
+      defaults:
         entries:
-          one: entry
-          other: entries
+          one: 'one entry'
+          other: '%{count} entries'
+      header:
+        title: " (data import source file)"
       edit:
-        title: "Source file : "
         description1: "You must set a source type for this source file, and then load the file into the system."
         description2: "This will read the file and copy its data to import them afterwards."
         select_source_type: "Choose a source type..."
+      show:
+        change_source_type: "Change source_type..."
   helpers:
     submit:
       import_source_file:

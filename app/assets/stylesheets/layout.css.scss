@@ -15,6 +15,7 @@ body {
 
 .contentzone {
   background-color: white;
+  padding-left: 10px;
 }
 
 .leftzone {
@@ -58,12 +59,12 @@ footer {
   //color: $grayLight;
   a {
     //color: $gray;
-    &:hover { 
+    &:hover {
       //color: $grayDarker;
     }
-  }  
-  small { 
-    float: left; 
+  }
+  small {
+    float: left;
   }
   ul {
     float: right;
@@ -154,8 +155,8 @@ footer {
 
 button.link, input.link {
   background:none!important;
-  border:none; 
+  border:none;
   padding:0!important;
   /*border is optional*/
-  border-bottom:1px solid #444; 
+  border-bottom:1px solid #444;
 }

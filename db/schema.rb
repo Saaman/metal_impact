@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
     t.string   "path",           :null => false
     t.integer  "source_type_cd"
     t.string   "state",          :null => false
-    t.integer  "entries_count"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
