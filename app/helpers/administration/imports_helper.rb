@@ -4,10 +4,11 @@ module Administration
 			return t("defaults.none") if (entries_count == 0)
 			t 'administration.imports.defaults.entries', count: entries_count
 		end
-		def display_state(state_name)
-			state_label = t "activerecord.states.import.source_file.#{state_name}"
-			state_class = case state_name
+		def display_state(source_file)
+			state_label = t "activerecord.states.import.source_file.#{source_file.state_name}"
+			state_class = (source_file.has_failures? && "label-important") || case state_name
 				when :new then ""
+				when :preparing_entries then "label-warning"
 				else "label-info"
 			end
 			content_tag :span, state_label, class: "label #{state_class}"
@@ -20,6 +21,12 @@ module Administration
 			options = {:class => 'btn-primary'}
 			return form.button :submit, t('helpers.submit.import_source_file.reload'), options if source_file.can_unload_file?
 			form.button :submit, options
+		end
+		def command_button(form, title, disabled)
+			options = {:class => 'btn-primary'}
+			return form.button :submit, title, options unless disabled
+			form.button :submit, title, options.merge({:disabled => true})
+
 		end
 		def preparation_progress(source_file)
 			0 if source_file.overall_progress == 100

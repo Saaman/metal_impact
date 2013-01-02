@@ -19,8 +19,8 @@ describe Administration::ImportsController do
     end
 
    it "routes to #prepare" do
-      post("/administration/imports/1/prepare").should route_to("administration/imports#prepare", :id => "1")
-      post(prepare_administration_import_path(1)).should route_to("administration/imports#prepare", :id => "1")
+      put("/administration/imports/1/prepare").should route_to("administration/imports#prepare", :id => "1")
+      put(prepare_administration_import_path(1)).should route_to("administration/imports#prepare", :id => "1")
     end
 
   end

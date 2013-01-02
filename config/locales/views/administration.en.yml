@@ -25,6 +25,9 @@ en:
         entries_new:
           one: "One entry loaded"
           other: "%{count} entries loaded"
+        failures:
+          one: "One entry with failure"
+          other: "%{count} entries with failure"
         import_progress: "Import progress"
       commands:
         solve_alerts_desc:
@@ -35,3 +38,4 @@ en:
       import_source_file:
         update: "Load file"
         reload: "Reload file"
+        prepare: "Prepare entries"

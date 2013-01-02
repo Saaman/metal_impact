@@ -12,6 +12,7 @@
 				<% source_file.stats.each do |key, value| %>
 					<li><%= t ".entries_#{key}", count: value %></li>
 				<% end %>
+				<li><strong><%= t ".failures", count: source_file.failures.size %></strong></li>
 			</ul>
 		</div>
 	</fieldset>

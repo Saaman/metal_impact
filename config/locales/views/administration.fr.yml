@@ -25,13 +25,17 @@ fr:
         entries_new:
           one: "Une entrée chargée"
           other: "%{count} entrées chargées"
+        failures:
+          one: "Une entrée en erreur"
+          other: "%{count} entrées en erreur"
         import_progress: "Avancement de l'import"
       commands:
         solve_alerts_desc:
           one: "Une erreur est survenue lors de la dernière opération. Veuillez l'inspecter avant de pouvoir poursuivre."
-          other: "%{count} erreurs sont surevenues lors de la précédente opération. Veuillez les inspecter avant de pouvoir poursuivre."
+          other: "%{count} erreurs sont survenues lors de la précédente opération. Veuillez les inspecter avant de pouvoir poursuivre."
   helpers:
     submit:
       import_source_file:
         update: "Charger le fichier"
         reload: "Recharger le fichier"
+        prepare: "Préparer les entrées"

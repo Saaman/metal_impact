@@ -40,7 +40,6 @@ class Import::SourceFile < ActiveRecord::Base
     before_transition :loaded => :preparing_entries do |source_file, transition|
       source_file.delay(:queue => 'import_engine').async_prepare_entries
     end
-    before_transition :preparing_entries => :prepared, :do => :prepare_entries
 
     #events
     event :load_file do
@@ -54,7 +53,7 @@ class Import::SourceFile < ActiveRecord::Base
     end
     event :refresh_status do
       transition :preparing_entries => :loaded, :if => :has_failures?
-      transition :preparing_entries => :prepared
+      transition :preparing_entries => :prepared, :if => :entries_prepared?
       transition all => same
     end
   end
@@ -77,13 +76,8 @@ class Import::SourceFile < ActiveRecord::Base
     self.load_file
   end
 
-  def refresh_stats
-    self.refresh_status
-    @stats = self.reload.entries.group(:state).size
-  end
-
   def stats
-    @stats || refresh_stats
+    @stats || self.reload.entries.group(:state).size
   end
 
   def entries_count
@@ -97,6 +91,11 @@ class Import::SourceFile < ActiveRecord::Base
     end
     #this calculation works if max of Import::Entry::STATE_VALUES values equals 10
     progress*10/(entries_count)
+  end
+
+  def prepare
+    self.refresh_status
+    self.start_preparing
   end
 
   private
@@ -129,5 +128,9 @@ class Import::SourceFile < ActiveRecord::Base
           entry.auto_discover
         end
       end
+    end
+
+    def entries_prepared?
+      stats['prepared'] == entries_count
     end
 end
