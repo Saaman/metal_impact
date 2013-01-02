@@ -11,8 +11,8 @@
 			<p><%= display_state source_file.state_name %></p>
 			<strong><%= display_entries source_file.entries.size %></strong>
 		</div>
-		<div class="span10">
-			<%= yield(:source_file_infos) %>
+		<div class="span6">
+			<%= render 'loading_block', source_file: source_file %>
 		</div>
 	</div>
 </div>

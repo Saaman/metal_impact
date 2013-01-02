@@ -1,0 +1,10 @@
+<% if source_file.has_failures? %>
+	<div class="alert alert-error">
+		<%= t '.solve_alerts_desc', count: source_file.failures.size %>
+	</div>
+<% end %>
+
+<% case source_file.state_name %>
+<% when :loaded then %>
+	toto
+<% end %>

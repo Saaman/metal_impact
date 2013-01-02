@@ -16,17 +16,20 @@ fr:
           other: "%{count} entrées"
       header:
         title: " (fichier source d'import de données)"
-      edit:
+      loading_block:
+        change_source_type: "Changez le type de source..."
         description1: "Vous devez renseigner le type de source de ce fichier avant de le charger dans le système."
         description2: "Cela permettra de lire le fichier, charger ces données et par la suite les importer."
         select_source_type: "Choisissez un type de source..."
-      show:
-        change_source_type: "Changez le type de source..."
       progress:
         entries_new:
           one: "Une entrée chargée"
           other: "%{count} entrées chargées"
         import_progress: "Avancement de l'import"
+      commands:
+        solve_alerts_desc:
+          one: "Une erreur est survenue lors de la dernière opération. Veuillez l'inspecter avant de pouvoir poursuivre."
+          other: "%{count} erreurs sont surevenues lors de la précédente opération. Veuillez les inspecter avant de pouvoir poursuivre."
   helpers:
     submit:
       import_source_file:

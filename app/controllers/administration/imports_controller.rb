@@ -9,20 +9,7 @@ class Administration::ImportsController < ApplicationController
 
 	def show
 		@source_file = Import::SourceFile.find(params[:id])
-		if @source_file.new?
-			redirect_to :action => :edit
-		else
     	respond_with @source_file
-    end
-	end
-
-	def edit
-		@source_file = Import::SourceFile.find(params[:id])
-		unless @source_file.can_set_source_type?
-			redirect_to :action => :show
-		else
-    	respond_with @source_file
-    end
 	end
 
 	def update

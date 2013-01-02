@@ -1,16 +1,18 @@
-<fieldset>
-	<legend><%= t '.import_progress' %></legend>
-	<div>
-		<div class="progress">
-			<div class="bar bar-info" style="width: <%= preparation_progress source_file %>%;"></div>
-			<div class="bar bar-success" style="width: <%= import_progress source_file %>%;"></div>
-		  <div class="bar bar-warning" style="width: <%= pending_progress source_file %>%;"></div>
-		  <div class="bar bar-danger" style="width: <%= error_progress source_file %>%;"></div>
+<div class="well">
+	<fieldset>
+		<legend><%= t '.import_progress' %></legend>
+		<div>
+			<div class="progress">
+				<div class="bar bar-info" style="width: <%= preparation_progress source_file %>%;"></div>
+				<div class="bar bar-success" style="width: <%= import_progress source_file %>%;"></div>
+			  <div class="bar bar-warning" style="width: <%= pending_progress source_file %>%;"></div>
+			  <div class="bar bar-danger" style="width: <%= error_progress source_file %>%;"></div>
+			</div>
+			<ul>
+				<% source_file.stats.each do |key, value| %>
+					<li><%= t ".entries_#{key}", count: value %></li>
+				<% end %>
+			</ul>
 		</div>
-		<ul>
-			<% source_file.stats.each do |key, value| %>
-				<li><%= t ".entries_#{key}", count: value %></li>
-			<% end %>
-		</ul>
-	</div>
-</fieldset>
+	</fieldset>
+</div>

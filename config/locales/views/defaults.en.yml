@@ -6,6 +6,7 @@ en:
     search_terms: "Enter your search term..."
     or: " or "
     none: "-"
+    cancel: "Cancel"
   shared:
     error_messages:
       errors_count:

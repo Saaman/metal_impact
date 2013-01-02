@@ -13,7 +13,7 @@
 class Import::SourceFile < ActiveRecord::Base
 
   #associations
-  has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file, :dependent => :destroy
+  has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file, :dependent => :destroy, :include => :failures
   has_many :failures, :through => :entries
 
 	#attributes
