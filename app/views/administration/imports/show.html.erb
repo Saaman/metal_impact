@@ -1,9 +1,19 @@
 <% content_for :source_file_infos do %>
-	<p><%= t_attr_from_instance @source_file, :source_type %> : <strong><%= display_source_type @source_file.source_type %></strong><br/>
-		<% if @source_file.can_set_source_type? %>
-			<%= link_to t('.change_source_type'), edit_administration_import_path(@source_file) %>
-		<% end %>
-	</p>
+	<div class="row-fluid">
+		<div class="span4">
+			<p><%= t_attr_from_instance @source_file, :source_type %> : <strong><%= display_source_type @source_file.source_type %></strong><br/>
+				<% if @source_file.can_set_source_type? %>
+					<%= link_to t('.change_source_type'), edit_administration_import_path(@source_file) %>
+				<% end %>
+			</p>
+		</div>
+	</div>
 <% end %>
 
 <%= render 'header', source_file: @source_file %>
+
+<div class="row-fluid">
+	<div class="span6">
+		<%= render 'progress', source_file: @source_file %>
+	</div>
+</div>

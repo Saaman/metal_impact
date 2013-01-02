@@ -22,6 +22,11 @@ en:
         select_source_type: "Choose a source type..."
       show:
         change_source_type: "Change source_type..."
+      progress:
+        entries_new:
+          one: "One entry loaded"
+          other: "%{count} entries loaded"
+        import_progress: "Import progress"
   helpers:
     submit:
       import_source_file:

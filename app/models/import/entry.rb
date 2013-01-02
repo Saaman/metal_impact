@@ -15,6 +15,9 @@
 #
 
 class Import::Entry < ActiveRecord::Base
+
+  STATE_VALUES = {:new => 1, :prepared => 3, :imported => 10}
+
 	#associations
   belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries
   has_many :failures, class_name: 'Import::Failure', foreign_key: 'import_entry_id'
@@ -28,7 +31,7 @@ class Import::Entry < ActiveRecord::Base
 	#validations
 	validates_as_enum :target_model, :allow_nil => true
 	validates_presence_of :data, :state, :import_source_file_id
-  validates_presence_of :target_model, :source_id, :if => :discovered?
+  validates_presence_of :target_model, :source_id, :if => :prepared?
 
 
 	#state machine
@@ -45,7 +48,7 @@ class Import::Entry < ActiveRecord::Base
     end
 
     event :auto_discover do
-    	transition :new => :discovered
+    	transition :new => :prepared
     end
   end
 end

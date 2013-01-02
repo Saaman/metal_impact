@@ -22,6 +22,11 @@ fr:
         select_source_type: "Choisissez un type de source..."
       show:
         change_source_type: "Changez le type de source..."
+      progress:
+        entries_new:
+          one: "Une entrée chargée"
+          other: "%{count} entrées chargées"
+        import_progress: "Avancement de l'import"
   helpers:
     submit:
       import_source_file:

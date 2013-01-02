@@ -77,6 +77,28 @@ class Import::SourceFile < ActiveRecord::Base
     self.load_file
   end
 
+  def refresh_stats
+    self.refresh_status
+    @stats = self.reload.entries.group(:state).size
+  end
+
+  def stats
+    @stats || refresh_stats
+  end
+
+  def entries_count
+    stats.values.inject(:+)
+  end
+
+  def overall_progress
+    progress = 0
+    stats.each do |key, value|
+      progress += value * Import::Entry::STATE_VALUES[key.to_sym]
+    end
+    #this calculation works if max of Import::Entry::STATE_VALUES values equals 10
+    progress*10/(entries_count)
+  end
+
   private
 
     def load_entries
