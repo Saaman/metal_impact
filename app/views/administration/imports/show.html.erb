@@ -8,3 +8,8 @@
 		<%= render 'progress', source_file: @source_file %>
 	</div>
 </div>
+
+<% if @source_file.has_failures? %>
+	<hr />
+	<%= render 'failures', source_file: @source_file %>
+<% end %>

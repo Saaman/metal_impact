@@ -10,6 +10,12 @@ en:
         state: "Status"
         added_on: "Added on"
         entries_count: "Entries count"
+      failures:
+        title: "Failures list"
+        entry_id: "Entry number"
+        source_id: "Source number"
+        description: "failure description"
+        happened_on: "happened on"
       defaults:
         entries:
           one: 'one entry'

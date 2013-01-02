@@ -23,9 +23,12 @@ module Administration
 			form.button :submit, options
 		end
 		def command_button(form, title, disabled)
-			options = {:class => 'btn-primary'}
-			return form.button :submit, title, options unless disabled
-			form.button :submit, title, options.merge({:disabled => true})
+			if disabled
+				options = {:class => 'btn-primary muted', :disabled => true}
+			else
+				options = {:class => 'btn-primary'}
+			end
+			form.button :submit, title, options
 
 		end
 		def preparation_progress(source_file)

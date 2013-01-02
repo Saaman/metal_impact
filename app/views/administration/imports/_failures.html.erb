@@ -1,0 +1,17 @@
+<h4><%= t '.title'%></h4>
+
+<br />
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th><%= t '.entry_id' %></th>
+      <th><%= t '.source_id' %></th>
+      <th><%= t '.description' %></th>
+      <th><%= t '.happened_on' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'failure', collection: source_file.failures.includes(:entry) %>
+  </tbody>
+</table>

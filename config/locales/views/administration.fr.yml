@@ -10,6 +10,12 @@ fr:
         state: "Status"
         added_on: "Ajouté le"
         entries_count: "Nombre d'entrées"
+      failures:
+        title: "Liste des erreurs"
+        entry_id: "N° de l'entrée"
+        source_id: "N° source"
+        description: "Description de l'erreur"
+        happened_on: "date de survenance"
       defaults:
         entries:
           one: "une entrée"
