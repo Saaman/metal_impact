@@ -4,13 +4,14 @@ class Administration::ImportsController < ApplicationController
 
 	def index
 		 @source_files = Import::SourceFile.order("created_at DESC")
+		 logger.info "#{@source_files.inspect}"
     respond_with @source_files
 	end
 
 	def show
 		@source_file = Import::SourceFile.find(params[:id])
 		@source_file.refresh_status
-    	respond_with @source_file
+    respond_with @source_file
 	end
 
 	def update
@@ -27,6 +28,11 @@ class Administration::ImportsController < ApplicationController
 
 	def prepare
 		@source_file = Import::SourceFile.find(params[:id]).prepare
+		redirect_to :action => :show
+	end
+
+	def clear_failures
+		Import::Failure.joins(:source_file).destroy_all('import_source_files.id' => params[:id])
 		redirect_to :action => :show
 	end
 end

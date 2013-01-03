@@ -39,6 +39,12 @@ div.add-separator {
 	@include horizontal-form-label-width(220px);
 }
 
+.button-pull-right {
+	@extend .pull-right;
+	margin-top: 5px;
+	margin-right: 25px;
+}
+
 .ajax-result {
   display: inline;
   width: 20px;

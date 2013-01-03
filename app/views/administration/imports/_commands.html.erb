@@ -2,12 +2,15 @@
 	<div class="alert alert-error">
 		<%= t '.solve_alerts_desc', count: source_file.failures.size %>
 	</div>
-<% end %>
 
-<% case source_file.state_name %>
-<% when :loaded then %>
-	<%= simple_form_for source_file, :url => prepare_administration_import_path, :html => { :class => "form-inline", style: 'text-align:center;', :novalidate => true } do |f| %>
-		<%= render 'shared/error_messages', :object => source_file %>
-		<%= command_button f, t('helpers.submit.import_source_file.prepare'), source_file.has_failures? %>
+<% else %>
+
+	<% case source_file.state_name %>
+	<% when :loaded then %>
+		<%= simple_form_for source_file, :url => prepare_administration_import_path, :html => { :class => "form-inline", style: 'text-align:center;', :novalidate => true } do |f| %>
+			<%= render 'shared/error_messages', :object => source_file %>
+			<%= f.button :submit, t('helpers.submit.import_source_file.prepare'), {:class => 'btn-primary'} %>
+		<% end %>
 	<% end %>
+
 <% end %>

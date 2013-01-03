@@ -31,9 +31,6 @@ fr:
         entries_new:
           one: "Une entrée chargée"
           other: "%{count} entrées chargées"
-        failures:
-          one: "Une entrée en erreur"
-          other: "%{count} entrées en erreur"
         import_progress: "Avancement de l'import"
       commands:
         solve_alerts_desc:
@@ -45,3 +42,4 @@ fr:
         update: "Charger le fichier"
         reload: "Recharger le fichier"
         prepare: "Préparer les entrées"
+        clear_failures: "Supprimer toutes les erreurs"

@@ -24,6 +24,7 @@ describe Import::SourceFile do
     #attributes
     it { should respond_to(:name) }
     it { should respond_to(:state) }
+    it { should respond_to(:state_name) }
     it { should respond_to(:source_type) }
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }

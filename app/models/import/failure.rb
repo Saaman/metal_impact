@@ -13,6 +13,7 @@
 class Import::Failure < ActiveRecord::Base
 	#associations
 	belongs_to :entry, class_name: 'Import::Entry', foreign_key: 'import_entry_id'
+	has_one :source_file, :through => :entry
 
 	#attributes
   attr_accessible :code, :description, :entry

@@ -23,5 +23,10 @@ describe Administration::ImportsController do
       put(prepare_administration_import_path(1)).should route_to("administration/imports#prepare", :id => "1")
     end
 
+    it "routes to #clear_failures" do
+      put("/administration/imports/1/clear_failures").should route_to("administration/imports#clear_failures", :id => "1")
+      put(clear_failures_administration_import_path(1)).should route_to("administration/imports#clear_failures", :id => "1")
+    end
+
   end
 end

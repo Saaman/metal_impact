@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
 
     alias_action :search, :smallblock, :to => :read
+    alias_action :prepare, :clear_failures, :to => :update
 
     user ||= User.new # guest user (not logged in)
 

@@ -9,7 +9,9 @@
 	</div>
 </div>
 
-<% if @source_file.has_failures? %>
-	<hr />
-	<%= render 'failures', source_file: @source_file %>
-<% end %>
+<div id="failures-management">
+	<% if @source_file.has_failures? %>
+		<hr />
+		<%= render 'failures', source_file: @source_file %>
+	<% end %>
+</div>

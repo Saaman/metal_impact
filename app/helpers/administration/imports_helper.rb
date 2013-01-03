@@ -6,7 +6,7 @@ module Administration
 		end
 		def display_state(source_file)
 			state_label = t "activerecord.states.import.source_file.#{source_file.state_name}"
-			state_class = (source_file.has_failures? && "label-important") || case state_name
+			state_class = (source_file.has_failures? && "label-important") || case source_file.state_name
 				when :new then ""
 				when :preparing_entries then "label-warning"
 				else "label-info"
@@ -21,15 +21,6 @@ module Administration
 			options = {:class => 'btn-primary'}
 			return form.button :submit, t('helpers.submit.import_source_file.reload'), options if source_file.can_unload_file?
 			form.button :submit, options
-		end
-		def command_button(form, title, disabled)
-			if disabled
-				options = {:class => 'btn-primary muted', :disabled => true}
-			else
-				options = {:class => 'btn-primary'}
-			end
-			form.button :submit, title, options
-
 		end
 		def preparation_progress(source_file)
 			0 if source_file.overall_progress == 100

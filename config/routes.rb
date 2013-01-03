@@ -14,6 +14,7 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
     resources :imports, :only => [:index, :show, :update] do
       put 'prepare', :on => :member
+      put 'clear_failures', :on => :member
     end
   end
 
