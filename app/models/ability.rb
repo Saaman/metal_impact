@@ -4,13 +4,14 @@ class Ability
   def initialize(user)
 
     alias_action :search, :smallblock, :to => :read
-    alias_action :prepare, :clear_failures, :to => :update
+    alias_action :prepare, :to => :update
+    alias_action :clear, :to => :destroy
 
     user ||= User.new # guest user (not logged in)
 
     can :read, :all
     cannot :show_image, :home
-    cannot :manage, Import::SourceFile
+    cannot :manage, [Import::SourceFile, Import::Entry, Import::Failure]
     can :create, User
     cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end

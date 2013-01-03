@@ -30,9 +30,4 @@ class Administration::ImportsController < ApplicationController
 		@source_file = Import::SourceFile.find(params[:id]).prepare
 		redirect_to :action => :show
 	end
-
-	def clear_failures
-		Import::Failure.joins(:source_file).destroy_all('import_source_files.id' => params[:id])
-		redirect_to :action => :show
-	end
 end

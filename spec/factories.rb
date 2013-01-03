@@ -66,4 +66,9 @@ FactoryGirl.define do
     data { {"toto" => generate(:random_string), "tata" => 21} }
     source_file
   end
+
+  factory :failure, :class => Import::Failure do
+    description { generate(:random_string) }
+    entry
+  end
 end
