@@ -10,12 +10,6 @@ en:
         state: "Status"
         added_on: "Added on"
         entries_count: "Entries count"
-      failures:
-        title: "Failures list"
-        entry_id: "Entry number"
-        source_id: "Source number"
-        description: "failure description"
-        happened_on: "happened on"
       defaults:
         entries:
           one: 'one entry'
@@ -36,6 +30,16 @@ en:
         solve_alerts_desc:
           one: "An error happened during the previous operation. Please inspect it before continuing."
           other: "%{count} errors happened during the previous operation. Please inspect them before continuing."
+    import_entries:
+      edit:
+        title: 'Entry #%{id}'
+    import_failures:
+      failures:
+        title: "Failures list"
+        entry_id: "Entry number"
+        source_id: "Source number"
+        description: "failure description"
+        happened_on: "happened on"
   helpers:
     submit:
       import_source_file:

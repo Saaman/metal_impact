@@ -26,6 +26,7 @@ module ApplicationHelper
     Rails.cache.fetch(:allow_debug) && user_is_admin?
   end
 
+  #views helpers
   def t_attr_from_instance(instance, method)
     t "activerecord.attributes.#{instance.class.model_name.i18n_key}.#{method}"
   end

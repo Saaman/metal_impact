@@ -5,9 +5,16 @@ en:
         source_file:
           source_type:
             metal_impact:: Metal Impact
+        entry:
+          target_model:
+            user: User
     attributes:
       import/source_file:
-          source_type: "Import type"
+        source_type: "Import type"
+      import/entry:
+        source_id: "Source id"
+        target_model: "Entity type"
+        target_id: "New id"
     states:
       import:
         source_file:

@@ -3,6 +3,8 @@ class Administration::ImportEntriesController < ApplicationController
 	respond_to :html
 
 	def edit
+		@entry = Import::Entry.find(params[:id])
+		respond_with @entry, :layout => false
 	end
 
 	def update

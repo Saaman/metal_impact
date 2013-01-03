@@ -18,7 +18,7 @@ MetalImpact::Application.routes.draw do
         delete 'clear', :on => :collection
       end
     end
-    resources :import_entries, :only => [:edit, :update], :defaults => { :format => 'js' }
+    resources :import_entries, :only => [:edit, :update]
   end
 
   devise_for :users,:controllers => { :registrations => "users/registrations", :passwords => "users/passwords" }, :skip => [:sessions]

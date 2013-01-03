@@ -8,3 +8,7 @@ $(document).ready ->
 		$('div#source_type_block').show()
 
 	# display entry when clicking on a failure
+	$('div#failures-management').on 'click', 'tr', (e) ->
+		entry_id = $(e.currentTarget).children('td.entry-id')[0].innerText
+		url = '/administration/import_entries/'.concat(entry_id, '/edit')
+		$('div#failures-management').load url
