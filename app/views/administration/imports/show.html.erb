@@ -1,5 +1,8 @@
 <%= render 'header', source_file: @source_file %>
 
+<%= hidden_field :source_file, :id %>
+<%= hidden_field :source_file, :auto_refresh %>
+
 <% unless @source_file.new? %>
 	<div class="row-fluid">
 		<div class="span5" style="padding-top:50px;">

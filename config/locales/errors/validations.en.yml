@@ -42,6 +42,14 @@ en:
               taken: "is already taken by an existing label"
             website:
               invalid: "is not a valid url"
+        import/entry:
+          attributes:
+            data:
+              is_not_a_hash: "is not a valid hash. Please follow the syntax carefully"
+            target_model:
+              blank: "cannot be blank. Make sure there is in the data block a key named 'model' with a value corresponding to an entity type"
+            state:
+              invalid_transition: "Transition is invalid. Please contact the developer"
         approval:
           new_record_invalidity:  "you can't an approval for an existing entity without providing the original entity"
           entity_type_mismatch: "Your approval is inconsistent as the object is of type '%{new_type}' whereas the original object is of type '%{old_type}'"

@@ -17,6 +17,7 @@ fr:
         source_id: "Id source"
         target_model: "Type d'entité"
         target_id: "Nouvelle Id"
+        data: "Le bloc de données"
     states:
       import:
         source_file:
@@ -25,7 +26,7 @@ fr:
   simple_form:
     labels:
       import_entry:
-        data: "Données"
+        data: "Bloc de données"
   errors:
     import_entry:
       default: "Une erreur est survenue lors de l'enregistrement de l'entrée"

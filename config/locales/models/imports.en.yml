@@ -17,6 +17,7 @@ en:
         source_id: "Source id"
         target_model: "Entity type"
         target_id: "New id"
+        data: "Data block"
     states:
       import:
         source_file:
@@ -25,7 +26,7 @@ en:
   simple_form:
     labels:
       import_entry:
-        data: "Data"
+        data: "Data block"
   errors:
     import_entry:
       default: "An error occurred when saving the entry"

@@ -1,6 +1,7 @@
 class Administration::ImportsController < ApplicationController
 	load_and_authorize_resource :class => Import::SourceFile
 	respond_to :html
+	respond_to :js, :only => :show
 
 	def index
 		 @source_files = Import::SourceFile.order("created_at DESC")
@@ -11,7 +12,9 @@ class Administration::ImportsController < ApplicationController
 	def show
 		@source_file = Import::SourceFile.find(params[:id])
 		@source_file.refresh_status
-    respond_with @source_file
+    respond_with @source_file do |format|
+    	format.js { render 'show', layout: false }
+    end
 	end
 
 	def update

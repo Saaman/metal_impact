@@ -15,5 +15,11 @@ $(document).ready ->
 
 	#display failures list when clicking on "back to list" button on entry edit block
 	$('div#failures-management').on 'click', 'a#back-to-failures', () ->
-		url = '/administration/imports/'.concat($('input#entry_import_source_file_id').val(), '/failures')
+		url = '/administration/imports/'.concat($('input#source_file_id').val(), '/failures')
 		$('div#failures-management').load url
+
+	#reload show page every 10 seconds
+	setInterval () ->
+		if $('input#source_file_auto_refresh').val()
+			$('div.contentzone').load '/administration/imports/'.concat($('input#source_file_id').val(), '.js')
+	,10000

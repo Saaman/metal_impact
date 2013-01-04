@@ -101,6 +101,11 @@ class Import::SourceFile < ActiveRecord::Base
     failures.group(:import_entry_id).pluck(:import_entry_id).count
   end
 
+  def auto_refresh
+    return true if [:preparing_entries].include?(state_name)
+    nil
+  end
+
   def prepare
     self.refresh_status
     self.start_preparing

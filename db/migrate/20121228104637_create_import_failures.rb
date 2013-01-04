@@ -2,7 +2,6 @@ class CreateImportFailures < ActiveRecord::Migration
   def up
     create_table :import_failures do |t|
       t.text :description, :null => false
-      t.string :code
       t.references :import_entry, :null => false
 
       t.timestamps
