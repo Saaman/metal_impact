@@ -25,11 +25,15 @@ en:
         entries_new:
           one: "One entry loaded"
           other: "%{count} entries loaded"
+        entries_prepared:
+          one: "One entry ready for import"
+          other: "%{count} entries ready for import"
         import_progress: "Import progress"
       commands:
         solve_alerts_desc:
           one: "An error happened during the previous operation. Please inspect it before continuing."
           other: "%{count} errors happened during the previous operation. Please inspect them before continuing."
+        work_in_progress: "Work in progress, please wait..."
     import_entries:
       edit:
         title: 'Entry #%{id}'
@@ -38,6 +42,7 @@ en:
       failures:
         title: "Failures list"
         failures_list_help: "Click on a failure line to access the corresponding entry and eventually correct the data."
+        failures_list_help2: "You will not be able to relaunch the operation that fails as long as errors are left. Remove them either by deleting them all, either by modifying entries."
         entry_id: "Entry number"
         source_id: "Source number"
         description: "failure description"

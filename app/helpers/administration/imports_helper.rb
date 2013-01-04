@@ -24,17 +24,18 @@ module Administration
 		end
 		def preparation_progress(source_file)
 			0 if source_file.overall_progress == 100
-			[20, source_file.overall_progress].min
+			[30, source_file.overall_progress].min
 		end
 		def import_progress(source_file)
 			100 if source_file.overall_progress == 100
-			[0, source_file.overall_progress-20].max
+			[0, source_file.overall_progress-30].max
 		end
 		def pending_progress(source_file)
-			0
+			20 if source_file.state_name == :preparing_entries
 		end
 		def error_progress(source_file)
-			source_file.failures.count * source_file.overall_progress / source_file.entries_count
+			return 0 if source_file.entries_count == 0
+			source_file.failed_entries_count * Import::SourceFile::STATE_VALUES[source_file.state_name]*10 / source_file.entries_count
 		end
 	end
 end

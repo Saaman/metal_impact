@@ -9,7 +9,7 @@
 	<div class="row-fluid header-content">
   	<div class="span2">
 			<p><%= display_state source_file %></p>
-			<strong><%= display_entries source_file.entries.size %></strong>
+			<strong><%= display_entries source_file.entries_count if source_file.entries_count > 0 %></strong>
 		</div>
 		<div class="span6">
 			<%= render 'loading_block', source_file: source_file %>

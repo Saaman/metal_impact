@@ -25,11 +25,15 @@ fr:
         entries_new:
           one: "Une entrée chargée"
           other: "%{count} entrées chargées"
+        entries_prepared:
+          one: "Une entrée prête pour l'import"
+          other: "%{count} entrées prêtes pour l'import"
         import_progress: "Avancement de l'import"
       commands:
         solve_alerts_desc:
           one: "Une erreur est survenue lors de la dernière opération. Veuillez l'inspecter avant de pouvoir poursuivre."
           other: "%{count} erreurs sont survenues lors de la précédente opération. Veuillez les inspecter avant de pouvoir poursuivre."
+        work_in_progress: "Veuillez patientez, traitement en cours..."
     import_entries:
       edit:
         title: 'Entrée #%{id}'
@@ -38,6 +42,7 @@ fr:
       failures:
         title: "Liste des erreurs"
         failures_list_help: "Cliquez on sur une ligne d'erreur pour accéder à l'entée correspondante, et éventuellement corriger les données."
+        failures_list_help2: "Vous ne pouvez pas relancer l'opération qui a échoué tant qu'il reste des erreurs. Supprimer les ou faites les corrections nécessaires sur les entrées."
         entry_id: "N° de l'entrée"
         source_id: "N° source"
         description: "Description de l'erreur"

@@ -10,8 +10,7 @@ class Administration::ImportEntriesController < ApplicationController
 
 	def update
 		@entry = Import::Entry.find(params[:id])
-
-		if @entry.update_attributes(params[:import_entry].slice(:data)) && @entry.failures.destroy_all
+		if @entry.update_attributes({data: eval(params[:import_entry][:data])}) && @entry.failures.destroy_all
 			respond_with @entry.source_file do |format|
 				format.js { render :js => "window.location.href = '#{administration_import_path(@entry.source_file)}'" }
 			end

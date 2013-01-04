@@ -51,4 +51,7 @@ class Import::Entry < ActiveRecord::Base
     	transition :new => :prepared
     end
   end
+
+  #scopes
+  scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
 end

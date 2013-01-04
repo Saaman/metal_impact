@@ -1,13 +1,15 @@
 <%= render 'header', source_file: @source_file %>
 
-<div class="row-fluid">
-	<div class="span5" style="padding-top:50px;">
-		<%= render 'commands', source_file: @source_file %>
+<% unless @source_file.new? %>
+	<div class="row-fluid">
+		<div class="span5" style="padding-top:50px;">
+			<%= render 'commands', source_file: @source_file %>
+		</div>
+		<div class="span6">
+			<%= render 'progress', source_file: @source_file %>
+		</div>
 	</div>
-	<div class="span6">
-		<%= render 'progress', source_file: @source_file %>
-	</div>
-</div>
+<% end %>
 
 <% if @source_file.has_failures? %>
 	<hr />

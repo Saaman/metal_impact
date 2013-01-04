@@ -12,6 +12,8 @@
 
 class Import::SourceFile < ActiveRecord::Base
 
+  STATE_VALUES = {:new => 0, :loaded => 2, :preparing_entries => 2, :prepared => 7}
+
   #associations
   has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file, :dependent => :destroy, :include => :failures
   has_many :failures, :through => :entries
@@ -77,20 +79,26 @@ class Import::SourceFile < ActiveRecord::Base
   end
 
   def stats
-    @stats || self.reload.entries.group(:state).size
+    return @stats unless @stats.nil?
+    @stats = self.reload.entries.group(:state).size
   end
 
   def entries_count
-    stats.values.inject(:+)
+    stats.values.inject(:+) || 0
   end
 
   def overall_progress
+    return 0 if(entries_count==0)
     progress = 0
     stats.each do |key, value|
       progress += value * Import::Entry::STATE_VALUES[key.to_sym]
     end
     #this calculation works if max of Import::Entry::STATE_VALUES values equals 10
     progress*10/(entries_count)
+  end
+
+  def failed_entries_count
+    failures.group(:import_entry_id).pluck(:import_entry_id).count
   end
 
   def prepare
@@ -124,7 +132,7 @@ class Import::SourceFile < ActiveRecord::Base
 
     def async_prepare_entries
       self.reload.transaction do
-        self.entries.each do |entry|
+        self.entries.at_state(:new).each do |entry|
           entry.auto_discover
         end
       end

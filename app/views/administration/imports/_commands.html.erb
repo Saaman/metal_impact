@@ -11,6 +11,10 @@
 			<%= render 'shared/error_messages', :object => source_file %>
 			<%= f.button :submit, t('helpers.submit.import_source_file.prepare'), {:class => 'btn-primary'} %>
 		<% end %>
+	<% when :preparing_entries then %>
+		<div class="well lead">
+			<%= t '.work_in_progress' %>
+		</div>
 	<% end %>
 
 <% end %>
