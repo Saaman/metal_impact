@@ -1,0 +1,36 @@
+<%= render 'shared/flashes' %>
+<%= render 'shared/error_messages', :object => entry %>
+
+<div class="row-fluid">
+	<div class="span1">
+		<%= link_to '#', { :id => 'back-to-failures', :class => "btn button-pull-left", :title => t('.back_to_list_hint') } do %>
+			<i class="icon-chevron-left"></i>
+		<% end %>
+		<%= hidden_field :entry, :import_source_file_id %>
+	</div>
+	<div class="span11">
+		<h4><%= t '.title', id: entry.id %></h4>
+
+		<br/>
+
+		<div class="row-fluid">
+
+			<div class="span7">
+				<%= simple_form_for entry, url: administration_import_entry_path, :html => { :novalidate => true }, :as => :import_entry, remote: true do |f| %>
+					<%= f.input :data, :required => true, input_html: { class: 'span12', rows: 5 } %>
+					<div style="text-align:center;">
+				  	<%= f.button :submit, :class => 'btn-primary' %>
+				  </div>
+				<% end %>
+			</div>
+
+			<div class="span4">
+				<div class="well" style="margin-top:20px;">
+					<p><%= t_attr 'import/entry', :target_model %> : <strong><%= Import::Entry.human_enum_name(:target_models, entry.target_model) %></strong></p>
+					<p><%= t_attr 'import/entry', :source_id %> : <strong><%= entry.source_id %></strong></p>
+					<p><%= t_attr 'import/entry', :target_id %> : <strong><%= entry.target_id %></strong></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

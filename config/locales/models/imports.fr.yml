@@ -1,5 +1,7 @@
 fr:
   activerecord:
+    models:
+      import/metal_impact_entry: "l'entrée Metal Impact"
     enums:
       import:
         source_file:
@@ -24,3 +26,6 @@ fr:
     labels:
       import_entry:
         data: "Données"
+  errors:
+    import_entry:
+      default: "Une erreur est survenue lors de l'enregistrement de l'entrée"

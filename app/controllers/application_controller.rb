@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   #force Rails 3 to reload libs files in Development Mode:
   before_filter :_reload_libs, :if => :_reload_libs?
 
+  around_filter :transactions_filter, :only => [:create, :update, :destroy]
+
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.info "access denied : #{exception.message}"
@@ -32,6 +34,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+    def transactions_filter
+      ActiveRecord::Base.transaction do
+        yield
+      end
+    end
+
     def redirect_to_back(options={})
        begin
         redirect_to :back, options

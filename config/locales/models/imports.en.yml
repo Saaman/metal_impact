@@ -1,5 +1,7 @@
 en:
   activerecord:
+    models:
+      import/metal_impact_entry: Metal Impact entry
     enums:
       import:
         source_file:
@@ -24,3 +26,6 @@ en:
     labels:
       import_entry:
         data: "Data"
+  errors:
+    import_entry:
+      default: "An error occurred when saving the entry"
