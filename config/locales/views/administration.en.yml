@@ -33,9 +33,11 @@ en:
     import_entries:
       edit:
         title: 'Entry #%{id}'
+        back_to_list_hint: "Back to failures list"
     import_failures:
       failures:
         title: "Failures list"
+        failures_list_help: "Click on a failure line to access the corresponding entry and eventually correct the data."
         entry_id: "Entry number"
         source_id: "Source number"
         description: "failure description"
@@ -47,3 +49,5 @@ en:
         reload: "Reload file"
         prepare: "Prepare entries"
         clear_failures: "Clear all failures"
+      import_entry:
+        update: "Update entry and delete associated failures"

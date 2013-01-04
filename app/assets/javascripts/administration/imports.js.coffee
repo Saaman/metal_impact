@@ -12,3 +12,8 @@ $(document).ready ->
 		entry_id = $(e.currentTarget).children('td.entry-id')[0].innerText
 		url = '/administration/import_entries/'.concat(entry_id, '/edit')
 		$('div#failures-management').load url
+
+	#display failures list when clicking on "back to list" button on entry edit block
+	$('div#failures-management').on 'click', 'a#back-to-failures', () ->
+		url = '/administration/imports/'.concat($('input#entry_import_source_file_id').val(), '/failures')
+		$('div#failures-management').load url

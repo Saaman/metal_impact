@@ -3,7 +3,8 @@
     <%= f.button :submit, t('helpers.submit.import_source_file.clear_failures'), {:class => 'btn-danger'} %>
   </div>
   <h4><%= t '.title'%></h4>
-  <%= render 'shared/error_messages', :object => source_file %>
+  <br/>
+  <%= t '.failures_list_help' %>
 <% end %>
 
 <br />

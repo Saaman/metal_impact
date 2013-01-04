@@ -33,9 +33,11 @@ fr:
     import_entries:
       edit:
         title: 'Entrée #%{id}'
+        back_to_list_hint: 'Retour à la liste des erreurs'
     import_failures:
       failures:
         title: "Liste des erreurs"
+        failures_list_help: "Cliquez on sur une ligne d'erreur pour accéder à l'entée correspondante, et éventuellement corriger les données."
         entry_id: "N° de l'entrée"
         source_id: "N° source"
         description: "Description de l'erreur"
@@ -47,3 +49,5 @@ fr:
         reload: "Recharger le fichier"
         prepare: "Préparer les entrées"
         clear_failures: "Supprimer toutes les erreurs"
+      import_entry:
+        update: "Mettre à jour l'entrée et supprimer les erreurs associées"

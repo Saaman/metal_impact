@@ -20,3 +20,7 @@ fr:
         source_file:
           new: Nouveau
           loaded: Chargé
+  simple_form:
+    labels:
+      import_entry:
+        data: "Données"

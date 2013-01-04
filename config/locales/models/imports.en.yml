@@ -20,3 +20,7 @@ en:
         source_file:
           new: New
           loaded: Loaded
+  simple_form:
+    labels:
+      import_entry:
+        data: "Data"

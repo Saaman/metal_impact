@@ -3,6 +3,8 @@ class Administration::ImportFailuresController < ApplicationController
 	respond_to :html
 
 	def index
+		@source_file = Import::SourceFile.find params[:import_id]
+		respond_with @source_file, :layout => false
 	end
 
 	def clear
