@@ -46,15 +46,15 @@ heroku pg:reset (to drop / create db)
 GIT
 ---
 go back to last commit : 												git reset --hard HEAD
-remove untracked files (but not ignored files) : git clean -f -d
+remove untracked files (but not ignored files) :git clean -f -d
 get a new branch from GitHub : 									git checkout -b <branch> origin/<branch>
 remove uncommited changes on a single file : 		git checkout -- <filename>
-create new branch : 														git checkout -b <branch>
 push a new branch to GitHub : 									git push origin <branch>
 merge a branch (checkout the main first) :			git merge <branch>
 delete a branch (locally) :											git branch -D <branch>
 delete a branch (on GitHub) :										git push origin --delete <branch>
 Tag with Git :																	git tag -a v1.4 -m 'my version 1.4'
+Create a branch to track a remote : 						git checkout --track -b v0.5_dev origin/v0.5_dev
 
 Production
 ----------
