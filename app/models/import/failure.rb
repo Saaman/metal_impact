@@ -4,7 +4,6 @@
 #
 #  id              :integer          not null, primary key
 #  description     :text             not null
-#  code            :string(255)
 #  import_entry_id :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

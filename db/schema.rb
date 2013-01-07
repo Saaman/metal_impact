@@ -130,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
 
   create_table "import_failures", :force => true do |t|
     t.text     "description",     :null => false
-    t.string   "code"
     t.integer  "import_entry_id", :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false

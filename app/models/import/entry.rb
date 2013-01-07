@@ -25,7 +25,7 @@ class Import::Entry < ActiveRecord::Base
   #persisted attributes
   attr_accessible :data, :source_id, :target_id, :target_model, :source_file, :failures
 
-	as_enum :target_model, user: 0
+	as_enum :target_model, user: 0, artist: 1
 	serialize :data
 
 	#validations

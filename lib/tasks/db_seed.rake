@@ -2,7 +2,7 @@ PRNG ||= Random.new()
 
 namespace :db do
   desc "Fill database with initial data"
-  task seed: :environment do
+  task mi_seed: :environment do
 
     puts "Create users..."
     make_users
@@ -22,13 +22,6 @@ namespace :db do
 end
 
 def make_users
-  admin = User.new(email: "romain.magny@gmail.com",
-                       password: "password1",
-                       email_confirmation: "romain.magny@gmail.com",
-                       pseudo: "Roro",
-                       role: :admin)
-  admin.skip_confirmation!
-  admin.save!
   50.times do |n|
     email = "example-#{n+1}@railstutorial.org"
     pseudo = "example-#{n+1}"
