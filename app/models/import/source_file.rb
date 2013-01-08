@@ -39,9 +39,7 @@ class Import::SourceFile < ActiveRecord::Base
     #transitions
     before_transition :new => :loaded, :do => :load_entries
     before_transition :loaded => :new, :do => :unload_entries
-    before_transition :loaded => :preparing_entries do |source_file, transition|
-      source_file.delay(:queue => 'import_engine').async_prepare_entries
-    end
+    before_transition :loaded => :preparing_entries, :do => :bg_prepare_entries
 
     #events
     event :load_file do
@@ -113,6 +111,9 @@ class Import::SourceFile < ActiveRecord::Base
 
   private
 
+    PREPARATION_BATCH_COUNT = 1000
+    LOADING_BATCH_COUNT = 5000
+
     def load_entries
       entries_count = 0
       entries = []
@@ -123,7 +124,7 @@ class Import::SourceFile < ActiveRecord::Base
           entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
           entries_count += 1
 
-          if entries_count.modulo(200) == 0
+          if entries_count.modulo(LOADING_BATCH_COUNT) == 0
             klass.import entries
           end
         end
@@ -135,9 +136,18 @@ class Import::SourceFile < ActiveRecord::Base
       self.entries.delete_all
     end
 
-    def async_prepare_entries
+    def bg_prepare_entries
+      entries_count = self.entries.at_state(:new).size
+      step = 0
+      begin
+        self.delay(:queue => 'import_engine').async_prepare_entries_batch
+        step += 1
+      end until step*PREPARATION_BATCH_COUNT > entries_count
+    end
+
+    def async_prepare_entries_batch
       self.reload.transaction do
-        self.entries.at_state(:new).each do |entry|
+        self.entries.at_state(:new).limit(PREPARATION_BATCH_COUNT).each do |entry|
           entry.auto_discover
         end
       end
