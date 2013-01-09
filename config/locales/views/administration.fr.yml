@@ -34,6 +34,12 @@ fr:
           one: "Une erreur est survenue lors de la dernière opération. Veuillez l'inspecter avant de pouvoir poursuivre."
           other: "%{count} erreurs sont survenues lors de la précédente opération. Veuillez les inspecter avant de pouvoir poursuivre."
         work_in_progress: "Veuillez patientez, traitement en cours..."
+        import: "Importer"
+        entries_of_type: "entrée(s) de type"
+        import_help_1: "la totalité des entrées sera traitée si vous ne spécifiez pas le nombre d'entrées à importer."
+        import_help_2: "Si vous ne spécifiez pas le type des entrées à importer, les entrées de plus bas niveau seront importées en premier (dans la limite du nombre que vous avez spécifié) : d'abord les utilisateurs, puis les artistes, puis les albums, enfin les critiques."
+        entries_count_hint: "Nombre d'entrées à importer"
+        entries_type_hint: "Type d'entrées à importer"
     import_entries:
       edit:
         title: 'Entrée #%{id}'
@@ -53,6 +59,7 @@ fr:
         update: "Charger le fichier"
         reload: "Recharger le fichier"
         prepare: "Préparer les entrées"
+        import: "Démarrer"
         clear_failures: "Supprimer toutes les erreurs"
       import_entry:
         update: "Mettre à jour l'entrée et supprimer les erreurs associées"

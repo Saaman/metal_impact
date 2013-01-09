@@ -33,4 +33,7 @@ class Administration::ImportsController < ApplicationController
 		@source_file = Import::SourceFile.find(params[:id]).prepare
 		redirect_to :action => :show
 	end
+
+	def import
+	end
 end

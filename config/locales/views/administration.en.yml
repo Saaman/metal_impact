@@ -34,6 +34,12 @@ en:
           one: "An error happened during the previous operation. Please inspect it before continuing."
           other: "%{count} errors happened during the previous operation. Please inspect them before continuing."
         work_in_progress: "Work in progress, please wait..."
+        import: "Import"
+        entries_of_type: "entries of type"
+        import_help_1: "All entries will be treated unless you specify the amount of entries to import."
+        import_help_2: "If you don't specify the type of entries to import, the lower level ones will be treated first (within the number of entries limit) : users first, then artists, albums and reviews at the end."
+        entries_count_hint: "amount of entries to import"
+        entries_type_hint: "Type of entries to import"
     import_entries:
       edit:
         title: 'Entry #%{id}'
@@ -53,6 +59,7 @@ en:
         update: "Load file"
         reload: "Reload file"
         prepare: "Prepare entries"
+        import: "Start"
         clear_failures: "Clear all failures"
       import_entry:
         update: "Update entry and delete associated failures"

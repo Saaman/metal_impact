@@ -16,6 +16,20 @@
 			<%= image_tag "ajax-loader.gif", style: "margin-right:10px;" %>
 			<%= t '.work_in_progress' %>
 		</div>
+
+	<% when :prepared then %>
+		<%= simple_form_for source_file, :url => import_administration_import_path, :html => { :class => "form-inline", style: 'text-align:center;', :novalidate => true } do |f| %>
+			<%= render 'shared/error_messages', :object => source_file %>
+			<%= f.fields_for "import_command", ImportCommandPresenter.new do |presenter_fields| %>
+				<%= t '.import' %>
+				<%= presenter_fields.input :entries_count, input_html: {class: 'input-mini skipval', title: t('.entries_count_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false %>
+				<%= t '.entries_of_type' %>
+				<%= presenter_fields.input :entries_type, :collection => Import::Entry.target_models_for_select, input_html: {class: 'input-small skipval', title: t('.entries_type_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false  %>
+			<% end %>
+			<%= f.button :submit, t('helpers.submit.import_source_file.import'), {:class => 'btn-primary'} %>
+		<% end %>
+		<p><%= t '.import_help_1' %></p>
+		<p><%= t '.import_help_2' %></p>
 	<% end %>
 
 <% end %>

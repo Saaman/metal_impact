@@ -3,13 +3,13 @@ fr:
     models:
       import/metal_impact_entry: "l'entrée Metal Impact"
     enums:
-      import:
-        source_file:
-          source_type:
-            metal_impact:: Metal Impact
-        entry:
-          target_model:
-            user: Utilisateur
+      import/source_file:
+        source_types:
+          metal_impact:: Metal Impact
+      import/entry:
+        target_models:
+          user: Utilisateur
+          artist: Artiste
     attributes:
       import/source_file:
         source_type: "Type d'import"

@@ -14,6 +14,7 @@ MetalImpact::Application.routes.draw do
     resources :users, :only => [:index, :destroy, :update]
     resources :imports, :only => [:index, :show, :update] do
       put 'prepare', :on => :member
+      put 'import', :on => :member
       resources :failures, :only => :index, :controller => 'import_failures' do
         delete 'clear', :on => :collection
       end
@@ -46,7 +47,7 @@ MetalImpact::Application.routes.draw do
 
 end
 #== Route Map
-# Generated on 03 Jan 2013 16:33
+# Generated on 09 Jan 2013 15:03
 #
 #                                      POST     /albums(.:format)                                           albums#create
 #                            new_album GET      /albums/new(.:format)                                       albums#new
@@ -67,13 +68,14 @@ end
 #                  administration_user PUT      /administration/users/:id(.:format)                         administration/users#update
 #                                      DELETE   /administration/users/:id(.:format)                         administration/users#destroy
 #        prepare_administration_import PUT      /administration/imports/:id/prepare(.:format)               administration/imports#prepare
+#         import_administration_import PUT      /administration/imports/:id/import(.:format)                administration/imports#import
 # clear_administration_import_failures DELETE   /administration/imports/:import_id/failures/clear(.:format) administration/import_failures#clear
 #       administration_import_failures GET      /administration/imports/:import_id/failures(.:format)       administration/import_failures#index
 #               administration_imports GET      /administration/imports(.:format)                           administration/imports#index
 #                administration_import GET      /administration/imports/:id(.:format)                       administration/imports#show
 #                                      PUT      /administration/imports/:id(.:format)                       administration/imports#update
-#     edit_administration_import_entry GET      /administration/import_entries/:id/edit(.:format)           administration/import_entries#edit {:format=>"js"}
-#          administration_import_entry PUT      /administration/import_entries/:id(.:format)                administration/import_entries#update {:format=>"js"}
+#     edit_administration_import_entry GET      /administration/import_entries/:id/edit(.:format)           administration/import_entries#edit
+#          administration_import_entry PUT      /administration/import_entries/:id(.:format)                administration/import_entries#update
 #                        user_password POST     /users/password(.:format)                                   users/passwords#create
 #                    new_user_password GET      /users/password/new(.:format)                               users/passwords#new
 #                   edit_user_password GET      /users/password/edit(.:format)                              users/passwords#edit
