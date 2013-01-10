@@ -16,7 +16,7 @@
 
 class Import::Entry < ActiveRecord::Base
 
-  STATE_VALUES = {:new => 1, :prepared => 3, :imported => 10}
+  STATE_VALUES = {:new => 1, :prepared => 3, :flagged => 0, :imported => 10}
 
 	#associations
   belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries
@@ -36,8 +36,13 @@ class Import::Entry < ActiveRecord::Base
 
 	#state machine
   state_machine :initial => :new do
-  	before_transition :on => :auto_discover do |entry, transition|
-      entry.discover
+  	before_transition :on => :auto_discover, :do => :discover
+    before_transition :on => :import, :do => :bg_import
+
+    around_transition do |entry, transition, block|
+      entry.transaction do
+        block.call
+      end
     end
 
     after_failure do |entry, transition|
@@ -50,8 +55,25 @@ class Import::Entry < ActiveRecord::Base
     event :auto_discover do
     	transition :new => :prepared
     end
+    event :import do
+      transition :flagged => :imported
+    end
+    event :flag_for_import do
+      transition :prepared => :flagged
+    end
   end
 
   #scopes
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
+  scope :of_type, lambda {|target_model| where(:target_model_cd => self.target_models[target_model]) }
+
+  def async_import
+    self.flag_for_import
+    self.delay(:queue => 'import_engine').import
+  end
+
+  private
+    def bg_import
+      puts "importing entry #{id}"
+    end
 end

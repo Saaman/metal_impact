@@ -12,7 +12,8 @@
 
 class Import::SourceFile < ActiveRecord::Base
 
-  STATE_VALUES = {:new => 0, :loaded => 2, :preparing_entries => 2, :prepared => 7}
+  STATE_VALUES = {:new => 0, :loaded => 2, :preparing_entries => 2, :prepared => 7, :importing_entries => 10, :imported => 10}
+  PENDING_STATES = [:preparing_entries, :importing_entries]
 
   #associations
   has_many :entries, class_name: 'Import::Entry', foreign_key: 'import_source_file_id', :inverse_of => :source_file, :dependent => :destroy, :include => :failures
@@ -40,6 +41,9 @@ class Import::SourceFile < ActiveRecord::Base
     before_transition :new => :loaded, :do => :load_entries
     before_transition :loaded => :new, :do => :unload_entries
     before_transition :loaded => :preparing_entries, :do => :bg_prepare_entries
+    before_transition :prepared => :importing_entries do |source_file, transition|
+      source_file.bg_import_entries *transition.args
+    end
 
     #events
     event :load_file do
@@ -51,9 +55,14 @@ class Import::SourceFile < ActiveRecord::Base
     event :start_preparing do
       transition :loaded => :preparing_entries, :unless => :has_failures?
     end
+    event :start_importing do
+      transition :prepared => :importing_entries, :unless => :has_failures?
+    end
     event :refresh_status do
       transition :preparing_entries => :loaded, :if => :has_failures?
       transition :preparing_entries => :prepared, :if => :entries_prepared?
+      transition :importing_entries => :imported, :if => :all_entries_imported?
+      transition :importing_entries => :prepared, :if => :import_job_finished?
       transition all => same
     end
   end
@@ -95,18 +104,37 @@ class Import::SourceFile < ActiveRecord::Base
     progress*10/(entries_count)
   end
 
+  def pending_progress
+    return 20 if state_name == :preparing_entries
+    entries.at_state(:flagged).count * 70 / entries_count
+  end
+
   def failed_entries_count
     failures.group(:import_entry_id).pluck(:import_entry_id).count
   end
 
   def auto_refresh
-    return true if [:preparing_entries].include?(state_name)
+    return true if PENDING_STATES.include?(state_name)
     nil
   end
 
   def prepare
     self.refresh_status
     self.start_preparing
+  end
+
+  def import(*args)
+    self.refresh_status
+    self.start_importing *args
+  end
+
+  def bg_import_entries(entries_count, entries_type)
+    ent_list = entries.at_state(:prepared)
+    ent_list = ent_list.of_type(entries_type) unless entries_type.blank?
+    ent_list = ent_list.limit(entries_count) unless entries_count.blank?
+    ent_list.each do |entry|
+      entry.async_import
+    end
   end
 
   private
@@ -155,5 +183,13 @@ class Import::SourceFile < ActiveRecord::Base
 
     def entries_prepared?
       stats['prepared'] == entries_count
+    end
+
+    def all_entries_imported?
+      stats['imported'] == entries_count
+    end
+
+    def import_job_finished?
+      stats['flagged'].nil?
     end
 end

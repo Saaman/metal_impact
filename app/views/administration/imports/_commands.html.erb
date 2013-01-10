@@ -11,7 +11,7 @@
 			<%= render 'shared/error_messages', :object => source_file %>
 			<%= f.button :submit, t('helpers.submit.import_source_file.prepare'), {:class => 'btn-primary'} %>
 		<% end %>
-	<% when :preparing_entries then %>
+	<% when *Import::SourceFile::PENDING_STATES then %>
 		<div class="well lead">
 			<%= image_tag "ajax-loader.gif", style: "margin-right:10px;" %>
 			<%= t '.work_in_progress' %>
@@ -22,9 +22,9 @@
 			<%= render 'shared/error_messages', :object => source_file %>
 			<%= f.fields_for "import_command", ImportCommandPresenter.new do |presenter_fields| %>
 				<%= t '.import' %>
-				<%= presenter_fields.input :entries_count, input_html: {class: 'input-mini skipval', title: t('.entries_count_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false %>
+				<%= presenter_fields.input :entries_count, input_html: {class: 'input-xmini skipval', title: t('.entries_count_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false %>
 				<%= t '.entries_of_type' %>
-				<%= presenter_fields.input :entries_type, :collection => Import::Entry.target_models_for_select, input_html: {class: 'input-small skipval', title: t('.entries_type_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false  %>
+				<%= presenter_fields.input :entries_type, :collection => Import::Entry.target_models_for_select, input_html: {class: 'input-medium skipval', title: t('.entries_type_hint')}, wrapper_html: {style: "display:inline-block;"}, label: false  %>
 			<% end %>
 			<%= f.button :submit, t('helpers.submit.import_source_file.import'), {:class => 'btn-primary'} %>
 		<% end %>

@@ -35,5 +35,8 @@ class Administration::ImportsController < ApplicationController
 	end
 
 	def import
+		import_command = ImportCommandPresenter.new params[:import_source_file][:import_command]
+		@source_file = Import::SourceFile.find(params[:id]).import import_command.entries_count, import_command.entries_type
+		redirect_to :action => :show
 	end
 end

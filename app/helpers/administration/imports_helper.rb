@@ -8,7 +8,7 @@ module Administration
 			state_label = t "activerecord.states.import.source_file.#{source_file.state_name}"
 			state_class = (source_file.has_failures? && "label-important") || case source_file.state_name
 				when :new then ""
-				when :preparing_entries then "label-warning"
+				when *Import::SourceFile::PENDING_STATES then "label-warning"
 				else "label-info"
 			end
 			content_tag :span, state_label, class: "label #{state_class}"
@@ -31,7 +31,7 @@ module Administration
 			[0, source_file.overall_progress-30].max
 		end
 		def pending_progress(source_file)
-			20 if source_file.state_name == :preparing_entries
+			source_file.pending_progress
 		end
 		def error_progress(source_file)
 			return 0 if source_file.entries_count == 0

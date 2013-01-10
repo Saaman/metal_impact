@@ -28,6 +28,12 @@ en:
         entries_prepared:
           one: "One entry ready for import"
           other: "%{count} entries ready for import"
+        entries_flagged:
+          one: "One entry being imported"
+          other: "%{count} entries beign imported"
+        entries_imported:
+          one: "One entry imported"
+          other: "%{count} entries imported"
         import_progress: "Import progress"
       commands:
         solve_alerts_desc:

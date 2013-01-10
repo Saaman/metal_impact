@@ -23,6 +23,9 @@ en:
         source_file:
           new: New
           loaded: Loaded
+          preparing_entries: Entries preparation in progress...
+          prepared: Ready to import
+          importing_entries: Entries import in progress...
   simple_form:
     labels:
       import_entry:
