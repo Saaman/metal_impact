@@ -2,7 +2,7 @@
   <td>
 		<%= link_to "#{source_file.name}", administration_import_path(source_file) %>
   </td>
-  <td><%= display_source_type source_file.source_type %></td>
+  <td><%= t_enum source_file, :source_type, {default: t("defaults.none")} %></td>
   <td><%= display_state source_file %></td>
   <td><%= display_entries source_file.entries.size %>
   <td><%= l source_file.created_at, :format => :short %></td>

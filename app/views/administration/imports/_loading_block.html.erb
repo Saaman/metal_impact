@@ -5,7 +5,7 @@
 </div>
 <% else %>
 	<div id="source_type_block">
-		<p><%= t_attr_from_instance @source_file, :source_type %> : <strong><%= display_source_type @source_file.source_type %></strong><br/>
+		<p><%= t_attr_from_instance @source_file, :source_type %> : <strong><%= t_enum @source_file, :source_type, {default: t("defaults.none")} %></strong><br/>
 			<% if @source_file.can_set_source_type? %>
 				<%= link_to t('.change_source_type'), '#', id: "change_source_type" %>
 			<% end %>

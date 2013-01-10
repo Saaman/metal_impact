@@ -14,9 +14,9 @@
 	</div>
 <% end %>
 
-<% if @source_file.has_failures? %>
-	<hr />
-	<div id="failures-management">
+<div id="failures-management">
+	<% if @source_file.has_failures? %>
+		<hr />
 		<%= render 'administration/import_failures/failures', source_file: @source_file %>
-	</div>
-<% end %>
+	<% end %>
+</div>

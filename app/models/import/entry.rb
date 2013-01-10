@@ -69,7 +69,14 @@ class Import::Entry < ActiveRecord::Base
 
   def async_import
     self.flag_for_import
-    self.delay(:queue => 'import_engine').import
+    self.delay(:queue => 'import_engine').import_entry
+  end
+
+  #this method is because the locking of object makes the transition fail if put in the around_transition method
+  def import_entry
+    self.with_lock do
+      self.import
+    end
   end
 
   private
