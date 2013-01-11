@@ -81,3 +81,7 @@ YourModel.all.each do |ym|
     puts  "ERROR: #{CLASS}: #{object.id} -> #{e.to_s}"
   end
 end
+
+To get rid off BusyException:
+-----------------------------
+ActiveRecord::Base.connection.execute("BEGIN TRANSACTION; END;")

@@ -32,18 +32,16 @@ class Import::SourceFile < ActiveRecord::Base
   state_machine :initial => :new do
 
     around_transition do |source_file, transition, block|
-      source_file.transaction do
+      source_file.with_lock do
         block.call
       end
     end
 
     #transitions
-    before_transition :new => :loaded, :do => :load_entries
-    before_transition :loaded => :new, :do => :unload_entries
-    before_transition :loaded => :preparing_entries, :do => :bg_prepare_entries
-    before_transition :prepared => :importing_entries do |source_file, transition|
-      source_file.bg_import_entries *transition.args
-    end
+    before_transition :on => :load_file, :do => :load_entries
+    before_transition :on => :unload_file, :do => :unload_entries
+    before_transition :on => :async_prepare, :do => :schedule_prepare
+    before_transition :on => :async_import, :do => :schedule_import
 
     #events
     event :load_file do
@@ -52,10 +50,10 @@ class Import::SourceFile < ActiveRecord::Base
     event :unload_file do
       transition :loaded => :new
     end
-    event :start_preparing do
+    event :async_prepare do
       transition :loaded => :preparing_entries, :unless => :has_failures?
     end
-    event :start_importing do
+    event :async_import do
       transition :prepared => :importing_entries, :unless => :has_failures?
     end
     event :refresh_status do
@@ -92,7 +90,7 @@ class Import::SourceFile < ActiveRecord::Base
 
   def entries_types_counts
     return @entries_types_counts unless @entries_types_counts.nil?
-    @entries_types_counts = self.entries.group(:target_model_cd).size
+    @entries_types_counts = self.entries.where{target_model_cd != nil}.group(:target_model_cd).size
   end
 
   def entries_count
@@ -125,22 +123,14 @@ class Import::SourceFile < ActiveRecord::Base
 
   def prepare
     self.refresh_status
-    self.start_preparing
+    self.async_prepare
   end
 
   def import(*args)
     self.refresh_status
-    self.start_importing *args
+    self.async_import *args
   end
 
-  def bg_import_entries(entries_count, entries_type)
-    ent_list = entries.at_state(:prepared)
-    ent_list = ent_list.of_type(entries_type) unless entries_type.blank?
-    ent_list = ent_list.limit(entries_count) unless entries_count.blank?
-    ent_list.each do |entry|
-      entry.async_import
-    end
-  end
 
   private
 
@@ -169,20 +159,31 @@ class Import::SourceFile < ActiveRecord::Base
       self.entries.delete_all
     end
 
-    def bg_prepare_entries
+    def schedule_prepare
       entries_count = self.entries.at_state(:new).size
       step = 0
       begin
-        self.delay(:queue => 'import_engine').async_prepare_entries_batch
+        self.delay(:queue => 'import_engine').prepare_entries_batch
         step += 1
       end until step*PREPARATION_BATCH_COUNT > entries_count
     end
 
-    def async_prepare_entries_batch
+    def prepare_entries_batch
       self.reload.transaction do
         self.entries.at_state(:new).limit(PREPARATION_BATCH_COUNT).each do |entry|
           entry.auto_discover
         end
+      end
+    end
+
+    def schedule_import(transition)
+      entries_count = transition.args[0]
+      entries_type = transition.args[1]
+      ent_list = entries.at_state(:prepared)
+      ent_list = ent_list.of_type(entries_type) unless entries_type.blank?
+      ent_list = ent_list.limit(entries_count) unless entries_count.blank?
+      ent_list.each do |entry|
+        entry.async_import
       end
     end
 

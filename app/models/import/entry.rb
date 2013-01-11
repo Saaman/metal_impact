@@ -38,9 +38,10 @@ class Import::Entry < ActiveRecord::Base
   state_machine :initial => :new do
   	before_transition :on => :auto_discover, :do => :discover
     before_transition :on => :import, :do => :bg_import
+    before_transition :on => :async_import, :do => :schedule_import
 
     around_transition do |entry, transition, block|
-      entry.transaction do
+      entry.with_lock do
         block.call
       end
     end
@@ -57,8 +58,9 @@ class Import::Entry < ActiveRecord::Base
     end
     event :import do
       transition :flagged => :imported
+      transition :flagged => :prepared
     end
-    event :flag_for_import do
+    event :async_import do
       transition :prepared => :flagged
     end
   end
@@ -67,20 +69,12 @@ class Import::Entry < ActiveRecord::Base
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
   scope :of_type, lambda {|target_model| where(:target_model_cd => self.target_models[target_model]) }
 
-  def async_import
-    self.flag_for_import
-    self.delay(:queue => 'import_engine').import_entry
-  end
-
-  #this method is because the locking of object makes the transition fail if put in the around_transition method
-  def import_entry
-    self.with_lock do
-      self.import
-    end
-  end
-
   private
     def bg_import
       puts "importing entry #{id}"
     end
+
+    def schedule_import
+    self.reload.delay(:queue => 'import_engine').import
+  end
 end

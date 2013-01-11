@@ -39,8 +39,8 @@ describe Import::SourceFile do
     it { should respond_to(:is_of_type_metal_impact!) }
     it { should respond_to(:load_file) }
     it { should respond_to(:can_load_file?) }
-    it { should respond_to(:start_preparing) }
-    it { should respond_to(:can_start_preparing?) }
+    it { should respond_to(:async_prepare) }
+    it { should respond_to(:can_async_prepare?) }
     it { should respond_to(:refresh_status) }
     it { should respond_to(:can_refresh_status?) }
   end
