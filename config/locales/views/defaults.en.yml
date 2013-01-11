@@ -7,6 +7,7 @@ en:
     or: " or "
     none: "-"
     cancel: "Cancel"
+    no_details: "No details available yet"
   shared:
     error_messages:
       errors_count:

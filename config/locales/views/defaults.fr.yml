@@ -7,6 +7,7 @@ fr:
     or: " ou "
     none: "-"
     cancel: "Annuler"
+    no_details: "Aucun détail n'est disponible pour l'instant"
   shared:
     error_messages:
       errors_count:

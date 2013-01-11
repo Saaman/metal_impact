@@ -90,6 +90,11 @@ class Import::SourceFile < ActiveRecord::Base
     @stats = self.reload.entries.group(:state).size
   end
 
+  def entries_types_counts
+    return @entries_types_counts unless @entries_types_counts.nil?
+    @entries_types_counts = self.entries.group(:target_model_cd).size
+  end
+
   def entries_count
     stats.values.inject(:+) || 0
   end

@@ -9,7 +9,10 @@
 	<div class="row-fluid header-content">
   	<div class="span4">
 			<p><%= display_state source_file %></p>
-			<strong><%= display_entries source_file.entries_count if source_file.entries_count > 0 %></strong>
+			<span id="toggle-details" data-title="<%= t '.show_details' %>"><strong><%= display_entries source_file.entries_count if source_file.entries_count > 0 %></strong></span>
+			<div id="entries-counts-details" class="muted" style="margin-left: 5px;">
+				<%= display_entries_counts_by_target_model source_file %>
+			</div>
 		</div>
 		<div class="span6">
 			<%= render 'loading_block', source_file: source_file %>

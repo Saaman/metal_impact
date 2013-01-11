@@ -18,20 +18,34 @@ module Administration
 			return form.button :submit, t('helpers.submit.import_source_file.reload'), options if source_file.can_unload_file?
 			form.button :submit, options
 		end
+
 		def preparation_progress(source_file)
 			0 if source_file.overall_progress == 100
 			[30, source_file.overall_progress].min
 		end
+
 		def import_progress(source_file)
 			100 if source_file.overall_progress == 100
 			[0, source_file.overall_progress-30].max
 		end
+
 		def pending_progress(source_file)
 			source_file.pending_progress
 		end
+
 		def error_progress(source_file)
 			return 0 if source_file.entries_count == 0
 			source_file.failed_entries_count * Import::SourceFile::STATE_VALUES[source_file.state_name]*10 / source_file.entries_count
+		end
+
+		def display_entries_counts_by_target_model(source_file)
+			return t('defaults.no_details') if source_file.entries_types_counts.blank?
+			parts = []
+			source_file.entries_types_counts.each_pair do |k,v|
+				key = Import::Entry.target_models.key(k)
+				parts << Import::Entry.human_enum_name(:target_models, key, {count: v})
+			end
+			parts.join(", ")
 		end
 	end
 end

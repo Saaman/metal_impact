@@ -16,6 +16,7 @@ fr:
           other: "%{count} entrées"
       header:
         title: " (fichier source d'import de données)"
+        show_details: "Voir le détail par type d'entités"
       loading_block:
         change_source_type: "Changez le type de source..."
         description1: "Vous devez renseigner le type de source de ce fichier avant de le charger dans le système."

@@ -39,6 +39,10 @@ div.add-separator {
 	@include horizontal-form-label-width(220px);
 }
 
+.as-clickable {
+	cursor: pointer;
+}
+
 .button-pull-right {
 	@extend .pull-right;
 	margin-top: 5px;

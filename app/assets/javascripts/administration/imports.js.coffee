@@ -22,4 +22,16 @@ $(document).ready ->
 	setInterval () ->
 		if $('input#source_file_auto_refresh').val()
 			$('div.contentzone').load '/administration/imports/'.concat($('input#source_file_id').val(), '.js')
-	,10000
+	, 10000
+
+	#manage the display of entries counts per target_model
+	$('div#entries-counts-details').hide()
+
+	$('span#toggle-details').tooltip().on {
+		click: () ->
+			$('div#entries-counts-details').toggle 'fast'
+	, mouseenter: () ->
+			$(this).addClass 'as-clickable'
+	, mouseleave: () ->
+			$(this).removeClass 'as-clickable'
+	}

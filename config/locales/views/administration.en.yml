@@ -16,6 +16,7 @@ en:
           other: '%{count} entries'
       header:
         title: " (data import source file)"
+        show_details: "See details per entity type"
       loading_block:
         change_source_type: "Change source_type..."
         description1: "You must set a source type for this source file, and then load the file into the system."

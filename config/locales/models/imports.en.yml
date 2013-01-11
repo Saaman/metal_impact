@@ -8,8 +8,12 @@ en:
           metal_impact:: Metal Impact
       import/entry:
         target_models:
-          user: User
-          artist: Artist
+          user:
+            one: user
+            other: "%{count} users"
+          artist:
+            one: artist
+            other: "%{count} artists"
     attributes:
       import/source_file:
         source_type: "Import type"
