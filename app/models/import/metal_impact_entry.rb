@@ -16,9 +16,13 @@
 
 class Import::MetalImpactEntry < Import::Entry
 	def discover
-		return self.errors.add(:data, :is_not_a_hash) unless self.data.is_a? Hash
-		self.source_id = self.data["id"]
-		self.target_model = self.data["model"].to_sym if self.data.has_key?("model")
-		save()
+		begin
+			return self.errors.add(:data, :is_not_a_hash) unless self.data.is_a? Hash
+			self.source_id = self.data["id"]
+			self.target_model = self.data["model"].to_sym if self.data.has_key?("model")
+			save()
+		rescue Exception => ex
+      self.errors.add(:base, ex.message)
+    end
 	end
 end
