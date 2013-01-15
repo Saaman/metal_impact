@@ -108,7 +108,9 @@ class Import::SourceFile < ActiveRecord::Base
   end
 
   def pending_progress
-    return 20 if state_name == :preparing_entries
+    if state_name == :preparing_entries
+      return entries.at_state(:new).count * 20 / entries_count
+    end
     entries.at_state(:flagged).count * 70 / entries_count
   end
 

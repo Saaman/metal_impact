@@ -25,7 +25,7 @@ class Import::Entry < ActiveRecord::Base
   #persisted attributes
   attr_accessible :data, :source_id, :target_id, :target_model, :source_file, :failures
 
-	as_enum :target_model, user: 0#, artist: 1
+	as_enum :target_model, user: 0, artist: 1
 	serialize :data
 
 	#validations
@@ -58,6 +58,8 @@ class Import::Entry < ActiveRecord::Base
     end
     event :import do
       transition :flagged => :imported
+    end
+    event :refresh_status do
       transition :flagged => :prepared
     end
     event :async_import do
@@ -71,10 +73,34 @@ class Import::Entry < ActiveRecord::Base
 
   private
     def bg_import
-      puts "importing entry #{id}"
+      begin
+        self.send "import_as_#{target_model}"
+      rescue Exception => ex
+        self.errors.add(:base, ex.message)
+      end
     end
 
     def schedule_import
-    self.reload.delay(:queue => 'import_engine').import
-  end
+      self.reload.delay(:queue => 'import_engine').do_import
+    end
+
+    def do_import
+      self.reload.transaction do
+        self.refresh_status unless self.import
+      end
+    end
+
+    def close_single_import(object)
+      puts "object.persisted? : #{object.persisted?}"
+      puts "object.id : #{object.id}"
+      if object.persisted?
+        update_attributes!(:target_id => object.id)
+      else
+        #in case of failure
+        puts "object is invalid, add errors on entry"
+        object.errors.full_messages.each do |msg|
+          self.errors.add(:base, msg)
+        end
+      end
+    end
 end

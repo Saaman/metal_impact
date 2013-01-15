@@ -34,6 +34,3 @@ fr:
     labels:
       import_entry:
         data: "Bloc de données"
-  errors:
-    import_entry:
-      default: "Une erreur est survenue lors de l'enregistrement de l'entrée"

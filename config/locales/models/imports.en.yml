@@ -34,6 +34,3 @@ en:
     labels:
       import_entry:
         data: "Data block"
-  errors:
-    import_entry:
-      default: "An error occurred when saving the entry"

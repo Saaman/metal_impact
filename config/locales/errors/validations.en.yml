@@ -46,6 +46,7 @@ en:
           attributes:
             data:
               is_not_a_hash: "is not a valid hash. Please follow the syntax carefully"
+              missing_data: "must contains a value regarding key '%{value}'"
             target_model:
               blank: "cannot be blank. Make sure there is in the data block a key named 'model' with a value corresponding to an entity type"
             state:

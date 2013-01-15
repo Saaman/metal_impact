@@ -15,14 +15,26 @@
 #
 
 class Import::MetalImpactEntry < Import::Entry
+
 	def discover
 		begin
 			return self.errors.add(:data, :is_not_a_hash) unless self.data.is_a? Hash
-			self.source_id = self.data["id"]
-			self.target_model = self.data["model"].to_sym if self.data.has_key?("model")
+			self.source_id = self.data[:id]
+			self.target_model = self.data[:model].to_sym if self.data.has_key?(:model)
 			save()
 		rescue Exception => ex
       self.errors.add(:base, ex.message)
     end
+	end
+
+	def import_as_user
+		user = User.new(email: data[:email], email_confirmation: data[:email],
+										password: data[:password], pseudo: data[:pseudo], role: data[:role])
+	  user.skip_confirmation!
+	  user.updated_at = DateTime.parse(data[:updated_at])
+	  user.created_at = DateTime.parse(data[:created_at])
+	  user.save_without_timestamping
+
+	  close_single_import user
 	end
 end

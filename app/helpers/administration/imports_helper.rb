@@ -43,6 +43,7 @@ module Administration
 			parts = []
 			source_file.entries_types_counts.each_pair do |k,v|
 				key = Import::Entry.target_models.key(k)
+				raise "'#{k}' does not match any declared entry target model" if key.nil?
 				parts << Import::Entry.human_enum_name(:target_models, key, {count: v})
 			end
 			parts.join(", ")
