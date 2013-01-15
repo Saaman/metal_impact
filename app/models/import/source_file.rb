@@ -27,6 +27,7 @@ class Import::SourceFile < ActiveRecord::Base
   #validations
   validates_as_enum :source_type, :allow_nil => true
   validates :path, :presence => true
+  validates :source_type, :presence => true, :on => :update
 
   #state machine
   state_machine :initial => :new do

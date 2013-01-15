@@ -37,4 +37,17 @@ class Import::MetalImpactEntry < Import::Entry
 
 	  close_single_import user
 	end
+
+	def import_as_artist
+		artist = Artist.new(name: data[:name], published: true, countries: data[:countries], practices: [0])
+
+	  artist.updated_at = DateTime.parse(data[:updated_at])
+	  artist.created_at = DateTime.parse(data[:created_at])
+	  artist.creator_id = artist.updater_id = retrieve_dependency :user, data[:created_by]
+
+	  artist.save_without_timestamping
+
+	  close_single_import artist
+	end
+
 end

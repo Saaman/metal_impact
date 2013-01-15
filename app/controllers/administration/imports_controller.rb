@@ -20,13 +20,8 @@ class Administration::ImportsController < ApplicationController
 	def update
 		@source_file = Import::SourceFile.find(params[:id])
 		@source_file.refresh_status
-		if @source_file.set_source_type_and_load_entries params[:import_source_file][:source_type]
-			redirect_to :action => :show
-		else
-			respond_with @source_file do |format|
-				format.html { render 'edit' }
-			end
-		end
+		@source_file.set_source_type_and_load_entries params[:import_source_file][:source_type]
+		redirect_to :action => :show
 	end
 
 	def prepare

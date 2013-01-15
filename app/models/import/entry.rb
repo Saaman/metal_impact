@@ -103,4 +103,27 @@ class Import::Entry < ActiveRecord::Base
         end
       end
     end
+
+    def retrieve_dependency(target_model, source_id)
+      target_model_cd = Import::Entry.target_models(target_model)
+
+      raise ArgumentError.new("'#{target_model}' is not a valid target model") if target_model_cd.nil?
+      raise ArgumentError.new("source_id must be a non-null integer") unless (source_id.is_a?(Integer) && source_id > 0)
+
+      dependency = Import::Entry.where(:target_model_cd => target_model_cd, :import_source_file_id => self.import_source_file_id, :source_id => source_id).first
+
+      raise "there is no entry of type '#{target_model}' with source id '#{source_id}'" if dependency.nil?
+
+      return dependency.target_id unless dependency.target_id.nil?
+
+      #entry is not planned to be imported => do it
+      unless dependency.flagged?
+        dependency.with_lock do
+          dependency.async_import
+        end
+      end
+
+      #raise so that the job fails and will be relaunched later
+      raise Exceptions::ImportException.new("'#{target_model}##{source_id}' dependency import is in progress")
+    end
 end

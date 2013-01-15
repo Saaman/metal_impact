@@ -17,9 +17,8 @@
 <% if source_file.can_set_source_type? %>
 	<div id="source_type_form" style="display:<%= source_file.new? && 'block' || 'none' %>;">
 		<%= simple_form_for @source_file, :url => administration_import_path, :html => { :class => "form-inline", :novalidate => true } do |f| %>
-		  <%= render 'shared/error_messages', :object => @source_file %>
 
-			<%= f.input :source_type, required: true, :collection => Import::SourceFile.source_types_for_select, prompt: t('.select_source_type'), input_html: {class: 'input-large skipval'}, wrapper_html: {style: "display:inline-block;margin-right:10px;"}, label: false %>
+			<%= f.input :source_type, required: true, :collection => Import::SourceFile.source_types_for_select, prompt: t('.select_source_type'), input_html: {class: 'input-medium skipval'}, wrapper_html: {style: "display:inline-block;margin-right:10px;"}, label: false %>
 		  	<%= load_file_button(f, @source_file) %>
 		  	<%= link_to t('defaults.back_link'), '#', { :class => "btn", id: 'cancel_change_source_type' } %>
 		<% end %>
