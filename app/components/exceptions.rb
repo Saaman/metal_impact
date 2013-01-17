@@ -8,6 +8,7 @@ module Exceptions
 	class TrackableError < StandardError
 	end
 
-	class ImportException < StandardError
+	#exception raised when the current entry has dependencies to be satisfied first
+	class ImportDependencyException < StandardError
 	end
 end

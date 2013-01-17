@@ -61,6 +61,7 @@ class Import::Entry < ActiveRecord::Base
     end
     event :refresh_status do
       transition :flagged => :prepared
+      transition :imported => :imported
     end
     event :async_import do
       transition :prepared => :flagged
@@ -71,12 +72,17 @@ class Import::Entry < ActiveRecord::Base
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
   scope :of_type, lambda {|target_model| where(:target_model_cd => self.target_models[target_model]) }
 
+  def temp_do_import
+    do_import()
+  end
+
   private
     def bg_import
       begin
         self.send "import_as_#{target_model}"
-      rescue Exception => ex
-        self.errors.add(:base, ex.message)
+      rescue Exceptions::ImportDependencyException => ex
+        Rails.logger.info "An exception was raised during import : #{ex.inspect}"
+        raise
       end
     end
 
@@ -85,26 +91,23 @@ class Import::Entry < ActiveRecord::Base
     end
 
     def do_import
-      self.reload.transaction do
-        self.refresh_status unless self.import
-      end
+      @dependencies = get_dependencies()
+      self.import
+      self.refresh_status
     end
 
-    def close_single_import(object)
-      puts "object.persisted? : #{object.persisted?}"
-      puts "object.id : #{object.id}"
+    def update_entry_target_id(object)
       if object.persisted?
         update_attributes!(:target_id => object.id)
       else
-        #in case of failure
-        puts "object is invalid, add errors on entry"
+        #in case of failure, transfer object errors to entries
         object.errors.full_messages.each do |msg|
           self.errors.add(:base, msg)
         end
       end
     end
 
-    def retrieve_dependency(target_model, source_id)
+    def retrieve_dependency_id(target_model, source_id)
       target_model_cd = Import::Entry.target_models(target_model)
 
       raise ArgumentError.new("'#{target_model}' is not a valid target model") if target_model_cd.nil?
@@ -118,12 +121,9 @@ class Import::Entry < ActiveRecord::Base
 
       #entry is not planned to be imported => do it
       unless dependency.flagged?
-        dependency.with_lock do
-          dependency.async_import
+        if dependency.with_lock { dependency.async_import }
+          raise Exceptions::ImportDependencyException.new("entry##{dependency.id}(#{target_model}##{source_id}) dependency import is in progress for entry##{id}(#{self.target_model}##{self.source_id})")
         end
       end
-
-      #raise so that the job fails and will be relaunched later
-      raise Exceptions::ImportException.new("'#{target_model}##{source_id}' dependency import is in progress")
     end
 end

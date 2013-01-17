@@ -33,21 +33,38 @@ class Import::MetalImpactEntry < Import::Entry
 	  user.skip_confirmation!
 	  user.updated_at = DateTime.parse(data[:updated_at])
 	  user.created_at = DateTime.parse(data[:created_at])
-	  user.save_without_timestamping
 
-	  close_single_import user
+	  finalize_import user
 	end
 
 	def import_as_artist
-		artist = Artist.new(name: data[:name], published: true, countries: data[:countries], practices: [0])
+		artist = Artist.new(name: data[:name], published: true, countries: data[:countries], practices: [Practice.find_by_kind(:band)])
 
 	  artist.updated_at = DateTime.parse(data[:updated_at])
 	  artist.created_at = DateTime.parse(data[:created_at])
-	  artist.creator_id = artist.updater_id = retrieve_dependency :user, data[:created_by]
 
-	  artist.save_without_timestamping
+		artist.creator_id = artist.updater_id = @dependencies[:reviewer_id]
 
-	  close_single_import artist
+		finalize_import artist
 	end
 
+	protected
+		def get_dependencies
+			case target_model
+				when :user then nil
+			else
+				self.send "get_dependencies_for_#{target_model}"
+			end
+		end
+
+	private
+		def finalize_import(obj)
+			obj.save_without_timestamping
+	  	update_entry_target_id obj
+		end
+
+		def get_dependencies_for_artist
+			result = {}
+			{ reviewer_id: retrieve_dependency_id(:user, data[:created_by]) }
+		end
 end
