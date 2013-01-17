@@ -36,6 +36,7 @@ gem 'simple_form', '~> 2.0.2'
 gem 'delayed_job_active_record', '~>0.3.3'
 gem 'devise-async', '~>0.4.0'
 gem 'daemons', '~>1.1.9'
+gem 'dj_mon', '~>1.1.0'
 
 # I18n
 gem 'devise-i18n', '~> 0.5.11'

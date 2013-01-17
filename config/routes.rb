@@ -42,6 +42,8 @@ MetalImpact::Application.routes.draw do
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
   match 'dashboard' => 'administration/monitoring#dashboard', :via => [:get, :post]
 
+  mount DjMon::Engine => 'dj_mon'
+
   root to: 'home#index'
 
 
