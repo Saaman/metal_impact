@@ -22,9 +22,10 @@ class Artist < ActiveRecord::Base
 	#associations
 	has_and_belongs_to_many :albums, :before_add => :check_product_type_is_allowed
   has_and_belongs_to_many :practices
+  default_scope includes(:practices)
 
   #attributes
-  attr_accessible :name, :countries, :biography, :practice_ids
+  attr_accessible :name, :countries, :biography, :practice_ids, :practices
   serialize :countries, Array
   translates :biography
 

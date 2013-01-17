@@ -19,7 +19,7 @@ class Practice < ActiveRecord::Base
 
 	def self.find_by_kind(kind_sym)
 		return nil if kind_sym.nil?
-		raise "'Practice.find_by_kind : argument should be a symbol" unless kind_sym.is_a? Symbol
+		raise ArgumentError.new("'Practice.find_by_kind : argument should be a symbol") unless kind_sym.is_a? Symbol
 		self.find_by_kind_cd self.kinds(kind_sym)
 	end
 
