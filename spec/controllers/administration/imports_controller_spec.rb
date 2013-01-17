@@ -24,7 +24,7 @@ describe Administration::ImportsController do
   		end
   		it "should sort by created_dt desc" do
   			get :index
-  			assigns(:source_files).first.created_at.should > assigns(:source_files)[10].created_at
+  			assigns(:source_files).first.created_at.should > assigns(:source_files).last.created_at
   		end
 	  end
   end
@@ -37,41 +37,14 @@ describe Administration::ImportsController do
   	end
   	describe "(authorized)" do
   		before(:each) { @ability.can :show, Import::SourceFile }
-  		describe "when source_file is not new, render show" do
+  		describe "it should render show" do
   			before do
-  				Import::SourceFile.any_instance.stub(:new?).and_return(false)
+  				Import::SourceFile.any_instance.should_receive(:refresh_status)
   				get :show, {id: source_file.id}
   			end
 		  	it { should render_template("show") }
 		  	specify { assigns(:source_file).should == source_file }
   		end
-  		describe "when source_file is new, should redirect to edit" do
-		  	before { get :show, {id: source_file.id} }
-		  	it { should redirect_to edit_administration_import_path(source_file) }
-		  end
-	  end
-  end
-
-  describe "GET edit :" do
-  	let(:source_file) { FactoryGirl.create(:source_file) }
-  	describe "(unauthorized)" do
-			before { get :edit, {id: source_file.id} }
-			its_access_is "unauthorized"
-  	end
-  	describe "(authorized)" do
-  		before(:each) { @ability.can :edit, Import::SourceFile }
-  		describe "when source_file is not new, redirect to show" do
-  			before do
-  				Import::SourceFile.any_instance.stub(:can_set_source_type?).and_return(false)
-  				get :edit, {id: source_file.id}
-  			end
-  			it { should redirect_to administration_import_path(source_file) }
-  		end
-  		describe "when source_file is new, render edit" do
-		  	before { get :edit, {id: source_file.id} }
-		  	it { should render_template("edit") }
-		  	specify { assigns(:source_file).should == source_file }
-		  end
 	  end
   end
 

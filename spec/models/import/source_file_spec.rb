@@ -13,7 +13,7 @@
 require 'spec_helper'
 
 describe Import::SourceFile do
-  let(:source_file) { FactoryGirl.create(:source_file) }
+  let(:source_file) { FactoryGirl.build(:source_file) }
   before do
     @source_file = source_file
   end
@@ -32,15 +32,33 @@ describe Import::SourceFile do
     it { should respond_to(:entry_ids) }
     it { should respond_to(:failures) }
     it { should respond_to(:failure_ids) }
-    it { should respond_to(:entries_count) }
 
     #methods
     it { should respond_to(:is_of_type_metal_impact?) }
     it { should respond_to(:is_of_type_metal_impact!) }
+    it { should respond_to(:name) }
+    it { should respond_to(:entries_count) }
+    it { should respond_to(:has_failures?) }
+    it { should respond_to(:can_set_source_type?) }
+    it { should respond_to(:set_source_type_and_load_entries) }
+    it { should respond_to(:stats) }
+    it { should respond_to(:entries_types_counts) }
+    it { should respond_to(:overall_progress) }
+    it { should respond_to(:pending_progress) }
+    it { should respond_to(:prepare) }
+    it { should respond_to(:import) }
+    it { should respond_to(:auto_refresh) }
+    it { should respond_to(:failed_entries_count) }
+
+    #transitions
     it { should respond_to(:load_file) }
     it { should respond_to(:can_load_file?) }
+    it { should respond_to(:unload_file) }
+    it { should respond_to(:can_unload_file?) }
     it { should respond_to(:async_prepare) }
     it { should respond_to(:can_async_prepare?) }
+    it { should respond_to(:async_import) }
+    it { should respond_to(:can_async_import?) }
     it { should respond_to(:refresh_status) }
     it { should respond_to(:can_refresh_status?) }
   end
@@ -56,24 +74,25 @@ describe Import::SourceFile do
     end
   end
 
+  describe "Helpers" do
+    describe "Name should return the file name" do
+      before { @source_file.path = File.join([Rails.root, "toto.yml"]) }
+      its(:name) { should == "toto.yml" }
+    end
+  end
+
   describe "Behaviors" do
     describe "it set status to new on initializing" do
       its(:state_name) { should == :new }
     end
     describe 'Path is read-only' do
-      before { @source_file.save! }
+      let(:sf) { FactoryGirl.create(:source_file) }
       it 'must not be alterable' do
-        @source_file.path = "toto"
+        sf.path = "toto"
+        sf.source_type = :metal_impact
         @source_file.save
         @source_file.reload.path.should_not == "toto"
       end
-    end
-  end
-
-  describe "Methods" do
-    describe "Name should return the file name" do
-      before { @source_file.path = File.join([Rails.root, "toto.yml"]) }
-      its(:name) { should == "toto.yml" }
     end
   end
 

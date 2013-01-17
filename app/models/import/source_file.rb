@@ -66,6 +66,8 @@ class Import::SourceFile < ActiveRecord::Base
     end
   end
 
+  #------------------ Helpers -------------------#
+
   def name
     File.basename(path)
   end
@@ -78,12 +80,12 @@ class Import::SourceFile < ActiveRecord::Base
     self.new? || self.loaded?
   end
 
-  def set_source_type_and_load_entries(source_type)
-    self.update_attributes(source_type: source_type)
-    self.unload_file! if self.can_unload_file?
-    self.load_file
+  def auto_refresh
+    return true if PENDING_STATES.include?(state_name)
+    nil
   end
 
+  #------------------ STATS calculation -------------------#
   def stats
     return @stats unless @stats.nil?
     @stats = self.reload.entries.group(:state).size
@@ -92,6 +94,10 @@ class Import::SourceFile < ActiveRecord::Base
   def entries_types_counts
     return @entries_types_counts unless @entries_types_counts.nil?
     @entries_types_counts = self.entries.where{target_model_cd != nil}.group(:target_model_cd).size
+  end
+
+  def failed_entries_count
+    failures.group(:import_entry_id).pluck(:import_entry_id).count
   end
 
   def entries_count
@@ -115,14 +121,7 @@ class Import::SourceFile < ActiveRecord::Base
     entries.at_state(:flagged).count * 70 / entries_count
   end
 
-  def failed_entries_count
-    failures.group(:import_entry_id).pluck(:import_entry_id).count
-  end
-
-  def auto_refresh
-    return true if PENDING_STATES.include?(state_name)
-    nil
-  end
+  #------------------ Transitions -------------------#
 
   def prepare
     self.refresh_status
@@ -132,6 +131,12 @@ class Import::SourceFile < ActiveRecord::Base
   def import(*args)
     self.refresh_status
     self.async_import *args
+  end
+
+  def set_source_type_and_load_entries(source_type)
+    self.update_attributes(source_type: source_type)
+    self.unload_file! if self.can_unload_file?
+    self.load_file
   end
 
 
@@ -189,6 +194,8 @@ class Import::SourceFile < ActiveRecord::Base
         entry.async_import
       end
     end
+
+    #------------------ Helpers -------------------#
 
     def entries_prepared?
       stats['prepared'] == entries_count

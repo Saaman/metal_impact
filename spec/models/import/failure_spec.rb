@@ -22,7 +22,6 @@ describe Import::Failure do
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:description) }
-    it { should respond_to(:code) }
     it { should_not respond_to(:entry_id) }
     it { should respond_to(:entry) }
 
