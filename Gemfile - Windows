@@ -52,7 +52,7 @@ gem 'turnout', '~>0.2.2' #maintenance mode gem
 gem "activerecord-import", '~>0.2.11' #massive insert tool
 
 # Tools
-gem 'rack-mini-profiler', '~>0'
+gem 'rack-mini-profiler', '~>0', :group => [:development, :production]
 gem 'foreman', '~>0.53.0' #versions above are not compatible with windows, fork() is not implemented
 gem 'faker', '~> 1.0', :group => [:development, :test]
 

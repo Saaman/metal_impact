@@ -9,7 +9,7 @@ development:
   database: mi_dev
   pool: 5
   username: metalimpact
-  password: <%= ENV['MI_DEV_PASSWORD'] %>
+  password: <%= ENV['MI_DB_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,8 +19,8 @@ test:
   encoding: unicode
   database: mi_test
   pool: 5
-  username: metalimpact_test
-  password: <%= ENV['MI_TEST_PASSWORD'] %>
+  username: metalimpact
+  password: <%= ENV['MI_DB_PASSWORD'] %>
 
 production:
   adapter: sqlite3
