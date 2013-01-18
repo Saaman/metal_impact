@@ -34,4 +34,17 @@ class Administration::ImportsController < ApplicationController
 		@source_file = Import::SourceFile.find(params[:id]).import import_command.entries_count, import_command.entries_type
 		redirect_to :action => :show
 	end
+
+	def failures
+		@source_file = Import::SourceFile.find params[:id]
+		respond_with @source_file, :layout => false
+	end
+
+	def clear_failures
+		source_file_id = params[:id]
+		Import::Failure.transaction do
+			Import::Failure.joins(:source_file).destroy_all('import_source_files.id' => source_file_id)
+		end
+		redirect_to administration_import_path(source_file_id)
+	end
 end

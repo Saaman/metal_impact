@@ -15,7 +15,7 @@ class Import::Failure < ActiveRecord::Base
 	has_one :source_file, :through => :entry
 
 	#attributes
-  attr_accessible :code, :description, :entry
+  attr_accessible :description, :entry
 
   #validations
 	validates_presence_of :import_entry_id, :description

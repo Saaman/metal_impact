@@ -11,7 +11,7 @@ class Ability
 
     can :read, :all
     cannot :show_image, :home
-    cannot :manage, [Import::SourceFile, Import::Entry, Import::Failure]
+    cannot :manage, [Import::SourceFile, Import::Entry]
     can :create, User
     cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end

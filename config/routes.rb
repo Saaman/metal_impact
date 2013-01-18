@@ -15,9 +15,8 @@ MetalImpact::Application.routes.draw do
     resources :imports, :only => [:index, :show, :update] do
       put 'prepare', :on => :member
       put 'import', :on => :member
-      resources :failures, :only => :index, :controller => 'import_failures' do
-        delete 'clear', :on => :collection
-      end
+      get 'failures', :on => :member
+      delete 'clear_failures', :on => :member
     end
     resources :import_entries, :only => [:edit, :update]
   end

@@ -24,6 +24,8 @@ describe Import::Failure do
     it { should respond_to(:description) }
     it { should_not respond_to(:entry_id) }
     it { should respond_to(:entry) }
+    it { should respond_to(:created_at) }
+    it { should respond_to(:updated_at) }
 
     #methods
   end

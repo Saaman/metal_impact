@@ -1,4 +1,4 @@
-<%= simple_form_for source_file, :url => clear_administration_import_failures_path(source_file), :html => { :class => "form-inline", :novalidate => true }, :method => :delete do |f| %>
+<%= simple_form_for source_file, :url => clear_failures_administration_import_path(source_file), :html => { :class => "form-inline", :novalidate => true }, :method => :delete do |f| %>
   <div class="button-pull-right">
     <%= f.button :submit, t('helpers.submit.import_source_file.clear_failures'), {:class => 'btn-danger'} %>
   </div>
