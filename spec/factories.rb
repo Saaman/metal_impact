@@ -65,6 +65,11 @@ FactoryGirl.define do
   factory :entry, :class => Import::Entry do
     data { {"toto" => generate(:random_string), "tata" => 21} }
     source_file
+
+    trait :discovered do
+      target_model { :user }
+      source_id { 1 }
+    end
   end
 
   factory :failure, :class => Import::Failure do

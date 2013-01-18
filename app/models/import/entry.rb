@@ -31,14 +31,17 @@ class Import::Entry < ActiveRecord::Base
 	#validations
 	validates_as_enum :target_model, :allow_nil => true
 	validates_presence_of :data, :state, :import_source_file_id
-  validates_presence_of :target_model, :source_id, :if => :prepared?
+  validates_presence_of :target_model, :source_id, :on => :update
 
+  #scopes
+  scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
+  scope :of_type, lambda {|target_model| where(:target_model_cd => self.target_models[target_model]) }
 
 	#state machine
   state_machine :initial => :new do
   	before_transition :on => :auto_discover, :do => :discover
-    before_transition :on => :import, :do => :bg_import
     before_transition :on => :async_import, :do => :schedule_import
+    before_transition :on => :import, :do => :bg_import
 
     around_transition do |entry, transition, block|
       entry.with_lock do
@@ -56,6 +59,9 @@ class Import::Entry < ActiveRecord::Base
     event :auto_discover do
     	transition :new => :prepared
     end
+    event :async_import do
+      transition :prepared => :flagged
+    end
     event :import do
       transition :flagged => :imported
     end
@@ -63,28 +69,9 @@ class Import::Entry < ActiveRecord::Base
       transition :flagged => :prepared
       transition :imported => :imported
     end
-    event :async_import do
-      transition :prepared => :flagged
-    end
-  end
-
-  #scopes
-  scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
-  scope :of_type, lambda {|target_model| where(:target_model_cd => self.target_models[target_model]) }
-
-  def temp_do_import
-    do_import()
   end
 
   private
-    def bg_import
-      begin
-        self.send "import_as_#{target_model}"
-      rescue Exceptions::ImportDependencyException => ex
-        Rails.logger.info "An exception was raised during import : #{ex.inspect}"
-        raise
-      end
-    end
 
     def schedule_import
       self.reload.delay(:queue => 'import_engine').do_import
@@ -94,6 +81,10 @@ class Import::Entry < ActiveRecord::Base
       @dependencies = get_dependencies()
       self.import
       self.refresh_status
+    end
+
+    def bg_import
+      self.send "import_as_#{target_model}"
     end
 
     def update_entry_target_id(object)
