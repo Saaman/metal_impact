@@ -70,6 +70,27 @@ FactoryGirl.define do
       target_model { :user }
       source_id { 1 }
     end
+    factory :metal_impact_entry, :class => Import::MetalImpactEntry do
+      data { {id: 2, model: 'user' } }
+
+      factory :metal_impact_user do
+        data { {id: 2, model: 'user', pseudo: 'Seth F.', email: 'seth_f.staff@metal-impact.com', password: 'SethF.2', created_at: '12/04/2007 16:57:36', updated_at: '12/04/2007 16:57:36', :role => :staff } }
+
+        factory :discovered_metal_impact_user do
+          target_model { :user }
+          source_id { 2 }
+          state { 'prepared' }
+        end
+      end
+      factory :metal_impact_artist do
+        data { { id: 1, model: 'artist', name: 'NINE INCH NAILS', countries: ['US'], created_at: '12/04/2007 16:57:36', updated_at: '12/04/2007 16:57:36', created_by: 2 } }
+        factory :discovered_metal_impact_artist do
+          target_model { :artist }
+          source_id { 1 }
+          state { 'prepared' }
+        end
+      end
+    end
   end
 
   factory :failure, :class => Import::Failure do

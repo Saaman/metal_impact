@@ -73,18 +73,22 @@ class Import::Entry < ActiveRecord::Base
 
   private
 
+    def dependencies
+      @dependencies || {}
+    end
+
     def schedule_import
-      self.reload.delay(:queue => 'import_engine').do_import
+      reload.delay(:queue => 'import_engine').do_import
     end
 
     def do_import
       @dependencies = get_dependencies()
-      self.import
-      self.refresh_status
+      import()
+      refresh_status()
     end
 
     def bg_import
-      self.send "import_as_#{target_model}"
+      send "import_as_#{target_model}"
     end
 
     def update_entry_target_id(object)
@@ -93,28 +97,28 @@ class Import::Entry < ActiveRecord::Base
       else
         #in case of failure, transfer object errors to entries
         object.errors.full_messages.each do |msg|
-          self.errors.add(:base, msg)
+          errors.add(:base, msg)
         end
       end
     end
 
-    def retrieve_dependency_id(target_model, source_id)
-      target_model_cd = Import::Entry.target_models(target_model)
+    def retrieve_dependency_id(model, source)
+      target_model_code = Import::Entry.target_models(model)
 
-      raise ArgumentError.new("'#{target_model}' is not a valid target model") if target_model_cd.nil?
-      raise ArgumentError.new("source_id must be a non-null integer") unless (source_id.is_a?(Integer) && source_id > 0)
+      raise ArgumentError.new("'#{model}' is not a valid target model") if target_model_code.nil?
+      raise ArgumentError.new("source must be a non-null integer") unless (source.is_a?(Integer) && source > 0)
 
-      dependency = Import::Entry.where(:target_model_cd => target_model_cd, :import_source_file_id => self.import_source_file_id, :source_id => source_id).first
-
+      dependency = Import::Entry.where(:target_model_cd => target_model_code, :import_source_file_id => import_source_file_id, :source_id => source).first
       raise "there is no entry of type '#{target_model}' with source id '#{source_id}'" if dependency.nil?
 
       return dependency.target_id unless dependency.target_id.nil?
 
       #entry is not planned to be imported => do it
       unless dependency.flagged?
-        if dependency.with_lock { dependency.async_import }
-          raise Exceptions::ImportDependencyException.new("entry##{dependency.id}(#{target_model}##{source_id}) dependency import is in progress for entry##{id}(#{self.target_model}##{self.source_id})")
+        unless dependency.with_lock { dependency.async_import }
+          raise "Impossible to start entry##{dependency.id}(#{model}##{source}) import"
         end
       end
+      raise Exceptions::ImportDependencyException.new("entry##{dependency.id}(#{model}##{source}) dependency import is in progress for entry##{id}(#{target_model}##{source_id})")
     end
 end

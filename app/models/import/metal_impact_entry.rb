@@ -22,7 +22,7 @@ class Import::MetalImpactEntry < Import::Entry
 			self.source_id = self.data[:id]
 			self.target_model = self.data[:model].to_sym if self.data.has_key?(:model)
 			save()
-		rescue Exception => ex
+		rescue ArgumentError => ex
       self.errors.add(:base, ex.message)
     end
 	end
@@ -43,7 +43,7 @@ class Import::MetalImpactEntry < Import::Entry
 	  artist.updated_at = DateTime.parse(data[:updated_at])
 	  artist.created_at = DateTime.parse(data[:created_at])
 
-		artist.creator_id = artist.updater_id = @dependencies[:reviewer_id]
+		artist.creator_id = artist.updater_id = dependencies[:reviewer_id]
 
 		finalize_import artist
 	end
@@ -64,7 +64,6 @@ class Import::MetalImpactEntry < Import::Entry
 		end
 
 		def get_dependencies_for_artist
-			result = {}
 			{ reviewer_id: retrieve_dependency_id(:user, data[:created_by]) }
 		end
 end
