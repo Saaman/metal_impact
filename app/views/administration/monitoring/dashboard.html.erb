@@ -1,6 +1,12 @@
-<h1><%= t '.title' %>
-</h1>
-
-<%= simple_form_for @dashboard, html: {class: "form-horizontal"} do |f| %>
-	<%= f.input :allow_debug %>
-<% end %>
+<h1><%= t '.title' %></h1>
+<div class="row-fluid">
+	<div class="span8">
+	</div>
+	<div class="span3">
+		<div class="well center">
+			<%= form_tag toggle_debug_path do %>
+				<%= submit_tag toggle_debug_button_text(@dashboard.allow_debug), class: 'btn btn-danger', style: 'margin-top:20px;' %>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -23,7 +23,11 @@ module ApplicationHelper
   end
 
   def can_debug?
-    Rails.cache.fetch(:allow_debug) && user_is_admin?
+    Rails.env.development? || (Rails.cache.fetch(:allow_debug) && user_is_admin?)
+  end
+
+  def set_debug(value)
+    Rails.cache.write(:allow_debug, value, :expires_in => 1.day)
   end
 
   #views helpers

@@ -12,13 +12,4 @@ describe "other routes" do
 			get(show_image_path).should route_to("home#show_image", :format => "js")
 		end
 	end
-
-	describe "routing for Dashboard controller" do
-		it "routes to #show" do
-			get('dashboard').should route_to('administration/monitoring#dashboard')
-			post('dashboard').should route_to('administration/monitoring#dashboard')
-			get(dashboard_path).should route_to('administration/monitoring#dashboard')
-			post(dashboard_path).should route_to('administration/monitoring#dashboard')
-		end
-	end
 end

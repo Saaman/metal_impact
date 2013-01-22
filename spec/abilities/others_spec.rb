@@ -23,18 +23,22 @@ describe 'other authorizations' do
     context "when is anonymous user" do
       let(:user) { User.new }
       it{ should_not be_able_to(:dashboard, :monitoring) }
+      it{ should_not be_able_to(:allow_debug, :monitoring) }
     end
     context "when is basic user" do
       let(:user) { FactoryGirl.create(:user) }
       it{ should_not be_able_to(:dashboard, :monitoring) }
+      it{ should_not be_able_to(:allow_debug, :monitoring) }
     end
     context "when is staff user" do
       let(:user) { FactoryGirl.create(:user, role: :staff) }
       it{ should_not be_able_to(:dashboard, :monitoring) }
+      it{ should_not be_able_to(:allow_debug, :monitoring) }
     end
     context "when is admin user" do
       let(:user) { FactoryGirl.create(:user, role: :admin) }
       it{ should be_able_to(:dashboard, :monitoring) }
+      it{ should be_able_to(:allow_debug, :monitoring) }
     end
   end
 

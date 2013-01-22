@@ -3,6 +3,8 @@ en:
     monitoring:
       dashboard:
         title: "Dashboard"
+        activate_debug: "Activate debug mode"
+        deactivate_debug: "Deactivate debug mode"
     imports:
       index:
         title: "Data import : source files"
