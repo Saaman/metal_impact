@@ -31,7 +31,7 @@ class Import::Entry < ActiveRecord::Base
 	#validations
 	validates_as_enum :target_model, :allow_nil => true
 	validates_presence_of :data, :state, :import_source_file_id
-  validates_presence_of :target_model, :source_id, :on => :update
+  validates_presence_of :target_model, :source_id, :if => :prepared?
 
   #scopes
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
@@ -42,6 +42,7 @@ class Import::Entry < ActiveRecord::Base
   	before_transition :on => :auto_discover, :do => :discover
     before_transition :on => :async_import, :do => :schedule_import
     before_transition :on => :import, :do => :bg_import
+    before_transition :on => :update_data, :do => :update_data_and_clear_failures
 
     around_transition do |entry, transition, block|
       entry.with_lock do
@@ -59,6 +60,9 @@ class Import::Entry < ActiveRecord::Base
     event :auto_discover do
     	transition :new => :prepared
     end
+    event :update_data do
+      transition :new => same
+    end
     event :async_import do
       transition :prepared => :flagged
     end
@@ -68,6 +72,7 @@ class Import::Entry < ActiveRecord::Base
     event :refresh_status do
       transition :flagged => :prepared
       transition :imported => :imported
+      transition all => same
     end
   end
 
@@ -75,6 +80,19 @@ class Import::Entry < ActiveRecord::Base
 
     def dependencies
       @dependencies || {}
+    end
+
+    def update_data_and_clear_failures(transition)
+      new_data = transition.args[0]
+      begin
+        h = HashWithIndifferentAccess.new(eval(new_data))
+        self.transaction do
+          update_attributes({:data => h}) && failures.destroy_all
+        end
+      rescue Exception
+        errors.add :data, :is_not_a_hash
+        return false
+      end
     end
 
     def schedule_import
