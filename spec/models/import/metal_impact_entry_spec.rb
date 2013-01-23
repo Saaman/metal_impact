@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: import_entries
+#
+#  id                    :integer          not null, primary key
+#  target_model_cd       :integer
+#  source_id             :integer
+#  target_id             :integer
+#  import_source_file_id :integer
+#  data                  :text             not null
+#  state                 :string(255)      default("new"), not null
+#  type                  :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+
 require 'spec_helper'
 
 
@@ -19,12 +35,12 @@ describe Import::MetalImpactEntry do
       it "add an error if data is not a hash" do
         metal_impact_entry.data = "toto"
         metal_impact_entry.discover
-        metal_impact_entry.should_not be_valid
+        metal_impact_entry.errors.size.should == 1
       end
       it "add an error if data[:model] is not a valid target_model" do
         metal_impact_entry.data = {id: 2, model: "toto"}
         metal_impact_entry.discover
-        metal_impact_entry.should_not be_valid
+        metal_impact_entry.errors.size.should == 1
       end
       it "save source_id and target_model" do
         metal_impact_entry.discover
@@ -85,7 +101,7 @@ describe Import::MetalImpactEntry do
       dependency.import_source_file_id.should == entry.import_source_file_id
 
       entry.temp_do_import
-      entry.temp_dependencies.should == {:reviewer_id => 1}
+      entry.temp_dependencies.should == {:reviewer_id => user.id}
     end
     it 'should raise if source_id is not correct' do
       entry.data[:created_by] = -1
