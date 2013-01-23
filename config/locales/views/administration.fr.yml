@@ -5,6 +5,7 @@ fr:
         title: "Tableau de bord"
         activate_debug: "Activer le mode debug"
         deactivate_debug: "Désactiver le mode debug"
+        monitor_jobs: " Surveiller les tâches de fond"
     imports:
       index:
         title: "Import de données : fichiers source"

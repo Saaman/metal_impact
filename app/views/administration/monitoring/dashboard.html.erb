@@ -2,10 +2,16 @@
 <div class="row-fluid">
 	<div class="span8">
 	</div>
-	<div class="span3">
+	<div class="span4">
 		<div class="well center">
+			<%= link_to('/dj_mon', {target: '_blank', class: 'btn btn-info'}) do %>
+				<i class="icon-road"></i><%= t '.monitor_jobs' %>
+			<% end %>
+			<br />
 			<%= form_tag toggle_debug_path do %>
-				<%= submit_tag toggle_debug_button_text(@dashboard.allow_debug), class: 'btn btn-danger', style: 'margin-top:20px;' %>
+				<%= button_tag class: 'btn btn-danger', style: 'margin-top:20px;' do %>
+					<i class="icon-warning-sign"></i><%= ' ' + toggle_debug_button_text(@dashboard.allow_debug) %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>

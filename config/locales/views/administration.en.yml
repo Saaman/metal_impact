@@ -5,6 +5,7 @@ en:
         title: "Dashboard"
         activate_debug: "Activate debug mode"
         deactivate_debug: "Deactivate debug mode"
+        monitor_jobs: " Monitor delayed jobs"
     imports:
       index:
         title: "Data import : source files"
