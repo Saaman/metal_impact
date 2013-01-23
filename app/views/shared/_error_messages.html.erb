@@ -1,17 +1,15 @@
 <% if object.errors.any? %>
 
-  <div class="alert alert-error" style="float: left; margin-left: 20px;">
+  <div class="alert alert-error" class="pull-left" style="margin-left: 20px;">
     <h3><%= t ".errors_main", error_count: t(".errors_count", count: object.errors.count), entity: "#{object.class.model_name.human}" %></h3>
     <p><%= t ".errors_help" %></p>
+    <% if can_debug? %>
+      <ul>
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    <% end %>
   </div>
-  <div style="clear: left;"></div>
-
-  <% if can_debug? %>
-  	<ul>
-  	<% object.errors.full_messages.each do |msg| %>
-  		<li><%= msg %></li>
-  	<% end %>
-  	</ul>
-  <% end %>
 
 <% end %>

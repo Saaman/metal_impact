@@ -49,11 +49,6 @@ fr:
         import_help_2: "Si vous ne spécifiez pas le type des entrées à importer, les entrées de plus bas niveau seront importées en premier (dans la limite du nombre que vous avez spécifié) : d'abord les utilisateurs, puis les artistes, puis les albums, enfin les critiques."
         entries_count_hint: "Nombre d'entrées à importer"
         entries_type_hint: "Type d'entrées à importer"
-    import_entries:
-      edit:
-        title: 'Entrée #%{id}'
-        back_to_list_hint: 'Retour à la liste des erreurs'
-    import_failures:
       failures:
         title: "Liste des erreurs"
         failures_list_help: "Cliquez on sur une ligne d'erreur pour accéder à l'entée correspondante, et éventuellement corriger les données."
@@ -62,6 +57,10 @@ fr:
         source_id: "N° source"
         description: "Description de l'erreur"
         happened_on: "date de survenance"
+    import_entries:
+      edit:
+        title: 'Entrée #%{id}'
+        back_to_list_hint: 'Retour à la liste des erreurs'
   helpers:
     submit:
       import_source_file:

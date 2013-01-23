@@ -49,11 +49,6 @@ en:
         import_help_2: "If you don't specify the type of entries to import, the lower level ones will be treated first (within the number of entries limit) : users first, then artists, albums and reviews at the end."
         entries_count_hint: "amount of entries to import"
         entries_type_hint: "Type of entries to import"
-    import_entries:
-      edit:
-        title: 'Entry #%{id}'
-        back_to_list_hint: "Back to failures list"
-    import_failures:
       failures:
         title: "Failures list"
         failures_list_help: "Click on a failure line to access the corresponding entry and eventually correct the data."
@@ -62,6 +57,10 @@ en:
         source_id: "Source number"
         description: "failure description"
         happened_on: "happened on"
+    import_entries:
+      edit:
+        title: 'Entry #%{id}'
+        back_to_list_hint: "Back to failures list"
   helpers:
     submit:
       import_source_file:
