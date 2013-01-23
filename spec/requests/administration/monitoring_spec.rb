@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 describe "Debug features" do
+  before { Rails.cache.write(:allow_debug, false) } #reset debug mode to false
 
   describe "it should hide debug features by default", :js => true do
     before { visit '/' }
-    it "should not display the version" do
-      page.should_not have_selector 'small', text: "#{ENV["SITE_VERSION"]}"
-    end
-    it "should not display the miniprofiler zone" do
-      page.should_not have_selector 'div.profiler-result'
+    it "should not display the debug dump" do
+      page.should_not have_selector 'pre.debug_dump'
     end
   end
 
@@ -19,13 +17,9 @@ describe "Debug features" do
         visit '/dashboard'
         click_button 'Activate debug mode'
       end
-    	it "should display the miniprofiler zone" do
-        print page.html
-    		page.should have_selector 'div.profiler-result'
+    	it "should display the debug dump" do
+    		page.should have_selector 'pre.debug_dump'
       end
-      it "should display the deactivate debug mode button" do
-        page.should have_selector 'button', text: 'Deactivate debug mode'
-    	end
     end
   end
 end

@@ -30,7 +30,9 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_mini_profiler
-    Rack::MiniProfiler.authorize_request if can_debug?
+    if defined? Rack::MiniProfiler
+      Rack::MiniProfiler.authorize_request if can_debug?
+    end
   end
 
   private
