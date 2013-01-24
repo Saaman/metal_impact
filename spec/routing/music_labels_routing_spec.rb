@@ -17,5 +17,10 @@ describe MusicLabelsController do
       get("/music_labels/1/smallblock").should route_to("music_labels#smallblock", :id => "1")
       get(smallblock_music_label_path(1)).should route_to("music_labels#smallblock", :id => "1")
     end
+
+    it "routes to #search" do
+      get("/music_labels/search").should route_to("music_labels#search")
+      get(search_music_labels_path).should route_to("music_labels#search")
+    end
   end
 end

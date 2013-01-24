@@ -7,6 +7,7 @@ MetalImpact::Application.routes.draw do
     get 'smallblock', :on => :member
   end
   resources :music_labels, :only => [:new, :create] do
+    get 'search', :on => :collection
     get 'smallblock', :on => :member
   end
 
