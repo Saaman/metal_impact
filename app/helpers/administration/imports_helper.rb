@@ -26,7 +26,7 @@ module Administration
 
 		def import_progress(source_file)
 			100 if source_file.overall_progress == 100
-			[0, source_file.overall_progress-30].max
+			[0, source_file.overall_progress-pending_progress(source_file)-30].max
 		end
 
 		def pending_progress(source_file)

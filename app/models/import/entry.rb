@@ -16,7 +16,7 @@
 
 class Import::Entry < ActiveRecord::Base
 
-  STATE_VALUES = {:new => 1, :prepared => 3, :flagged => 0, :imported => 10}
+  STATE_VALUES = {:new => 1, :prepared => 3, :flagged => 10, :imported => 10}
 
 	#associations
   belongs_to :source_file, class_name: 'Import::SourceFile', foreign_key: 'import_source_file_id', :inverse_of => :entries
@@ -70,13 +70,17 @@ class Import::Entry < ActiveRecord::Base
       transition :flagged => :imported
     end
     event :refresh_status do
-      transition :flagged => :prepared
+      transition :flagged => :prepared, :if => :has_failures?
       transition :imported => :imported
       transition all => same
     end
   end
 
   private
+
+    def has_failures?
+      !failures.empty?
+    end
 
     def dependencies
       @dependencies || {}
