@@ -160,8 +160,9 @@ describe Import::Entry do
       end
     end
     describe "refresh_status" do
-      let(:flagged_entry) { FactoryGirl.create(:entry, :discovered, :state => 'flagged') }
+      let(:flagged_entry) { FactoryGirl.create(:entry, :discovered, :with_failures, :state => 'flagged') }
       let(:imported_entry) { FactoryGirl.create(:entry, :discovered, :state => 'imported') }
+
       it "can happen when entry is flagged or imported" do
         flagged_entry.can_refresh_status?.should be_true
         imported_entry.can_refresh_status?.should be_true

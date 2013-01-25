@@ -181,7 +181,7 @@ describe Import::SourceFile do
       context 'when entries associated' do
         before { source_file.stub(:stats).and_return({'new' => 10, 'prepared' => 7, 'flagged' => 4, 'imported' => 1}) }
         it 'overall_progress use stats to compute overall progress' do
-          source_file.overall_progress.should == 18
+          source_file.overall_progress.should == 36
         end
         it 'pending_progress counts entries in preparation' do
           source_file.should_receive(:preparing_entries?).and_return(true)
