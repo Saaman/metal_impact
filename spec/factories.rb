@@ -60,6 +60,20 @@ FactoryGirl.define do
 
   factory :source_file, :class => Import::SourceFile do
     path { File.join([Rails.root] + Faker::Lorem.words + ["toto.yml"]) }
+
+    trait :ready do
+      source_type { :metal_impact}
+    end
+
+    trait :with_entries do
+      after(:create) { |source_file| source_file.entries = FactoryGirl.create_list(:entry, PRNG.rand(2..10), source_file: source_file) }
+    end
+    trait :with_failed_entries do
+      after(:create) { |source_file| source_file.entries = FactoryGirl.create_list(:entry, PRNG.rand(2..10), :with_failures, source_file: source_file) }
+    end
+    trait :with_discovered_entries do
+      after(:create) { |source_file| source_file.entries = FactoryGirl.create_list(:entry, PRNG.rand(2..10), :discovered, state: 'prepared', source_file: source_file) }
+    end
   end
 
   factory :entry, :class => Import::Entry do
@@ -70,6 +84,11 @@ FactoryGirl.define do
       target_model { :user }
       source_id { 1 }
     end
+
+    trait :with_failures do
+      after(:create) { |entry| entry.failures = FactoryGirl.create_list(:failure, PRNG.rand(1..3), entry: entry) }
+    end
+
     factory :metal_impact_entry, :class => Import::MetalImpactEntry do
       data { {id: 2, model: 'user' } }
 

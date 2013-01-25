@@ -40,16 +40,20 @@ describe Import::Entry do
     it { should respond_to(:updated_at) }
 
     #transitions
+    it { should respond_to(:new?) }
     it { should respond_to(:auto_discover) }
     it { should respond_to(:can_auto_discover?) }
     it { should respond_to(:update_data) }
     it { should respond_to(:can_update_data?) }
-    it { should respond_to(:import) }
-    it { should respond_to(:can_import?) }
-    it { should respond_to(:refresh_status) }
-    it { should respond_to(:can_refresh_status?) }
+    it { should respond_to(:prepared?) }
     it { should respond_to(:async_import) }
     it { should respond_to(:can_async_import?) }
+    it { should respond_to(:flagged?) }
+    it { should respond_to(:import) }
+    it { should respond_to(:can_import?) }
+    it { should respond_to(:imported?) }
+    it { should respond_to(:refresh_status) }
+    it { should respond_to(:can_refresh_status?) }
 
   end
 

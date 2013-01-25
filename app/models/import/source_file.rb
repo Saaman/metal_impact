@@ -66,7 +66,7 @@ class Import::SourceFile < ActiveRecord::Base
     end
   end
 
-  #------------------ Helpers -------------------#
+  #----------------------- Helpers ------------------------#
 
   def name
     File.basename(path)
@@ -115,13 +115,14 @@ class Import::SourceFile < ActiveRecord::Base
   end
 
   def pending_progress
-    if state_name == :preparing_entries
-      return entries.at_state(:new).count * 20 / entries_count
+    return 0 if(entries_count==0)
+    if preparing_entries?
+      return stats['new'].nil? ? 0 : (stats['new'] * 20 / entries_count)
     end
-    entries.at_state(:flagged).count * 70 / entries_count
+    stats['flagged'].nil? ? 0 : (stats['flagged'] * 70 / entries_count)
   end
 
-  #------------------ Transitions -------------------#
+  #--------------------- Transitions ----------------------#
 
   def prepare
     self.refresh_status
