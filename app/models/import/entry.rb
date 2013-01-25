@@ -76,7 +76,16 @@ class Import::Entry < ActiveRecord::Base
     end
   end
 
+  def self_import
+    ENV['WORK_AROUND_ASYNC'].nil? ? async_import : test_import
+  end
+
   private
+
+    def test_import
+      async_import
+      do_import
+    end
 
     def has_failures?
       !failures.empty?
@@ -100,7 +109,7 @@ class Import::Entry < ActiveRecord::Base
     end
 
     def schedule_import
-      reload.delay(:queue => 'import_engine').do_import
+      reload.delay(:queue => 'import_engine').do_import if ENV['WORK_AROUND_ASYNC'].nil?
     end
 
     def do_import
@@ -137,10 +146,16 @@ class Import::Entry < ActiveRecord::Base
 
       #entry is not planned to be imported => do it
       unless dependency.flagged?
-        unless dependency.with_lock { dependency.async_import }
+        unless dependency.with_lock { dependency.self_import }
           raise "Impossible to start entry##{dependency.id}(#{model}##{source}) import"
         end
       end
+
+      # for testing purposes : cutting the asynchronysm makes the target_id available
+      unless ENV['WORK_AROUND_ASYNC'].nil?
+        return dependency.target_id
+      end
+
       raise Exceptions::ImportDependencyException.new("entry##{dependency.id}(#{model}##{source}) dependency import is in progress for entry##{id}(#{target_model}##{source_id})")
     end
 end

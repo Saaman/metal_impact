@@ -1,0 +1,46 @@
+---
+id: 2
+model: user
+pseudo: Seth F.
+email: seth_f.staff@metal-impact.com
+password: SethF.2
+created_at: 12/04/2007 16:57:36
+updated_at: 12/04/2007 16:57:36
+role: :staff
+
+---
+id: 3
+model: user
+pseudo: Wong Li
+email: wong_li.staff@metal-impact.com
+password: WongLi3
+created_at: 17/04/2007 15:52:36
+updated_at: 17/04/2007 15:52:36
+role: :staff
+
+---
+id: 1
+model: artist
+name: NINE INCH NAILS
+countries: ['US']
+created_at: 12/04/2007 16:57:36
+updated_at: 12/04/2007 16:57:36
+created_by: 2
+
+---
+id: 2
+model: artist
+name: NAHEMAH
+countries: ['ES']
+created_at: 17/04/2007 15:52:36
+updated_at: 17/04/2007 15:52:36
+created_by: 3
+
+---
+id: 3
+model: artist
+name: WORMACHINE
+countries: ['FR']
+created_at: 17/04/2007 16:18:22
+updated_at: 17/04/2007 16:18:22
+created_by: 3

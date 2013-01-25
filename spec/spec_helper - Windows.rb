@@ -48,7 +48,7 @@ RSpec.configure do |config|
 
   #change capybara javascript driver
   Capybara.javascript_driver = :webkit
-  Capybara.default_wait_time = 20
+  Capybara.default_wait_time = 30
 
 
   #Database cleaning

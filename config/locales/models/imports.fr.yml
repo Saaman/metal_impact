@@ -5,7 +5,7 @@ fr:
     enums:
       import/source_file:
         source_types:
-          metal_impact:: Metal Impact
+          metal_impact: "Metal Impact"
       import/entry:
         target_models:
           user:
@@ -30,6 +30,7 @@ fr:
           preparing_entries: Préparation des entrées en cours...
           prepared: Prêt pour l'import
           importing_entries: Import des entrées en cours...
+          imported: Importé
   simple_form:
     labels:
       import_entry:

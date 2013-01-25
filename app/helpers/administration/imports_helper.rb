@@ -7,9 +7,10 @@ module Administration
 		def display_state(source_file)
 			state_label = t "activerecord.states.import.source_file.#{source_file.state_name}"
 			state_class = (source_file.has_failures? && "label-important") || case source_file.state_name
-				when :new then ""
-				when *Import::SourceFile::PENDING_STATES then "label-warning"
-				else "label-info"
+				when :new then ''
+				when :imported then 'label-success'
+				when *Import::SourceFile::PENDING_STATES then 'label-warning'
+				else 'label-info'
 			end
 			content_tag :span, state_label, class: "label #{state_class}"
 		end

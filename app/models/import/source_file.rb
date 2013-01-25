@@ -192,7 +192,7 @@ class Import::SourceFile < ActiveRecord::Base
       ent_list = ent_list.of_type(entries_type) unless entries_type.blank?
       ent_list = ent_list.limit(entries_count) unless entries_count.blank?
       ent_list.each do |entry|
-        entry.async_import
+        entry.self_import
       end
     end
 

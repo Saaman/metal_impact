@@ -15,3 +15,11 @@ end
 def uploaders_fixtures_path
 	File.join([Rails.root, 'spec', 'uploaders', 'fixtures'])
 end
+
+
+def imports_fixture_path
+	File.join([Rails.root, 'spec', 'support', 'fixtures', 'test_import.yml'])
+end
+def test_source_file_path
+	File.join([Rails.root, 'db', 'source_files', 'test_import.yml'])
+end
