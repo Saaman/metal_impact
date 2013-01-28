@@ -8,8 +8,6 @@
 #  distributor :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  creator_id  :integer
-#  updater_id  :integer
 #
 
 require 'spec_helper'
@@ -23,10 +21,6 @@ describe MusicLabel do
   end
 
   subject { @musicLabel }
-
-  it_should_behave_like "trackable model" do
-    let(:trackable) { @musicLabel }
-  end
 
   describe "attributes and methods" do
     #attributes

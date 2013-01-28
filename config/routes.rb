@@ -50,7 +50,7 @@ MetalImpact::Application.routes.draw do
 
 end
 #== Route Map
-# Generated on 23 Jan 2013 17:44
+# Generated on 28 Jan 2013 14:03
 #
 #                                      POST   /albums(.:format)                                    albums#create
 #                            new_album GET    /albums/new(.:format)                                albums#new
@@ -64,6 +64,7 @@ end
 #                                      POST   /artists(.:format)                                   artists#create
 #                           new_artist GET    /artists/new(.:format)                               artists#new
 #                               artist GET    /artists/:id(.:format)                               artists#show
+#                  search_music_labels GET    /music_labels/search(.:format)                       music_labels#search
 #               smallblock_music_label GET    /music_labels/:id/smallblock(.:format)               music_labels#smallblock
 #                         music_labels POST   /music_labels(.:format)                              music_labels#create
 #                      new_music_label GET    /music_labels/new(.:format)                          music_labels#new
