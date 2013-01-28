@@ -19,7 +19,7 @@ namespace :import do
 												role: symbol)
 
 		  user.skip_confirmation!
-		  user.save
+		  user.save!
   	end
 
   	puts "#{User.roles.length} test users have been created."

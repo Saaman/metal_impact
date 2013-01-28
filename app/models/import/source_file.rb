@@ -125,19 +125,19 @@ class Import::SourceFile < ActiveRecord::Base
   #--------------------- Transitions ----------------------#
 
   def prepare
-    self.refresh_status
-    self.async_prepare
+    refresh_status
+    async_prepare
   end
 
   def import(*args)
-    self.refresh_status
-    self.async_import *args
+    refresh_status
+    async_import *args
   end
 
   def set_source_type_and_load_entries(source_type)
-    self.update_attributes(source_type: source_type)
-    self.unload_file! if self.can_unload_file?
-    self.load_file
+    update_attributes! source_type: source_type
+    unload_file! if can_unload_file?
+    load_file
   end
 
 

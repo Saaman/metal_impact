@@ -35,6 +35,7 @@ describe Administration::MonitoringController do
 
   #######################################################################################
   context "admin user :" do
+    before { Rails.cache.write(:allow_debug, false) } #reset debug mode to false
     after { Rails.cache.clear }
     login_user :admin
     describe "GET 'dashboard'" do

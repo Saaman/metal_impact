@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "Debug features" do
   before { Rails.cache.write(:allow_debug, false) } #reset debug mode to false
+  after { Rails.cache.clear }
 
   describe "it should hide debug features by default", :js => true do
     before { visit '/' }
