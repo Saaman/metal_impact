@@ -48,10 +48,20 @@ class Import::MetalImpactEntry < Import::Entry
 		finalize_import artist
 	end
 
+	def import_as_music_label
+		music_label = MusicLabel.new name: data[:name], distributor: data[:distributor]
+
+	  music_label.updated_at = DateTime.parse(data[:updated_at])
+	  music_label.created_at = DateTime.parse(data[:created_at])
+
+		finalize_import music_label
+	end
+
 	protected
 		def get_dependencies
 			case target_model
 				when :user then nil
+				when :music_label then nil
 			else
 				self.send "get_dependencies_for_#{target_model}"
 			end

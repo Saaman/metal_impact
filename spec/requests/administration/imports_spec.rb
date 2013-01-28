@@ -18,7 +18,7 @@ describe 'Imports', :js => true do
 	let!(:source_file) { FactoryGirl.create :source_file, path: test_source_file_path }
 	let!(:total_entries) do
 		#update this considering the number of records in the test file
-		5
+		7
 	end
 
 	before do
