@@ -18,7 +18,7 @@ describe 'Imports', :js => true do
 	let!(:source_file) { FactoryGirl.create :source_file, path: test_source_file_path }
 	let!(:total_entries) do
 		#update this considering the number of records in the test file
-		7
+		11
 	end
 
 	before do
@@ -83,7 +83,7 @@ describe 'Imports', :js => true do
 						before do
 							within "form#edit_import_source_file_#{source_file.id}" do
 								fill_in 'import_source_file[import_command][entries_count]', with: 1
-								select 'artist', from: 'import_source_file[import_command][entries_type]'
+								select 'album', from: 'import_source_file[import_command][entries_type]'
 								click_button 'Start'
 							end
 						end
@@ -91,9 +91,9 @@ describe 'Imports', :js => true do
 							should have_selector 'span.label-info', text: 'Ready to import'
 							should_not have_selector 'a#change_source_type'
 							should have_selector "form#edit_import_source_file_#{source_file.id}"
-							should have_selector 'li', text: '2 entries imported'
+							should have_selector 'li', text: '4 entries imported'
 
-							should show_progress 30, 0, 2*70/total_entries, 0
+							should show_progress 30, 0, 4*70/total_entries, 0
 						end
 					end
 					describe 'import totally' do

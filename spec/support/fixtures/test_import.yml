@@ -60,3 +60,55 @@ name: Lifeforce Records
 distributor: Pias
 created_at: 10/08/2007 23:45:32
 updated_at: 10/08/2007 23:45:32
+
+---
+id: 1
+model: album
+title: 'Year Zero'
+music_label_id: 1
+artist_ids: [1]
+cover: 'http://www.metal-impact.com/modules/Reviews/images/nineinchnails_yearzero.jpg'
+album_type: :album
+release_date: 16/04/2007 00:00:00
+created_at: 12/04/2007 16:57:36
+updated_at: 12/04/2007 16:57:36
+created_by: 2
+
+---
+id: 2
+model: album
+title: 'The Second Philosophy'
+music_label_id: 2
+artist_ids: [2]
+cover: 'http://www.metal-impact.com/modules/Reviews/images/nahemah_thesecondphilosophy.jpg'
+album_type: :album
+release_date: 29/01/2007 00:00:00
+created_at: 17/04/2007 15:52:36
+updated_at: 17/04/2007 15:52:36
+created_by: 3
+
+---
+id: 3
+model: album
+title: 'TV Brain'
+music_label_id: 2
+artist_ids: [3]
+cover: 'http://www.metal-impact.com/modules/Reviews/images/wormachine_tvbrain.jpg'
+album_type: :album
+release_date: 15/03/2007 00:00:00
+created_at: 17/04/2007 16:18:22
+updated_at: 17/04/2007 16:18:22
+created_by: 3
+
+---
+id: 4
+model: album
+title: 'Age Eternal'
+music_label_id: 1
+artist_ids: [1]
+cover: 'http://www.metal-impact.com/modules/Reviews/images/middian_ageeternal.jpg'
+album_type: :album
+release_date: 26/03/2007 00:00:00
+created_at: 17/04/2007 16:25:03
+updated_at: 17/04/2007 16:25:03
+created_by: 3

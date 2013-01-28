@@ -25,7 +25,7 @@ class Import::Entry < ActiveRecord::Base
   #persisted attributes
   attr_accessible :data, :source_id, :target_id, :target_model, :source_file, :failures
 
-	as_enum :target_model, user: 0, artist: 1, music_label: 2
+	as_enum :target_model, user: 0, artist: 1, music_label: 2, album: 3
 	serialize :data
 
 	#validations
@@ -140,7 +140,7 @@ class Import::Entry < ActiveRecord::Base
       raise ArgumentError.new("source must be a non-null integer") unless (source.is_a?(Integer) && source > 0)
 
       dependency = Import::Entry.where(:target_model_cd => target_model_code, :import_source_file_id => import_source_file_id, :source_id => source).first
-      raise "there is no entry of type '#{target_model}' with source id '#{source_id}'" if dependency.nil?
+      raise "there is no entry of type '#{model}' with source id '#{source}'" if dependency.nil?
 
       return dependency.target_id unless dependency.target_id.nil?
 

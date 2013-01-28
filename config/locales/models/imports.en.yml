@@ -17,6 +17,9 @@ en:
           music_label:
             one: label
             other: "%{count} labels"
+          album:
+            one: album
+            other: "%{count} albums"
     attributes:
       import/source_file:
         source_type: "Import type"

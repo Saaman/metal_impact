@@ -57,6 +57,21 @@ class Import::MetalImpactEntry < Import::Entry
 		finalize_import music_label
 	end
 
+	def import_as_album
+		album = Album.new title: data[:title], published: true, kind: data[:album_type]
+
+	  album.updated_at = DateTime.parse(data[:updated_at])
+	  album.created_at = DateTime.parse(data[:created_at])
+	  album.release_date = DateTime.parse(data[:release_date])
+	  album.remote_cover_url = data[:cover]
+
+		album.creator_id = album.updater_id = dependencies[:reviewer_id]
+		album.music_label_id = dependencies[:music_label_id]
+		album.artist_ids = dependencies[:artist_ids]
+
+		finalize_import album
+	end
+
 	protected
 		def get_dependencies
 			case target_model
@@ -75,5 +90,14 @@ class Import::MetalImpactEntry < Import::Entry
 
 		def get_dependencies_for_artist
 			{ reviewer_id: retrieve_dependency_id(:user, data[:created_by]) }
+		end
+		def get_dependencies_for_album
+			res = { reviewer_id: retrieve_dependency_id(:user, data[:created_by]) }
+			res.merge!({ music_label_id: retrieve_dependency_id(:music_label, data[:music_label_id]) })
+			artist_ids = []
+			data[:artist_ids].each do |artist_id|
+				artist_ids << retrieve_dependency_id(:artist, artist_id)
+			end
+			res.merge!({ artist_ids: artist_ids })
 		end
 end
