@@ -96,7 +96,7 @@ describe 'Imports', :js => true do
 							should show_progress 30, 0, 4*70/total_entries, 0
 						end
 					end
-					describe 'import totally' do
+					describe 'import whole' do
 						before do
 							click_button 'Start'
 						end

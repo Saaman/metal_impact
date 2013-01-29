@@ -49,13 +49,13 @@ describe Administration::ImportsController do
   end
 
   describe "PUT update :" do
-    let(:source_file) { FactoryGirl.create(:entry) }
+    let(:source_file) { FactoryGirl.create(:source_file) }
     describe "(unauthorized)" do
       before { put :update, {id: source_file.id} }
       its_access_is "unauthorized"
     end
     describe "(authorized)" do
-      before(:each) do
+      before do
         @ability.can :update, Import::SourceFile
         Import::SourceFile.any_instance.stub(:load_file).and_return(true)
       end
