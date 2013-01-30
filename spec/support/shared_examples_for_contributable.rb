@@ -10,7 +10,7 @@ shared_examples "contributable model" do
 	describe "attributes and methods" do
     #attributes
     it { should respond_to(:published) }
-    it { should respond_to(:approvals) }
+    it { should respond_to(:contributions) }
     its(:published) { should be_false }
   end
 

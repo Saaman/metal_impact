@@ -20,7 +20,7 @@ describe "authorizations on Artist" do
     it{ should_not be_able_to(:update, artist) }
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
-    it{ should_not be_able_to(:bypass_approval, artist) }
+    it{ should_not be_able_to(:bypass_contribution, artist) }
   end
 
   context "when is basic user" do
@@ -36,7 +36,7 @@ describe "authorizations on Artist" do
     it{ should_not be_able_to(:update, artist) }
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
-    it{ should_not be_able_to(:bypass_approval, artist) }
+    it{ should_not be_able_to(:bypass_contribution, artist) }
   end
 
   context "when is staff user" do
@@ -52,7 +52,7 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:update, artist) }
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
-    it{ should_not be_able_to(:bypass_approval, artist) }
+    it{ should_not be_able_to(:bypass_contribution, artist) }
 
     describe "can read unpublished album for which he is the last updater" do
       before { unpublished_artist.updater_id = user.id }
@@ -76,6 +76,6 @@ describe "authorizations on Artist" do
     it{ should be_able_to(:update, artist) }
     it{ should be_able_to(:search, artist) }
     it{ should be_able_to(:smallblock, artist) }
-    it{ should be_able_to(:bypass_approval, artist) }
+    it{ should be_able_to(:bypass_contribution, artist) }
   end
 end

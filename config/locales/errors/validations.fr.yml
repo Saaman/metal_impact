@@ -51,7 +51,7 @@ fr:
               blank: "doit être rempli. Assurez vous qu'il existe dans le bloc de données une clé 'model' avec une valeur représentant un type d'entité"
             state:
               invalid_transition: "Impossible de changer d'état. Contacter le développeur"
-        approval:
+        contribution:
           new_record_invalidity:  "Il n'est pas possible de créer une Approbation pour une mise à jour d'entité sans fournir la version d'origine"
           entity_type_mismatch: "L'Approbation est invalide car le type de l'entité est '%{new_type}' tandis que l'object d'origine est de type '%{old_type}'"
           id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{new_type}' tandis que l'object d'origine est d'id '%{old_type}'"

@@ -5,7 +5,7 @@ module Contributable
 			include Trackable
 
 			#associations
-			has_many :approvals, :as => :approvable
+			has_many :contributions, :as => :approvable
 
 			#attributes
 			#Considering default value set in DB, published is set to 'false' by default

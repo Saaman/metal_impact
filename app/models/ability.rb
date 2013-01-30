@@ -28,11 +28,11 @@ class Ability
       can [:read, :update], Contributable do |contributable|
         contributable.published || contributable.updater_id == user.id
       end
-      cannot :bypass_approval, :all
+      cannot :bypass_contribution, :all
 
       if user.admin?
         can :manage, :all
-        can :bypass_approval, :all
+        can :bypass_contribution, :all
         can :dashboard, :monitoring
       end
 

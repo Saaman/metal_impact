@@ -19,7 +19,7 @@ describe "authorizations on Album" do
     it{ should be_able_to(:read, album) }
     it{ should_not be_able_to(:destroy, album) }
     it{ should_not be_able_to(:update, album) }
-    it{ should_not be_able_to(:bypass_approval, album) }
+    it{ should_not be_able_to(:bypass_contribution, album) }
   end
 
   context "when is basic user" do
@@ -34,7 +34,7 @@ describe "authorizations on Album" do
     it{ should be_able_to(:read, album) }
     it{ should_not be_able_to(:destroy, album) }
     it{ should_not be_able_to(:update, album) }
-    it{ should_not be_able_to(:bypass_approval, album) }
+    it{ should_not be_able_to(:bypass_contribution, album) }
   end
 
   context "when is staff user" do
@@ -49,7 +49,7 @@ describe "authorizations on Album" do
     it{ should be_able_to(:read, album) }
     it{ should_not be_able_to(:destroy, album) }
     it{ should be_able_to(:update, album) }
-    it{ should_not be_able_to(:bypass_approval, album) }
+    it{ should_not be_able_to(:bypass_contribution, album) }
 
     describe "can read unpublished album for which he is the last updater" do
       before { unpublished_album.updater_id = user.id }
@@ -72,6 +72,6 @@ describe "authorizations on Album" do
     it{ should be_able_to(:read, album) }
     it{ should be_able_to(:destroy, album) }
     it{ should be_able_to(:update, album) }
-    it{ should be_able_to(:bypass_approval, album) }
+    it{ should be_able_to(:bypass_contribution, album) }
   end
 end

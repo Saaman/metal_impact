@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: approvals
+# Table name: contributions
 #
 #  id              :integer          not null, primary key
 #  approvable_type :string(255)      not null
@@ -16,7 +16,7 @@
 #  updater_id      :integer
 #
 
-class Approval < ActiveRecord::Base
+class Contribution < ActiveRecord::Base
 
 	include Trackable
 
@@ -37,19 +37,19 @@ class Approval < ActiveRecord::Base
 	validate :object_and_original_must_match, :nil_original_means_create_event, :object_and_approvable_must_match
 
 	#callbacks
-  before_validation do |approval|
+  before_validation do |contribution|
     #default state value is "pending"
-    approval.state ||= :pending
+    contribution.state ||= :pending
 
     #caculate event if not given
-    approval.event ||= (original.nil? && :create) || :update
+    contribution.event ||= (original.nil? && :create) || :update
   end
 
   def self.new_from(object, original = nil)
   	check_object_has_contributions object
   	#stampable can't work in this context, we set userstamps manually
-  	return Approval.new object: object, approvable: object, creator: object.updater, updater: object.updater if original.nil?
-  	return Approval.new object: object, approvable: original, original: original, creator: object.updater, updater: object.updater
+  	return Contribution.new object: object, approvable: object, creator: object.updater, updater: object.updater if original.nil?
+  	return Contribution.new object: object, approvable: original, original: original, creator: object.updater, updater: object.updater
   end
 
 	private

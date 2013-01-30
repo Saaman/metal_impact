@@ -8,12 +8,12 @@ module ContributionsHelper
 
 		begin
 			ActiveRecord::Base.transaction do
-				if can? :bypass_approval, object
+				if can? :bypass_contribution, object
 					return save(object) && reward_contribution(object)
 				end
 
 				original = object.new_record? ? nil : object.class.find(object.id)
-				return ((not object.new_record?) || save(object)) && request_approval(object, original)
+				return ((not object.new_record?) || save(object)) && request_contribution(object, original)
 			end
 		rescue => exception
 			logger.info "an exception occured : #{exception.message}"
@@ -29,13 +29,13 @@ module ContributionsHelper
 
 	private
 
-		def request_approval(object, original)
-			approval = Approval.new_from object, original
-			approval.save!
+		def request_contribution(object, original)
+			contribution = Contribution.new_from object, original
+			contribution.save!
 		end
 
 		def save(object)
-			object.published = can? :bypass_approval, object
+			object.published = can? :bypass_contribution, object
 			object.save!
 		end
 end

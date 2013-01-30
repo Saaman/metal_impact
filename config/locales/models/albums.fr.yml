@@ -3,7 +3,7 @@ fr:
     models:
       album: album
       music_label: label
-      approval: approbation
+      contribution: approbation
     enums:
       album:
         kinds:

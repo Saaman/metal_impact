@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
     t.integer  "music_label_id"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["creator_id"], :name => "index_albums_on_creator_id"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
@@ -40,26 +40,6 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
   end
 
   add_index "albums_artists", ["album_id", "artist_id"], :name => "index_albums_artists_on_album_id_and_artist_id", :unique => true
-
-  create_table "approvals", :force => true do |t|
-    t.string   "approvable_type", :null => false
-    t.integer  "approvable_id",   :null => false
-    t.integer  "event_cd",        :null => false
-    t.integer  "state_cd",        :null => false
-    t.text     "object"
-    t.text     "original"
-    t.text     "reason"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-  end
-
-  add_index "approvals", ["approvable_type", "approvable_id"], :name => "index_approvals_on_approvable_type_and_approvable_id"
-  add_index "approvals", ["created_at"], :name => "index_approvals_on_created_at"
-  add_index "approvals", ["creator_id"], :name => "index_approvals_on_creator_id"
-  add_index "approvals", ["state_cd"], :name => "index_approvals_on_state_cd"
-  add_index "approvals", ["updater_id"], :name => "index_approvals_on_updater_id"
 
   create_table "artist_translations", :force => true do |t|
     t.integer  "artist_id"
@@ -93,6 +73,26 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
   end
 
   add_index "artists_practices", ["artist_id", "practice_id"], :name => "index_artists_practices_on_artist_id_and_practice_id", :unique => true
+
+  create_table "contributions", :force => true do |t|
+    t.string   "approvable_type", :null => false
+    t.integer  "approvable_id",   :null => false
+    t.integer  "event_cd",        :null => false
+    t.integer  "state_cd",        :null => false
+    t.text     "object"
+    t.text     "original"
+    t.text     "reason"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "contributions", ["approvable_type", "approvable_id"], :name => "index_contributions_on_approvable_type_and_approvable_id"
+  add_index "contributions", ["created_at"], :name => "index_contributions_on_created_at"
+  add_index "contributions", ["creator_id"], :name => "index_contributions_on_creator_id"
+  add_index "contributions", ["state_cd"], :name => "index_contributions_on_state_cd"
+  add_index "contributions", ["updater_id"], :name => "index_contributions_on_updater_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -205,25 +205,5 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
-
-  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
-  add_foreign_key "albums", "users", :name => "albums_creator_id_fk", :column => "creator_id"
-  add_foreign_key "albums", "users", :name => "albums_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
-  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
-
-  add_foreign_key "approvals", "users", :name => "approvals_creator_id_fk", :column => "creator_id"
-  add_foreign_key "approvals", "users", :name => "approvals_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "artists", "users", :name => "artists_creator_id_fk", :column => "creator_id"
-  add_foreign_key "artists", "users", :name => "artists_updater_id_fk", :column => "updater_id"
-
-  add_foreign_key "artists_practices", "artists", :name => "artists_practices_artist_id_fk"
-  add_foreign_key "artists_practices", "practices", :name => "artists_practices_practice_id_fk"
-
-  add_foreign_key "import_entries", "import_source_files", :name => "import_entries_import_source_file_id_fk"
-
-  add_foreign_key "import_failures", "import_entries", :name => "import_failures_import_entry_id_fk"
 
 end

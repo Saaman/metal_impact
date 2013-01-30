@@ -18,9 +18,9 @@ describe ContributionsHelper do
       end
     end
 
-    context "(can bypass_approval)" do
+    context "(can bypass_contribution)" do
       let(:object) { FactoryGirl.build(:album_with_artists) }
-      before { helper.stub(:can?).with(:bypass_approval, an_instance_of(Album)).and_return true }
+      before { helper.stub(:can?).with(:bypass_contribution, an_instance_of(Album)).and_return true }
       it "should reward the contribution and save the object" do
         helper.should_receive(:reward_contribution).with(object).and_return true
         helper.should_receive(:save).with(object).and_return true
@@ -52,32 +52,32 @@ describe ContributionsHelper do
 
 
 
-    context "(cannot bypass_approval)" do
+    context "(cannot bypass_contribution)" do
       let(:object) { FactoryGirl.build(:album_with_artists) }
-      before { helper.stub(:can?).with(:bypass_approval, an_instance_of(Album)).and_return false }
+      before { helper.stub(:can?).with(:bypass_contribution, an_instance_of(Album)).and_return false }
       describe "a new object :" do
         specify { object.should be_new_record }
-        it "should create an approval and save the object" do
+        it "should create an contribution and save the object" do
           helper.should_receive(:save).with(object).and_return true
-          helper.should_receive(:request_approval).with(object, nil).and_return true
+          helper.should_receive(:request_contribution).with(object, nil).and_return true
           helper.contribute_with(object).should == true
         end
       end
       describe "an existing object :" do
         let(:existing_object) { FactoryGirl.create(:album_with_artists) }
-        it "should create an approval and not save the object" do
-          helper.should_receive(:request_approval).with(existing_object, existing_object).and_return true
+        it "should create an contribution and not save the object" do
+          helper.should_receive(:request_contribution).with(existing_object, existing_object).and_return true
           helper.stub(:save).and_raise "this test case should not save the object"
           helper.contribute_with(existing_object).should == true
         end
       end
       describe "when something goes wrong" do
-        before { helper.should_receive(:request_approval).with(object, nil).and_raise("something wrong happened") }
+        before { helper.should_receive(:request_contribution).with(object, nil).and_raise("something wrong happened") }
         it "should return false" do
           helper.should_receive(:save).with(object).and_return true
           helper.contribute_with(object).should == false
         end
-        it "should rollback approval request" do
+        it "should rollback contribution request" do
           expect { helper.contribute_with(object) }.to_not change(Album, :count)
         end
       end
@@ -93,8 +93,8 @@ describe ContributionsHelper do
           specify { Album.last.title.should == object.title }
           specify { object.published.should == false }
           specify { Album.last.published.should == false }
-          specify { Approval.last.creator.should == object.updater }
-          specify { Approval.last.updater.should == object.updater }
+          specify { Contribution.last.creator.should == object.updater }
+          specify { Contribution.last.updater.should == object.updater }
         end
       end
     end
