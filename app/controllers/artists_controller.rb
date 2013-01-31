@@ -1,7 +1,5 @@
 class ArtistsController < ApplicationController
 
-  include ContributionsHelper
-
   load_and_authorize_resource
   respond_to :html
   respond_to :json, only: [:search, :show]
@@ -55,7 +53,7 @@ class ArtistsController < ApplicationController
     @artist = Artist.new params[:artist].slice :name, :practice_ids, :biography, :countries
     @product_type_targeted = params[:product_type_targeted]
 
-    flash_message = t("notices.artist.#{params[:action]}") if contribute_with_artist_for_product(@artist, @product_type_targeted)
+    flash_message = t("notices.artist.#{params[:action]}") if contribute_with_artist()
     respond_with @artist, notice: flash_message do |format|
       format.js do
         flash.now[:notice] = flash_message
@@ -63,4 +61,11 @@ class ArtistsController < ApplicationController
       end
     end
   end
+
+  private
+    def contribute_with_artist(artist, product_type_targeted)
+      result = @artist.is_suitable_for_product_type(@product_type_targeted) && @artist.contribute(can? :bypass_contribution, @artist)
+      logger.info "errors : #{@artist.errors.full_messages}" if result
+      result
+    end
 end

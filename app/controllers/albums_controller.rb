@@ -1,7 +1,5 @@
 class AlbumsController < ApplicationController
 
-  include ContributionsHelper
-
   load_and_authorize_resource
   skip_load_resource :only => :create
   respond_to :html
@@ -65,7 +63,7 @@ class AlbumsController < ApplicationController
       build_or_update_album(params)
 
       respond_to do |format|
-        if associate_artists(params) && contribute_with(@album)
+        if associate_artists(params) && @album.contribute(can? :bypass_contribution, @album)
           format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
           format.json { render json: @album, location: @album }
         else

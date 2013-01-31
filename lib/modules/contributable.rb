@@ -16,6 +16,25 @@ module Contributable
 
       scope :published, where(:published => true)
 
-	 	end
-  end
+      #methods
+      def contribute(can_bypass_approval = false)
+
+				return false unless valid?
+
+				self.transaction do
+
+					original = self.new_record? ? nil : self.class.find(id)
+
+					if new_record? || can_bypass_approval
+						self.published = can_bypass_approval
+						#Save the record
+						return false if !save
+					end
+
+					contribution = Contribution.new_from self, original
+					return contribution.save
+				end
+			end
+		end
+	end
 end

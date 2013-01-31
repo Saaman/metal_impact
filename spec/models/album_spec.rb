@@ -102,8 +102,6 @@ describe Album do
       let!(:music_label_attr) { FactoryGirl.attributes_for(:music_label, name: "tata") }
       before do
         @album.build_music_label(music_label_attr)
-        #the automatic injection of user is only available at controller level.
-        @album.music_label.creator = @album.music_label.updater = owner
         @album.save
         @album.reload
       end

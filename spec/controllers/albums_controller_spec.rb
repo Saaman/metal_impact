@@ -184,9 +184,6 @@ describe AlbumsController do
         it "redirects to the album" do
           response.should redirect_to(persisted_album)
         end
-        it "udaptes the album" do
-          assigns(:album)[:title].should == album[:title].titleize
-        end
       end
 
       describe "with invalid params" do

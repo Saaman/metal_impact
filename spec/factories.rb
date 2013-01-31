@@ -54,8 +54,6 @@ FactoryGirl.define do
     name { generate(:random_string) }
     website { "http://www.#{Faker::Internet.domain_name}" }
     distributor { generate(:random_string) }
-    creator
-    updater
   end
 
   factory :source_file, :class => Import::SourceFile do
