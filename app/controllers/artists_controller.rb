@@ -53,19 +53,24 @@ class ArtistsController < ApplicationController
     @artist = Artist.new params[:artist].slice :name, :practice_ids, :biography, :countries
     @product_type_targeted = params[:product_type_targeted]
 
-    flash_message = t("notices.artist.#{params[:action]}") if contribute_with_artist()
-    respond_with @artist, notice: flash_message do |format|
+    #flash_message = t("notices.artist.create") if
+    respond_with @artist do |format|
       format.js do
-        flash.now[:notice] = flash_message
-        render :create
+        if contribute_with_artist
+          flash.now[:notice] = t("notices.artist.create")
+          render 'create'
+        else
+          render 'new'
+        end
       end
     end
   end
 
   private
-    def contribute_with_artist(artist, product_type_targeted)
-      result = @artist.is_suitable_for_product_type(@product_type_targeted) && @artist.contribute(can? :bypass_contribution, @artist)
-      logger.info "errors : #{@artist.errors.full_messages}" if result
-      result
+    def contribute_with_artist
+      res = @artist.is_suitable_for_product_type(@product_type_targeted) &&
+        @artist.contribute(can? :bypass_contribution, @artist)
+      logger.info 'artist is not suitable' unless res
+      res
     end
 end

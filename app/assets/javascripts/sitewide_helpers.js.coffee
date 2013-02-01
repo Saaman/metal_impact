@@ -9,3 +9,7 @@ $(document).ready ->
 	#add icon search in typeahead fields
 	$('input[name$="typeahead"]').wrap('<div class="input-append">')
 	.parent().append('<span class="add-on"><i class="icon-search"></i></span>')
+
+
+	$('div.modal').on 'hidden', () ->
+		$(this).empty()

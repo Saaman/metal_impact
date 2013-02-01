@@ -71,7 +71,7 @@ class Artist < ActiveRecord::Base
 
     unless self.practices.index { |p| practice_kinds.include?(p.kind) }
       practices_kinds_names = practice_kinds.collect { |x|  "'" + Practice.human_enum_name(:kinds, x) + "'" }
-      self.errors[:base] = I18n.t("exceptions.artist_association_error", artist_name: self.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or")))
+      self.errors[:practice_ids] = I18n.t("exceptions.artist_association_error", artist_name: self.name, practice_kind: practices_kinds_names.join(I18n.t("defaults.or")))
       return false
     end
     return true
@@ -81,7 +81,7 @@ class Artist < ActiveRecord::Base
     def check_product_type_is_allowed(product)
       #will raise exception if check does not pass
       unless self.is_suitable_for_product_type(product.class.name.underscore)
-        raise Exceptions::ArtistAssociationError.new(self.errors[:base])
+        raise Exceptions::ArtistAssociationError.new(self.errors[:practice_ids])
       end
     end
 

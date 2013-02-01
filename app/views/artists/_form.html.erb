@@ -1,5 +1,5 @@
 <div style="margin-bottom:20px;">
-	<%= f.collection_check_boxes( :practice_ids, Practice.all, :id, :i18n_kind, {:class => 'checkbox'} ) { |input| input.label(:class => 'checkbox inline', :style => 'margin-right: 25px;') { input.check_box + input.text } } %>
+	<%= f.association( :practices, :as => :check_boxes, :label_method => :i18n_kind, :value_method => :id, label: false, wrapper_html: {:class => 'inline-check-boxes'}) %>
 </div>
 <%= f.input :name, required: true %>
 <%= f.input :countries, required: true, :as => :multiple_countries %>

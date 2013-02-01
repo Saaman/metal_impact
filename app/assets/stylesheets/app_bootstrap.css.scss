@@ -218,3 +218,8 @@ h1 {
 div.tab-content {
 	margin-top: 2px;
 }
+
+div.inline-check-boxes label.checkbox {
+	@extend .inline;
+	margin-right: 25px;
+}
