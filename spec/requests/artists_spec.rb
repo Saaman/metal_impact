@@ -23,7 +23,7 @@ describe "Artists" do
       describe "fail to create an artist that is not a band" do
         before do
           within 'form#new_artist' do
-            check 'artist_practice_ids_2'
+            check 'writer'
             fill_in 'Name', with: artist.name
             select 'France', from: 'artist_countries'
             click_button 'Create artist'
@@ -38,7 +38,8 @@ describe "Artists" do
       describe "fill-in an artist" do
         before do
           within 'form#new_artist' do
-            check 'artist_practice_ids_1'
+            print page.html
+            check 'band'
             fill_in 'Name', with: artist.name
             select 'France', from: 'artist_countries'
             click_button 'Create artist'
@@ -47,7 +48,7 @@ describe "Artists" do
         it 'should go back to album form' do
           page.should_not have_selector 'form#new_artist'
           page.should have_selector 'div.artist_label h3', text: "#{artist.name.upcase}"
-          page.should have_selector 'div.alert-info', text: "Artist was succesfully created."
+          page.should have_selector 'div.alert-info', text: "Artist was successfully created."
         end
       end
 	  end
