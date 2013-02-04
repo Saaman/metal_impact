@@ -3,7 +3,7 @@
 		<%= check_box_tag "product_artist_ids_#{artist.id}", artist.id, true, name: "product[artist_ids][]" %>
 	</div>
 	<div>
-		<div><h3><%= artist.name.upcase %></h3></div>
-		<div><%= truncate artist.get_countries_string(), :length => 40, class: "check_boxes optional" %></div>
+		<h3><%= artist.name.upcase %></h3>
+		<%= truncate artist.get_countries_string(), :length => 40, class: "check_boxes optional" %>
 	</div>
 </div>

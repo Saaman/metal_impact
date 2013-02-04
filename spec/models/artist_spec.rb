@@ -50,7 +50,7 @@ describe Artist do
     it { should respond_to(:get_practices_string) }
     it { should respond_to(:is_suitable_for_product_type) }
   end
-  
+
   describe "Validations" do
 
     it { should be_valid }
@@ -220,7 +220,7 @@ describe Artist do
         it { should satisfy { writer.is_suitable_for_product_type(:album) == false} }
         describe "should add a error on the artist" do
           before { writer.is_suitable_for_product_type(:album) }
-          it { should satisfy { writer.errors[:base].size > 0 } }
+          it { should satisfy { writer.errors[:practice_ids].size > 0 } }
         end
       end
 

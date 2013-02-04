@@ -26,7 +26,7 @@ describe "Home" do
         end
         it "and close the modal when clicking again" do
           find('img.img-rounded').trigger 'click'
-          page.should_not have_selector 'div#modal-image[aria-hidden="false"]'
+          page.should_not have_selector 'div#modal-image img'
         end
       end
     end
