@@ -38,7 +38,6 @@ describe "Artists" do
       describe "fill-in an artist" do
         before do
           within 'form#new_artist' do
-            print page.html
             check 'band'
             fill_in 'Name', with: artist.name
             select 'France', from: 'artist_countries'

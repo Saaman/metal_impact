@@ -16,8 +16,6 @@ describe MusicLabel do
   let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @musicLabel = MusicLabel.new(name: "Relapse Records", website: "http://www.google.com")
-    @musicLabel.creator = owner
-    @musicLabel.updater = owner
   end
 
   subject { @musicLabel }

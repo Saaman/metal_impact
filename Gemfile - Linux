@@ -76,6 +76,10 @@ group :development do
   #tools
   gem 'bullet', '~>4.2'
   gem 'rails_best_practices', '~> 1'
+  #tooling
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :test do
