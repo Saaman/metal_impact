@@ -3,8 +3,9 @@ require 'spec_helper'
 #######################################################################################
 shared_examples "albums actions granted for anybody" do
   describe "GET 'index'" do
-    let(:first_page)  { Album.order("updated_at DESC").paginate(page: 1) }
-    let(:second_page) { Album.order("updated_at DESC").paginate(page: 2) }
+    let(:first_page)  { Album.order("created_at DESC").paginate(page: 1) }
+    let(:first_page_sorted_by_title)  { Album.order("title DESC").paginate(page: 1) }
+    let(:second_page) { Album.order("created_at DESC").paginate(page: 2) }
     it "should return the first page of albums" do
       get :index
       should render_template("index")
@@ -23,6 +24,16 @@ shared_examples "albums actions granted for anybody" do
       albums.count.should == Album.count
       albums.should have(second_page.length).items
       second_page.each do |item|
+        albums.should include(item)
+      end
+    end
+    it "should return the first page of albums sorted by title desc" do
+      get :index, { :sort_order => :title_desc }
+      should render_template("index")
+      albums = assigns(:albums)
+      albums.should have(first_page_sorted_by_title.length).items
+      albums.count.should == Album.count
+      first_page_sorted_by_title.each do |item|
         albums.should include(item)
       end
     end

@@ -4,9 +4,12 @@ class AlbumsController < ApplicationController
   skip_load_resource :only => :create
   respond_to :html
 
+  SORTING_FILTERS ||= {created_at_desc: 'created_at DESC', created_at_asc: 'created_at ASC', title_asc: 'title ASC', title_desc: 'title DESC'}
+
   # GET /albums
   def index
-    @albums = Album.published.order("updated_at DESC").paginate(page: params[:page]).includes(:artists)
+    @sort_presenter = SortPresenter.new SORTING_FILTERS.keys, params['sort_order']
+    @albums = Album.published.order(SORTING_FILTERS[@sort_presenter.sort_by]).paginate(page: params[:page]).includes(:artists)
     respond_with @albums
   end
 
