@@ -14,8 +14,8 @@ class MusicLabelsController < ApplicationController
   # GET /music_labels/search
   # GET /music_labels/search.json
   def search
-
-    @music_labels = MusicLabel.where{name.like my{"%#{params[:search_pattern]}%"}}.limit(5)
+    search_pattern = params[:search_pattern] || ''
+    @music_labels = (search_pattern.size > 1) ? MusicLabel.where{name.like my{"%#{search_pattern}%"}}.limit(5) : []
 
   	respond_with @music_labels do |format|
       format.json { render :json => @music_labels.map{ |ml| {name: ml.name, id: ml.id} } }

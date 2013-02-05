@@ -16,8 +16,14 @@
       <div class="tab-pane" id="label_finder">
 
 <% end %>
+        <div class="control-group string">
+          <label class="string control-label"><%= t '.select_label' %></label>
+          <div class="controls">
+            <%= text_field_tag 'label_typeahead', nil, :placeholder => t('defaults.search_terms'), class: 'string skipval input-large' %>
+            <%= f.association :music_label, :as => :hidden %>
+          </div>
+        </div>
 
-        <div><%= f.association :music_label, :prompt => t('.select_label'), input_html: {class: 'skipval'} %></div>
         <div class="side-padded"><div class="well" id="music_label_block">
           <%= render(partial: "music_labels/smallblock", :locals => {music_label: album.music_label}) unless album.music_label.nil? %>
         </div></div>

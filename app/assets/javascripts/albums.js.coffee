@@ -16,3 +16,19 @@ $ ->
 		selected_label = $(this).children 'option:selected'
 		$.get '/music_labels/'+selected_label.val()+'/smallblock.html', (data) ->
 			$('div#music_label_block').html(data)
+
+	$('#label_typeahead').typeahead(
+		# source can be a function
+		source: (typeahead, query) ->
+			$.getJSON '/music_labels/search.json', {'search_pattern': query}, (data) =>
+				# data must be a list of either strings or objects
+				typeahead.process(data)
+		# if we return objects to typeahead.process we must specify the property
+		# that typeahead uses to look up the display value
+		property: 'name'
+		onselect: (obj) ->
+			$.get '/music_labels/' + obj.id + '/smallblock.html', (data) ->
+				$('div#music_label_block').html(data)
+				#update hidden field for form submission
+				$('input#album_music_label_id').val(obj.id)
+		)
