@@ -6,7 +6,7 @@
 #  approvable_type :string(255)      not null
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
-#  state_cd        :integer          not null
+#  state           :string(255)      not null
 #  object          :text
 #  original        :text
 #  reason          :text
@@ -20,7 +20,7 @@ require 'spec_helper'
 
 describe Contribution do
 
-  let(:album) {FactoryGirl.create :album_with_artists}
+  let(:album) { FactoryGirl.create :album_with_artists }
   let(:not_contributable_obj) { FactoryGirl.create(:music_label) }
   let!(:owner) { FactoryGirl.create(:user) }
 
@@ -45,25 +45,26 @@ describe Contribution do
     it { should respond_to(:original) }
     it { should respond_to(:approvable_type) }
     it { should respond_to(:approvable_id) }
+    it { should respond_to(:approvable) }
     it { should respond_to(:reason) }
 
-    #methods
+    #transitions
     it { should respond_to(:pending?) }
-    it { should respond_to(:pending!) }
-    it { should respond_to(:fail?) }
-    it { should respond_to(:fail!) }
     it { should respond_to(:approved?) }
-    it { should respond_to(:approved!) }
+    it { should respond_to(:approve) }
+    it { should respond_to(:can_approve?) }
     it { should respond_to(:refused?) }
-    it { should respond_to(:refused!) }
+    it { should respond_to(:refuse) }
+    it { should respond_to(:can_refuse?) }
 
+    #methods
     it { should respond_to(:event_create?) }
     it { should respond_to(:event_create!) }
     it { should respond_to(:event_update?) }
     it { should respond_to(:event_update!) }
   end
 
-  describe "Validations" do
+  describe "Validations :" do
     before(:each) { @contribution.valid? }
     it { should be_valid }
 
@@ -129,15 +130,7 @@ describe Contribution do
     end
   end
 
-  describe "callbacks before save" do
-    describe "on state" do
-      before do
-        @contribution.state = nil
-        @contribution.valid?
-      end
-      it { should be_valid }
-      its(:state) { should == :pending }
-    end
+  describe "callbacks before save :" do
     describe "on event" do
       describe " when original is nil" do
         before do
@@ -160,7 +153,7 @@ describe Contribution do
     end
   end
 
-  describe "class methods" do
+  describe "class methods :" do
     describe "new_from" do
       describe "with nil object" do
         it "should raise ContributableError" do
@@ -202,6 +195,64 @@ describe Contribution do
         its(:original) { should == album }
         its(:approvable) { should == album }
         its(:object) { should == modified_album }
+      end
+    end
+  end
+
+  describe 'state machine' do
+    it 'should be approvable and refusable' do
+      @contribution.can_approve?.should be_true
+      @contribution.can_refuse?.should be_true
+    end
+
+    context 'creation contribution' do
+      let(:unpublished_album) { FactoryGirl.create :album_with_artists, published: false }
+      let(:contribution) { Contribution.new_from unpublished_album }
+      describe 'approve contribution' do
+        before { contribution.approve }
+        it 'should set album to published' do
+          unpublished_album.reload.should be_published
+        end
+        it 'should set contribution to approved' do
+          contribution.should be_approved
+        end
+      end
+      describe 'refuse contribution' do
+        before { contribution.refuse }
+        it 'should leave album to unpublished' do
+          unpublished_album.reload.should_not be_published
+        end
+        it 'should set contribution to refused' do
+          contribution.should be_refused
+        end
+      end
+    end
+    context 'update contribution' do
+      let(:published_album) { FactoryGirl.create :album_with_artists, published: true }
+      let(:artist) { FactoryGirl.create(:artist) }
+      let(:album_changes) { FactoryGirl.build(:album, artists: [artist]) }
+      let(:contribution) { Contribution.new_from album_changes, published_album }
+      describe 'approve contribution' do
+        before { contribution.approve }
+        it 'should set album to published and update infos' do
+          published_album.reload.should be_published
+          published_album.title.should == album_changes.title
+          published_album.artist_ids.should == [artist.id]
+        end
+        it 'should set contribution to approved' do
+          contribution.should be_approved
+        end
+      end
+      describe 'refuse contribution' do
+        before { contribution.refuse }
+        it 'should leave album to published with old data' do
+          published_album.reload.should be_published
+          published_album.title.should_not == album_changes.title
+          published_album.artist_ids.should_not == [artist.id]
+        end
+        it 'should set contribution to refused' do
+          contribution.should be_refused
+        end
       end
     end
   end

@@ -17,6 +17,11 @@ module Contributable
       scope :published, where(:published => true)
 
       #methods
+      def publish!
+      	self.published = true
+      	save!
+      end
+
       def contribute(can_bypass_approval = false)
 
 				return false unless valid?

@@ -14,6 +14,7 @@ shared_examples "contributable model" do
     it { should respond_to(:contribution_ids) }
 
     #methods
+    it { should respond_to(:publish!) }
     it { should respond_to(:contribute) }
   end
 
@@ -113,4 +114,14 @@ shared_examples "contributable model" do
       end
     end
 	end
+
+  describe 'publish!' do
+    before do
+      contributable.published = false
+      contributable.publish!
+    end
+    it 'should publish contributable' do
+      contributable.reload.should be_published
+    end
+  end
 end

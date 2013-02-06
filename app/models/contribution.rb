@@ -6,7 +6,7 @@
 #  approvable_type :string(255)      not null
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
-#  state_cd        :integer          not null
+#  state           :string(255)      not null
 #  object          :text
 #  original        :text
 #  reason          :text
@@ -26,23 +26,41 @@ class Contribution < ActiveRecord::Base
   #persisted attributes
 	attr_accessible :state, :event, :object, :original, :reason, :approvable, :creator, :updater
 
-	as_enum :state, pending: 0, approved: 1, refused: 2, fail: 3
 	as_enum :event, { create: 0, update: 1 }, prefix: true
 	serialize :object
   serialize :original
 
   #validations
-	validates_as_enum :state, :event
+	validates_as_enum :event
 	validates_presence_of :state, :event, :approvable, :object
 	validate :object_and_original_must_match, :nil_original_means_create_event, :object_and_approvable_must_match
 
 	#callbacks
   before_validation do |contribution|
-    #default state value is "pending"
-    contribution.state ||= :pending
 
     #caculate event if not given
     contribution.event ||= (original.nil? && :create) || :update
+  end
+
+  #State Machine
+  state_machine :state, :initial => :pending do
+  	around_transition do |contribution, transition, block|
+      contribution.with_lock do
+        block.call
+      end
+    end
+
+    #transitions
+    before_transition :on => :approve, :do => :commit_contribution
+
+    #evens
+    event :approve do
+      transition :pending => :approved
+    end
+    event :refuse do
+      transition :pending => :refused
+    end
+
   end
 
   def self.new_from(object, original = nil)
@@ -53,6 +71,11 @@ class Contribution < ActiveRecord::Base
   end
 
 	private
+
+		def commit_contribution
+			object.publish!
+		end
+
 		def object_and_original_must_match
 			return if original.nil? || object.nil?
 			errors.add(:object, :entity_type_mismatch, old_type: original.class.name.humanize, new_type: object.class.name.humanize) unless object.class == original.class
