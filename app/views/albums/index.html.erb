@@ -2,6 +2,10 @@
 
 <br />
 <%= link_to t('.create_new_album'), new_album_path if can?(:create, Album) %>
+<div class='pull-right'>
+  <%= t 'defaults.sort_by' %>
+  <%= sorting_select 'albums', 'sort_by', @sort_presenter, albums_path %>
+</div>
 <br />
 <br />
 
@@ -9,16 +13,6 @@
   <tbody>
     <%= render :partial => "line_block", :collection => @albums, :as => :product %>
   </tbody>
-</table>
-<% @albums.each do |album| %>
-  <tr>
-    <td><%= album.title %></td>
-    <td><%= album.release_date %></td>
-    <td><%= album.kind %></td>
-    <td><%= link_to 'Show', album %></td>
-    <td><%= link_to 'Edit', edit_album_path(album) %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />

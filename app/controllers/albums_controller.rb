@@ -10,7 +10,7 @@ class AlbumsController < ApplicationController
   def index
     @sort_presenter = SortPresenter.new SORTING_FILTERS.keys, params['sort_order']
     @albums = Album.published.order(SORTING_FILTERS[@sort_presenter.sort_by]).paginate(page: params[:page]).includes(:artists)
-    respond_with @albums
+    respond_with @albums, layout: !request.xhr?
   end
 
   # GET /albums/1

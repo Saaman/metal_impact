@@ -8,6 +8,12 @@ en:
     none: "-"
     cancel: "Cancel"
     no_details: "No details available yet"
+    sort_by: Sort by
+    sorting:
+      created_at_desc: "Most recent first"
+      created_at_asc: "Older first"
+      title_asc: "Title A -> Z"
+      title_desc: "Title Z -> A"
   shared:
     error_messages:
       errors_count:

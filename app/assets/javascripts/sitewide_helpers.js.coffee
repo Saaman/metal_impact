@@ -13,3 +13,7 @@ $(document).ready ->
 
 	$('div.modal').on 'hidden', () ->
 		$(this).empty()
+
+	$('body').on 'change', 'select.sorting_select', ->
+		$.get $(this).attr('reload-url'), { sort_order: $(this).val() }, (data) ->
+			$('div.contentzone').html(data)

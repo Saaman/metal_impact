@@ -13,6 +13,10 @@ class SortPresenter
 		raise ArgumentError.new("'sort_kind' must be a valid option") unless assert_option(@sort_by)
 	end
 
+	def options_for_select
+		@sort_options.map { |opt| [I18n.t("defaults.sorting.#{opt.to_s}"), opt] }
+	end
+
 	private
 		def assert_option(sort_by)
 			@sort_options.include? sort_by

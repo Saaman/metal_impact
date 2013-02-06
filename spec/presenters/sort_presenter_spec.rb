@@ -9,8 +9,9 @@ describe SortPresenter do
 
   subject { @sort_presenter }
 
-  describe 'methods :' do
+  describe 'reponds :' do
   	it { should respond_to(:sort_by) }
+    it { should respond_to(:options_for_select) }
   end
 
   describe 'constructor :' do
@@ -33,5 +34,10 @@ describe SortPresenter do
   			its(:sort_by) { should == :toto }
   		end
   	end
+  end
+  describe 'Methods :' do
+    describe 'options_for_select' do
+      its(:options_for_select) { should be_a Array }
+    end
   end
 end
