@@ -129,7 +129,7 @@ describe Contribution do
       @contribution.can_refuse?.should be_true
     end
 
-    context 'creation contribution' do
+    context 'creation context :' do
       let(:unpublished_album) { FactoryGirl.create :album_with_artists, published: false }
       let(:contribution) { Contribution.new object: unpublished_album }
       describe 'approve contribution' do
@@ -151,12 +151,12 @@ describe Contribution do
         end
       end
     end
-    context 'update contribution' do
+    context 'update context :' do
       let(:published_album) { FactoryGirl.create :album_with_artists, published: true }
       let(:artist) { FactoryGirl.create(:artist) }
       let(:contribution) do
         published_album.title = "Toto"
-        published_album.artists << artist
+        published_album.artists = [artist]
         Contribution.new object: published_album
       end
       describe 'approve contribution' do
