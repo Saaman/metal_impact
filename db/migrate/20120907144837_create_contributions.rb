@@ -5,8 +5,8 @@ class CreateContributions < ActiveRecord::Migration
       t.integer :approvable_id,   :null => false
       t.integer :event_cd,        :null => false
       t.string :state,            :null => false
-			t.text :object
-      t.text :original
+			t.text :object,             :null => false
+      t.datetime :original_date,  :null => false
       t.text :reason
 
       t.timestamps
