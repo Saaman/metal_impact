@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      contribution: contribution
+    enums:
+      contribution:
+        events:
+          create: Creation
+          update: Mise à jour
+    attributes:
+      contribution:
+        approvable_type: "Type d'entité"

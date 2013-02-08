@@ -3,6 +3,8 @@ class Administration::ContributionsController < ApplicationController
 	respond_to :html
 
 	def index
+		@contributions = Contribution.at_state(:pending).order('created_at ASC').paginate(page: params[:page])
+		respond_with @contributions
 	end
 
 	def show

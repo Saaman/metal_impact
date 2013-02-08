@@ -3,7 +3,6 @@ en:
     models:
       album: album
       music_label: label
-      contribution: contribution
     enums:
       album:
         kinds:

@@ -20,6 +20,8 @@ class Contribution < ActiveRecord::Base
 
 	include Trackable
 
+  self.per_page = 20
+
 	#associations
   belongs_to :approvable, polymorphic: true
 
@@ -54,6 +56,9 @@ class Contribution < ActiveRecord::Base
     self.creator = self.updater = object.updater
     self.approvable = object
   end
+
+  #scopes
+  scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
 
   #State Machine
   state_machine :state, :initial => :pending do

@@ -6,6 +6,12 @@ en:
         activate_debug: "Activate debug mode"
         deactivate_debug: "Deactivate debug mode"
         monitor_jobs: " Monitor delayed jobs"
+    contributions:
+      index:
+        title: "Contributions to approve"
+        object_kind: "Entity kind"
+        modification_type: Modification type
+        operations: Operations
     imports:
       index:
         title: "Data import : source files"

@@ -1,0 +1,14 @@
+<tr>
+  <td><%= t("activerecord.models.#{contribution.approvable_type.downcase}").camelize %></td>
+  <td><%= t_enum contribution, :event %></td>
+  <td>
+  	<% case contribution.approvable_type
+  		 when Artist.name %>
+				<%= render :partial => "artist_line_block", :locals => { artist: contribution.object } %>
+		<% when Album.name %>
+				<%= render :partial => "product_line_block", :locals => { product: contribution.object } %>
+			<% end %>
+  </td>
+  <td></td>
+</tr>
+

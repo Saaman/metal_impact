@@ -1,0 +1,11 @@
+<div class="media">
+	<div class="media-object pull-left">
+		<%= image_tag product.cover.thumb.url %>
+	</div>
+	<div class="media-body">
+		<h4 class="media-heading"><%= product.title %></h4>
+		<p>
+			<%= product.get_artists_string %>
+		</p>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<h1><%= t '.title'%></h1>
+
+<br />
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th><%= t '.object_kind'%></th>
+      <th><%= t '.modification_type' %></th>
+      <th style="width: 400px;"></th>
+      <th><%= t '.operations'%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @contributions %>
+  </tbody>
+</table>
+
+<br />
+
+<%= will_paginate @contributions %>
