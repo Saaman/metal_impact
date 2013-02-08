@@ -65,6 +65,7 @@ describe ArtistsController do
         30.times { FactoryGirl.create(:artist) }
         10.times { FactoryGirl.create(:artist, :practice_kind => :writer) }
       end
+      after(:all)  { Artist.delete_all }
   		before(:each) { @ability.can :index, Artist }
   		it "should 30 display artists" do
   			get :index

@@ -69,7 +69,7 @@ end
 
 describe AlbumsController do
   before(:all) { FactoryGirl.create_list(:album_with_artists, 50) }
-  after(:all)  { Album.all.each {|a| a.destroy } }
+  after(:all)  { Album.delete_all }
 
   set_referer
 
@@ -232,7 +232,6 @@ describe AlbumsController do
   ######################################################################################
 
   describe "new way tests" do
-    before(:all) { Artist.all.each {|a| a.destroy } }
     stub_abilities
 
     describe "GET show :" do

@@ -17,6 +17,7 @@ describe Administration::ImportsController do
       before(:all) do
         40.times { FactoryGirl.create(:source_file) }
       end
+      after(:all) { SourceFile.delete_all }
   		before(:each) { @ability.can :index, Import::SourceFile }
   		it "should display 40 source files" do
   			get :index

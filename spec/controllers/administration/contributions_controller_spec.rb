@@ -19,6 +19,7 @@ describe Administration::ContributionsController do
         	c.save!
         end
       end
+      after(:all) { Contribution.delete_all }
   		before(:each) { @ability.can :index, Contribution }
   		it "should display 20 source files" do
   			get :index
