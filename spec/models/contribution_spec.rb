@@ -7,8 +7,8 @@
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
-#  object          :text
-#  original        :text
+#  object          :text             not null
+#  original_date   :datetime         not null
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

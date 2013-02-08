@@ -20,6 +20,10 @@ MetalImpact::Application.routes.draw do
       delete 'clear_failures', :on => :member
     end
     resources :import_entries, :only => [:edit, :update]
+    resources :contributions, :only => [:index, :show, :edit, :update] do
+      put 'approve', :on => :member
+      put 'refuse', :on => :member
+    end
   end
 
   devise_for :users,:controllers => { :registrations => "users/registrations", :passwords => "users/passwords" }, :skip => [:sessions]
@@ -50,7 +54,7 @@ MetalImpact::Application.routes.draw do
 
 end
 #== Route Map
-# Generated on 28 Jan 2013 14:03
+# Generated on 08 Feb 2013 12:09
 #
 #                                      POST   /albums(.:format)                                    albums#create
 #                            new_album GET    /albums/new(.:format)                                albums#new
@@ -80,6 +84,12 @@ end
 #                                      PUT    /administration/imports/:id(.:format)                administration/imports#update
 #     edit_administration_import_entry GET    /administration/import_entries/:id/edit(.:format)    administration/import_entries#edit
 #          administration_import_entry PUT    /administration/import_entries/:id(.:format)         administration/import_entries#update
+#  approve_administration_contribution PUT    /administration/contributions/:id/approve(.:format)  administration/contributions#approve
+#   refuse_administration_contribution PUT    /administration/contributions/:id/refuse(.:format)   administration/contributions#refuse
+#         administration_contributions GET    /administration/contributions(.:format)              administration/contributions#index
+#     edit_administration_contribution GET    /administration/contributions/:id/edit(.:format)     administration/contributions#edit
+#          administration_contribution GET    /administration/contributions/:id(.:format)          administration/contributions#show
+#                                      PUT    /administration/contributions/:id(.:format)          administration/contributions#update
 #                        user_password POST   /users/password(.:format)                            users/passwords#create
 #                    new_user_password GET    /users/password/new(.:format)                        users/passwords#new
 #                   edit_user_password GET    /users/password/edit(.:format)                       users/passwords#edit
