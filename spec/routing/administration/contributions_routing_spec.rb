@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe ContributionsController do
+describe Administration::ContributionsController do
   describe "routing" do
 
     it "routes to #index" do
