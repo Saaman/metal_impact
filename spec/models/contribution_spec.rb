@@ -55,6 +55,7 @@ describe Contribution do
     it { should respond_to(:can_refuse?) }
 
     #methods
+    it { should respond_to :creator_pseudo }
     it { should respond_to(:event_create?) }
     it { should respond_to(:event_create!) }
     it { should respond_to(:event_update?) }

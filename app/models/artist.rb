@@ -22,7 +22,7 @@ class Artist < ActiveRecord::Base
 	#associations
 	has_and_belongs_to_many :albums
   has_and_belongs_to_many :practices
-  default_scope includes(:practices)
+  #default_scope includes(:practices)
 
   #attributes
   attr_accessible :name, :countries, :biography, :practice_ids, :practices

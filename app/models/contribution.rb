@@ -81,6 +81,10 @@ class Contribution < ActiveRecord::Base
 
   end
 
+  def creator_pseudo
+    creator.pseudo
+  end
+
 	private
 
 		def commit_contribution

@@ -11,7 +11,8 @@ en:
         title: "Contributions to approve"
         object_kind: "Entity kind"
         modification_type: Modification type
-        operations: Operations
+        modified_on: Modified on
+        modified_by: Modified by
     imports:
       index:
         title: "Data import : source files"

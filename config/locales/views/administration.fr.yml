@@ -11,7 +11,8 @@ fr:
         title: "Contributions en attente d'approbation"
         object_kind: "Type d'entité"
         modification_type: Nature du changement
-        operations: Opérations
+        modified_on: Modifié le
+        modified_by: Modifié par
     imports:
       index:
         title: "Import de données : fichiers source"
