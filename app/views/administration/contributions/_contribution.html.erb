@@ -1,5 +1,5 @@
 <tr data-contribution-id="<%= contribution.id %>">
-  <td><%= t("activerecord.models.#{contribution.approvable_type.downcase}").camelize %></td>
+  <td><%= translate_object_kind contribution.approvable_type %></td>
   <td><%= t_enum contribution, :event %></td>
   <td><%= contribution.creator_pseudo %></td>
   <td><%= l contribution.created_at, :format => :short %></td>

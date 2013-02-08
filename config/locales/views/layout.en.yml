@@ -9,6 +9,7 @@ en:
       logout: "Logout"
       admin_users: "Users' accounts"
       admin_imports: "Imports"
+      admin_contribs: "Contributions"
       admin_dashboard: "Dashboard"
       administration: "Administration"
       my_account: "My account"

@@ -1,0 +1,21 @@
+<div class='center'>
+	<h3><u><%= "#{t '.title'} :" %></u><%= " #{@contribution.title}" %></h1>
+</div>
+<p>
+	<span class="label label-info"><%= t_enum @contribution, :event %></span><br />
+	<%= t '.summary', object_kind: translate_object_kind(@contribution.approvable_type), modified_on: l(@contribution.created_at, :format => :short), modified_by: @contribution.creator_pseudo %>
+</p>
+<hr>
+
+<div class="row-fluid">
+	<div class="span5 left-side">
+		<div class='center'>
+			<h5><u><%= t '.actual_version' %></h5>
+		</div>
+	</div>
+	<div class="span6 right-side">
+		<div class='center'>
+			<h5><u><%= t '.new_version' %></h5>
+		</div>
+	</div>
+</div>

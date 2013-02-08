@@ -31,4 +31,20 @@ describe Administration::ContributionsController do
   		end
 	  end
 	end
+
+  describe "GET show :" do
+    let(:contribution) { Contribution.new object: FactoryGirl.create(:artist) }
+    before { contribution.save! }
+    describe "(unauthorized)" do
+      before { get :show, {id: contribution.id} }
+      its_access_is "unauthorized"
+    end
+    describe "(authorized)" do
+      before do
+        @ability.can :index, Contribution
+        get :show, {id: contribution.id}
+      end
+      specify { assigns(:contribution).should == contribution }
+    end
+  end
 end

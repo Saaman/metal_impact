@@ -13,6 +13,11 @@ fr:
         modification_type: Nature du changement
         modified_on: Modifié le
         modified_by: Modifié par
+      show:
+        title: "Contribution"
+        summary: "%{object_kind} soumis le %{modified_on} par %{modified_by}"
+        actual_version: "Version actuelle"
+        new_version: "Version modifiée"
     imports:
       index:
         title: "Import de données : fichiers source"

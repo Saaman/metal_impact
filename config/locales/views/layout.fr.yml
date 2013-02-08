@@ -9,6 +9,7 @@ fr:
       logout: "Déconnexion"
       admin_users: "Comptes utilisateurs"
       admin_imports: "Imports"
+      admin_contribs: "Contributions"
       admin_dashboard: "Tableau de bord"
       administration: "Administration"
       my_account: "Mon compte"

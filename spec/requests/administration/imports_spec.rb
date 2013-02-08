@@ -35,7 +35,7 @@ describe 'Imports', :js => true do
 
 
 	describe "Complete import" do
-		before { visit '/administration/imports' }
+		before { click_link 'Imports' }
 		it "should display a list wih the source file" do
 			should have_selector 'td > a', text: source_file.name
 		end

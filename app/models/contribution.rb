@@ -85,6 +85,13 @@ class Contribution < ActiveRecord::Base
     creator.pseudo
   end
 
+  def title
+    case approvable_type
+      when Artist.name then object.name
+      when Album.name then object.title
+    end
+  end
+
 	private
 
 		def commit_contribution

@@ -20,10 +20,16 @@ describe 'Contributions :', :js => true do
 	end
 
 	describe "Go to list of pending contributions" do
-		before { visit '/administration/contributions' }
+		before { click_link 'Contributions' }
 		it "should display my contribution" do
 			should have_selector "tr[data-contribution-id='#{contribution.id}']"
 			should have_selector "h4", text: artist.name
+		end
+		describe 'and pick mine' do
+			before { find("tr[data-contribution-id='#{contribution.id}']").click }
+			it 'should display the detail of the contribution' do
+				should have_content contribution.title
+			end
 		end
 	end
 end

@@ -13,6 +13,11 @@ en:
         modification_type: Modification type
         modified_on: Modified on
         modified_by: Modified by
+      show:
+        title: "Contribution"
+        summary: "%{object_kind} submitted on %{modified_on} by %{modified_by}"
+        actual_version: "Actual version"
+        new_version: "Next version"
     imports:
       index:
         title: "Data import : source files"

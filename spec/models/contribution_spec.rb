@@ -56,6 +56,7 @@ describe Contribution do
 
     #methods
     it { should respond_to :creator_pseudo }
+    it { should respond_to :title }
     it { should respond_to(:event_create?) }
     it { should respond_to(:event_create!) }
     it { should respond_to(:event_update?) }
@@ -186,5 +187,9 @@ describe Contribution do
         end
       end
     end
+  end
+
+  describe 'Methods :' do
+    its(:title) { should == album.title }
   end
 end

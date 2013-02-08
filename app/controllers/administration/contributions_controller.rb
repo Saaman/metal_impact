@@ -8,6 +8,8 @@ class Administration::ContributionsController < ApplicationController
 	end
 
 	def show
+		@contribution = Contribution.find params[:id]
+		respond_with @contribution
 	end
 
 	def edit
