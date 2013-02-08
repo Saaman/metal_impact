@@ -7,7 +7,7 @@ module Productable
       include Contributable
 
       #associations
-      has_and_belongs_to_many_with_deferred_save :artists, :before_add => :check_artists_practices
+      has_and_belongs_to_many_with_deferred_save :artists
 
 
     	#attributes
@@ -25,6 +25,8 @@ module Productable
       validates_integrity_of :cover
       validates_processing_of :cover
 
+      validate :check_artists_practices
+
       #callbacks
       before_save do |product|
         #"ride the lightning" turns into "Ride The Lightning"
@@ -33,21 +35,13 @@ module Productable
     end
   end
 
-  def try_set_artist_ids(artist_ids)
-    begin
-      self.artist_ids = artist_ids
-      logger.info "affect artist_ids = #{artist_ids.inspect}"
-    rescue Exceptions::ArtistAssociationError => exception
-      self.errors["artists"] = exception.message
-      return false;
-    end
-  end
-
   private
-    def check_artists_practices(artist)
-      #will raise exception if check does not pass
-      unless artist.is_suitable_for_product_type(self.class.name.underscore)
-        raise Exceptions::ArtistAssociationError.new(artist.errors[:base])
+    def check_artists_practices
+      artists.each do |artist|
+        #will raise exception if check does not pass
+        unless artist.is_suitable_for_product_type(self.class.name.underscore)
+          errors.add :artist_ids, :invalid
+        end
       end
     end
 end

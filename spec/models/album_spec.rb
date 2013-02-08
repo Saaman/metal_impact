@@ -76,12 +76,16 @@ describe Album do
 	end
 
   describe "when adding artist of the wrong kind" do
-      let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
-      it "should raise ArtistAssociationError" do
-        expect { @album.artists << writer }.to raise_error(Exceptions::ArtistAssociationError)
-        expect { @album.artist_ids += [writer.id] }.to raise_error(Exceptions::ArtistAssociationError)
-      end
+    let(:writer) { FactoryGirl.create(:artist, :practice_kind => :writer) }
+    it "should not be valid" do
+      @album.artists << writer
+      should_not be_valid
     end
+    it "should not be valid" do
+      @album.artist_ids += [writer.id]
+      should_not be_valid
+    end
+  end
 
 	describe "music label association" do
     describe "when assigning a music label" do

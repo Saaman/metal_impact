@@ -66,7 +66,7 @@ class AlbumsController < ApplicationController
       build_or_update_album(params)
 
       respond_to do |format|
-        if associate_artists(params) && @album.contribute(can? :bypass_contribution, @album)
+        if @album.contribute(can? :bypass_contribution, @album)
           format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
           format.json { render json: @album, location: @album }
         else
@@ -90,15 +90,13 @@ class AlbumsController < ApplicationController
         @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
       end
 
-    end
-
-    def associate_artists(params)
-      #return true if not artists to add. Standard validation will make the save fails
+      #manage artists
       if params.has_key?(:product)
-        @album.try_set_artist_ids(params[:product][:artist_ids])
+        @album.artist_ids = params[:product][:artist_ids]
+        true
       else
         @album.errors.add(:artist_ids, :too_short)
-        false
       end
+
     end
 end

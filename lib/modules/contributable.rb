@@ -28,16 +28,16 @@ module Contributable
 
 				self.transaction do
 
-					original = self.new_record? ? nil : self.class.find(id)
+					contribution = Contribution.new object: self
+					return false if !contribution.save
 
-					if new_record? || can_bypass_approval
-						self.published = can_bypass_approval
+					if can_bypass_approval
+						self.published = true
 						#Save the record
 						return false if !save
 					end
 
-					contribution = Contribution.new_from self, original
-					return contribution.save
+					return true
 				end
 			end
 		end

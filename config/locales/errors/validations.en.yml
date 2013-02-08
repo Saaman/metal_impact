@@ -32,6 +32,7 @@ en:
               invalid_enum: "'%{value}' is not recognized as a valid album kind."
             artist_ids:
               too_short: "You must associate this album with at least one artist. Please use the typeahead field above to search for existing artists."
+              invalid: 'One or more artists are not suitable for an album. Please check practices'
         practice:
           attributes:
             kind:
@@ -57,6 +58,7 @@ en:
           id_mismatch: "Your contribution is inconsistent as the object is of id '%{new_id}' whereas the original object is of id '%{old_id}'"
           invalid_event: "You cannot create an 'creation' contribution without providing an non-nil original object"
           approvable_mismatch: "Your contribution containing %{obj_type}(%{obj_id}) should not refer to %{appr_type}(%{appr_id})"
+          original_date_must_be_in_the_past: "Nonsense! This contribution cannot reference an event in the future!"
       messages:
         carrierwave_processing_error: failed to be processed
         carrierwave_integrity_error: is not an allowed file type

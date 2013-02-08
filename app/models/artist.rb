@@ -20,7 +20,7 @@ class Artist < ActiveRecord::Base
   include Contributable
 
 	#associations
-	has_and_belongs_to_many :albums, :before_add => :check_product_type_is_allowed
+	has_and_belongs_to_many :albums
   has_and_belongs_to_many :practices
   default_scope includes(:practices)
 
@@ -33,6 +33,8 @@ class Artist < ActiveRecord::Base
   validates :name, presence: true, length: { :maximum => 127 }
   validates :practices, :length => { :minimum => 1}
   validates :countries, :length => { :in => 1..7 }, :array_inclusion => { :in => References::COUNTRIES_CODES }
+
+  validate :check_artists_practices
 
   #callbacks
   before_validation do |artist|
@@ -78,11 +80,9 @@ class Artist < ActiveRecord::Base
   end
 
   private
-    def check_product_type_is_allowed(product)
-      #will raise exception if check does not pass
-      unless self.is_suitable_for_product_type(product.class.name.underscore)
-        raise Exceptions::ArtistAssociationError.new(self.errors[:practice_ids])
+    def check_artists_practices
+      unless albums.empty?
+        self.is_suitable_for_product_type(:album)
       end
     end
-
 end

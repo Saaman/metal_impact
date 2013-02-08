@@ -32,6 +32,7 @@ fr:
               invalid_enum: "'%{value}' n'est pas un type d'album valide."
             artist_ids:
               too_short: "Vous devez associer au moins un artiste à cet album. Veuillez utiliser le champ de recherche rapide ci-dessus."
+              invalid: "Un ou plusieurs artistes ne peuvent pas être associés à l'album. Veuillez vérifier leurs pratiques artistiques"
         practice:
           attributes:
             kind:
@@ -57,6 +58,7 @@ fr:
           id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{new_type}' tandis que l'object d'origine est d'id '%{old_type}'"
           invalid_event: "Il est obligatoire de renseigner un 'original' non nul pour un évènement de création"
           approvable_mismatch: "L'approbation contenant l'objet %{obj_type}(%{obj_id}) ne peux pas faire référence à %{appr_type}(%{appr_id})"
+          original_date_must_be_in_the_past: "Impossible! Une contribution ne peut pas faire référence à un évènement qui ne s'est pas encore produit."
       messages:
         carrierwave_processing_error: "le traitement a échoué"
         carrierwave_integrity_error: "n'est pas un type de fichier valide"
