@@ -35,7 +35,7 @@ module ApplicationHelper
     "#{t_attr(model_name, method).camelize} : "
   end
   def t_attr(model_or_instance, method)
-    model_name = model_or_instance.is_a? String : model_or_instance : model_or_instance.class.model_name.i18n_key
+    model_name = model_or_instance.is_a?(String) ? model_or_instance : model_or_instance.class.model_name.i18n_key
     t "activerecord.attributes.#{model_name}.#{method}"
   end
   def t_enum(instance, enum_attr_name, options = {})
