@@ -14,8 +14,8 @@ fr:
         modified_on: Modifié le
         modified_by: Modifié par
       show:
-        title: "Contribution"
-        summary: "%{object_kind} soumis le %{modified_on} par %{modified_by}"
+        summary_create: "%{object_kind} soumis le %{modified_on} par %{modified_by}"
+        summary_update: "%{object_kind} mis à jour le %{modified_on} par %{modified_by}"
         actual_version: "Version actuelle"
         new_version: "Version modifiée"
     imports:

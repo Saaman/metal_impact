@@ -31,15 +31,14 @@ module ApplicationHelper
   end
 
   #views helpers
-  def t_attr_from_instance(instance, method)
-    t "activerecord.attributes.#{instance.class.model_name.i18n_key}.#{method}"
+  def t_attr_show(model_or_instance, method)
+    "#{t_attr(model_name, method).camelize} : "
   end
-  def t_attr(model_name, method)
+  def t_attr(model_or_instance, method)
+    model_name = model_or_instance.is_a? String : model_or_instance : model_or_instance.class.model_name.i18n_key
     t "activerecord.attributes.#{model_name}.#{method}"
   end
   def t_enum(instance, enum_attr_name, options = {})
-    attr_value = instance.send(enum_attr_name)
-    return options[:default] if attr_value.nil? #returns nil if no option provided
-    instance.class.human_enum_name enum_attr_name.to_s.pluralize, attr_value
+    I18n.t_enum instance, enum_attr_name, options
   end
 end

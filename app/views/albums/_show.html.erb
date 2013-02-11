@@ -1,0 +1,25 @@
+<p>
+  <span class="album-title">
+  	<%= artists_links_for(album) %>
+  	<%= " / #{album.title} (#{album.release_date.year})" %>
+  </span>
+</p>
+
+<div class="portrait"><%= normal_image_tag album.cover %></div>
+<div>
+	<div>
+		<i><%= t_attr_show album, 'music_label' %></i><%= album.music_label_name %>
+	</div>
+	<div>
+		<i><%= t_attr_show album, 'release_date' %></i><%= l album.release_date, :format => :long %>
+	</div>
+	<div>
+		<i><%= t_attr_show album, 'kind' %></i><%= t_enum album, :kind %>
+	</div>
+</div>
+
+<br style="clear: left" />
+<p>Dernière modification par : <%= link_to album.updater_pseudo, '#' %> le <%= l album.updated_at , :format => :short%></p>
+
+<%= link_to t('defaults.edit_link'), edit_album_path(album) %> |
+<%= link_to t('defaults.back_link'), albums_path %>

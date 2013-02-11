@@ -41,6 +41,10 @@ class Album < ActiveRecord::Base
 		artists.collect {|a| a.name.upcase}.join("-")
 	end
 
+	def music_label_name
+		music_label.nil? ? I18n.t("special.self_production") : music_label.name
+	end
+
 	private
 		def new_music_label?
 			music_label.nil? ? false : music_label.new_record?

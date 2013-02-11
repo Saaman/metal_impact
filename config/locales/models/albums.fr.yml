@@ -14,6 +14,9 @@ fr:
       album:
         kind: "type"
         title: "titre"
+        artists: 'artistes'
+        music_label: 'label'
+        release_date: "Sortie du Scud : "
   notices:
     album:
       create: "Le nouvel album a été crée."
@@ -23,3 +26,4 @@ fr:
       update: "L'artiste a été mis à jour."
   special:
     various_artists: "Various Artists"
+    self_production: "autoproduction"

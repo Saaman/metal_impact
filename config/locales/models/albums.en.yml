@@ -14,6 +14,9 @@ en:
       album:
         kind: "type"
         title: "title"
+        artists: 'artists'
+        music_label: 'label'
+        release_date: "release date"
   notices:
     album:
       create: "Album was successfully created."
@@ -23,3 +26,4 @@ en:
       update: "Artist was successfully updated."
   special:
     various_artists: "Various Artists"
+    self_production: "self-production"
