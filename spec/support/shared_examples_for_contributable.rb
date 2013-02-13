@@ -90,42 +90,42 @@ shared_examples "contributable model" do
           contributable.contributions(true).size.should == 1
           Contribution.first.should be_approved
         end
-        describe 'first without approval, then with' do
-          let(:user) { FactoryGirl.create(:user) }
-          before do
-            contributable.contribute
-            contributable.published = true
-            contributable.updater = user
-          end
-          it "should save contributable as unpublished" do
-            contributable.contribute(true).should be_true
-            contributable.reload.should be_persisted
-            contributable.reload.should_not be_published
-            contributable.reload.updater.should_not == user
-          end
-          it "should create two contributions" do
-            contributable.contribute(true).should be_true
-            contributable.contributions(true).size.should == 2
-            Contribution.first.should be_pending
-            Contribution.last.should be_pending
-          end
+      end
+      describe 'first without approval, then with' do
+        let(:user) { FactoryGirl.create(:user) }
+        before do
+          contributable.contribute
+          contributable.published = true
+          contributable.updater = user
         end
-        describe 'when the same user do 2 contributions' do
-          let(:user) { FactoryGirl.create(:user) }
-          before do
-            contributable.contribute
-            contributable.published = true
-          end
-          it "should save contributable as unpublished" do
-            contributable.contribute.should be_true
-            contributable.reload.should be_persisted
-            contributable.reload.should_not be_published
-          end
-          it "should create one contribution" do
-            contributable.contribute.should be_true
-            contributable.contributions(true).size.should == 1
-            Contribution.first.should be_pending
-          end
+        it "should save contributable as unpublished toto" do
+          contributable.contribute(true).should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should_not be_published
+          contributable.reload.updater.should_not == user
+        end
+        it "should create two contributions" do
+          contributable.contribute(true).should be_true
+          contributable.contributions(true).size.should == 2
+          Contribution.first.should be_pending
+          Contribution.last.should be_pending
+        end
+      end
+      describe 'when the same user do 2 contributions' do
+        let(:user) { FactoryGirl.create(:user) }
+        before do
+          contributable.contribute
+          contributable.published = true
+        end
+        it "should save contributable as unpublished" do
+          contributable.contribute.should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should_not be_published
+        end
+        it "should create one contribution" do
+          contributable.contribute.should be_true
+          contributable.contributions(true).size.should == 1
+          Contribution.first.should be_pending
         end
       end
     end

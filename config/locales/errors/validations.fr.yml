@@ -56,7 +56,6 @@ fr:
           new_record_invalidity:  "Il n'est pas possible de créer une Approbation pour une mise à jour d'entité sans fournir la version d'origine"
           id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{id}' tandis que celle du brouillon '%{draft_id}'"
           invalid_event: "Il est obligatoire de renseigner un 'original' non nul pour un évènement de création"
-          original_date_must_be_in_the_past: "Impossible! Une contribution ne peut pas faire référence à un évènement qui ne s'est pas encore produit."
           invalid_draft: "draft_object n'est pas un hash d'attributes de Contributable valide"
       messages:
         carrierwave_processing_error: "le traitement a échoué"

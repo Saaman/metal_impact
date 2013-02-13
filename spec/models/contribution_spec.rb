@@ -8,7 +8,6 @@
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
 #  object          :text             not null
-#  original_date   :datetime         not null
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -26,7 +25,6 @@ describe Contribution do
   before do
     @contribution = Contribution.new draft_object: HashWithIndifferentAccess.new(album.attributes)
     @contribution.approvable = album
-    @contribution.original_date = DateTime.now
     @contribution.event = :create
     @contribution.creator = @contribution.updater = album.updater
   end
@@ -43,7 +41,6 @@ describe Contribution do
     it { should respond_to(:state) }
     it { should respond_to(:event) }
     it { should respond_to(:draft_object) }
-    it { should respond_to(:original_date) }
     it { should respond_to(:approvable_type) }
     it { should respond_to(:approvable_id) }
     it { should respond_to(:approvable) }
@@ -82,7 +79,6 @@ describe Contribution do
       context 'to create' do
         before { @contribution = Contribution.for album, album.attributes, true }
         its(:event_create?) { should be_true }
-        its(:original_date) { should == album.updated_at }
         its(:creator) { should == album.updater }
         its(:updater) { should == album.updater }
         its(:approvable) { should == album }
@@ -91,7 +87,6 @@ describe Contribution do
       context 'to update' do
         before { @contribution = Contribution.for album, album.attributes, false }
         its(:event_update?) { should be_true }
-        its(:original_date) { should == album.updated_at }
         its(:creator) { should == album.updater }
         its(:updater) { should == album.updater }
         its(:approvable) { should == album }
@@ -112,11 +107,6 @@ describe Contribution do
         before { @contribution.draft_object = {id: 1, updater_id: 1} }
         it { should_not be_valid }
       end
-    end
-
-    describe 'when original_date is in the future' do
-      before { @contribution.original_date = DateTime.now + 2.hours }
-      it { should_not be_valid }
     end
 
     describe "when approvable" do
@@ -141,8 +131,7 @@ describe Contribution do
 
     context 'creation context :' do
       let(:contribution) { Contribution.for album, album.attributes, true }
-      it 'approve : should apply contribution and update state' do
-        album.should_receive(:apply_contribution)
+      it 'approve : should update state' do
         album.should_receive(:publish!)
         contribution.can_approve?.should be_true
         contribution.approve.should be_true
@@ -153,12 +142,15 @@ describe Contribution do
         contribution.should be_refused
       end
       describe 'when pending contributions exists' do
+        let(:new_user) { FactoryGirl.create :user }
         let(:other_contribution)  do
           contribution.save!
           album.title = "Toto"
+          # must be for a new user otherwise is merged with the previous contribution
+          album.updater = new_user
           Contribution.for album, album.attributes, false
         end
-        it 'should do not be approvable' do
+        it 'should not be approvable' do
           other_contribution.can_approve?.should be_false
         end
       end
@@ -169,6 +161,7 @@ describe Contribution do
         Contribution.for album, album.attributes, false
       end
       it 'approve : should apply contribution and update state' do
+        album.should_receive(:apply_contribution)
         album.should_receive(:publish!)
         contribution.can_approve?.should be_true
         contribution.approve.should be_true

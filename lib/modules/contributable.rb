@@ -26,7 +26,7 @@ module Contributable
       	return false unless valid?
 
       	is_new_record = new_record?
-      	res = true
+      	published = false
 
       	self.transaction do
 
@@ -41,7 +41,7 @@ module Contributable
 
 					#commit the contribution if necessary rights
 					if can_bypass_approval && contribution.can_approve?
-						return false unless contribution.approve
+						return contribution.approve
 					end
 
 					return true

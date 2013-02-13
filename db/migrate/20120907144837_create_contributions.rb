@@ -6,7 +6,6 @@ class CreateContributions < ActiveRecord::Migration
       t.integer :event_cd,        :null => false
       t.string :state,            :null => false
 			t.text :draft_object,       :null => false
-      t.datetime :original_date,  :null => false
       t.text :reason
 
       t.timestamps

@@ -8,7 +8,6 @@
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
 #  draft_object    :text             not null
-#  original_date   :datetime         not null
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -27,15 +26,15 @@ class Contribution < ActiveRecord::Base
 
   #persisted attributes
 	attr_accessible :reason, :state, :draft_object
-  attr_readonly :original_date, :event, :approvable
+  attr_readonly :event, :approvable
 
 	as_enum :event, { create: 0, update: 1 }, prefix: true
 	serialize :draft_object
 
   #validations
 	validates_as_enum :event
-	validates_presence_of :state, :event, :approvable, :draft_object, :original_date
-	validate :draft_object_and_approvable_must_match, :original_date_must_be_in_the_past
+	validates_presence_of :state, :event, :approvable, :draft_object
+	validate :draft_object_and_approvable_must_match
 
   #scopes
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
@@ -90,7 +89,6 @@ class Contribution < ActiveRecord::Base
 
     #fill data
     c.approvable = entity
-    c.original_date = draft[:updated_at]
     c.creator_id = c.updater_id = draft[:updater_id]
     c.event = is_new_record ? :create : :update
     return c
@@ -108,12 +106,12 @@ class Contribution < ActiveRecord::Base
 	private
 
     def is_the_oldest_contribution?
-      oldest_contrib = Contribution.where(approvable_type: approvable_type, approvable_id: approvable_id, state: 'pending').order('original_date ASC').first
+      oldest_contrib = Contribution.where(approvable_type: approvable_type, approvable_id: approvable_id, state: 'pending').order('created_at ASC, id ASC').first
       return oldest_contrib.nil? || oldest_contrib == self
     end
 
     def self.last_contribution_for(entity)
-      Contribution.where(approvable_type: entity.class.name, approvable_id: entity.id, state: 'pending').order('original_date DESC').first
+      Contribution.where(approvable_type: entity.class.name, approvable_id: entity.id, state: 'pending').order('created_at DESC, id DESC').first
     end
 
 		def commit_contribution
@@ -130,9 +128,4 @@ class Contribution < ActiveRecord::Base
 			errors.add(:draft_object, :id_mismatch, draft_id: draft_object[:id], id: approvable.id) unless draft_object[:id] == approvable.id
 		end
 
-    def original_date_must_be_in_the_past
-    if original_date.blank? || original_date > DateTime.now
-      errors.add(:original_date, :original_date_must_be_in_the_past)
-    end
-  end
 end
