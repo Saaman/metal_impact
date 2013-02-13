@@ -26,34 +26,16 @@ class Contribution < ActiveRecord::Base
   belongs_to :approvable, polymorphic: true
 
   #persisted attributes
-	attr_accessible :reason, :state, :creator, :updater
-  attr_readonly :original_date, :event, :draft_object, :approvable
+	attr_accessible :reason, :state, :draft_object
+  attr_readonly :original_date, :event, :approvable
 
 	as_enum :event, { create: 0, update: 1 }, prefix: true
 	serialize :draft_object
 
   #validations
 	validates_as_enum :event
-	validates_presence_of :state, :event, :approvable, :draft_draft_object, :original_date
-	validate :draft_draft_object_and_approvable_must_match, :original_date_must_be_in_the_past
-
-	#callbacks
-  after_initialize do |contrib|
-    #operations performed on draft_object creation
-    return unless contrib.new_record?
-
-    check_draft_object_has_contributions
-
-    if draft_object.new_record?
-      self.event = :create
-      draft_draft_object.published = false
-      draft_draft_object.save!
-    else
-      self.event = :update
-    end
-
-
-  end
+	validates_presence_of :state, :event, :approvable, :draft_object, :original_date
+	validate :draft_object_and_approvable_must_match, :original_date_must_be_in_the_past
 
   #scopes
   scope :at_state, lambda {|state_name| where(:state => state_name.to_s) }
@@ -85,35 +67,47 @@ class Contribution < ActiveRecord::Base
 
   def title
     case approvable_type
-      when Artist.name then draft_object.name
-      when Album.name then draft_object.title
+      when Artist.name then approvable.name
+      when Album.name then approvable.title
     end
   end
 
-  def self.for(entity, attrs)
-    raise RuntimeError.new('Cannot issue a contribution on a object not saved yet') if self.new_record?
-    c = Contribution.new draft_object: attrs, approvable: entity
-    c.original_date = draft_object.updated_at
-    c.creator = c.updater = draft_object.updater
+  def self.for(entity, attrs, is_new_record)
+    raise ArgumentError.new('Cannot issue a contribution on a object not saved yet') if entity.new_record?
+    c = Contribution.new draft_object: HashWithIndifferentAccess.new(attrs)
+    raise ArgumentError.new('attrs must be a valid hash coming from Contributable attributes') if improper_hash(c.draft_object)
+    c.approvable = entity
+    c.original_date = c.draft_object[:updated_at]
+    c.creator_id = c.updater_id = c.draft_object[:updater_id]
+    c.event = is_new_record ? :create : :update
+    return c
   end
+
+  protected
+    def self.improper_hash(h)
+      h.nil? || h.empty? ||
+      !h.include?(:id) ||
+      !h.include?(:updater_id) ||
+      !h.include?(:updated_at)
+    end
 
 	private
 
 		def commit_contribution
-			draft_object.publish!
+      approvable.apply_contribution draft_object
 		end
 
 		def draft_object_and_approvable_must_match
-			return if approvable.nil? || draft_object.nil?
-			errors.add(:draft_object, :approvable_mismatch, obj_type: draft_object.class.name.humanize, obj_id: draft_object.id, appr_type: approvable.class.name.humanize, appr_id: approvable.id) unless (draft_object.class == approvable.class) and (draft_object.id == approvable.id)
-		end
-
-		def check_draft_object_has_contributions
-			raise Exceptions::ContributableError.new("draft_object of type '#{draft_object.nil? ? nil : draft_object.class.name.humanize}' dos not support contributions mechanism") unless draft_object.kind_of? Contributable
+      if Contribution.improper_hash(draft_object)
+        errors.add(:draft_object, :invalid_draft)
+        return
+      end
+      return if approvable.nil?
+			errors.add(:draft_object, :id_mismatch, draft_id: draft_object[:id], id: approvable.id) unless draft_object[:id] == approvable.id
 		end
 
     def original_date_must_be_in_the_past
-    if !original_date.blank? and original_date > DateTime.now
+    if original_date.blank? || original_date > DateTime.now
       errors.add(:original_date, :original_date_must_be_in_the_past)
     end
   end
