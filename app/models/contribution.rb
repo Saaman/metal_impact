@@ -7,7 +7,7 @@
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
-#  object          :text             not null
+#  draft_object          :text             not null
 #  original_date   :datetime         not null
 #  reason          :text
 #  created_at      :datetime         not null
@@ -26,35 +26,33 @@ class Contribution < ActiveRecord::Base
   belongs_to :approvable, polymorphic: true
 
   #persisted attributes
-	attr_accessible :state, :event, :object, :reason, :creator, :updater
-  attr_readonly :original_date, :approvable
+	attr_accessible :reason, :state, :creator, :updater
+  attr_readonly :original_date, :event, :draft_object, :approvable
 
 	as_enum :event, { create: 0, update: 1 }, prefix: true
-	serialize :object
+	serialize :draft_object
 
   #validations
 	validates_as_enum :event
-	validates_presence_of :state, :event, :approvable, :object, :original_date
-	validate :object_and_approvable_must_match, :original_date_must_be_in_the_past
+	validates_presence_of :state, :event, :approvable, :draft_draft_object, :original_date
+	validate :draft_draft_object_and_approvable_must_match, :original_date_must_be_in_the_past
 
 	#callbacks
   after_initialize do |contrib|
-    #operations performed on object creation
+    #operations performed on draft_object creation
     return unless contrib.new_record?
 
-    check_object_has_contributions
+    check_draft_object_has_contributions
 
-    if object.new_record?
+    if draft_object.new_record?
       self.event = :create
-      object.published = false
-      object.save!
+      draft_draft_object.published = false
+      draft_draft_object.save!
     else
       self.event = :update
     end
 
-    self.original_date = object.updated_at
-    self.creator = self.updater = object.updater
-    self.approvable = object
+
   end
 
   #scopes
@@ -87,24 +85,31 @@ class Contribution < ActiveRecord::Base
 
   def title
     case approvable_type
-      when Artist.name then object.name
-      when Album.name then object.title
+      when Artist.name then draft_object.name
+      when Album.name then draft_object.title
     end
+  end
+
+  def self.for(entity, attrs)
+    raise RuntimeError.new('Cannot issue a contribution on a object not saved yet') if self.new_record?
+    c = Contribution.new draft_object: attrs, approvable: entity
+    c.original_date = draft_object.updated_at
+    c.creator = c.updater = draft_object.updater
   end
 
 	private
 
 		def commit_contribution
-			object.publish!
+			draft_object.publish!
 		end
 
-		def object_and_approvable_must_match
-			return if approvable.nil? || object.nil?
-			errors.add(:object, :approvable_mismatch, obj_type: object.class.name.humanize, obj_id: object.id, appr_type: approvable.class.name.humanize, appr_id: approvable.id) unless (object.class == approvable.class) and (object.id == approvable.id)
+		def draft_object_and_approvable_must_match
+			return if approvable.nil? || draft_object.nil?
+			errors.add(:draft_object, :approvable_mismatch, obj_type: draft_object.class.name.humanize, obj_id: draft_object.id, appr_type: approvable.class.name.humanize, appr_id: approvable.id) unless (draft_object.class == approvable.class) and (draft_object.id == approvable.id)
 		end
 
-		def check_object_has_contributions
-			raise Exceptions::ContributableError.new("Object of type '#{object.nil? ? nil : object.class.name.humanize}' dos not support contributions mechanism") unless object.kind_of? Contributable
+		def check_draft_object_has_contributions
+			raise Exceptions::ContributableError.new("draft_object of type '#{draft_object.nil? ? nil : draft_object.class.name.humanize}' dos not support contributions mechanism") unless draft_object.kind_of? Contributable
 		end
 
     def original_date_must_be_in_the_past

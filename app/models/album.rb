@@ -45,6 +45,10 @@ class Album < ActiveRecord::Base
 		music_label.nil? ? I18n.t("special.self_production") : music_label.name
 	end
 
+	def specific_attributes_for_contribution
+		{artist_ids: .artist_ids}
+	end
+
 	private
 		def new_music_label?
 			music_label.nil? ? false : music_label.new_record?

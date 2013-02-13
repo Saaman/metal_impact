@@ -40,6 +40,18 @@ module Contributable
 					return true
 				end
 			end
+
+			#private
+				def as_contribution
+					raise RuntimeError.new('Cannot issue a contribution on a object not saved yet') if self.new_record?
+					attrs = self.attributes
+					attrs += specific_attributes_for_contribution
+					Contribution.for self, attrs
+				end
+
+				def specific_attributes_for_contribution
+					{}
+				end
 		end
 	end
 end

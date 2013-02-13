@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20121228104637) do
     t.integer  "approvable_id",   :null => false
     t.integer  "event_cd",        :null => false
     t.string   "state",           :null => false
-    t.text     "object",          :null => false
+    t.text     "draft_object",    :null => false
     t.datetime "original_date",   :null => false
     t.text     "reason"
     t.datetime "created_at",      :null => false
