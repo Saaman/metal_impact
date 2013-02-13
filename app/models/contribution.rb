@@ -75,11 +75,23 @@ class Contribution < ActiveRecord::Base
 
   def self.for(entity, attrs, is_new_record)
     raise ArgumentError.new('Cannot issue a contribution on a object not saved yet') if entity.new_record?
-    c = Contribution.new draft_object: HashWithIndifferentAccess.new(attrs)
-    raise ArgumentError.new('attrs must be a valid hash coming from Contributable attributes') if improper_hash(c.draft_object)
+    draft = HashWithIndifferentAccess.new(attrs)
+    raise ArgumentError.new('attrs must be a valid hash coming from Contributable attributes') if improper_hash(draft)
+
+    #if the last contrib was done by the same user, use it instead of a new one
+    last_contrib = last_contribution_for(entity)
+    if  !last_contrib.nil? && last_contrib.updater_id == draft[:updater_id]
+      last_contrib.draft_object = draft
+      return last_contrib
+    end
+
+    #initiate new contribution
+    c = Contribution.new draft_object: draft
+
+    #fill data
     c.approvable = entity
-    c.original_date = c.draft_object[:updated_at]
-    c.creator_id = c.updater_id = c.draft_object[:updater_id]
+    c.original_date = draft[:updated_at]
+    c.creator_id = c.updater_id = draft[:updater_id]
     c.event = is_new_record ? :create : :update
     return c
   end
@@ -100,8 +112,12 @@ class Contribution < ActiveRecord::Base
       return oldest_contrib.nil? || oldest_contrib == self
     end
 
+    def self.last_contribution_for(entity)
+      Contribution.where(approvable_type: entity.class.name, approvable_id: entity.id, state: 'pending').order('original_date DESC').first
+    end
+
 		def commit_contribution
-      approvable.apply_contribution draft_object if event_create?
+      approvable.apply_contribution draft_object if event_update?
       approvable.publish!
 		end
 

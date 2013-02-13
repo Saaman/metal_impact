@@ -32,11 +32,11 @@ shared_examples "contributable model" do
 	  end
 	end
 
-  describe 'Default behaviors' do
+  describe 'Default behaviors :' do
     its(:published) { should be_false }
   end
 
-	describe "when saving" do
+	describe "when saving :" do
 		describe "it should set published to false if not present" do
 			before { contributable.save }
 			its(:published) { should be_false }
@@ -60,26 +60,72 @@ shared_examples "contributable model" do
     end
   end
 
-  describe "contribute" do
+  describe 'apply_contribution :' do
+    before { contributable.apply_contribution({creator_id: 12}) }
+    its(:creator_id) { should == 12 }
+  end
+
+  describe "contribute :" do
     describe "a new object" do
       describe "without bypassing approval" do
-        before { contributable.contribute }
         it "should save contributable as unpublished" do
-          contributable.should be_persisted
-          contributable.should_not be_published
+          contributable.contribute.should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should_not be_published
         end
         it "should create a contribution" do
+          contributable.contribute.should be_true
           contributable.contributions(true).size.should == 1
+          Contribution.first.should be_pending
         end
       end
       describe "with bypassing approval" do
-        before { contributable.contribute(true) }
         it "should save contributable as published" do
-          contributable.should be_persisted
-          contributable.should be_published
+          contributable.contribute(true).should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should be_published
         end
         it "should create a contribution" do
+          contributable.contribute(true).should be_true
           contributable.contributions(true).size.should == 1
+          Contribution.first.should be_approved
+        end
+        describe 'first without approval, then with' do
+          let(:user) { FactoryGirl.create(:user) }
+          before do
+            contributable.contribute
+            contributable.published = true
+            contributable.updater = user
+          end
+          it "should save contributable as unpublished" do
+            contributable.contribute(true).should be_true
+            contributable.reload.should be_persisted
+            contributable.reload.should_not be_published
+            contributable.reload.updater.should_not == user
+          end
+          it "should create two contributions" do
+            contributable.contribute(true).should be_true
+            contributable.contributions(true).size.should == 2
+            Contribution.first.should be_pending
+            Contribution.last.should be_pending
+          end
+        end
+        describe 'when the same user do 2 contributions' do
+          let(:user) { FactoryGirl.create(:user) }
+          before do
+            contributable.contribute
+            contributable.published = true
+          end
+          it "should save contributable as unpublished" do
+            contributable.contribute.should be_true
+            contributable.reload.should be_persisted
+            contributable.reload.should_not be_published
+          end
+          it "should create one contribution" do
+            contributable.contribute.should be_true
+            contributable.contributions(true).size.should == 1
+            Contribution.first.should be_pending
+          end
         end
       end
     end
@@ -91,31 +137,35 @@ shared_examples "contributable model" do
         contributable.updater = user
       end
       describe "without bypassing approval" do
-        before { contributable.contribute }
         it "should save contributable as unpublished" do
-          contributable.should be_persisted
-          contributable.should be_published
+          contributable.contribute.should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should be_published
           contributable.reload.updater.should_not == user
         end
         it "should create a contribution" do
+          contributable.contribute.should be_true
           contributable.contributions(true).size.should == 1
+          Contribution.first.should be_pending
         end
       end
       describe "with bypassing approval" do
-        before { contributable.contribute(true) }
         it "should save contributable as published" do
-          contributable.should be_persisted
-          contributable.should be_published
+          contributable.contribute(true).should be_true
+          contributable.reload.should be_persisted
+          contributable.reload.should be_published
           contributable.reload.updater.should == user
         end
         it "should create a contribution" do
+          contributable.contribute(true).should be_true
           contributable.contributions(true).size.should == 1
+          Contribution.first.should be_approved
         end
       end
     end
 	end
 
-  describe 'publish!' do
+  describe 'publish! :' do
     before do
       contributable.published = false
       contributable.publish!

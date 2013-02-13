@@ -46,7 +46,7 @@ class Album < ActiveRecord::Base
 	end
 
 	def specific_attributes_for_contribution
-		{artist_ids: .artist_ids}
+		{artist_ids: artist_ids}
 	end
 
 	private

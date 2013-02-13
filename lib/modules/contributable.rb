@@ -23,30 +23,43 @@ module Contributable
       end
 
       def contribute(can_bypass_approval = false)
+      	return false unless valid?
 
-				return false unless valid?
+      	is_new_record = new_record?
+      	res = true
 
-				self.transaction do
+      	self.transaction do
 
-					contribution = Contribution.new object: self
-					return false if !contribution.save
+	      	#save the record if new
+	      	if is_new_record
+	      		return false unless save #return false if save fails
+	      	end
 
-					if can_bypass_approval
-						self.published = true
-						#Save the record
-						return false if !save
+	      	#create a contribution and save it
+					contribution = make_contribution is_new_record
+					return false unless contribution.save
+
+					#commit the contribution if necessary rights
+					if can_bypass_approval && contribution.can_approve?
+						return false unless contribution.approve
 					end
 
 					return true
 				end
 			end
 
+			def apply_contribution(attrs)
+				attrs.each do |key, value|
+					self.send "#{key}=", value
+				end
+			end
+
 			#private
-				def as_contribution
+				def make_contribution(is_new_record)
 					raise RuntimeError.new('Cannot issue a contribution on a object not saved yet') if self.new_record?
 					attrs = self.attributes
-					attrs += specific_attributes_for_contribution
-					Contribution.for self, attrs
+					attrs .merge! specific_attributes_for_contribution
+					Contribution.for self, attrs, is_new_record
 				end
 
 				def specific_attributes_for_contribution
