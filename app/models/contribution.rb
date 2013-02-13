@@ -7,7 +7,7 @@
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
-#  draft_object          :text             not null
+#  draft_object    :text             not null
 #  original_date   :datetime         not null
 #  reason          :text
 #  created_at      :datetime         not null
@@ -53,7 +53,8 @@ class Contribution < ActiveRecord::Base
 
     #evens
     event :approve do
-      transition :pending => :approved
+      #transition is allowed only if there is no previous pending contribution on the same entity
+      transition :pending => :approved, :if => :is_the_oldest_contribution?
     end
     event :refuse do
       transition :pending => :refused
@@ -84,6 +85,7 @@ class Contribution < ActiveRecord::Base
   end
 
   protected
+    #does not work if set as private, the draft_object_and_approvable_must_match validation can't find the method (as accessed outside the context the class itself)
     def self.improper_hash(h)
       h.nil? || h.empty? ||
       !h.include?(:id) ||
@@ -93,8 +95,14 @@ class Contribution < ActiveRecord::Base
 
 	private
 
+    def is_the_oldest_contribution?
+      oldest_contrib = Contribution.where(approvable_type: approvable_type, approvable_id: approvable_id, state: 'pending').order('original_date ASC').first
+      return oldest_contrib.nil? || oldest_contrib == self
+    end
+
 		def commit_contribution
-      approvable.apply_contribution draft_object
+      approvable.apply_contribution draft_object if event_create?
+      approvable.publish!
 		end
 
 		def draft_object_and_approvable_must_match

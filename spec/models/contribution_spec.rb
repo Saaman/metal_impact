@@ -143,27 +143,39 @@ describe Contribution do
       let(:contribution) { Contribution.for album, album.attributes, true }
       it 'approve : should apply contribution and update state' do
         album.should_receive(:apply_contribution)
-        contribution.approve.should == true
+        album.should_receive(:publish!)
+        contribution.can_approve?.should be_true
+        contribution.approve.should be_true
         contribution.should be_approved
       end
       it 'refuse : should leave album to unpublished' do
-        contribution.refuse.should == true
+        contribution.refuse.should be_true
         contribution.should be_refused
+      end
+      describe 'when pending contributions exists' do
+        let(:other_contribution)  do
+          contribution.save!
+          album.title = "Toto"
+          Contribution.for album, album.attributes, false
+        end
+        it 'should do not be approvable' do
+          other_contribution.can_approve?.should be_false
+        end
       end
     end
     context 'update context :' do
-      let(:published_album) { FactoryGirl.create :album_with_artists, published: true }
       let(:contribution) do
-        published_album.title = "Toto"
-        Contribution.for published_album, published_album.attributes, false
+        album.title = "Toto"
+        Contribution.for album, album.attributes, false
       end
       it 'approve : should apply contribution and update state' do
-        published_album.should_receive(:apply_contribution)
-        contribution.approve.should == true
+        album.should_receive(:publish!)
+        contribution.can_approve?.should be_true
+        contribution.approve.should be_true
         contribution.should be_approved
       end
       it 'refuse : should leave album to unpublished' do
-        contribution.refuse.should == true
+        contribution.refuse.should be_true
         contribution.should be_refused
       end
     end
