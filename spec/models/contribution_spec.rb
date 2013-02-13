@@ -56,7 +56,6 @@ describe Contribution do
     it { should respond_to(:can_refuse?) }
 
     #methods
-    it { should respond_to :creator_pseudo }
     it { should respond_to :title }
     it { should respond_to(:event_create?) }
     it { should respond_to(:event_create!) }
@@ -176,6 +175,5 @@ describe Contribution do
 
   describe 'Methods :' do
     its(:title) { should == album.title }
-    its(:creator_pseudo) { should == album.updater.pseudo }
   end
 end

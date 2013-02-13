@@ -4,13 +4,11 @@ module Trackable
 
 			stampable
 
-			#callbacks
-      after_save do |trackable|
-        raise Exceptions::TrackableError.new("You can't create a '#{trackable.class.name.humanize}' without creator") if trackable.creator.nil?
-        raise Exceptions::TrackableError.new("You can't update a '#{trackable.class.name.humanize}' without updater") if trackable.updater.nil?
-      end
+      #validations
+      validates_presence_of :creator, :updater
 
       delegate :pseudo, :to => :updater, :prefix => true
+      delegate :pseudo, :to => :creator, :prefix => true
 
     end
   end

@@ -61,10 +61,6 @@ class Contribution < ActiveRecord::Base
 
   end
 
-  def creator_pseudo
-    creator.pseudo
-  end
-
   def title
     case approvable_type
       when Artist.name then approvable.name

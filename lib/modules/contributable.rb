@@ -28,6 +28,8 @@ module Contributable
       	is_new_record = new_record?
       	published = false
 
+      	return false unless valid?
+
       	self.transaction do
 
 	      	#save the record if new
