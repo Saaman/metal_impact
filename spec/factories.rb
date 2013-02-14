@@ -114,4 +114,15 @@ FactoryGirl.define do
     description { generate(:random_string) }
     entry
   end
+
+  factory :contribution do
+    ignore do
+      my_object { FactoryGirl.create(:artist) }
+    end
+    draft_object { HashWithIndifferentAccess.new(my_object.attributes) }
+    approvable { my_object }
+    event :create
+    creator
+    updater
+  end
 end

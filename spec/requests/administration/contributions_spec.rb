@@ -6,17 +6,14 @@ describe 'Contributions :', :js => true do
 	subject { page }
 
 	let!(:artist) { FactoryGirl.create :artist }
-	let!(:contribution) { Contribution.new object: artist }
+	let!(:contribution) { FactoryGirl.create :contribution, my_object: artist }
 
 	before do
 		contribution.save!
 		3.times do
-			c = Contribution.new object: FactoryGirl.create(:artist)
-			c.save!
+			FactoryGirl.create :contribution
 		end
-
-		c = Contribution.new object: FactoryGirl.create(:album_with_artists)
-		c.save!
+		FactoryGirl.create :contribution, my_object: FactoryGirl.create(:album_with_artists)
 	end
 
 	describe "Go to list of pending contributions" do

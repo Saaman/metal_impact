@@ -15,8 +15,7 @@ describe Administration::ContributionsController do
   	describe "(authorized)" do
       before(:all) do
         40.times do
-        	c = Contribution.new object: FactoryGirl.create(:artist)
-        	c.save!
+        	FactoryGirl.create(:contribution)
         end
       end
       after(:all) { Contribution.delete_all }
@@ -33,7 +32,7 @@ describe Administration::ContributionsController do
 	end
 
   describe "GET show :" do
-    let(:contribution) { Contribution.new object: FactoryGirl.create(:artist) }
+    let(:contribution) { FactoryGirl.create(:contribution) }
     before { contribution.save! }
     describe "(unauthorized)" do
       before { get :show, {id: contribution.id} }

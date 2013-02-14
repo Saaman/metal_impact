@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "authorizations on Contributions" do
   subject { ability }
   let(:ability){ Ability.new(user) }
-  let(:contribution) { Contribution.new object: FactoryGirl.create(:artist) }
+  let(:contribution) { FactoryGirl.create(:contribution) }
 
   context "when is anonymous user" do
     let(:user) { User.new }
