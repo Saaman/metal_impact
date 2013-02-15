@@ -68,9 +68,7 @@ class ArtistsController < ApplicationController
 
   private
     def contribute_with_artist
-      res = @artist.is_suitable_for_product_type(@product_type_targeted) &&
+      @artist.is_suitable_for_product_type(@product_type_targeted) &&
         @artist.contribute(can? :bypass_contribution, @artist)
-      logger.info 'artist is not suitable' unless res
-      res
     end
 end

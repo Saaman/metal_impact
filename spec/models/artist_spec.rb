@@ -5,8 +5,6 @@
 #  id         :integer          not null, primary key
 #  name       :string(127)      not null
 #  published  :boolean          default(FALSE), not null
-#  creator_id :integer
-#  updater_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  countries  :string(127)
@@ -16,12 +14,9 @@ require 'spec_helper'
 
 describe Artist do
 
-  let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @artist = Artist.new name: "Metallica", :countries => ["FR"]
     @artist.practices = [Practice.find_by_kind(:band)]
-    @artist.creator = owner
-    @artist.updater = owner
   end
 
   subject { @artist }

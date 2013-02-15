@@ -8,8 +8,6 @@
 #  cover          :string(255)
 #  kind_cd        :integer          not null
 #  published      :boolean          default(FALSE), not null
-#  creator_id     :integer
-#  updater_id     :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  music_label_id :integer
@@ -20,12 +18,9 @@ require 'spec_helper'
 describe Album do
 
 	let!(:artist) { FactoryGirl.create(:artist) }
-  let!(:owner) { FactoryGirl.create(:user, :role => :admin) }
   before do
     @album = Album.new title: "Ride The Lightning", release_date: 1.month.ago, :kind => :album
     @album.artists << artist
-    @album.creator = owner
-    @album.updater = owner
   end
 
 	subject { @album }

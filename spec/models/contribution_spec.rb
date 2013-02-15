@@ -7,12 +7,10 @@
 #  approvable_id   :integer          not null
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
-#  object          :text             not null
+#  draft_object    :text             not null
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  creator_id      :integer
-#  updater_id      :integer
 #
 
 require 'spec_helper'
@@ -26,7 +24,6 @@ describe Contribution do
     @contribution = Contribution.new draft_object: HashWithIndifferentAccess.new(album.attributes)
     @contribution.approvable = album
     @contribution.event = :create
-    @contribution.creator = @contribution.updater = album.updater
   end
 
   subject { @contribution }

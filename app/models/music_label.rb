@@ -12,6 +12,8 @@
 
 class MusicLabel < ActiveRecord::Base
 
+	include Trackable
+
 	#associations
   has_many :albums
 

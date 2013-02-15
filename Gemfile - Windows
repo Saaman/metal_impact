@@ -8,7 +8,7 @@ gem 'sqlite3', '~> 1.3.5'
 #User & Rights gems
 gem 'devise', '~> 2.1.2'
 gem 'cancan', '~> 1.6.8'
-gem 'userstamp', :git => "https://github.com/Saaman/userstamp.git"
+gem 'public_activity', '~> 1.0.2'
 
 #Model stuff gems
 gem 'foreigner', '~> 1.2.1'

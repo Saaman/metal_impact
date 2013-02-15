@@ -14,7 +14,6 @@ class CreateAlbums < ActiveRecord::Migration
       t.boolean :published, :null => false, default: false
 
       t.timestamps
-      t.userstamps
     end
 
     #music labels
@@ -27,11 +26,5 @@ class CreateAlbums < ActiveRecord::Migration
     add_index :albums, :release_date
     add_index :albums, :kind_cd
     add_index :albums, :music_label_id
-
-    #userstamps
-    add_foreign_key :albums, :users, column: 'creator_id'
-    add_foreign_key :albums, :users, column: 'updater_id'
-    add_index :albums, :creator_id
-    add_index :albums, :updater_id
   end
 end

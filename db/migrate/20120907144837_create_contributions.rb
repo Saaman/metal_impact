@@ -9,17 +9,10 @@ class CreateContributions < ActiveRecord::Migration
       t.text :reason
 
       t.timestamps
-      t.userstamps
     end
 
     add_index :contributions, :state
     add_index :contributions, :created_at
     add_index :contributions, [:approvable_type, :approvable_id]
-
-    #userstamps
-    add_foreign_key :contributions, :users, column: 'creator_id'
-    add_foreign_key :contributions, :users, column: 'updater_id'
-    add_index :contributions, :creator_id
-    add_index :contributions, :updater_id
   end
 end

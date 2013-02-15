@@ -4,7 +4,7 @@ FactoryGirl.define do
 
   sequence(:random_string) { |n| Faker::Lorem.words.join(" ") }
 
-  factory :user, aliases: [:creator, :updater] do
+  factory :user do
     sequence(:email) { |n| "person_#{n}@example.com" }
     sequence(:pseudo) { |n| "person_#{n}" }
     password "foobar1"
@@ -23,16 +23,12 @@ FactoryGirl.define do
     practices { [Practice.find_by_kind(practice_kind)] }
     countries ["FR"]
     published true
-    creator
-    updater
   end
 
   factory :album do
     title { generate(:random_string) }
     release_date { 1.month.ago.to_date }
     published true
-    creator
-    updater
 
     kind :album
 
@@ -122,7 +118,5 @@ FactoryGirl.define do
     draft_object { HashWithIndifferentAccess.new(my_object.attributes) }
     approvable { my_object }
     event :create
-    creator
-    updater
   end
 end

@@ -2,7 +2,9 @@ class ApplicationController < ActionController::Base
 	include ApplicationHelper
   include LocaleHelper
   include Exceptions
-  include Userstamp
+
+  #tell public_activity to reference to this controller base to find for activists.
+  include PublicActivity::StoreController
 
   protect_from_forgery
   check_authorization :unless => :devise_controller?

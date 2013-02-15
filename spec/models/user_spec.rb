@@ -48,7 +48,7 @@ describe User do
     it { should respond_to(:date_of_birth) }
     it { should respond_to(:gender) }
     it { should respond_to(:role) }
-    
+
     specify { User.should respond_to(:genders) }
     specify { User.should respond_to(:roles) }
 
@@ -62,7 +62,7 @@ describe User do
     it { should respond_to(:basic!) }
     it { should respond_to(:admin!) }
   end
-  
+
   describe "Validations" do
 
     it { should be_valid }
@@ -170,7 +170,7 @@ describe User do
         before { @user.date_of_birth = Date.today + 1.month }
         it { should_not be_valid }
       end
-      describe "is blank" do 
+      describe "is blank" do
         before { @user.gender = "" }
         it { should be_valid }
       end
@@ -182,7 +182,7 @@ describe User do
           expect { @user.gender = "tata" }.to raise_error(ArgumentError, /Invalid enumeration/)
         end
       end
-      describe "is blank" do 
+      describe "is blank" do
         before { @user.gender = "" }
         it { should be_valid }
       end

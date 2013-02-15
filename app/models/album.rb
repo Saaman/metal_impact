@@ -8,8 +8,6 @@
 #  cover          :string(255)
 #  kind_cd        :integer          not null
 #  published      :boolean          default(FALSE), not null
-#  creator_id     :integer
-#  updater_id     :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  music_label_id :integer
