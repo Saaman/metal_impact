@@ -52,7 +52,10 @@ describe "authorizations on Album" do
     it{ should_not be_able_to(:bypass_contribution, album) }
 
     describe "can read unpublished album for which he is the last updater" do
-      before { unpublished_album.updater_id = user.id }
+      before do
+        unpublished_album.activity :owner => user
+        unpublished_album.save!
+      end
       it{ should be_able_to(:create, unpublished_album) }
       it{ should be_able_to(:read, unpublished_album) }
       it{ should_not be_able_to(:destroy, unpublished_album) }

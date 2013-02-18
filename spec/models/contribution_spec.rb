@@ -77,7 +77,7 @@ describe Contribution do
         expect { Contribution.for Album.new, {}, User.new }.to raise_error(ArgumentError)
       end
       it 'should raise when passing an invalid hash' do
-        expect { Contribution.for album, {id: 1, updater_id: 1}, contributor }.to raise_error(ArgumentError)
+        expect { Contribution.for album, {tata: 1, updater_id: 1}, contributor }.to raise_error(ArgumentError)
       end
 
       context 'to create' do
@@ -106,7 +106,7 @@ describe Contribution do
         it { should_not be_valid }
       end
        describe "is not valid" do
-        before { @contribution.draft_object = {id: 1, updater_id: 1} }
+        before { @contribution.draft_object = {tata: 1, updater_id: 1} }
         it { should_not be_valid }
       end
     end

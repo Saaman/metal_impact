@@ -26,7 +26,7 @@ class Ability
     if user.role_cd >= User.roles[:staff]
       can :create, Contributable
       can [:read, :update], Contributable do |contributable|
-        contributable.published || contributable.updater_id == user.id
+        contributable.published || contributable.owner == user
       end
       cannot :bypass_contribution, :all
 
