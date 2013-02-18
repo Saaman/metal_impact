@@ -84,3 +84,6 @@ fr:
         clear_failures: "Supprimer toutes les erreurs"
       import_entry:
         update: "Mettre à jour l'entrée et supprimer les erreurs associées"
+      contribution:
+        approve: "Approuver"
+        refuse: "Refuser"

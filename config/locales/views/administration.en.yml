@@ -84,3 +84,6 @@ en:
         clear_failures: "Clear all failures"
       import_entry:
         update: "Update entry and delete associated failures"
+      contribution:
+        approve: "Approve"
+        refuse: "Refuse"

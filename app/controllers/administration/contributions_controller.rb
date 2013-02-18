@@ -12,15 +12,15 @@ class Administration::ContributionsController < ApplicationController
 		respond_with @contribution
 	end
 
-	def edit
-	end
-
-	def update
-	end
-
 	def approve
+		@contribution = Contribution.find params[:id]
+		@contribution.approve
+		respond_with @contribution.approvable
 	end
 
 	def refuse
+		@contribution = Contribution.find params[:id]
+		@contribution.refuse
+		redirect_to administration_contributions_url
 	end
 end

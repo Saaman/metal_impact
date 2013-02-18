@@ -7,4 +7,16 @@
 		<%= t ".summary_#{@contribution.event}", object_kind: translate_object_kind(@contribution.approvable_type), modified_on: l(@contribution.created_at, :format => :short), modified_by: @contribution.owner_pseudo %>
 	</p>
 </div>
+
+<div class="form-actions">
+	<%= simple_form_for @contribution, url: approve_administration_contribution_path, html: {style: "display: inline-block;"} do |f| %>
+  	<%= f.button :submit, t('helpers.submit.contribution.approve'), :class => 'btn-success' %>
+  <% end %>
+  <%= simple_form_for @contribution, url: refuse_administration_contribution_path, html: {style: "display: inline-block;"} do |f| %>
+  	<%= f.button :submit, t('helpers.submit.contribution.refuse'), :class => 'btn-danger' %>
+  <% end %>
+  <%= link_to t('defaults.back_link'), :back, { :class => "btn" } %>
+</div>
+
+
 <hr>

@@ -5,7 +5,7 @@ describe 'Contributions :', :js => true do
 
 	subject { page }
 
-	let!(:artist) { FactoryGirl.create :artist }
+	let!(:artist) { FactoryGirl.create :artist, published: false, name: 'toto' }
 	let!(:contribution) { FactoryGirl.create :contribution, my_object: artist }
 
 	before do
@@ -26,6 +26,22 @@ describe 'Contributions :', :js => true do
 			before { find("tr[data-contribution-id='#{contribution.id}']").click }
 			it 'should display the detail of the contribution' do
 				should have_content contribution.title
+				should have_selector "input[value='Approve']"
+				should have_selector "input[value='Refuse']"
+			end
+			describe 'then approve it' do
+				before { click_button 'Approve' }
+				it 'should show the artist published' do
+					should have_selector 'h1', text: artist.name.upcase
+					artist.reload.should be_published
+				end
+			end
+			describe 'then refuse it' do
+				before { click_button 'Refuse' }
+				it 'should go back to the list of contributions' do
+					should have_selector 'h1', text: 'Contributions to approve'
+					artist.reload.should_not be_published
+				end
 			end
 		end
 	end

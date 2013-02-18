@@ -20,7 +20,7 @@ MetalImpact::Application.routes.draw do
       delete 'clear_failures', :on => :member
     end
     resources :import_entries, :only => [:edit, :update]
-    resources :contributions, :only => [:index, :show, :edit, :update] do
+    resources :contributions, :only => [:index, :show] do
       put 'approve', :on => :member
       put 'refuse', :on => :member
     end
@@ -119,7 +119,7 @@ end
 #                         toggle_debug POST   /toggle_debug(.:format)                              administration/monitoring#toggle_debug
 #                               dj_mon        /dj_mon                                              DjMon::Engine
 #                                 root        /                                                    home#index
-# 
+#
 # Routes for DjMon::Engine:
 #       all_dj_reports GET    /dj_reports/all(.:format)       dj_mon/dj_reports#all
 #    failed_dj_reports GET    /dj_reports/failed(.:format)    dj_mon/dj_reports#failed
