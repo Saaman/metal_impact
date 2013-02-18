@@ -43,7 +43,7 @@ class Import::MetalImpactEntry < Import::Entry
 	  artist.updated_at = DateTime.parse(data[:updated_at])
 	  artist.created_at = DateTime.parse(data[:created_at])
 
-		artist.creator_id = artist.updater_id = dependencies[:reviewer_id]
+		artist.activity owner: User.find(dependencies[:reviewer_id])
 
 		finalize_import artist
 	end
@@ -65,7 +65,7 @@ class Import::MetalImpactEntry < Import::Entry
 	  album.release_date = DateTime.parse(data[:release_date])
 	  album.remote_cover_url = data[:cover]
 
-		album.creator_id = album.updater_id = dependencies[:reviewer_id]
+		album.activity owner: User.find(dependencies[:reviewer_id])
 		album.music_label_id = dependencies[:music_label_id]
 		album.artist_ids = dependencies[:artist_ids]
 
