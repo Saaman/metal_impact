@@ -66,7 +66,7 @@ class AlbumsController < ApplicationController
       build_or_update_album(params)
 
       respond_to do |format|
-        if @album.contribute(can? :bypass_contribution, @album)
+        if @album.contribute(current_user, can?(:bypass_contribution, @album))
           format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
           format.json { render json: @album, location: @album }
         else
