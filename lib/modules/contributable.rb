@@ -17,12 +17,18 @@ module Contributable
       scope :published, where(:published => true)
 
       #methods
-      def publish!
+      def publish!(updated_at_value = nil)
       	self.published = true
-      	save!
+      	if updated_at_value.nil?
+      		save!
+      	else
+      		self.updated_at = updated_at_value
+      		save_without_timestamping!
+      	end
       end
 
-      def contribute(can_bypass_approval = false)
+      def contribute(contributor, can_bypass_approval = false)
+      	raise ArgumentError.new('Contributor must be a valid user') if (contributor.nil? || contributor.new_record?)
       	return false unless valid?
 
       	is_new_record = new_record?
@@ -38,7 +44,7 @@ module Contributable
 	      	end
 
 	      	#create a contribution and save it
-					contribution = make_contribution is_new_record
+					contribution = make_contribution contributor, is_new_record
 					return false unless contribution.save
 
 					#commit the contribution if necessary rights
@@ -57,11 +63,11 @@ module Contributable
 			end
 
 			#private
-				def make_contribution(is_new_record)
+				def make_contribution(contributor, is_new_record)
 					raise RuntimeError.new('Cannot issue a contribution on a object not saved yet') if self.new_record?
 					attrs = self.attributes
 					attrs .merge! specific_attributes_for_contribution
-					Contribution.for self, attrs, is_new_record
+					Contribution.for self, attrs, contributor, is_new_record
 				end
 
 				def specific_attributes_for_contribution

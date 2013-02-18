@@ -19,11 +19,13 @@ describe Contribution do
 
   let(:album) { FactoryGirl.create :album_with_artists }
   let(:not_contributable_obj) { FactoryGirl.create(:music_label) }
+  let(:contributor) { FactoryGirl.create :user }
 
   before do
     @contribution = Contribution.new draft_object: HashWithIndifferentAccess.new(album.attributes)
     @contribution.approvable = album
     @contribution.event = :create
+    @contribution.whodunnit = contributor
   end
 
   subject { @contribution }
@@ -42,6 +44,8 @@ describe Contribution do
     it { should respond_to(:approvable_id) }
     it { should respond_to(:approvable) }
     it { should respond_to(:reason) }
+    it { should respond_to(:whodunnit) }
+    it { should respond_to(:whodunnit_id) }
 
     #transitions
     it { should respond_to(:pending?) }
@@ -66,25 +70,27 @@ describe Contribution do
 
     describe 'when using class ctor' do
       it 'should raise when passing a new record' do
-        expect { Contribution.for Album.new, {}, true }.to raise_error(ArgumentError)
+        expect { Contribution.for Album.new, {}, contributor }.to raise_error(ArgumentError)
+      end
+      it 'should raise when passing an invalid contributor' do
+        expect { Contribution.for Album.new, {}, nil }.to raise_error(ArgumentError)
+        expect { Contribution.for Album.new, {}, User.new }.to raise_error(ArgumentError)
       end
       it 'should raise when passing an invalid hash' do
-        expect { Contribution.for album, {id: 1, updater_id: 1}, true }.to raise_error(ArgumentError)
+        expect { Contribution.for album, {id: 1, updater_id: 1}, contributor }.to raise_error(ArgumentError)
       end
 
       context 'to create' do
-        before { @contribution = Contribution.for album, album.attributes, true }
+        before { @contribution = Contribution.for album, album.attributes, contributor, true }
         its(:event_create?) { should be_true }
-        its(:creator) { should == album.updater }
-        its(:updater) { should == album.updater }
+        its(:whodunnit) { should == contributor }
         its(:approvable) { should == album }
       end
 
       context 'to update' do
-        before { @contribution = Contribution.for album, album.attributes, false }
+        before { @contribution = Contribution.for album, album.attributes, contributor }
         its(:event_update?) { should be_true }
-        its(:creator) { should == album.updater }
-        its(:updater) { should == album.updater }
+        its(:whodunnit) { should == contributor }
         its(:approvable) { should == album }
       end
     end
@@ -103,6 +109,11 @@ describe Contribution do
         before { @contribution.draft_object = {id: 1, updater_id: 1} }
         it { should_not be_valid }
       end
+    end
+
+    describe 'when contributor is not present' do
+      before { @contribution.whodunnit = nil }
+      it { should_not be_valid }
     end
 
     describe "when approvable" do
@@ -126,7 +137,7 @@ describe Contribution do
     end
 
     context 'creation context :' do
-      let(:contribution) { Contribution.for album, album.attributes, true }
+      let(:contribution) { Contribution.for album, album.attributes, contributor, true }
       it 'approve : should update state' do
         album.should_receive(:publish!)
         contribution.can_approve?.should be_true
@@ -142,9 +153,7 @@ describe Contribution do
         let(:other_contribution)  do
           contribution.save!
           album.title = "Toto"
-          # must be for a new user otherwise is merged with the previous contribution
-          album.updater = new_user
-          Contribution.for album, album.attributes, false
+          Contribution.for album, album.attributes, new_user
         end
         it 'should not be approvable' do
           other_contribution.can_approve?.should be_false
@@ -154,7 +163,7 @@ describe Contribution do
     context 'update context :' do
       let(:contribution) do
         album.title = "Toto"
-        Contribution.for album, album.attributes, false
+        Contribution.for album, album.attributes, contributor
       end
       it 'approve : should apply contribution and update state' do
         album.should_receive(:apply_contribution)

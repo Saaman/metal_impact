@@ -4,7 +4,7 @@ FactoryGirl.define do
 
   sequence(:random_string) { |n| Faker::Lorem.words.join(" ") }
 
-  factory :user do
+  factory :user, aliases: [:whodunnit] do
     sequence(:email) { |n| "person_#{n}@example.com" }
     sequence(:pseudo) { |n| "person_#{n}" }
     password "foobar1"
@@ -118,5 +118,6 @@ FactoryGirl.define do
     draft_object { HashWithIndifferentAccess.new(my_object.attributes) }
     approvable { my_object }
     event :create
+    whodunnit
   end
 end

@@ -21,6 +21,7 @@ class Contribution < ActiveRecord::Base
 
 	#associations
   belongs_to :approvable, polymorphic: true
+  belongs_to :whodunnit, class_name: User
 
   #persisted attributes
 	attr_accessible :reason, :state, :draft_object
@@ -31,7 +32,7 @@ class Contribution < ActiveRecord::Base
 
   #validations
 	validates_as_enum :event
-	validates_presence_of :state, :event, :approvable, :draft_object
+	validates_presence_of :state, :event, :approvable, :draft_object, :whodunnit
 	validate :draft_object_and_approvable_must_match
 
   #scopes
@@ -66,14 +67,15 @@ class Contribution < ActiveRecord::Base
     end
   end
 
-  def self.for(entity, attrs, is_new_record)
+  def self.for(entity, attrs, contributor, is_new_record = false)
     raise ArgumentError.new('Cannot issue a contribution on a object not saved yet') if entity.new_record?
+    raise ArgumentError.new('you must provider a valid contributor') if (contributor.nil? || contributor.new_record?)
     draft = HashWithIndifferentAccess.new(attrs)
     raise ArgumentError.new('attrs must be a valid hash coming from Contributable attributes') if improper_hash(draft)
 
     #if the last contrib was done by the same user, use it instead of a new one
     last_contrib = last_contribution_for(entity)
-    if  !last_contrib.nil? && last_contrib.updater_id == draft[:updater_id]
+    if  !last_contrib.nil? && last_contrib.whodunnit == contributor
       last_contrib.draft_object = draft
       return last_contrib
     end
@@ -83,7 +85,7 @@ class Contribution < ActiveRecord::Base
 
     #fill data
     c.approvable = entity
-    c.creator_id = c.updater_id = draft[:updater_id]
+    c.whodunnit = contributor
     c.event = is_new_record ? :create : :update
     return c
   end
@@ -92,9 +94,7 @@ class Contribution < ActiveRecord::Base
     #does not work if set as private, the draft_object_and_approvable_must_match validation can't find the method (as accessed outside the context the class itself)
     def self.improper_hash(h)
       h.nil? || h.empty? ||
-      !h.include?(:id) ||
-      !h.include?(:updater_id) ||
-      !h.include?(:updated_at)
+      !h.include?(:id)
     end
 
 	private
@@ -110,7 +110,8 @@ class Contribution < ActiveRecord::Base
 
 		def commit_contribution
       approvable.apply_contribution draft_object if event_update?
-      approvable.publish!
+      approvable.activity :owner => whodunnit
+      approvable.publish! created_at
 		end
 
 		def draft_object_and_approvable_must_match

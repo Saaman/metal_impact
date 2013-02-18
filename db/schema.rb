@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
     t.integer  "event_cd",        :null => false
     t.string   "state",           :null => false
     t.text     "draft_object",    :null => false
+    t.integer  "whodunnit_id",    :null => false
     t.text     "reason"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
