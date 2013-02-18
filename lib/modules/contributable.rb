@@ -60,6 +60,7 @@ module Contributable
 				attrs.each do |key, value|
 					self.send "#{key}=", value
 				end
+				return self
 			end
 
 			#private

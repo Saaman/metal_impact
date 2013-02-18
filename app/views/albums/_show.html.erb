@@ -19,7 +19,7 @@
 </div>
 
 <br style="clear: left" />
-<p>Dernière modification par : <%= link_to album.updater_pseudo, '#' %> le <%= l album.updated_at , :format => :short%></p>
+<p>Dernière modification par : <%= link_to album.owner_pseudo, '#' %> le <%= l album.updated_at , :format => :short%></p>
 
 <%= link_to t('defaults.edit_link'), edit_album_path(album) %> |
 <%= link_to t('defaults.back_link'), albums_path %>

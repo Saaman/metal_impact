@@ -1,15 +1,10 @@
 <tr data-contribution-id="<%= contribution.id %>">
   <td><%= translate_object_kind contribution.approvable_type %></td>
   <td><%= t_enum contribution, :event %></td>
-  <td><%= contribution.creator_pseudo %></td>
+  <td><%= contribution.owner_pseudo %></td>
   <td><%= l contribution.created_at, :format => :short %></td>
   <td>
-  	<% case contribution.approvable_type
-  		 when Artist.name %>
-				<%= render :partial => "artist_line_block", :locals => { artist: contribution.object } %>
-		<% when Album.name %>
-				<%= render :partial => "product_line_block", :locals => { product: contribution.object } %>
-			<% end %>
+  	<%= render_line_block_for contribution %>
   </td>
 </tr>
 

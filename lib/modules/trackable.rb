@@ -8,6 +8,10 @@ module Trackable
   		def owner
   			activities.last.nil? ? nil : activities.last.owner
   		end
+
+  		def owner_pseudo
+  			owner.nil? ? nil : owner.pseudo
+  		end
     end
   end
 end

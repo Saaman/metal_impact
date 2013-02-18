@@ -97,7 +97,7 @@ shared_examples "contributable model" do
           contributable.contribute(user, true).should be_true
           contributable.reload.should be_persisted
           contributable.reload.should_not be_published
-          contributable.activities.last.owner.should_not == user
+          contributable.owner.should_not == user
         end
         it "should create two contributions" do
           contributable.contribute(user, true).should be_true
@@ -133,7 +133,7 @@ shared_examples "contributable model" do
           contributable.contribute(contributor).should be_true
           contributable.reload.should be_persisted
           contributable.reload.should be_published
-          contributable.activities.last.owner.should_not == contributor
+          contributable.owner.should_not == contributor
         end
         it "should create a contribution" do
           contributable.contribute(contributor).should be_true
@@ -146,7 +146,7 @@ shared_examples "contributable model" do
           contributable.contribute(contributor, true).should be_true
           contributable.reload.should be_persisted
           contributable.reload.should be_published
-          contributable.activities.last.owner.should == contributor
+          contributable.owner.should == contributor
         end
         it "should create a contribution" do
           contributable.contribute(contributor, true).should be_true

@@ -4,7 +4,7 @@
 	<h1 style="display: inline-block;"><%= @contribution.title %></h1>
 	<br /><br />
 	<p>
-		<%= t ".summary_#{@contribution.event}", object_kind: translate_object_kind(@contribution.approvable_type), modified_on: l(@contribution.created_at, :format => :short), modified_by: @contribution.creator_pseudo %>
+		<%= t ".summary_#{@contribution.event}", object_kind: translate_object_kind(@contribution.approvable_type), modified_on: l(@contribution.created_at, :format => :short), modified_by: @contribution.owner_pseudo %>
 	</p>
 </div>
 <hr>

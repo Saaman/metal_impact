@@ -67,6 +67,10 @@ class Contribution < ActiveRecord::Base
     end
   end
 
+  def draft
+    approvable.apply_contribution(draft_object)
+  end
+
   def self.for(entity, attrs, contributor, is_new_record = false)
     raise ArgumentError.new('Cannot issue a contribution on a object not saved yet') if entity.new_record?
     raise ArgumentError.new('you must provider a valid contributor') if (contributor.nil? || contributor.new_record?)

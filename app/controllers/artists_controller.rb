@@ -69,6 +69,6 @@ class ArtistsController < ApplicationController
   private
     def contribute_with_artist
       @artist.is_suitable_for_product_type(@product_type_targeted) &&
-        @artist.contribute(can? :bypass_contribution, @artist)
+        @artist.contribute(current_user, can?(:bypass_contribution, @artist))
     end
 end

@@ -12,5 +12,14 @@ module Administration
 			end
 			content_tag :span, event_label, class: "label #{event_class}"
 		end
+
+		def render_line_block_for(contribution)
+			partial_type = case contribution.approvable_type
+				when Artist.name then 'artist'
+				else 'product'
+			end
+
+			render partial: "#{partial_type}_line_block", locals: {"#{partial_type}".to_sym => contribution.approvable }
+		end
 	end
 end
