@@ -18,10 +18,10 @@ module ApplicationHelper
   def map_alert_keys(key)
     key = key.to_sym unless key.is_a? Symbol
     case key
-    when :alert then 'alert-error'
-    when :notice then 'alert-info'
+    when :alert then ' alert-error'
+    when :notice then ' alert-info'
     when :warning then ''
-    else "alert-#{key}"
+    else " alert-#{key}"
     end
   end
 

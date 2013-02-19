@@ -87,6 +87,21 @@ describe "Albums" do
 				should have_selector 'span.album-title', text: /#{album.title}/
 			end
 		end
+	end
 
+	describe 'try change an album with a pending contribution' do
+		let!(:album) { FactoryGirl.create(:album_with_artists) }
+		let!(:contribution) { FactoryGirl.create :contribution, my_object: album }
+  	sign_in_with_capybara :staff
+  	before do
+	  	visit "/albums/#{album.id}/edit"
+	  end
+		it 'should display the album form with a warning about a pre-existing contribution' do
+  		should have_selector "form#edit_album_#{album.id}"
+  		puts album.contributions
+  		print page.html
+  		should have_selector 'div.alert', text: /pending change/
+		end
   end
+
 end

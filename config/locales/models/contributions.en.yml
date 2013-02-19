@@ -1,4 +1,4 @@
-fr:
+en:
   activerecord:
     models:
       contribution: contribution
@@ -10,3 +10,6 @@ fr:
     attributes:
       contribution:
         approvable_type: "Entity type"
+  notices:
+    contributions:
+      on_going: 'There is a pending change on this page. You can modify it, but there is a chance your changes will be discarded by the other contribution.'

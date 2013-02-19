@@ -1,4 +1,4 @@
-en:
+fr:
   activerecord:
     models:
       contribution: contribution
@@ -10,3 +10,6 @@ en:
     attributes:
       contribution:
         approvable_type: "Type d'entité"
+  notices:
+    contributions:
+      on_going: 'Il y a une modification en cours sur cette page. Vous pouvez la modifier, mais il est possible que votre contribution ne soit pas retenue selon la teneur de la modification en cours de validation.'

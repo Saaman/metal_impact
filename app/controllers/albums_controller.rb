@@ -1,5 +1,7 @@
 class AlbumsController < ApplicationController
 
+  include ContributableHelper
+
   load_and_authorize_resource
   skip_load_resource :only => :create
   respond_to :html
@@ -31,6 +33,7 @@ class AlbumsController < ApplicationController
   # GET /albums/1/edit
   def edit
     @album = Album.find(params[:id])
+    check_for_existing_contribution @album
     @new_music_label = MusicLabelPresenter.new
     respond_with @album
   end
