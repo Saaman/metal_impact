@@ -98,8 +98,6 @@ describe "Albums" do
 	  end
 		it 'should display the album form with a warning about a pre-existing contribution' do
   		should have_selector "form#edit_album_#{album.id}"
-  		puts album.contributions
-  		print page.html
   		should have_selector 'div.alert', text: /pending change/
 		end
   end

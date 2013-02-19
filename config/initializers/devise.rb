@@ -7,7 +7,7 @@ Devise.setup do |config|
   config.mailer_sender = "no-reply@metal-impact.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "Devise::Async::Proxy"
+  #config.mailer = "Devise::Async::Proxy"
   # config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
