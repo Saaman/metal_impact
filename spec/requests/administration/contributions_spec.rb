@@ -16,6 +16,19 @@ describe 'Contributions :', :js => true do
 		FactoryGirl.create :contribution, my_object: FactoryGirl.create(:album_with_artists)
 	end
 
+	describe "Go to list of pending contributions from dashboard" do
+		before { click_link 'Dashboard' }
+		it "should display number of contributions" do
+			should have_content "#{Contribution.count}"
+		end
+		describe 'follow link should bring to contributions list' do
+			before { click_link 'Validate' }
+			it "should display contributions#index" do
+				should have_selector 'h1', text: 'Contributions to approve'
+			end
+		end
+	end
+
 	describe "Go to list of pending contributions" do
 		before { click_link 'Contributions' }
 		it "should display my contribution" do

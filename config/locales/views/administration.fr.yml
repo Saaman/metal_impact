@@ -6,6 +6,10 @@ fr:
         activate_debug: "Activer le mode debug"
         deactivate_debug: "Désactiver le mode debug"
         monitor_jobs: " Surveiller les tâches de fond"
+        pending_contributions:
+          one: "Il y a une contribution en attente d'approbation"
+          other: "Il y a %{count} contributions en attente d'approbation"
+        validate_contributions: "Valider "
     contributions:
       index:
         title: "Contributions en attente d'approbation"

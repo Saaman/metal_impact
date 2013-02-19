@@ -4,6 +4,7 @@ class Administration::MonitoringController < ApplicationController
 
 	def dashboard
 		@dashboard = DashboardPresenter.new(allow_debug: can_debug?)
+		@contributions_count = Contribution.at_state(:pending).count
 		respond_with @dashboard
 	end
 

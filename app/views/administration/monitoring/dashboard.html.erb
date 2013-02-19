@@ -1,6 +1,14 @@
 <h1><%= t '.title' %></h1>
 <div class="row-fluid">
 	<div class="span8">
+		<% if @contributions_count > 0 %>
+			<p>
+				<%= t '.pending_contributions', count: @contributions_count %>
+				<%= link_to(administration_contributions_path, { class: 'btn'}) do %>
+					<%= t '.validate_contributions' %><i class="icon-hand-right"></i>
+				<% end %>
+			</p>
+		<% end %>
 	</div>
 	<div class="span4">
 		<div class="well center">

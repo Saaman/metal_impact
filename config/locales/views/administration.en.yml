@@ -6,6 +6,10 @@ en:
         activate_debug: "Activate debug mode"
         deactivate_debug: "Deactivate debug mode"
         monitor_jobs: " Monitor delayed jobs"
+        pending_contributions:
+          one: "There is one pending contribution waiting for approval"
+          other: "There are %{count} pending contributions waiting for approval"
+        validate_contributions: "Validate "
     contributions:
       index:
         title: "Contributions to approve"
