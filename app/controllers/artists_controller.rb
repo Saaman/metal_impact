@@ -53,11 +53,10 @@ class ArtistsController < ApplicationController
     @artist = Artist.new params[:artist].slice :name, :practice_ids, :biography, :countries
     @product_type_targeted = params[:product_type_targeted]
 
-    #flash_message = t("notices.artist.create") if
     respond_with @artist do |format|
       format.js do
         if contribute_with_artist
-          flash.now[:notice] = t("notices.artist.create")
+          make_flash_for_contribution @artist
           render 'create'
         else
           render 'new'

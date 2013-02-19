@@ -17,9 +17,12 @@ module ApplicationHelper
 
   def map_alert_keys(key)
     key = key.to_sym unless key.is_a? Symbol
-    return 'error' if key == :alert
-    return 'info' if key == :notice
-    key
+    case key
+    when :alert then 'alert-error'
+    when :notice then 'alert-info'
+    when :warning then ''
+    else "alert-#{key}"
+    end
   end
 
   def can_debug?

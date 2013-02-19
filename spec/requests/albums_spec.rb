@@ -54,12 +54,39 @@ describe "Albums" do
 					before do
 						click_on 'Update album'
 					end
-					it 'should display updated infos' do
+					it 'should display updated label information' do
 						should have_selector 'div.alert-info', text: /successfully/
 						should have_content music_label.name
 					end
 				end
 			end
 		end
+  end
+
+  describe 'Contribute to album :', :js => true do
+  	let!(:album) { FactoryGirl.create(:album_with_artists) }
+  	sign_in_with_capybara :staff
+  	before do
+	  	visit "/albums/#{album.id}/edit"
+	  end
+	  it 'should display the album form with values prefilled' do
+  		should have_selector "form#edit_album_#{album.id}"
+  		should have_selector "input#album_title[value='#{album.title}']"
+			should have_selector "input#product_artist_ids_#{album.artists[0].id}"
+		end
+
+		describe 'update title' do
+			before do
+				within "form#edit_album_#{album.id}" do
+					fill_in 'album_title', with: 'ride the lightning'
+					click_on 'Update album'
+				end
+			end
+			it 'should create a contribution, and not display updated infos' do
+				should have_selector 'div.alert', text: "Contribution on album was submitted for approval."
+				should have_selector 'span.album-title', text: /#{album.title}/
+			end
+		end
+
   end
 end

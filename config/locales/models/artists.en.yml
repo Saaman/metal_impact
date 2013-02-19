@@ -9,3 +9,8 @@ en:
           band: band
           writer: writer
           musician: musician
+  notices:
+    artist:
+      create: "Artist was successfully created."
+      update: "Artist was successfully updated."
+      contribute: "Contribution on artist was submitted for approval."

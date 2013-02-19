@@ -47,7 +47,7 @@ describe "Artists" do
         it 'should go back to album form' do
           page.should_not have_selector 'form#new_artist'
           page.should have_selector 'div.artist_label h3', text: "#{artist.name.upcase}"
-          page.should have_selector 'div.alert-info', text: "Artist was successfully created."
+          page.should have_selector 'div.alert', text: "Contribution on artist was submitted for approval."
         end
       end
 	  end

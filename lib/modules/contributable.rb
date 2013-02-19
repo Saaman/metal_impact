@@ -16,6 +16,14 @@ module Contributable
 
       scope :published, where(:published => true)
 
+      def flash_key
+      	@flash_key
+      end
+
+      def flash_msg
+      	@flash_msg
+      end
+
       #methods
       def publish!(updated_at_value = nil)
       	self.published = true
@@ -49,9 +57,13 @@ module Contributable
 
 					#commit the contribution if necessary rights
 					if can_bypass_approval && contribution.can_approve?
+						@flash_key = :notice
+						@flash_msg = I18n.t("notices.#{self.class.name.downcase}.#{contribution.event}")
 						return contribution.approve
 					end
 
+					@flash_key = :warning
+					@flash_msg = I18n.t("notices.#{self.class.name.downcase}.contribute")
 					return true
 				end
 			end

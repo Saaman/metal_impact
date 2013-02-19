@@ -37,6 +37,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
+    def make_flash_for_contribution contributable, now = false
+      raise ArgumentError.new('You must provide a contributable entity to this method') unless contributable.is_a? Contributable
+      if now
+        flash.now[contributable.flash_key] = contributable.flash_msg
+      else
+        flash[contributable.flash_key] = contributable.flash_msg
+      end
+    end
+
   private
     def transactions_filter
       ActiveRecord::Base.transaction do

@@ -67,7 +67,8 @@ class AlbumsController < ApplicationController
 
       respond_to do |format|
         if @album.contribute(current_user, can?(:bypass_contribution, @album))
-          format.html { redirect_to @album, notice: t("notices.album.#{params[:action]}") }
+          make_flash_for_contribution @album
+          format.html { redirect_to @album }
           format.json { render json: @album, location: @album }
         else
           logger.info "errors : #{@album.errors.full_messages}"

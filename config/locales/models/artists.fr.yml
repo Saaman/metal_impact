@@ -9,3 +9,8 @@ fr:
           band: "groupe"
           writer: "écrivain"
           musician: "musicien"
+  notices:
+    artist:
+        create: "Le nouvel artist a été crée."
+        update: "L'artiste a été mis à jour."
+        contribute: "La contribution sur l'artiste a été soumise pour approbation."
