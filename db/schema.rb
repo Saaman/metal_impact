@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
     t.integer  "music_label_id"
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
@@ -210,5 +210,19 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
+
+  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
+
+  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
+  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
+
+  add_foreign_key "artists_practices", "artists", :name => "artists_practices_artist_id_fk"
+  add_foreign_key "artists_practices", "practices", :name => "artists_practices_practice_id_fk"
+
+  add_foreign_key "contributions", "users", :name => "contributions_whodunnit_id_fk", :column => "whodunnit_id"
+
+  add_foreign_key "import_entries", "import_source_files", :name => "import_entries_import_source_file_id_fk"
+
+  add_foreign_key "import_failures", "import_entries", :name => "import_failures_import_entry_id_fk"
 
 end
