@@ -387,7 +387,7 @@ DEPENDENCIES
   carrierwave (~> 0.7.0)
   coffee-rails (~> 3.2.2)
   daemons (~> 1.1.9)
-  dalli
+  dalli (~> 2.6.2)
   database_cleaner (~> 0.9.1)
   deferred_associations (~> 0.5.4)
   delayed_job_active_record (~> 0.3.3)
@@ -412,7 +412,7 @@ DEPENDENCIES
   jquery-rails (~> 2.1.0)
   letter_opener (~> 1.0)
   libnotify (~> 0.8.0)
-  memcachier
+  memcachier (~> 0.0.2)
   meta_request
   mini_magick (~> 3.4.0)
   pg (~> 0.14.1)
