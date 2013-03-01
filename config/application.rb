@@ -74,5 +74,10 @@ module MetalImpact
 
     #allow Globalize3 to fallback on default language if translation not found
     config.i18n.fallbacks = true
+
+    #inform Devise to respond to js
+    config.to_prepare do
+       DeviseController.respond_to :html, :js
+    end
   end
 end

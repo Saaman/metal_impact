@@ -6,7 +6,7 @@ gem 'railties', '~> 3.2.5'
 gem 'sqlite3', '~> 1.3.5'
 
 #User & Rights gems
-gem 'devise', '~> 2.1.2'
+gem 'devise', '~> 2.2.3'
 gem 'cancan', '~> 1.6.8'
 gem 'public_activity', '~> 1.0.2'
 
@@ -24,12 +24,12 @@ gem 'deferred_associations', '~>0.5.4'
 
 #image uploads management
 gem 'mini_magick', '~> 3.4.0'
-gem 'carrierwave', '~> 0.7.0'
+gem 'carrierwave', '~> 0.8.0'
 
 #UI gems
 gem 'webshims-rails', '~> 0.4.4'
 gem 'jquery-rails', '~> 2.1.0'
-gem 'anjlab-bootstrap-rails', '~> 2.2.1.2', :require => 'bootstrap-rails'
+gem 'anjlab-bootstrap-rails', '~> 2.3.1.0', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
 gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
@@ -37,13 +37,13 @@ gem 'simple_form', '~> 2.0.2'
 
 
 #Async engine
-gem 'delayed_job_active_record', '~>0.3.3'
-gem 'devise-async', '~>0.4.0'
+gem 'delayed_job_active_record', '~>0.4.2'
+gem 'devise-async', '~>0.6.0'
 gem 'daemons', '~>1.1.9'
 gem 'dj_mon', '~>1.1.0'
 
 # I18n
-gem 'devise-i18n', '~> 0.5.11'
+gem 'devise-i18n', '~> 0.6.4'
 gem 'rails-i18n', '~> 0.7.0'
 gem 'will-paginate-i18n', '~> 0.1.11'
 gem 'i18n-js', '~> 2.1.2'
@@ -54,7 +54,7 @@ gem 'http_accept_language', '~> 1.0.2'
 gem 'squeel', '~>1.0.13'
 gem 'routing-filter', '~>0.3.1' #used for url filtering on languages codes
 gem 'turnout', '~>0.2.2' #maintenance mode gem
-gem 'activerecord-import', '~>0.2.11' #massive insert tool
+gem 'activerecord-import', '~>0.3.1' #massive insert tool
 
 # Tools
 gem 'rack-mini-profiler', '~>0', :group => [:development, :production]

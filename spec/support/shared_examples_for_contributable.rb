@@ -153,6 +153,8 @@ shared_examples "contributable model" do
           contributable.contributions(true).size.should == 1
           Contribution.first.should be_approved
           contributable.updated_at.to_s.should == Contribution.first.created_at.to_s
+          #WARNING : this test is more likely failing, but needs to be instrumented correctly to make the dates difference to appear
+          true.should be_false
         end
       end
     end
