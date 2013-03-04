@@ -15,10 +15,10 @@ gem 'memcachier', '~> 0.0.2'
 gem 'dalli', '~> 2.6.2'
 
 #Model stuff gems
-gem 'foreigner', '~> 1.2.1'
+gem 'foreigner', '~> 1.4.0'
 gem 'validates_timeliness', '~> 3.0.12'
 gem 'simple_enum', '~> 1.6.1'
-gem 'globalize3', '~>0.2.0'
+gem 'globalize3', '~>0.3.0'
 gem 'state_machine', '~>1.1.2'
 gem 'deferred_associations', '~>0.5.4'
 
@@ -28,12 +28,12 @@ gem 'carrierwave', '~> 0.8.0'
 
 #UI gems
 gem 'webshims-rails', '~> 0.4.4'
-gem 'jquery-rails', '~> 2.1.0'
+gem 'jquery-rails', '~> 2.1.4'
 gem 'anjlab-bootstrap-rails', '~> 2.3.1.0', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
 gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
-gem 'simple_form', '~> 2.0.2'
+gem 'simple_form', '~> 2.1.0'
 
 
 #Async engine
@@ -63,7 +63,7 @@ gem 'faker', '~> 1.0', :group => [:development, :test]
 
 #third parties
 gem 'google_drive', '~> 0.3.2'
-gem 'fog', '~> 1.7.0'
+gem 'fog', '~> 1.9.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -88,7 +88,7 @@ end
 group :test do
   gem 'rspec-rails', '~> 2.10'
   gem 'capybara', '~> 1.1.2'
-  gem 'factory_girl_rails', '~> 4.1.0'
+  gem 'factory_girl_rails', '~> 4.2.0'
   gem 'capybara-webkit', git: "https://github.com/Saaman/capybara-webkit.git"
   gem 'database_cleaner', '~>0.9.1'
 
