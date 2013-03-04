@@ -1,8 +1,8 @@
-class Administration::MonitoringController < ApplicationController
+class Administration::DashboardController < ApplicationController
 	authorize_resource :class => false
 	respond_to :html
 
-	def dashboard
+	def index
 		@dashboard = DashboardPresenter.new(allow_debug: can_debug?)
 		@contributions_count = Contribution.at_state(:pending).count
 		respond_with @dashboard

@@ -44,8 +44,8 @@ MetalImpact::Application.routes.draw do
   end
 
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
-  match 'dashboard' => 'administration/monitoring#dashboard', :via => [:get]
-  match 'toggle_debug' => 'administration/monitoring#toggle_debug', :via => [:post]
+  match 'dashboard' => 'administration/dashboard#index', :via => [:get]
+  match 'toggle_debug' => 'administration/dashboard#toggle_debug', :via => [:post]
 
   mount DjMon::Engine => 'dj_mon'
 
