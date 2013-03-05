@@ -10,7 +10,7 @@ class Administration::DashboardController < ApplicationController
 
 	def toggle_debug
 		toggle_allow_debug()
-		redirect_to :action => :dashboard
+		redirect_to :action => :index
 	end
 
 	private

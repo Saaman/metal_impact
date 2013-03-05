@@ -1,7 +1,7 @@
 en:
   administration:
-    monitoring:
-      dashboard:
+    dashboard:
+      index:
         title: "Dashboard"
         activate_debug: "Activate debug mode"
         deactivate_debug: "Deactivate debug mode"

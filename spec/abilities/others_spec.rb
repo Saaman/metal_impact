@@ -19,26 +19,26 @@ describe 'other authorizations' do
     end
   end
 
-  describe "authorizations on Monitoring" do
+  describe "authorizations on Dashboard" do
     context "when is anonymous user" do
       let(:user) { User.new }
-      it{ should_not be_able_to(:dashboard, :monitoring) }
-      it{ should_not be_able_to(:allow_debug, :monitoring) }
+      it{ should_not be_able_to(:index, :dashboard) }
+      it{ should_not be_able_to(:allow_debug, :dashboard) }
     end
     context "when is basic user" do
       let(:user) { FactoryGirl.create(:user) }
-      it{ should_not be_able_to(:dashboard, :monitoring) }
-      it{ should_not be_able_to(:allow_debug, :monitoring) }
+      it{ should_not be_able_to(:index, :dashboard) }
+      it{ should_not be_able_to(:allow_debug, :dashboard) }
     end
     context "when is staff user" do
       let(:user) { FactoryGirl.create(:user, role: :staff) }
-      it{ should_not be_able_to(:dashboard, :monitoring) }
-      it{ should_not be_able_to(:allow_debug, :monitoring) }
+      it{ should_not be_able_to(:index, :dashboard) }
+      it{ should_not be_able_to(:allow_debug, :dashboard) }
     end
     context "when is admin user" do
       let(:user) { FactoryGirl.create(:user, role: :admin) }
-      it{ should be_able_to(:dashboard, :monitoring) }
-      it{ should be_able_to(:allow_debug, :monitoring) }
+      it{ should be_able_to(:index, :dashboard) }
+      it{ should be_able_to(:allow_debug, :dashboard) }
     end
   end
 

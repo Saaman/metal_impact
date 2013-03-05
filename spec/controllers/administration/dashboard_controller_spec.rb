@@ -3,7 +3,7 @@ require 'spec_helper'
 #######################################################################################
 shared_examples "dashboard access is unauthorized" do
   describe "GET 'dashboard'" do
-    before { get :dashboard }
+    before { get :index }
     its_access_is "unauthorized"
   end
 
@@ -14,7 +14,7 @@ shared_examples "dashboard access is unauthorized" do
 end
 #######################################################################################
 
-describe Administration::MonitoringController do
+describe Administration::DashboardController do
   before(:each) do
     request.env["HTTP_REFERER"] = root_path
   end
@@ -39,8 +39,8 @@ describe Administration::MonitoringController do
     after { Rails.cache.clear }
     login_user :admin
     describe "GET 'dashboard'" do
-      before { get :dashboard }
-      it 'should display monitoring page with debug mode off' do
+      before { get :index }
+      it 'should display dashboard with debug mode off' do
         assigns(:dashboard).allow_debug.should be_false
         should render_template('dashboard')
       end

@@ -12,6 +12,7 @@ class Ability
     can :read, :all
     cannot :show_image, :home
     cannot :manage, [Import::SourceFile, Import::Entry, Contribution]
+    cannot :manage, :dashboard
     can :create, User
     cannot :read, Contributable, published: false
     cannot :read, User do |other_user| user.id != other_user.id end
@@ -33,7 +34,7 @@ class Ability
       if user.admin?
         can :manage, :all
         can :bypass_contribution, :all
-        can :dashboard, :monitoring
+        can :manage, :dashboard
       end
 
       #common cannots for users >= staff

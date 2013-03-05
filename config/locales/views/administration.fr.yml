@@ -1,7 +1,7 @@
 fr:
   administration:
-    monitoring:
-      dashboard:
+    dashboard:
+      index:
         title: "Tableau de bord"
         activate_debug: "Activer le mode debug"
         deactivate_debug: "Désactiver le mode debug"
