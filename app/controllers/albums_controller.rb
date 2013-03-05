@@ -68,15 +68,12 @@ class AlbumsController < ApplicationController
     def create_or_update_album(params, template)
       build_or_update_album(params)
 
-      respond_to do |format|
-        if @album.contribute(current_user, can?(:bypass_contribution, @album))
-          make_flash_for_contribution @album
-          format.html { redirect_to @album }
-          format.json { render json: @album, location: @album }
-        else
-          logger.info "errors : #{@album.errors.full_messages}"
+      if @album.contribute(current_user, can?(:bypass_contribution, @album))
+        make_flash_for_contribution @album
+        respond_with @album
+      else
+        respond_with @album do |format|
           format.html { render template }
-          format.json { render json: @album.errors, status: :unprocessable_entity }
         end
       end
     end
