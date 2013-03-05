@@ -34,7 +34,6 @@ gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
 gem 'simple_form', '~> 2.1.0'
 
-
 #Async engine
 gem 'delayed_job_active_record', '~>0.4.2'
 gem 'devise-async', '~>0.6.0'
@@ -46,21 +45,24 @@ gem 'devise-i18n', '~> 0.6.4'
 gem 'rails-i18n', '~> 0.7.0'
 gem 'will-paginate-i18n', '~> 0.1.11'
 gem 'i18n-js', '~> 2.1.2'
-gem 'i18n_country_select', '~>1.0.12'
+gem 'i18n_country_select', '~> 1.0.12'
 
 #others
 gem 'http_accept_language', '~> 1.0.2'
 gem 'squeel', '~>1.0.13'
 gem 'routing-filter', '~>0.3.1' #used for url filtering on languages codes
 gem 'turnout', '~>0.2.2' #maintenance mode gem
-gem 'activerecord-import', '~>0.3.1' #massive insert tool
+gem 'activerecord-import', '~> 0.3.1' #massive insert tool
+
+#security
+gem 'honeypot-captcha', '~>0.0.2'
 
 # Tools
 gem 'rack-mini-profiler', '~>0', :group => [:development, :production]
 gem 'foreman', '~>0.53.0' #versions above are not compatible with windows, fork() is not implemented
 gem 'faker', '~> 1.0', :group => [:development, :test]
 
-#third parties
+#distant stores
 gem 'google_drive', '~> 0.3.2'
 gem 'fog', '~> 1.9.0'
 

@@ -64,5 +64,23 @@ describe "Users::Registrations" do
     	page.should have_selector "div.alert-info", text: "A message with a confirmation link"
       page.should_not have_selector "form#new_user"
     end
+
+    describe "when honeypot catch bees" do
+      before do
+        within('form#new_user') do
+          fill_in "user_email", with: new_user.email
+          fill_in "user_email_confirmation", with: new_user.email
+          fill_in "user_password", with: new_user.password
+          fill_in "user_pseudo", with: new_user.pseudo
+          fill_in 'a_comment_body', with: 'tata'
+          click_button "Submit"
+        end
+      end
+      it 'should not create user, nor respond anything' do
+        page.should_not have_selector "div.alert-info", text: "A message with a confirmation link"
+        page.should have_selector "form#new_user"
+        User.find_by_pseudo(new_user.pseudo).should be_nil
+      end
+    end
   end
 end

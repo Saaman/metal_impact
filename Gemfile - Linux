@@ -35,12 +35,11 @@ gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
 gem 'simple_form', '~> 2.0.2'
 
-
 #Async engine
-gem 'delayed_job_active_record', '~>0.3.3'
-gem 'devise-async', '~>0.4.0'
-gem 'daemons', '~>1.1.9'
-gem 'dj_mon', '~>1.1.0'
+gem 'delayed_job_active_record', '~> 0.3.3'
+gem 'devise-async', '~> 0.4.0'
+gem 'daemons', '~> 1.1.9'
+gem 'dj_mon', '~> 1.1.0'
 
 # I18n
 gem 'devise-i18n', '~> 0.5.11'
@@ -54,14 +53,18 @@ gem 'http_accept_language', '~> 1.0.2'
 gem 'squeel', '~>1.0.13'
 gem 'routing-filter', '~>0.3.1' #used for url filtering on languages codes
 gem 'turnout', '~>0.2.2' #maintenance mode gem
-gem 'activerecord-import', '~>0.2.11' #massive insert tool
+gem 'activerecord-import', '~> 0.2.11' #massive insert tool
+
+
+#security
+gem 'honeypot-captcha', '~>0.0.2'
 
 # Tools
 gem 'rack-mini-profiler', '~>0', :group => [:development, :production]
 gem 'foreman', '~>0.60.2'
 gem 'faker', '~> 1.0', :group => [:development, :test]
 
-#third parties
+#distant stores
 gem 'google_drive', '~> 0.3.2'
 gem 'fog', '~> 1.7.0'
 

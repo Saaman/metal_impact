@@ -7,7 +7,7 @@
 	<% end %>
 </div>
 
-<%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: "form-horizontal-large"} do |f| %>
+<%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: 'form-horizontal-large', :honeypot => true } do |f| %>
 
 	<div class="modal-body"  id="new_user_registration">
 		<%= render 'form', f: f %>
