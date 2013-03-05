@@ -33,7 +33,6 @@ gem 'jquery-rails', '~> 2.1.0'
 gem 'anjlab-bootstrap-rails', '~> 2.2.1.2', :require => 'bootstrap-rails'
 gem 'bootstrap-will_paginate', '~> 0.0.9'
 gem 'will_paginate', '~> 3.0.3'
-gem 'recaptcha', :require => 'recaptcha/rails', :git => "https://github.com/ambethia/recaptcha.git"
 gem 'simple_form', '~> 2.0.2'
 
 

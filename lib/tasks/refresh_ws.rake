@@ -1,5 +1,5 @@
 namespace :refresh_ws do
-	
+
 	desc "Clean existing GemFile and GuardFile"
 	task :cleanup do
 		puts "cleanup existing OS dependent files..."
@@ -7,7 +7,6 @@ namespace :refresh_ws do
 		File.delete(Rails.root.join('Guardfile')) if File.exists? Rails.root.join('Guardfile')
 		File.delete(Rails.root.join('spec/spec_helper.rb')) if File.exists? Rails.root.join('spec/spec_helper.rb')
 		File.delete(Rails.root.join('.rspec')) if File.exists? Rails.root.join('.rspec')
-		File.delete(Rails.root.join('config/initializers/recaptcha.rb')) if File.exists? Rails.root.join('config/initializers/recaptcha.rb')
 		File.delete(Rails.root.join('config/environments/development.rb')) if File.exists? Rails.root.join('config/environments/development.rb')
 		File.delete(Rails.root.join('config/database.yml')) if File.exists? Rails.root.join('config/database.yml')
 	end
@@ -30,7 +29,6 @@ namespace :refresh_ws do
 		FileUtils.copy(Rails.root.join('Guardfile - Windows'), Rails.root.join('Guardfile'))
 		FileUtils.copy(Rails.root.join('spec/spec_helper - Windows.rb'), Rails.root.join('spec/spec_helper.rb'))
 		FileUtils.copy(Rails.root.join('.rspec - Windows'), Rails.root.join('.rspec'))
-		FileUtils.copy(Rails.root.join('config/initializers/recaptcha.rb - Windows'), Rails.root.join('config/initializers/recaptcha.rb'))
 		FileUtils.copy(Rails.root.join('config/environments/development.rb - Windows'), Rails.root.join('config/environments/development.rb'))
 		FileUtils.copy(Rails.root.join('config/database.yml - Windows'), Rails.root.join('config/database.yml'))
 	end

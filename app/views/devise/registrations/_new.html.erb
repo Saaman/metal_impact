@@ -3,18 +3,17 @@
   <h3><%= t '.title' %></h3>
   <%= render 'shared/flashes' %>
 	<% unless resource.errors[:base].empty? %>
-  	<%= render 'shared/single_error', :collection => resource.errors[:base] %>	
+  	<%= render 'shared/single_error', :collection => resource.errors[:base] %>
 	<% end %>
 </div>
 
 <%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:placeholder => false}, remote: true, html: {class: "form-horizontal-large"} do |f| %>
-	
+
 	<div class="modal-body"  id="new_user_registration">
 		<%= render 'form', f: f %>
 	</div>
-	
+
 	<div class="modal-footer">
-		<%= my_recaptcha_tags ajax: true %>
 		<%= render "links" %>
 		<div class="btn-toolbar">
 			<%= f.button :submit, :class => 'btn-primary' %>

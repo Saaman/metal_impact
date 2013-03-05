@@ -2,10 +2,6 @@ fr:
   exceptions:
     default: "Une erreur est survenue, merci de recommencer l'opération. Si le problème persiste, veuillez signaler le bug."
     artist_association_error: "Impossible d'associer l'artiste '%{artist_name}' car il n'exerce pas la fonction de %{practice_kind}"
-  recaptcha:
-    errors:
-      verification_failed: "Le captcha que vous avez saisi n'est pas valide. Merci de recommencer."
-      verification_failed_on_sign_up: "Le captcha que vous avez saisi n'est pas valide. Veuillez entrez de nouveau votre mot de passe et le captcha."
   unauthorized:
     manage:
       all: "Vous n'avez pas la permission de réaliser l'action '%{action}' pour un(e) %{subject}."

@@ -12,8 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     authorize! :create, User
     build_resource
-
-    if verify_recaptcha(:model => resource, message: t("recaptcha.errors.verification_failed_on_sign_up")) && resource.valid?
+    if resource.valid?
       super
     else
       clean_up_passwords resource

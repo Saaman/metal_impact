@@ -3,13 +3,11 @@ class Users::PasswordsController < Devise::PasswordsController
 def create
   build_resource
   @user = resource
-  if verify_recaptcha(:model => resource)
-  	unless User.find_by_email(resource.email).nil?
-    	super
-      return
-    else
-    	resource.errors[:base] << I18n.t("devise.passwords.errors.email_taken", :email => params[:user][:email])
-    end
+	unless User.find_by_email(resource.email).nil?
+  	super
+    return
+  else
+  	resource.errors[:base] << I18n.t("devise.passwords.errors.email_taken", :email => params[:user][:email])
   end
 
   respond_with resource do |format|

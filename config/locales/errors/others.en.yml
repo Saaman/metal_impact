@@ -2,10 +2,6 @@ en:
   exceptions:
     default: "An exception occurs. Please try again. If the problem persists, please submit a bug"
     artist_association_error: "Artist '%{artist_name}' cannot be associated because it is not a %{practice_kind}"
-  recaptcha:
-    errors:
-      verification_failed: "Captcha response is incorrect. Please enter your password another time and try again."
-      verification_failed_on_sign_up: "Captcha response is incorrect. Please try again."
   unauthorized:
     manage:
       all: "You are not authorized to %{action} %{subject}."
