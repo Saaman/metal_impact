@@ -17,6 +17,9 @@ class Artist < ActiveRecord::Base
   #behavior
   include Contributable
 
+  #can be voted
+  acts_as_votable
+
 	#associations
 	has_and_belongs_to_many :albums
   has_and_belongs_to_many :practices

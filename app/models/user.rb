@@ -29,6 +29,9 @@
 
 class User < ActiveRecord::Base
 
+	# is the voter
+	acts_as_voter
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :validatable, :encryptable and :omniauthable
   devise :database_authenticatable, :registerable,

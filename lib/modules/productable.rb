@@ -6,6 +6,9 @@ module Productable
       #behavior
       include Contributable
 
+      #can be voted
+      acts_as_votable
+
       #associations
       has_and_belongs_to_many_with_deferred_save :artists
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215142053) do
+ActiveRecord::Schema.define(:version => 20130306104136) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -31,17 +31,23 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
   add_index "activities", ["trackable_id", "trackable_type"], :name => "index_activities_on_trackable_id_and_trackable_type"
 
   create_table "albums", :force => true do |t|
-    t.string   "title",          :limit => 511,                    :null => false
-    t.date     "release_date",                                     :null => false
+    t.string   "title",              :limit => 511,                    :null => false
+    t.date     "release_date",                                         :null => false
     t.string   "cover"
-    t.integer  "kind_cd",                                          :null => false
-    t.boolean  "published",                     :default => false, :null => false
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.integer  "kind_cd",                                              :null => false
+    t.boolean  "published",                         :default => false, :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "music_label_id"
+    t.integer  "cached_votes_score",                :default => 0
+    t.integer  "cached_votes_up",                   :default => 0
+    t.integer  "cached_votes_down",                 :default => 0
   end
 
-  add_index "albums", ["created_at"], :name => "index_albums_on_created_at", :order => {"created_at"=>:desc}
+  add_index "albums", ["cached_votes_down"], :name => "index_albums_on_cached_votes_down"
+  add_index "albums", ["cached_votes_score"], :name => "index_albums_on_cached_votes_score"
+  add_index "albums", ["cached_votes_up"], :name => "index_albums_on_cached_votes_up"
+  add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
   add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
@@ -66,13 +72,19 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
   add_index "artist_translations", ["locale"], :name => "index_artist_translations_on_locale"
 
   create_table "artists", :force => true do |t|
-    t.string   "name",       :limit => 127,                    :null => false
-    t.boolean  "published",                 :default => false, :null => false
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
-    t.string   "countries",  :limit => 127
+    t.string   "name",               :limit => 127,                    :null => false
+    t.boolean  "published",                         :default => false, :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.string   "countries",          :limit => 127
+    t.integer  "cached_votes_score",                :default => 0
+    t.integer  "cached_votes_up",                   :default => 0
+    t.integer  "cached_votes_down",                 :default => 0
   end
 
+  add_index "artists", ["cached_votes_down"], :name => "index_artists_on_cached_votes_down"
+  add_index "artists", ["cached_votes_score"], :name => "index_artists_on_cached_votes_score"
+  add_index "artists", ["cached_votes_up"], :name => "index_artists_on_cached_votes_up"
   add_index "artists", ["created_at"], :name => "index_artists_on_created_at"
   add_index "artists", ["name"], :name => "index_artists_on_name"
 
@@ -211,18 +223,20 @@ ActiveRecord::Schema.define(:version => 20130215142053) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_cd"], :name => "index_users_on_role_cd"
 
-  add_foreign_key "albums", "music_labels", :name => "albums_music_label_id_fk"
+  create_table "votes", :force => true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
-  add_foreign_key "albums_artists", "albums", :name => "albums_artists_album_id_fk"
-  add_foreign_key "albums_artists", "artists", :name => "albums_artists_artist_id_fk"
-
-  add_foreign_key "artists_practices", "artists", :name => "artists_practices_artist_id_fk"
-  add_foreign_key "artists_practices", "practices", :name => "artists_practices_practice_id_fk"
-
-  add_foreign_key "contributions", "users", :name => "contributions_whodunnit_id_fk", :column => "whodunnit_id"
-
-  add_foreign_key "import_entries", "import_source_files", :name => "import_entries_import_source_file_id_fk"
-
-  add_foreign_key "import_failures", "import_entries", :name => "import_failures_import_entry_id_fk"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], :name => "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
 end
