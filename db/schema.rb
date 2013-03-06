@@ -40,12 +40,14 @@ ActiveRecord::Schema.define(:version => 20130306104136) do
     t.datetime "updated_at",                                           :null => false
     t.integer  "music_label_id"
     t.integer  "cached_votes_score",                :default => 0
+    t.integer  "cached_votes_total",                :default => 0
     t.integer  "cached_votes_up",                   :default => 0
     t.integer  "cached_votes_down",                 :default => 0
   end
 
   add_index "albums", ["cached_votes_down"], :name => "index_albums_on_cached_votes_down"
   add_index "albums", ["cached_votes_score"], :name => "index_albums_on_cached_votes_score"
+  add_index "albums", ["cached_votes_total"], :name => "index_albums_on_cached_votes_total"
   add_index "albums", ["cached_votes_up"], :name => "index_albums_on_cached_votes_up"
   add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
@@ -78,12 +80,14 @@ ActiveRecord::Schema.define(:version => 20130306104136) do
     t.datetime "updated_at",                                           :null => false
     t.string   "countries",          :limit => 127
     t.integer  "cached_votes_score",                :default => 0
+    t.integer  "cached_votes_total",                :default => 0
     t.integer  "cached_votes_up",                   :default => 0
     t.integer  "cached_votes_down",                 :default => 0
   end
 
   add_index "artists", ["cached_votes_down"], :name => "index_artists_on_cached_votes_down"
   add_index "artists", ["cached_votes_score"], :name => "index_artists_on_cached_votes_score"
+  add_index "artists", ["cached_votes_total"], :name => "index_artists_on_cached_votes_total"
   add_index "artists", ["cached_votes_up"], :name => "index_artists_on_cached_votes_up"
   add_index "artists", ["created_at"], :name => "index_artists_on_created_at"
   add_index "artists", ["name"], :name => "index_artists_on_name"

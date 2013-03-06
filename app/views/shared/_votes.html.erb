@@ -1,0 +1,11 @@
+<div>
+	<span>
+		<%= "#{votes_ratio(votable)}%" %>
+	</span>&nbsp;
+	<span class="label label-success">
+		<i class="icon-thumbs-up"></i><%= " #{votable.cached_votes_up}" %>
+	</span>&nbsp;
+	<span class="label label-important">
+		<i class="icon-thumbs-up"></i><%= " #{votable.cached_votes_down}" %>
+	</span>&nbsp;
+</div>
