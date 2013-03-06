@@ -8,6 +8,7 @@
 #  event_cd        :integer          not null
 #  state           :string(255)      not null
 #  draft_object    :text             not null
+#  whodunnit_id    :integer          not null
 #  reason          :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

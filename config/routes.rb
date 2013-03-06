@@ -1,11 +1,23 @@
+def voting_routes
+  member do
+    put 'upvote'
+    put 'downvote'
+  end
+end
+
 MetalImpact::Application.routes.draw do
   filter :locale
 
-  resources :albums
+  resources :albums do
+    voting_routes
+  end
+
   resources :artists, :except => [:destroy, :update, :edit] do
     get 'search', :on => :collection
     get 'smallblock', :on => :member
+    voting_routes
   end
+
   resources :music_labels, :only => [:new, :create] do
     get 'search', :on => :collection
     get 'smallblock', :on => :member
@@ -51,11 +63,13 @@ MetalImpact::Application.routes.draw do
 
   root to: 'home#index'
 
-
 end
+
 #== Route Map
-# Generated on 08 Feb 2013 12:09
+# Generated on 06 Mar 2013 12:22
 #
+#                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote
+#                               albums GET    /albums(.:format)                                    albums#index
 #                                      POST   /albums(.:format)                                    albums#create
 #                            new_album GET    /albums/new(.:format)                                albums#new
 #                           edit_album GET    /albums/:id/edit(.:format)                           albums#edit
@@ -64,6 +78,8 @@ end
 #                                      DELETE /albums/:id(.:format)                                albums#destroy
 #                       search_artists GET    /artists/search(.:format)                            artists#search
 #                    smallblock_artist GET    /artists/:id/smallblock(.:format)                    artists#smallblock
+#                        upvote_artist PUT    /artists/:id/upvote(.:format)                        artists#upvote
+#                      downvote_artist PUT    /artists/:id/downvote(.:format)                      artists#downvote
 #                              artists GET    /artists(.:format)                                   artists#index
 #                                      POST   /artists(.:format)                                   artists#create
 #                           new_artist GET    /artists/new(.:format)                               artists#new
@@ -87,9 +103,7 @@ end
 #  approve_administration_contribution PUT    /administration/contributions/:id/approve(.:format)  administration/contributions#approve
 #   refuse_administration_contribution PUT    /administration/contributions/:id/refuse(.:format)   administration/contributions#refuse
 #         administration_contributions GET    /administration/contributions(.:format)              administration/contributions#index
-#     edit_administration_contribution GET    /administration/contributions/:id/edit(.:format)     administration/contributions#edit
 #          administration_contribution GET    /administration/contributions/:id(.:format)          administration/contributions#show
-#                                      PUT    /administration/contributions/:id(.:format)          administration/contributions#update
 #                        user_password POST   /users/password(.:format)                            users/passwords#create
 #                    new_user_password GET    /users/password/new(.:format)                        users/passwords#new
 #                   edit_user_password GET    /users/password/edit(.:format)                       users/passwords#edit
@@ -115,11 +129,11 @@ end
 #             email_sent_user_password GET    /users/password/email-sent(.:format)                 users/passwords#email_sent
 #    is_pseudo_taken_user_registration GET    /users/is-pseudo-taken(.:format)                     users/registrations#is_pseudo_taken {:format=>:json}
 #                           show_image GET    /show_image(.:format)                                home#show_image {:format=>"js"}
-#                            dashboard GET    /dashboard(.:format)                                 administration/monitoring#dashboard
-#                         toggle_debug POST   /toggle_debug(.:format)                              administration/monitoring#toggle_debug
+#                            dashboard GET    /dashboard(.:format)                                 administration/dashboard#index
+#                         toggle_debug POST   /toggle_debug(.:format)                              administration/dashboard#toggle_debug
 #                               dj_mon        /dj_mon                                              DjMon::Engine
 #                                 root        /                                                    home#index
-#
+# 
 # Routes for DjMon::Engine:
 #       all_dj_reports GET    /dj_reports/all(.:format)       dj_mon/dj_reports#all
 #    failed_dj_reports GET    /dj_reports/failed(.:format)    dj_mon/dj_reports#failed

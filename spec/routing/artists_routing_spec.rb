@@ -3,6 +3,10 @@ require "spec_helper"
 describe ArtistsController do
   describe "routing" do
 
+    it_should_behave_like "routes for vote" do
+      let(:resources) { "artists" }
+    end
+
     it "routes to #index" do
       get("/artists").should route_to("artists#index")
       get(artists_path).should route_to("artists#index")

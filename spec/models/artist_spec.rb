@@ -2,12 +2,15 @@
 #
 # Table name: artists
 #
-#  id         :integer          not null, primary key
-#  name       :string(127)      not null
-#  published  :boolean          default(FALSE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  countries  :string(127)
+#  id                 :integer          not null, primary key
+#  name               :string(127)      not null
+#  published          :boolean          default(FALSE), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  countries          :string(127)
+#  cached_votes_score :integer          default(0)
+#  cached_votes_up    :integer          default(0)
+#  cached_votes_down  :integer          default(0)
 #
 
 require 'spec_helper'

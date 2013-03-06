@@ -2,15 +2,18 @@
 #
 # Table name: albums
 #
-#  id             :integer          not null, primary key
-#  title          :string(511)      not null
-#  release_date   :date             not null
-#  cover          :string(255)
-#  kind_cd        :integer          not null
-#  published      :boolean          default(FALSE), not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  music_label_id :integer
+#  id                 :integer          not null, primary key
+#  title              :string(511)      not null
+#  release_date       :date             not null
+#  cover              :string(255)
+#  kind_cd            :integer          not null
+#  published          :boolean          default(FALSE), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  music_label_id     :integer
+#  cached_votes_score :integer          default(0)
+#  cached_votes_up    :integer          default(0)
+#  cached_votes_down  :integer          default(0)
 #
 
 class Album < ActiveRecord::Base
