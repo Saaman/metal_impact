@@ -6,6 +6,7 @@ class Ability
     alias_action :search, :smallblock, :to => :read
     alias_action :prepare, :approve, :refuse, :to => :update
     alias_action :clear, :to => :destroy
+    alias_action :upvote, :downvote, :to => :vote
 
     user ||= User.new # guest user (not logged in)
 
@@ -23,6 +24,7 @@ class Ability
 
     can [:destroy, :update], User, :id => user.id
     can :show_image, :home
+    can :vote, :all
 
     if user.role_cd >= User.roles[:staff]
       can :create, Contributable
