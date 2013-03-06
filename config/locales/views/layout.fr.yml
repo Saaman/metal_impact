@@ -13,3 +13,5 @@ fr:
       admin_dashboard: "Tableau de bord"
       administration: "Administration"
       my_account: "Mon compte"
+    header:
+      warning_js_required: "<strong>Attention!</strong> Vous devez autoriser javascript sur votre navigateur pour profiter de notre site web."

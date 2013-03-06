@@ -17,3 +17,6 @@ $(document).ready ->
 	$('body').on 'change', 'select.sorting_select', ->
 		$.get $(this).attr('reload-url'), { sort_order: $(this).val() }, (data) ->
 			$('div.contentzone').html(data)
+
+	#remove the top alert about javascript requirement
+	$('div#js-alert').remove()

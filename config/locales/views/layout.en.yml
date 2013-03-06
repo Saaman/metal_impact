@@ -13,3 +13,5 @@ en:
       admin_dashboard: "Dashboard"
       administration: "Administration"
       my_account: "My account"
+    header:
+      warning_js_required: "<strong>Warning!</strong> You must enable javascript on your browser to enjoy our website."
