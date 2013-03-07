@@ -75,6 +75,10 @@ describe AlbumsController do
 
   subject { response }
 
+  it_should_behave_like "votable controller" do
+    let(:votable) { FactoryGirl.create(:album_with_artists) }
+  end
+
   context "anonymous user :" do
     it_should_behave_like "albums actions granted for anybody"
     it_should_behave_like "access denied on restricted actions"

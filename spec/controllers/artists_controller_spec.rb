@@ -7,6 +7,9 @@ describe ArtistsController do
 
   subject { response }
 
+  it_should_behave_like "votable controller" do
+    let(:votable) { FactoryGirl.create(:artist) }
+  end
 
   describe "GET search :" do
   	let(:artist) { FactoryGirl.create(:artist) }
@@ -143,5 +146,4 @@ describe ArtistsController do
       its_access_is "unauthorized"
     end
   end
-
 end

@@ -19,11 +19,9 @@ class Artist < ActiveRecord::Base
 
   #behavior
   include Contributable
+  include VotableModel
 
-  #can be voted
-  acts_as_votable
-
-	#associations
+  #associations
 	has_and_belongs_to_many :albums
   has_and_belongs_to_many :practices
   #default_scope includes(:practices)

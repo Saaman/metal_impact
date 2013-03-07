@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
 
   include ContributableHelper
+  include VotableController
 
   load_and_authorize_resource
   skip_load_resource :only => :create
@@ -99,5 +100,10 @@ class AlbumsController < ApplicationController
         @album.errors.add(:artist_ids, :too_short)
       end
 
+    end
+
+    protected
+    def votable_model_class
+      Album
     end
 end

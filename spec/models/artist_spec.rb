@@ -28,6 +28,10 @@ describe Artist do
     let(:contributable) { @artist }
   end
 
+  it_should_behave_like "votable model" do
+    let(:votable) { @artist }
+  end
+
   describe "attributes and methods" do
     #attributes
     it { should respond_to(:name) }

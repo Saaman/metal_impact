@@ -7,6 +7,10 @@ shared_examples "productable model" do
     let(:contributable) { productable }
   end
 
+  it_should_behave_like "votable model" do
+    let(:votable) { productable }
+  end
+
 	describe "attributes and methods" do
     #attributes
     it { should respond_to(:title) }
