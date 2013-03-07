@@ -1,7 +1,7 @@
 def voting_routes
   member do
-    put 'upvote'
-    put 'downvote'
+    put 'upvote', :defaults => { :format => 'json' }
+    put 'downvote', :defaults => { :format => 'json' }
   end
 end
 
@@ -133,7 +133,7 @@ end
 #                         toggle_debug POST   /toggle_debug(.:format)                              administration/dashboard#toggle_debug
 #                               dj_mon        /dj_mon                                              DjMon::Engine
 #                                 root        /                                                    home#index
-# 
+#
 # Routes for DjMon::Engine:
 #       all_dj_reports GET    /dj_reports/all(.:format)       dj_mon/dj_reports#all
 #    failed_dj_reports GET    /dj_reports/failed(.:format)    dj_mon/dj_reports#failed

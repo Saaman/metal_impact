@@ -1,11 +1,23 @@
-<div>
+<div id="votes-display">
 	<span>
 		<%= "#{votable.votes_ratio}%" %>
 	</span>&nbsp;
-	<span class="label label-success">
-		<i class="icon-thumbs-up"></i><%= " #{votable.cached_votes_up}" %>
-	</span>&nbsp;
-	<span class="label label-important">
-		<i class="icon-thumbs-up"></i><%= " #{votable.cached_votes_down}" %>
-	</span>&nbsp;
+
+	<%= simple_form_for votable, :url => vote_up_path(votable), :remote => true, :html => { :style => "display: inline-block;" } do |f| %>
+		<button class="<%= "btn btn-success" + additive_voted_class(votable) %>" type="submit">
+			<i class="icon-thumbs-up"></i><%= " #{votable.cached_votes_up}" %>
+			<% if current_user.voted_as_when_voted_for(votable) %>
+				&nbsp;<i class="icon-ok-circle icon-white"></i>
+			<% end %>
+		</button>
+	<% end %>&nbsp;
+
+	<%= simple_form_for votable, :url => vote_down_path(votable), :remote => true, :html => { :style => "display: inline-block;" } do |f| %>
+		<button class="<%= "btn btn-danger" + additive_voted_class(votable, false) %>" type="submit">
+			<i class="icon-thumbs-down"></i><%= " #{votable.cached_votes_down}" %>
+			<% if (current_user.voted_as_when_voted_for(votable) == false) %>
+				&nbsp;<i class="icon-ok-circle icon-white"></i>
+			<% end %>
+		</button>
+	<% end %>
 </div>
