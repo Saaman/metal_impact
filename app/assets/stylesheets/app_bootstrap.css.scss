@@ -219,3 +219,18 @@ div.inline-check-boxes label.checkbox {
 	@extend .inline;
 	margin-right: 25px;
 }
+
+div#votes-display
+{
+  button {
+    -moz-opacity:0.5;
+    opacity: 0.5;
+    filter:alpha(opacity=50);
+  }
+  button.voted {
+    @extend :active;
+    -moz-opacity:1;
+    opacity: 1;
+    filter:alpha(opacity=100);
+  }
+}
