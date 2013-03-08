@@ -15,12 +15,15 @@ module VotableController
 			private
 				def respond_to_vote(positive)
 					@votable = votable_model_class.find(params[:id])
+					@votable.class.public_activity_off
 
 					if @votable.vote :voter => current_user, :vote => positive
 						respond_with @votable do |format|
 							format.json { render :json => @votable.json_presenter }
 						end
 					end
+
+					@votable.class.public_activity_on
 				end
 		end
 	end

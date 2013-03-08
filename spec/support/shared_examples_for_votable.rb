@@ -50,14 +50,15 @@ shared_examples 'votable controller' do
 
     describe "(authorized)" do
       before(:each) { @ability.can :upvote, votable.class }
-      before do
-        @controller.stub(:current_user) { voter }
-        put :upvote, id: votable.id, :format => :json
-      end
+      before { @controller.stub(:current_user) { voter } }
       it "should upvote" do
+        put :upvote, id: votable.id, :format => :json
         assigns(:votable).should == votable
         votable.reload.cached_votes_up.should == 1
         votable.reload.cached_votes_total.should == 1
+      end
+      it 'should not register an activity' do
+        expect { put :upvote, id: votable.id, :format => :json }.to_not change{PublicActivity::Activity.count}
       end
     end
   end
@@ -70,11 +71,9 @@ shared_examples 'votable controller' do
 
     describe "(authorized)" do
       before(:each) { @ability.can :downvote, votable.class }
-      before do
-        @controller.stub(:current_user) { voter }
-        put :downvote, id: votable.id, :format => :json
-      end
+      before { @controller.stub(:current_user) { voter } }
       it "should downvote" do
+        put :downvote, id: votable.id, :format => :json
         assigns(:votable).should == votable
         votable.reload.cached_votes_down.should == 1
       end
