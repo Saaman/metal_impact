@@ -1,15 +1,15 @@
 <div id="votes-display">
-	<%= simple_form_for votable, :url => vote_up_path(votable), :remote => true, :html => { :style => "display: inline-block;", id: "form-vote-up" } do |f| %>
-		<button class="<%= "btn btn-success" + additive_voted_class(votable) %>" type="submit">
+	<%= simple_form_for votable, :url => vote_up_path(votable), :remote => true, :html => { :style => "display: inline-block;" } do |f| %>
+		<button id="vote-up" class="<%= "btn btn-success" + additive_voted_class(votable) %>" type="submit">
 			<i class="icon-thumbs-up"></i>
-			<span><%= " #{votable.cached_votes_up}" %></span>
+			<span><%= "#{votable.cached_votes_up}" %></span>
 		</button>
 	<% end %>&nbsp;
 
-	<%= simple_form_for votable, :url => vote_down_path(votable), :remote => true, :html => { :style => "display: inline-block;", id: "form-vote-down" } do |f| %>
-		<button class="<%= "btn btn-danger" + additive_voted_class(votable, false) %>" type="submit">
+	<%= simple_form_for votable, :url => vote_down_path(votable), :remote => true, :html => { :style => "display: inline-block;" } do |f| %>
+		<button id="vote-down" class="<%= "btn btn-danger" + additive_voted_class(votable, false) %>" type="submit">
 			<i class="icon-thumbs-down"></i>
-			<span><%= " #{votable.cached_votes_down}" %></span>
+			<span><%= "#{votable.cached_votes_down}" %></span>
 		</button>
 	<% end %>&nbsp;
 
