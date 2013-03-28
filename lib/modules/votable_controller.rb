@@ -17,9 +17,15 @@ module VotableController
 					@votable = votable_model_class.find(params[:id])
 					@votable.class.public_activity_off
 
-					if @votable.vote :voter => current_user, :vote => positive
+					res = if ( current_user.voted_as_when_voted_for(@votable) == positive )
+						@votable.unvote :voter => current_user, :vote => positive
+					else
+						@votable.vote :voter => current_user, :vote => positive
+					end
+
+					if res
 						respond_with @votable do |format|
-							format.json { render :json => @votable.json_presenter }
+							format.json { render :json => @votable.json_presenter(current_user.voted_on? @votable) }
 						end
 					end
 

@@ -34,10 +34,10 @@ describe "Albums" do
 	  		describe 'and re-voting up' do
 	  			before { click_button 'vote-up' }
 
-		  		it 'should not change anything' do
-		  			should have_selector 'button#vote-up.voted span', text: '1'
+		  		it 'should unvote' do
+		  			should have_selector 'button#vote-up.voted span', text: '0'
 	  				should have_selector 'button#vote-down span', text: '0'
-						should have_selector 'div#votes-display > span', text: '100%'
+						should have_selector 'div#votes-display > span', text: '0%'
 						album.activities.count.should == 1
 	  			end
 	  		end
