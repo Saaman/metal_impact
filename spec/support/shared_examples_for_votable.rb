@@ -3,11 +3,11 @@ require "set"
 
 shared_examples "routes for vote" do
 	it "routes to #upvote" do
-    put("/#{resources}/1/upvote").should route_to("#{resources}#upvote", :id => "1")
+    put("/#{resources}/1/upvote").should route_to("#{resources}#upvote", :id => "1", format: 'json')
   end
 
   it "routes to #downvote" do
-    put("/#{resources}/1/downvote").should route_to("#{resources}#downvote", :id => "1")
+    put("/#{resources}/1/downvote").should route_to("#{resources}#downvote", :id => "1", format: 'json')
   end
 end
 

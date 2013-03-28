@@ -18,6 +18,7 @@ describe "Albums" do
 	  		should have_selector 'button#vote-up span', text: '0'
 	  		should have_selector 'button#vote-down span', text: '0'
 				should have_selector 'div#votes-display > span', text: '0%'
+				album.activities.count.should == 1
 	  	end
 
 	  	describe 'and vote up' do
@@ -27,6 +28,7 @@ describe "Albums" do
 	  			should have_selector 'button#vote-up.voted span', text: '1'
 	  			should have_selector 'button#vote-down span', text: '0'
 					should have_selector 'div#votes-display > span', text: '100%'
+					album.activities.count.should == 1
 	  		end
 
 	  		describe 'and re-voting up' do
@@ -36,6 +38,7 @@ describe "Albums" do
 		  			should have_selector 'button#vote-up.voted span', text: '1'
 	  				should have_selector 'button#vote-down span', text: '0'
 						should have_selector 'div#votes-display > span', text: '100%'
+						album.activities.count.should == 1
 	  			end
 	  		end
 	  		describe 'and voting down' do
@@ -45,6 +48,7 @@ describe "Albums" do
 		  			should have_selector 'button#vote-up span', text: '0'
 	  				should have_selector 'button#vote-down.voted span', text: '1'
 						should have_selector 'div#votes-display > span', text: '0%'
+						album.activities.count.should == 1
 	  			end
 	  		end
 	  	end
