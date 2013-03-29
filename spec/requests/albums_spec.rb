@@ -11,14 +11,14 @@ describe "Albums" do
 
 		before { visit '/albums' }
 		it 'should display list of albums, sorted by creation date desc' do
-			should have_selector 'h4.media-heading:first', text: newest_album.title
+			should have_selector 'a h4.media-heading:first', text: newest_album.title
 			should have_selector 'select#albums_sort_by'
 			should have_selector "option[selected='selected']", text: 'Most recent first'
 		end
 		describe 'changing sort select option' do
 			before { select 'Title A -> Z', :from => 'albums_sort_by' }
 			it 'should reload page and reorder albums by title' do
-				should have_selector 'h4.media-heading:first', text: first_alphabeltical_album.title
+				should have_selector 'a h4.media-heading:first', text: first_alphabeltical_album.title
 				should have_selector "option[selected='selected']", text: 'Title A -> Z'
 			end
 		end

@@ -10,7 +10,7 @@ module VotableModel
         cached_votes_up * 100 / cached_votes_total
       end
 
-      def json_presenter(has_voted)
+      def json_presenter(has_voted=true)
         #TODO : do I need a reload to get updated cached values?
         { has_voted: has_voted, votes_up: cached_votes_up, votes_down: cached_votes_down, votes_ratio: votes_ratio }
       end
