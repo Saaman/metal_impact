@@ -4,8 +4,9 @@ class Administration::ImportsController < ApplicationController
 	respond_to :js, :only => :show
 
 	def index
-		 @source_files = Import::SourceFile.order("created_at DESC")
-		 logger.info "#{@source_files.inspect}"
+		add_new_files_from_gdrive
+
+		@source_files = Import::SourceFile.order("created_at DESC")
     respond_with @source_files
 	end
 
@@ -47,4 +48,27 @@ class Administration::ImportsController < ApplicationController
 		end
 		redirect_to administration_import_path(source_file_id)
 	end
+
+	private
+		def add_new_files_from_gdrive
+			#open a session at Google
+	    session = GoogleDrive.login ENV["GD_USER"], ENV["GD_PWD"]
+
+	    #Get all files of collection name "Fixtures v{version}" and download them
+	    collection = session.files :title => "Fixtures v#{ENV["SITE_VERSION"].chomp}", "title-exact" => true, showfolders: true
+	    if collection.length != 1
+	      flash[:error] = "collection 'Fixtures v#{ENV["SITE_VERSION"]}' was not found"
+	      redirect_to root_path
+	    end
+
+	    #get existing source files names
+	    source_files_names = Import::SourceFile.pluck(:path)
+
+	    #add new source files
+	    collection[0].files.each do |file|
+	    	next if source_files_names.include?(file.title)
+      	sf = Import::SourceFile.new path: file.title
+      	sf.save!
+      end
+		end
 end

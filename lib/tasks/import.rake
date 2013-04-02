@@ -25,16 +25,4 @@ namespace :import do
   	puts "#{User.roles.length} test users have been created."
 
   end
-
-  desc "Import YAML fixtures into import engine"
-  task :yaml_files => :environment do
-
-    Dir[File.join([Rails.root, 'db', 'source_files', "*.yml"])].sort.each do |source_file|
-      puts "Import #{source_file}..."
-
-      sf = Import::SourceFile.new path: source_file
-      sf.save!
-
-    end
-  end
 end
