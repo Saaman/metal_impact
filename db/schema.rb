@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306104136) do
+ActiveRecord::Schema.define(:version => 20130402133450) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -170,6 +170,16 @@ ActiveRecord::Schema.define(:version => 20130306104136) do
   add_index "import_source_files", ["created_at"], :name => "index_import_source_files_on_created_at"
   add_index "import_source_files", ["source_type_cd"], :name => "index_import_source_files_on_source_type_cd"
   add_index "import_source_files", ["state"], :name => "index_import_source_files_on_state"
+
+  create_table "music_genre_components", :force => true do |t|
+    t.string   "keyword",    :null => false
+    t.string   "type",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "music_genre_components", ["type", "id"], :name => "index_music_genre_components_on_type_and_id"
+  add_index "music_genre_components", ["type", "keyword"], :name => "index_music_genre_components_on_type_and_keyword", :unique => true
 
   create_table "music_labels", :force => true do |t|
     t.string   "name",        :null => false
