@@ -15,22 +15,17 @@ describe 'Imports', :js => true do
 
 	subject { page }
 
-	let!(:source_file) { FactoryGirl.create :source_file, path: test_source_file_path }
+	let!(:source_file) { FactoryGirl.create :source_file, path: imports_fixture_path }
 	let!(:total_entries) do
 		#update this considering the number of records in the test file
 		11
 	end
 
 	before do
-		#Copy fixture file in db\source_files
-		FileUtils.cp imports_fixture_path, test_source_file_path
 		ENV['WORK_AROUND_ASYNC'] = 'yes'
+		Import::SourceFile.any_instance.stub(:get_file_content_from_gdrive).and_return(File.open(imports_fixture_path, 'r') { |f| f.read })
 	end
-	after do
-		FileUtils.rm test_source_file_path
-		ENV['WORK_AROUND_ASYNC'] = nil
-	end
-
+	after { ENV['WORK_AROUND_ASYNC'] = nil }
 
 
 

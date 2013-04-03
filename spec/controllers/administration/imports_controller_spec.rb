@@ -18,7 +18,10 @@ describe Administration::ImportsController do
         40.times { FactoryGirl.create(:source_file) }
       end
       after(:all) { SourceFile.delete_all }
-  		before(:each) { @ability.can :index, Import::SourceFile }
+  		before(:each) do
+        @ability.can :index, Import::SourceFile
+        Administration::ImportsController.any_instance.stub(:add_new_files_from_gdrive).and_return(nil)
+      end
   		it "should display 40 source files" do
   			get :index
   			assigns(:source_files).size.should == 40

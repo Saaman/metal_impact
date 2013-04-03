@@ -152,11 +152,9 @@ class Import::SourceFile < ActiveRecord::Base
       entries = []
       klass = "Import::#{source_type.to_s.camelize}Entry".constantize
 
-      remote_file = get_file_from_gdrive
+      remote_file_content = get_file_content_from_gdrive
 
-      sio = StringIO.new()
-      remote_file.download_to_io(sio)
-      YAML.load_stream(sio.string) do |record|
+      YAML.load_documents(remote_file_content) do |record|
         logger.info "record = #{record.inspect}"
         entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
         entries_count += 1
@@ -214,7 +212,7 @@ class Import::SourceFile < ActiveRecord::Base
       stats['flagged'].nil?
     end
 
-    def get_file_from_gdrive
+    def get_file_content_from_gdrive
       #open a session at Google
       session = GoogleDrive.login ENV["GD_USER"], ENV["GD_PWD"]
 
@@ -225,10 +223,10 @@ class Import::SourceFile < ActiveRecord::Base
         redirect_to root_path
       end
 
-      #return the file
+      #return the file content
       collection[0].files.each do |file|
         next unless path == file.title
-        return file
+        return file.download_to_string
       end
     end
 end
