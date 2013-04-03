@@ -147,18 +147,20 @@ class Import::SourceFile < ActiveRecord::Base
     LOADING_BATCH_COUNT = 5000
 
     def load_entries
+
       entries_count = 0
       entries = []
       klass = "Import::#{source_type.to_s.camelize}Entry".constantize
 
-      File.open(self.path, 'r') do |io|
-        YAML.load_stream(io) do |record|
-          entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
-          entries_count += 1
+      remote_file_content = get_file_content_from_gdrive
 
-          if entries_count.modulo(LOADING_BATCH_COUNT) == 0
-            klass.import entries
-          end
+      YAML.load_documents(remote_file_content) do |record|
+        logger.info "record = #{record.inspect}"
+        entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
+        entries_count += 1
+
+        if entries_count.modulo(LOADING_BATCH_COUNT) == 0
+          klass.import entries
         end
       end
       klass.import entries
@@ -208,5 +210,23 @@ class Import::SourceFile < ActiveRecord::Base
 
     def import_job_finished?
       stats['flagged'].nil?
+    end
+
+    def get_file_content_from_gdrive
+      #open a session at Google
+      session = GoogleDrive.login ENV["GD_USER"], ENV["GD_PWD"]
+
+      #Get file matching name in "Fixtures v{version}"
+      collection = session.files :title => "Fixtures v#{ENV["SITE_VERSION"].chomp}", "title-exact" => true, showfolders: true
+      if collection.length != 1
+        flash[:error] = "collection 'Fixtures v#{ENV["SITE_VERSION"]}' was not found"
+        redirect_to root_path
+      end
+
+      #return the file content
+      collection[0].files.each do |file|
+        next unless path == file.title
+        return file.download_to_string
+      end
     end
 end
