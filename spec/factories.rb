@@ -120,4 +120,18 @@ FactoryGirl.define do
     event :create
     whodunnit
   end
+
+  factory :style_alteration, :class => MusicGenre::StyleAlteration do
+    keyword { generate(:random_string) }
+  end
+  factory :main_style, :class => MusicGenre::MainStyle do
+    keyword { generate(:random_string) }
+  end
+  factory :music_type, :class => MusicGenre::MusicType do
+    keyword { generate(:random_string) }
+  end
+  factory :music_genre do
+    name { generate :random_string }
+    after(:build) { |music_genre| music_genre.music_types = FactoryGirl.create_list(:music_type, PRNG.rand(1..2)) }
+  end
 end

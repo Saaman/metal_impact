@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402133450) do
+ActiveRecord::Schema.define(:version => 20130402154631) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -180,6 +180,32 @@ ActiveRecord::Schema.define(:version => 20130402133450) do
 
   add_index "music_genre_components", ["type", "id"], :name => "index_music_genre_components_on_type_and_id"
   add_index "music_genre_components", ["type", "keyword"], :name => "index_music_genre_components_on_type_and_keyword", :unique => true
+
+  create_table "music_genre_components_music_genres", :id => false, :force => true do |t|
+    t.integer "music_genre_id",  :null => false
+    t.integer "mg_component_id", :null => false
+  end
+
+  add_index "music_genre_components_music_genres", ["music_genre_id", "mg_component_id"], :name => "index_association_on_music_genre_components_music_genres", :unique => true
+
+  create_table "music_genre_translations", :force => true do |t|
+    t.integer  "music_genre_id"
+    t.string   "locale"
+    t.string   "name"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "music_genre_translations", ["locale"], :name => "index_music_genre_translations_on_locale"
+  add_index "music_genre_translations", ["music_genre_id"], :name => "index_music_genre_translations_on_music_genre_id"
+
+  create_table "music_genres", :force => true do |t|
+    t.string   "computed_name"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "music_genres", ["computed_name"], :name => "index_music_genres_on_computed_name", :unique => true
 
   create_table "music_labels", :force => true do |t|
     t.string   "name",        :null => false

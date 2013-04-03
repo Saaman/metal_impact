@@ -12,6 +12,8 @@ describe MusicGenre::MGComponent do
     #attributes
     it { should respond_to(:keyword) }
     it { should respond_to(:type) }
+    it { should respond_to(:music_genres) }
+    it { should respond_to(:music_genre_ids) }
   end
 
   describe "Validations :" do
@@ -31,7 +33,7 @@ end
 
 describe MusicGenre::MusicType do
   before do
-    @music_type = MusicGenre::MusicType.new keyword: "tata"
+    @music_type = FactoryGirl.build :music_type
   end
 
   subject { @music_type }
@@ -56,7 +58,7 @@ end
 
 describe MusicGenre::MainStyle do
   before do
-    @main_style = MusicGenre::MainStyle.new keyword: "tata"
+    @main_style = FactoryGirl.build :main_style
   end
 
   subject { @main_style }
@@ -81,7 +83,7 @@ end
 
 describe MusicGenre::StyleAlteration do
   before do
-    @style_alteration = MusicGenre::StyleAlteration.new keyword: "tata"
+    @style_alteration = FactoryGirl.build :style_alteration
   end
 
   subject { @style_alteration }
