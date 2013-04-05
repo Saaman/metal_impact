@@ -102,6 +102,9 @@ describe 'Imports', :js => true do
 							should have_selector 'li', text: "#{total_entries} entries imported"
 
 							should show_progress 0, 0, 100, 0
+
+							#tests on data
+							Album.where(music_genre_id: nil).should be_empty
 						end
 					end
 				end

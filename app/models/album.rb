@@ -23,6 +23,7 @@ class Album < ActiveRecord::Base
 
 	#associations
   belongs_to :music_label
+  belongs_to :music_genre
 
   #persisted attributes
 	attr_accessible :kind

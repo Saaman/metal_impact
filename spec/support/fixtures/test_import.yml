@@ -69,6 +69,10 @@ music_label_id: 1
 artist_ids: [1]
 cover: 'http://www.metal-impact.com/modules/Reviews/images/nineinchnails_yearzero.jpg'
 album_type: :album
+music_genre: "Death Metal Mélodique"
+music_genre_music_types: ["METAL"]
+music_genre_main_styles: ["DEATH"]
+music_genre_style_alterations: ["MÉLODIQUE"]
 release_date: 16/04/2007 00:00:00
 created_at: 12/04/2007 16:57:36
 updated_at: 12/04/2007 16:57:36
@@ -82,6 +86,10 @@ music_label_id: 2
 artist_ids: [2]
 cover: 'http://www.metal-impact.com/modules/Reviews/images/nahemah_thesecondphilosophy.jpg'
 album_type: :album
+music_genre: "Post Doom Metal Atmosphérique Dépressif"
+music_genre_music_types: ["METAL", "ROCK"]
+music_genre_main_styles: ["POST", "DOOM"]
+music_genre_style_alterations: ["ATMOSPHERIQUE", "DEPRESSIF"]
 release_date: 29/01/2007 00:00:00
 created_at: 17/04/2007 15:52:36
 updated_at: 17/04/2007 15:52:36
@@ -95,6 +103,10 @@ music_label_id: 2
 artist_ids: [3]
 cover: 'http://www.metal-impact.com/modules/Reviews/images/wormachine_tvbrain.jpg'
 album_type: :album
+music_genre: "Metal"
+music_genre_music_types: ["METAL"]
+music_genre_main_styles: []
+music_genre_style_alterations: []
 release_date: 15/03/2007 00:00:00
 created_at: 17/04/2007 16:18:22
 updated_at: 17/04/2007 16:18:22
@@ -108,6 +120,10 @@ music_label_id: 1
 artist_ids: [1]
 cover: 'http://www.metal-impact.com/modules/Reviews/images/middian_ageeternal.jpg'
 album_type: :album
+music_genre: "Post Doom Metal"
+music_genre_music_types: ["METAL"]
+music_genre_main_styles: ["POST", "DOOM"]
+music_genre_style_alterations: []
 release_date: 26/03/2007 00:00:00
 created_at: 17/04/2007 16:25:03
 updated_at: 17/04/2007 16:25:03

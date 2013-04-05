@@ -69,6 +69,9 @@ class Import::MetalImpactEntry < Import::Entry
 		album.music_label_id = dependencies[:music_label_id]
 		album.artist_ids = dependencies[:artist_ids]
 
+		#TODO : add music genre on album
+		album.music_genre = add_music_genre data[:music_genre], data[:music_genre_music_types], data[:music_genre_main_styles], data[:music_genre_style_alterations]
+
 		finalize_import album
 	end
 
@@ -99,5 +102,29 @@ class Import::MetalImpactEntry < Import::Entry
 				artist_ids << retrieve_dependency_id(:artist, artist_id)
 			end
 			res.merge!({ artist_ids: artist_ids })
+		end
+
+		def add_music_genre(music_genre_name, music_types, main_styles, style_alterations)
+
+			#build new music genre
+			music_genre = MusicGenre.new
+
+			music_genre.music_types = MusicGenre::MusicType.from_keywords music_types
+			music_genre.main_styles = MusicGenre::MainStyle.from_keywords main_styles
+			music_genre.style_alterations = MusicGenre::StyleAlteration.from_keywords style_alterations
+
+			music_genre.name = music_genre_name
+
+			#if genre already exists, return it
+			existing_music_genre = MusicGenre.find_by_computed_name(music_genre.computed_name)
+			return existing_music_genre unless existing_music_genre.nil?
+
+			#return the newly created genre
+			if music_genre.valid?
+				 return music_genre if music_genre.save
+			end
+
+			return nil
+
 		end
 end

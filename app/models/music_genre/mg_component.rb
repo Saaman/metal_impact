@@ -5,5 +5,13 @@ class MusicGenre::MGComponent < ActiveRecord::Base
 
   has_and_belongs_to_many_with_deferred_save :music_genres, join_table: 'music_genre_components_music_genres'
 
-  validates_presence_of :keyword, :type
+  validates :keyword, presence: true, uniqueness: { :scope => :type, :case_sensitive => false }
+  validates :type, presence: true
+
+  def self.from_keywords(keywords_array)
+  	keywords_array.map do |keyword|
+			self.where(keyword: keyword).first_or_create
+		end
+  end
+
 end

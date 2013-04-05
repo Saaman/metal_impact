@@ -28,80 +28,42 @@ describe MusicGenre::MGComponent do
       before { @mg_component.type = " " }
       it { should_not be_valid }
     end
-  end
-end
 
-describe MusicGenre::MusicType do
-  before do
-    @music_type = FactoryGirl.build :music_type
-  end
-
-  subject { @music_type }
-
-  describe "attributes and methods" do
-    #attributes
-    it { should respond_to(:keyword) }
-    it { should respond_to(:type) }
-  end
-
-  its(:type) { should == 'MusicGenre::MusicType' }
-
-  describe "Validations :" do
-  	it { should be_valid }
-
-    describe "when keyword is not present" do
-      before { @music_type.keyword = " " }
-      it { should_not be_valid }
+    describe 'keyword uniqueness' do
+      let(:music_type) { FactoryGirl.create :music_type }
+      it 'is not required for components of different types' do
+        main_style = FactoryGirl.build :main_style, keyword: music_type.keyword
+        main_style.should be_valid
+      end
+      it 'is enforced for components of the same types' do
+        dup_music_type = FactoryGirl.build :music_type, keyword: music_type.keyword
+        dup_music_type.should_not be_valid
+      end
     end
   end
-end
 
-describe MusicGenre::MainStyle do
-  before do
-    @main_style = FactoryGirl.build :main_style
-  end
-
-  subject { @main_style }
-
-  describe "attributes and methods" do
-    #attributes
-    it { should respond_to(:keyword) }
-    it { should respond_to(:type) }
-  end
-
-  its(:type) { should == 'MusicGenre::MainStyle' }
-
-  describe "Validations :" do
-  	it { should be_valid }
-
-    describe "when keyword is not present" do
-      before { @main_style.keyword = " " }
-      it { should_not be_valid }
+  describe 'Inheritance :' do
+    let(:style_alteration) { FactoryGirl.build :style_alteration }
+    it 'should have a correct type' do
+      style_alteration.type.should == style_alteration.class.name
     end
   end
-end
 
-describe MusicGenre::StyleAlteration do
-  before do
-    @style_alteration = FactoryGirl.build :style_alteration
-  end
-
-  subject { @style_alteration }
-
-  describe "attributes and methods" do
-    #attributes
-    it { should respond_to(:keyword) }
-    it { should respond_to(:type) }
-  end
-
-  its(:type) { should == 'MusicGenre::StyleAlteration' }
-
-  describe "Validations :" do
-  	it { should be_valid }
-
-    describe "when keyword is not present" do
-      before { @style_alteration.keyword = " " }
-      it { should_not be_valid }
+  describe 'Methods :' do
+    describe 'from_keywords' do
+      let(:music_type) { FactoryGirl.create :music_type }
+      it 'should retrieve existing component if already exists, or create new one' do
+        res = MusicGenre::MusicType.from_keywords [music_type.keyword, 'toto']
+        res.count.should == 2
+        res.first.should == music_type
+        res.second.class.should == MusicGenre::MusicType
+      end
+      it 'should create a new main_style' do
+        res = MusicGenre::MainStyle.from_keywords ['toto']
+        res.count.should == 1
+        res.first.class.should == MusicGenre::MainStyle
+        res.first.keyword.should == 'toto'
+      end
     end
   end
 end

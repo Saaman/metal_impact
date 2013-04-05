@@ -40,6 +40,8 @@ describe Album do
 		#associations
     it { should respond_to(:music_label) }
     it { should respond_to(:music_label_id) }
+    it { should respond_to(:music_genre) }
+    it { should respond_to(:music_genre_id) }
 
     #methods
     it { should respond_to(:album?) }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402154631) do
+ActiveRecord::Schema.define(:version => 20130404143800) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20130402154631) do
     t.integer  "cached_votes_total",                :default => 0
     t.integer  "cached_votes_up",                   :default => 0
     t.integer  "cached_votes_down",                 :default => 0
+    t.integer  "music_genre_id"
   end
 
   add_index "albums", ["cached_votes_down"], :name => "index_albums_on_cached_votes_down"
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130402154631) do
   add_index "albums", ["cached_votes_up"], :name => "index_albums_on_cached_votes_up"
   add_index "albums", ["created_at"], :name => "index_albums_on_created_at"
   add_index "albums", ["kind_cd"], :name => "index_albums_on_kind_cd"
+  add_index "albums", ["music_genre_id"], :name => "index_albums_on_music_genre_id"
   add_index "albums", ["music_label_id"], :name => "index_albums_on_music_label_id"
   add_index "albums", ["release_date"], :name => "index_albums_on_release_date"
   add_index "albums", ["title"], :name => "index_albums_on_title"
