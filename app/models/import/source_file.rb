@@ -144,26 +144,26 @@ class Import::SourceFile < ActiveRecord::Base
   private
 
     PREPARATION_BATCH_COUNT = 1000
-    LOADING_BATCH_COUNT = 5000
+    LOADING_BATCH_COUNT = 200
 
     def load_entries
 
       entries_count = 0
-      entries = []
+      yaml_entries = []
       klass = "Import::#{source_type.to_s.camelize}Entry".constantize
 
       remote_file_content = get_file_content_from_gdrive
 
       YAML.load_documents(remote_file_content) do |record|
-        logger.info "record = #{record.inspect}"
-        entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
+        yaml_entries << klass.new(data: HashWithIndifferentAccess.new(record), source_file: self)
         entries_count += 1
 
         if entries_count.modulo(LOADING_BATCH_COUNT) == 0
-          klass.import entries
+          klass.import yaml_entries
+          yaml_entries.clear
         end
       end
-      klass.import entries
+      klass.import yaml_entries
     end
 
     def unload_entries
