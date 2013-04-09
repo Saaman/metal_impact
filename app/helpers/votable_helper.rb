@@ -1,5 +1,6 @@
 module VotableHelper
 	def additive_voted_class(votable, vote_result=true)
+		return "" if current_user.nil?
 		(current_user.voted_as_when_voted_for(votable) == vote_result) ? " voted" : ""
 	end
 

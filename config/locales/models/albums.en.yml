@@ -16,6 +16,7 @@ en:
         title: "title"
         artists: 'artists'
         music_label: 'label'
+        music_genre: 'style'
         release_date: "release date"
   notices:
     album:

@@ -4,7 +4,7 @@ describe "Albums" do
 
 	subject { page }
 
-	describe "Albums index", :js => true do
+	describe "Albums index :", :js => true do
 		let!(:albums) { FactoryGirl.create_list(:album_with_artists, 5) }
 		let(:newest_album) { Album.order('created_at DESC').first }
 		let(:first_alphabeltical_album) { Album.order('title ASC').first }
@@ -22,6 +22,18 @@ describe "Albums" do
 				should have_selector "option[selected='selected']", text: 'Title A -> Z'
 			end
 		end
+	end
+
+	describe "Show album", :js => true do
+		let!(:album) { FactoryGirl.create(:album_with_artists, :with_music_genre) }
+		describe ':' do
+			before do
+	  		visit "/albums/#{album.id}"
+	  	end
+	  	it 'should display music_genre of the album' do
+	  		should have_content album.music_genre.name
+	  	end
+	  end
 	end
 
 

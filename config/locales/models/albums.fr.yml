@@ -16,6 +16,7 @@ fr:
         title: "titre"
         artists: 'artistes'
         music_label: 'label'
+        music_genre: 'style'
         release_date: "Sortie du Scud : "
   notices:
     album:

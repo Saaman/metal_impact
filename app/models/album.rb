@@ -29,7 +29,8 @@ class Album < ActiveRecord::Base
 	attr_accessible :kind
 	accepts_nested_attributes_for :music_label
 
-	delegate :name, :to => :music_label, :prefix => true
+	# delegate :name, :to => :music_label, :prefix => true
+	# delegate :name, :to => :music_genre, :prefix => true
 
 	as_enum :kind, album: 0, demo: 1, mini_album: 2, live: 3
 
@@ -45,6 +46,10 @@ class Album < ActiveRecord::Base
 
 	def music_label_name
 		music_label.nil? ? I18n.t("special.self_production") : music_label.name
+	end
+
+	def music_genre_name
+		music_genre.nil? ? nil : music_genre.name
 	end
 
 	def specific_attributes_for_contribution
