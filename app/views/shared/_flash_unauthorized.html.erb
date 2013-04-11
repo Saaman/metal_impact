@@ -1,0 +1,5 @@
+<div class='alert'><%= message %>
+	<% unless user_signed_in? %>
+		&nbsp;<%= link_to t('.login'), new_user_session_path, :remote => true, "data-toggle" => "modal", "data-target" => "div#modal-container"  %>
+	<% end %>
+</div>

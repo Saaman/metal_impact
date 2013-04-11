@@ -121,7 +121,7 @@ describe ArtistsController do
   describe "GET new :" do
   	describe "(unauthorized)" do
 			before { get :new, :format => :js }
-			its_access_is "unauthorized"
+			its_access_is "unauthorized ajax"
   	end
   	describe "(authorized)" do
   		before(:each) { @ability.can :create, Artist }
@@ -143,7 +143,7 @@ describe ArtistsController do
   describe "POST create :" do
     describe "(unauthorized)" do
       before { post :create, :format => :js }
-      its_access_is "unauthorized"
+      its_access_is "unauthorized ajax"
     end
   end
 end

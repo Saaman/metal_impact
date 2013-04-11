@@ -1,4 +1,8 @@
 <% flash.each do |key, value| %>
+	<% if key == :unauthorized %>
+		<%= render 'shared/flash_unauthorized', message: value %>
+		<% next %>
+	<% end %>
 	<% completemsg = value %>
 	<% completemsg = completemsg + " (#{l(Time.now, :format => :short)})" if key == :error %>
 	<%= content_tag(:div, completemsg, class: "alert#{map_alert_keys key}", id: "#{key}") %>

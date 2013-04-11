@@ -20,3 +20,8 @@ $(document).ready ->
 
 	#remove the top alert about javascript requirement
 	$('div#js-alert').remove()
+
+	#Ajax errors treatment
+	$(document).on 'ajax:error', (event, jqXHR, ajaxSettings, thrownError) ->
+		if jqXHR.status == 401 #unauthorized
+			$('div#flashes').html jqXHR.responseText

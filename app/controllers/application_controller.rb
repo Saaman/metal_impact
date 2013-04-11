@@ -18,7 +18,21 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.info "access denied : #{exception.message}"
-    redirect_to new_session_path("user"), :format => :js, :alert => exception.message
+
+    respond_to do |format|
+      flash[:unauthorized] = exception.message
+      format.html do
+        redirect_to_back
+      end
+      format.json do
+        self.formats = [:json, :html]
+        render partial: 'shared/flashes', layout: false, :status => :unauthorized
+      end
+      format.js do
+        self.formats = [:js, :html]
+        render partial: 'shared/flashes', layout: false, :status => :unauthorized
+      end
+    end
   end
 
 	rescue_from ActiveRecord::RecordNotFound do |exception|

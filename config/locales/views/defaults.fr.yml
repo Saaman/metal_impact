@@ -21,6 +21,8 @@ fr:
         other: "%{count} erreurs sont survenues"
       errors_main: "%{error_count} lors de l'enregistrement de %{entity}."
       errors_help: "Veuillez corriger les champs ci-dessous avant d'enregistrer à nouveau."
+    flash_unauthorized:
+      login : "Se connecter."
   simple_form:
     "yes": 'Oui'
     "no": 'Non'

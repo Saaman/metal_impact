@@ -2,9 +2,15 @@ require "rspec/expectations"
 require "set"
 
 shared_examples "unauthorized" do
-	 it { should redirect_to new_user_session_path }
-   specify { flash[:alert].should_not be_empty }
- end
+	 it { should redirect_to root_path }
+   specify { flash[:unauthorized].should_not be_empty }
+end
+
+shared_examples "unauthorized ajax" do
+	 it { should render_template 'shared/_flashes' }
+   specify { flash[:unauthorized].should_not be_empty }
+   its(:response_code) { should == 401 }
+end
 
 shared_examples "protected" do
 	it { should redirect_to new_user_session_path }
