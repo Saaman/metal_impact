@@ -6,8 +6,11 @@
     <div class="row-fluid content">
       <div class="span6">
         <%= f.input :title, required: true %>
-        <%= f.input :release_date, :as => :date_picker, required: true %>
-        <%= f.input :kind, required: true, :collection => Album.kinds_for_select, prompt: t('.select_kind') %>
+        <%= f.input :release_date, :as => :date_picker, required: true, input_html: {class: 'input-medium'} %>
+        <%= f.input :kind, required: true, :collection => Album.kinds_for_select, prompt: t('.select_kind'), input_html: {class: 'input-medium'} %>
+
+        <!-- music genre -->
+        <%= render 'music_genre_form', f: f, album: album %>
 
       </div>
       <div class="span6 well">

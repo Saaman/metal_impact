@@ -7,8 +7,12 @@ $(document).ready ->
 	}
 
 	#add icon search in typeahead fields
-	$('input[name$="typeahead"]').wrap('<div class="input-append">')
-	.parent().append('<span class="add-on"><i class="icon-search"></i></span>')
+	$('input[name$="typeahead"]').wrap('<div class="input-prepend">')
+	.parent().prepend('<span class="add-on"><i class="icon-search"></i></span>')
+
+	#add remove button on fields with class 'removable'
+	$('input.removable').wrap('<div class="input-append">')
+	.parent().append('<button class="btn" type="button"><i class="icon-remove"></i></button>')
 
 
 	$('div.modal').on 'hidden', () ->

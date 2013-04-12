@@ -34,8 +34,8 @@ module ApplicationHelper
   end
 
   #views helpers
-  def t_attr_show(model_or_instance, method)
-    "#{t_attr(model_or_instance, method).camelize} : "
+  def t_attr_show(model_or_instance, method, suffix=nil)
+    "#{t_attr(model_or_instance, method).camelize}#{suffix.nil? ? '' : ' '+suffix+' ' }"
   end
   def t_attr(model_or_instance, method)
     model_name = model_or_instance.is_a?(String) ? model_or_instance : model_or_instance.class.model_name.i18n_key

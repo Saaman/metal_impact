@@ -38,9 +38,20 @@ describe "Albums" do
 
 
 	describe "Update album", :js => true do
-		let!(:album) { FactoryGirl.create(:album_with_artists) }
-		let!(:music_label) { FactoryGirl.create(:music_label) }
+		let!(:album) { FactoryGirl.create :album_with_artists, :with_music_genre  }
+		let!(:music_label) { FactoryGirl.create :music_label }
+		let!(:music_genre) { FactoryGirl.create :music_genre }
   	sign_in_with_capybara :admin #otherwise changes are not published ;-)
+
+		describe 'with music genre' do
+			before do
+	  		visit "/albums/#{album.id}/edit"
+	  	end
+	  	it 'should display the music genre' do
+	  		should have_selector 'div#music_genre_display', visible: true
+	  		should have_selector 'span.clickable', text: 'Edit'
+			end
+		end
 
   	describe 'with music label' do
   		before do

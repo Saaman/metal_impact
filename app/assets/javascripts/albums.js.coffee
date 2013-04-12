@@ -32,3 +32,15 @@ $ ->
 				#update hidden field for form submission
 				$('input#album_music_label_id').val(obj.id)
 		)
+
+	#setup display of music_genre
+	show_music_genre_input( $('input#album_music_genre_id').val() == '' )
+	#toggle display of music_genre
+	$('div#music_genre_display span.clickable').on 'click', () ->
+		show_music_genre_input true
+	$('div#music_genre_input').on 'click', 'button', () ->
+		show_music_genre_input false
+
+show_music_genre_input = (show) ->
+	$('div#music_genre_display').toggle(!show)
+	$('div#music_genre_input').toggle(show)

@@ -234,3 +234,14 @@ div#votes-display
     filter:alpha(opacity=100);
   }
 }
+
+.clickable
+{
+	&:hover { cursor: pointer; }
+}
+
+.form-align-text
+{
+	line-height: 20px;
+	padding-top: 5px;
+}

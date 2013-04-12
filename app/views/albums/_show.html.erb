@@ -10,16 +10,16 @@
 <div class="portrait"><%= normal_image_tag album.cover %></div>
 <div>
 	<div>
-		<i><%= t_attr_show album, 'music_label' %></i><%= album.music_label_name %>
+		<i><%= t_attr_show album, 'music_label', ':' %></i><%= album.music_label_name %>
 	</div>
 	<div>
-		<i><%= t_attr_show album, 'release_date' %></i><%= l album.release_date, :format => :long %>
+		<i><%= t_attr_show album, 'release_date', ':' %></i><%= l album.release_date, :format => :long %>
 	</div>
 	<div>
-		<i><%= t_attr_show album, 'kind' %></i><%= t_enum album, :kind %>
+		<i><%= t_attr_show album, 'kind', ':' %></i><%= t_enum album, :kind %>
 	</div>
 	<div>
-		<i><%= t_attr_show album, 'music_genre' %></i><%= album.music_genre_name %>
+		<i><%= t_attr_show album, 'music_genre', ':' %></i><%= album.music_genre_name %>
 	</div>
 </div>
 

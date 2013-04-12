@@ -1,0 +1,17 @@
+<div class="control-group string" id="music-genre-picker">
+  <label class="string control-label"><%= t_attr_show 'album', 'music_genre' %></label>
+
+  <div class="controls">
+    <div id='music_genre_display' class='form-align-text'>
+      <strong><%= album.music_genre_name unless album.music_genre.nil? %></strong>
+      &nbsp;<span class="badge badge-info clickable"><%= t 'defaults.edit' %></span>
+    </div>
+
+    <div id='music_genre_input'>
+      <%= text_field_tag 'music_genre_typeahead', nil, :placeholder => t('defaults.search_terms'), class: 'string skipval removable' %>
+    </div>
+
+  </div>
+</div>
+
+<%= f.association :music_genre, :as => :hidden %>
