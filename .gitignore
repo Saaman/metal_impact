@@ -36,14 +36,10 @@ bundler_stubs/
 #OS dependent files
 Gemfile
 Gemfile.lock
-Guardfile
-spec/spec_helper.rb
-.rspec
-config/environments/development.rb
 config/database.yml
 db/schema.rb
 
-# git rm --ignore-unmatch -f Gemfile Gemfile.lock Guardfile spec/spec_helper.rb .rspec config/environments/development.rb config/database.yml
+# git rm --ignore-unmatch -f Gemfile Gemfile.lock config/database.yml
 
 
 #ignore compiled coffeescripts

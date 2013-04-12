@@ -106,6 +106,4 @@ group :test do
     #Linux gems
     gem 'rb-inotify', '~> 0.8.8'
     gem 'libnotify', '~> 0.8.0'
-    gem 'guard-spork', '~> 1.2.3'
-    gem 'spork', '~> 0.9.2'
 end
