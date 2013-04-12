@@ -9,6 +9,7 @@
 #  updated_at         :datetime         not null
 #  countries          :string(127)
 #  cached_votes_score :integer          default(0)
+#  cached_votes_total :integer          default(0)
 #  cached_votes_up    :integer          default(0)
 #  cached_votes_down  :integer          default(0)
 #

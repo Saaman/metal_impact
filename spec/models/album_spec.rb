@@ -12,8 +12,10 @@
 #  updated_at         :datetime         not null
 #  music_label_id     :integer
 #  cached_votes_score :integer          default(0)
+#  cached_votes_total :integer          default(0)
 #  cached_votes_up    :integer          default(0)
 #  cached_votes_down  :integer          default(0)
+#  music_genre_id     :integer
 #
 
 require 'spec_helper'

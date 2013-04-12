@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: music_genres
+#
+#  id            :integer          not null, primary key
+#  computed_name :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 class MusicGenre < ActiveRecord::Base
   attr_accessible :name
   attr_readonly :computed_name
