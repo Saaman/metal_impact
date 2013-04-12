@@ -17,7 +17,8 @@ $ ->
 		$.get '/music_labels/'+selected_label.val()+'/smallblock.html', (data) ->
 			$('div#music_label_block').html(data)
 
-	$('#label_typeahead').typeahead(
+	# labels typeahead
+	$('input#label_typeahead').typeahead(
 		# source can be a function
 		source: (typeahead, query) ->
 			$.getJSON '/music_labels/search.json', {'search_pattern': query}, (data) =>
@@ -33,6 +34,19 @@ $ ->
 				$('input#album_music_label_id').val(obj.id)
 		)
 
+	# music_genres typeahead
+	$('input#music_genre_typeahead').typeahead(
+		source: (typeahead, query) ->
+			$.getJSON '/music_genres/search.json', {'search_pattern': query}, (data) =>
+				typeahead.process(data)
+		property: 'name'
+		onselect: (obj) ->
+			$('div#music_genre_display strong').text obj.name
+			#update hidden field for form submission
+			$('input#album_music_genre_id').val obj.id
+			show_music_genre_input false
+		)
+
 	#setup display of music_genre
 	show_music_genre_input( $('input#album_music_genre_id').val() == '' )
 	#toggle display of music_genre
@@ -42,5 +56,6 @@ $ ->
 		show_music_genre_input false
 
 show_music_genre_input = (show) ->
+	$('input#music_genre_input').val $('input#music_genre_input').attr('placeholder')
 	$('div#music_genre_display').toggle(!show)
 	$('div#music_genre_input').toggle(show)

@@ -49,7 +49,35 @@ describe "Albums" do
 	  	end
 	  	it 'should display the music genre' do
 	  		should have_selector 'div#music_genre_display', visible: true
-	  		should have_selector 'span.clickable', text: 'Edit'
+	  		should have_selector 'div#music_genre_display span.clickable', text: 'Edit'
+			end
+
+			describe 'modify music genre' do
+				before { find('div#music_genre_display span.clickable').click }
+				it 'should display the typeahead' do
+					should have_selector 'div#music_genre_input', visible: true
+				end
+
+				describe 'pick a music genre' do
+					before do
+						fill_in 'music_genre_typeahead', with: music_genre.name[1..3]
+						find('ul.typeahead').find('li:first a').click
+					end
+					it 'should associate the music genre chosen' do
+						should have_selector 'div#music_genre_display', visible: true
+						should have_selector 'div#music_genre_display strong', text: music_genre.name
+						should have_selector "input#album_music_genre_id[value='#{music_genre.id}']"
+					end
+					describe 'update the album with music genre' do
+						before do
+							click_on 'Update album'
+						end
+						it 'should display updated music genre information' do
+							should have_selector 'div.alert-info', text: /successfully/
+							should have_content music_genre.name
+						end
+					end
+				end
 			end
 		end
 
@@ -69,7 +97,7 @@ describe "Albums" do
 					end
 					find('ul.typeahead').find('li:first a').click
 				end
-				it 'should associate the label choosen' do
+				it 'should associate the label chosen' do
 					should have_selector 'div#music_label_block', text: music_label.name
 					should have_selector "input#album_music_label_id[value='#{music_label.id}']"
 				end

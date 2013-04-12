@@ -23,6 +23,10 @@ MetalImpact::Application.routes.draw do
     get 'smallblock', :on => :member
   end
 
+  resources :music_genres, :only => [] do
+    get 'search', :on => :collection
+  end
+
   namespace :administration do
     resources :users, :only => [:index, :destroy, :update]
     resources :imports, :only => [:index, :show, :update] do
@@ -66,9 +70,9 @@ MetalImpact::Application.routes.draw do
 end
 
 #== Route Map
-# Generated on 06 Mar 2013 12:22
+# Generated on 12 Apr 2013 14:04
 #
-#                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote
+#                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote {:format=>"json"}
 #                               albums GET    /albums(.:format)                                    albums#index
 #                                      POST   /albums(.:format)                                    albums#create
 #                            new_album GET    /albums/new(.:format)                                albums#new
@@ -78,8 +82,8 @@ end
 #                                      DELETE /albums/:id(.:format)                                albums#destroy
 #                       search_artists GET    /artists/search(.:format)                            artists#search
 #                    smallblock_artist GET    /artists/:id/smallblock(.:format)                    artists#smallblock
-#                        upvote_artist PUT    /artists/:id/upvote(.:format)                        artists#upvote
-#                      downvote_artist PUT    /artists/:id/downvote(.:format)                      artists#downvote
+#                        upvote_artist PUT    /artists/:id/upvote(.:format)                        artists#upvote {:format=>"json"}
+#                      downvote_artist PUT    /artists/:id/downvote(.:format)                      artists#downvote {:format=>"json"}
 #                              artists GET    /artists(.:format)                                   artists#index
 #                                      POST   /artists(.:format)                                   artists#create
 #                           new_artist GET    /artists/new(.:format)                               artists#new
@@ -88,6 +92,7 @@ end
 #               smallblock_music_label GET    /music_labels/:id/smallblock(.:format)               music_labels#smallblock
 #                         music_labels POST   /music_labels(.:format)                              music_labels#create
 #                      new_music_label GET    /music_labels/new(.:format)                          music_labels#new
+#                  search_music_genres GET    /music_genres/search(.:format)                       music_genres#search
 #                 administration_users GET    /administration/users(.:format)                      administration/users#index
 #                  administration_user PUT    /administration/users/:id(.:format)                  administration/users#update
 #                                      DELETE /administration/users/:id(.:format)                  administration/users#destroy
@@ -133,7 +138,7 @@ end
 #                         toggle_debug POST   /toggle_debug(.:format)                              administration/dashboard#toggle_debug
 #                               dj_mon        /dj_mon                                              DjMon::Engine
 #                                 root        /                                                    home#index
-#
+# 
 # Routes for DjMon::Engine:
 #       all_dj_reports GET    /dj_reports/all(.:format)       dj_mon/dj_reports#all
 #    failed_dj_reports GET    /dj_reports/failed(.:format)    dj_mon/dj_reports#failed
