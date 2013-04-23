@@ -87,20 +87,29 @@ class AlbumsController < ApplicationController
 
       #manage music label
       @new_music_label = MusicLabelPresenter.new params[:album][:new_music_label]
-      if @new_music_label.create_new
-        authorize! :new, @new_music_label.music_label
-        @album.music_label = @new_music_label.music_label
-      else
-        @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
+      if manage_music_label(@new_music_label)
+        @album.errors.add(:music_label, :invalid)
       end
 
       #manage artists
       if params.has_key?(:product)
         @album.artist_ids = params[:product][:artist_ids]
-        true
       else
         @album.errors.add(:artist_ids, :too_short)
       end
 
+    end
+
+    def manage_music_label(presenter)
+      if @new_music_label.create_new
+        new_ml = @new_music_label.music_label
+        authorize! :new, new_ml
+        return false unless new_ml.save
+        @album.music_label = new_ml
+      else
+        @album.music_label_id = params[:album][:music_label_id] unless params[:album][:music_label_id].blank?
+      end
+
+      return true
     end
 end

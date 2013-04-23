@@ -63,6 +63,29 @@ describe "Albums" do
 		end
   end
 
+  describe "Update album with label", :js => true do
+		let!(:album) { FactoryGirl.create(:album_with_artists, :with_label) }
+		let!(:music_label) { FactoryGirl.build(:music_label) }
+  	sign_in_with_capybara :admin #otherwise changes are not published ;-)
+
+  	describe 'and assign a new music label at the same moment' do
+  		before do
+	  		visit "/albums/#{album.id}/edit"
+	  		click_on 'create_new_music_label_pill'
+	  		within "form#edit_album_#{album.id}" do
+					fill_in 'album_new_music_label_music_label_name', with: music_label.name
+					fill_in 'album_new_music_label_music_label_distributor', with: music_label.distributor
+				end
+				click_on 'Update album'
+	  	end
+
+	  	it 'should display updated label information' do
+				should have_selector 'div.alert-info', text: /successfully/
+				should have_content music_label.name.titleize
+			end
+		end
+	end
+
   describe 'Contribute to album :', :js => true do
   	let!(:album) { FactoryGirl.create(:album_with_artists) }
   	sign_in_with_capybara :staff

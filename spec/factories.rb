@@ -40,6 +40,10 @@ FactoryGirl.define do
       after(:build) { |album| album.artists = FactoryGirl.create_list(:artist, PRNG.rand(1..2), albums: [album]) }
     end
 
+    trait :with_label do
+      music_label { FactoryGirl.create :music_label }
+    end
+
     factory :album_with_artists,            traits: [:with_artists]
     factory :album_with_cover,              traits: [:with_cover]
     factory :album_with_artists_and_cover,  traits: [:with_artists, :with_cover]
