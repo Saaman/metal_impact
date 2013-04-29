@@ -27,7 +27,7 @@ describe Review do
 
   describe "attributes and methods" do
     #attributes
-    it { should respond_to(:body, :product, :score, :reviewer) }
+    it { should respond_to(:body, :product, :score, :reviewer, :product_id, :product_type) }
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }
   end

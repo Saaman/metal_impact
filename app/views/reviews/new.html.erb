@@ -1,0 +1,13 @@
+<div class='well'>
+	<h3><%= t '.title' %></h3>
+	<%= render 'shared/error_messages', :object => @review %>
+
+	<%= simple_form_for @review, remote: true, html: {class: "form-horizontal"} do |f| %>
+
+		<div class="btn-toolbar">
+			<%= f.button :submit, :class => 'btn-primary' %>
+		  <%= link_to t('helpers.cancel'), '', class: 'btn btn-small', id: 'cancel-form' %>
+    </div>
+
+	<% end %>
+</div>

@@ -1,0 +1,9 @@
+en:
+  reviews:
+    new:
+      title: "Add a review"
+  helpers:
+    submit:
+      review:
+        create: "Create review"
+        update: "Update review"

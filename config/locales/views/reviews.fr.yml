@@ -1,0 +1,9 @@
+fr:
+  reviews:
+    new:
+      title: "Ajouter une chronique"
+  helpers:
+    submit:
+      review:
+        create: "Ajouter la chronique"
+        update: "Mettre à jour la chronique"

@@ -20,7 +20,7 @@ class Review < ActiveRecord::Base
   belongs_to :product, :polymorphic => true
   belongs_to :reviewer, :class_name => "User"
 
-  attr_accessible :score, :body, :product
+  attr_accessible :score, :body, :product_id, :product_type
 
   translates :body
 

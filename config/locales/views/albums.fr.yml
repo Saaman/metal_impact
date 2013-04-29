@@ -6,6 +6,8 @@ fr:
       artists: "Artistes"
       select_kind: "Sélectionner un type d'album"
       upload_cover : "Publier un artwork"
+    show:
+      add_review : 'Ajouter une chronique'
     label_for_album:
       select_label: "Sélectionner un label"
       select_existing_label: "Choisir un label existant"

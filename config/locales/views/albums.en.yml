@@ -6,6 +6,8 @@ en:
       artists: "Artists"
       select_kind: "Select a kind of album"
       upload_cover : "Upload a cover"
+    show:
+      add_review : 'Add a review'
     label_for_album:
       select_label: "Select a label"
       select_existing_label: "Choose an existing label"

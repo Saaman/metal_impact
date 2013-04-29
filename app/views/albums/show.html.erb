@@ -1,1 +1,10 @@
 <%= render 'show', album: @album %>
+
+<%= link_to t('defaults.edit_link'), edit_album_path(@album) %> |
+<%= link_to t('defaults.back_link'), albums_path %>
+
+<% if can? :create, Review %>
+	<br /><br />
+	<%= button_to t('.add_review'), new_review_path(product_id: @album.id, product_type: 'Album'), :class => 'btn-primary', remote: true, :method => :get, :form => {id: 'add_review'} %>
+	<div id='review-form'></div>
+<% end %>

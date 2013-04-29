@@ -7,8 +7,8 @@ class ReviewsController < ApplicationController
   respond_to :html
 
   def new
-    @review = Review.new
-    respond_with @review
+    @review = Review.new params.slice :product_id, :product_type
+    respond_with @review, layout: false
   end
 
   def edit

@@ -24,18 +24,15 @@ describe "Albums" do
 		end
 	end
 
-	describe "Show album", :js => true do
+	describe "Show album :", :js => true do
 		let!(:album) { FactoryGirl.create(:album_with_artists, :with_music_genre) }
-		describe ':' do
-			before do
-	  		visit "/albums/#{album.id}"
-	  	end
-	  	it 'should display music_genre of the album' do
-	  		should have_content album.music_genre.name
-	  	end
-	  end
-	end
+		before { visit "/albums/#{album.id}" }
 
+  	it 'should display music_genre of the album' do
+  		should have_content album.music_genre.name
+  		should_not have_selector 'form#add_review'
+  	end
+	end
 
 	describe "Update album", :js => true do
 		let!(:album) { FactoryGirl.create :album_with_artists, :with_music_genre  }
