@@ -42,6 +42,8 @@ MetalImpact::Application.routes.draw do
     end
   end
 
+  resources :reviews, :only => [:new, :create, :update, :edit]
+
   devise_for :users,:controllers => { :registrations => "users/registrations", :passwords => "users/passwords" }, :skip => [:sessions]
   devise_scope :user do
     #FIX : this is a temporay fix to allow sign-out link inside Bootstrap dropdown to work.
@@ -70,7 +72,7 @@ MetalImpact::Application.routes.draw do
 end
 
 #== Route Map
-# Generated on 12 Apr 2013 14:04
+# Generated on 29 Apr 2013 13:48
 #
 #                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote {:format=>"json"}
 #                               albums GET    /albums(.:format)                                    albums#index
@@ -109,6 +111,10 @@ end
 #   refuse_administration_contribution PUT    /administration/contributions/:id/refuse(.:format)   administration/contributions#refuse
 #         administration_contributions GET    /administration/contributions(.:format)              administration/contributions#index
 #          administration_contribution GET    /administration/contributions/:id(.:format)          administration/contributions#show
+#                              reviews POST   /reviews(.:format)                                   reviews#create
+#                           new_review GET    /reviews/new(.:format)                               reviews#new
+#                          edit_review GET    /reviews/:id/edit(.:format)                          reviews#edit
+#                               review PUT    /reviews/:id(.:format)                               reviews#update
 #                        user_password POST   /users/password(.:format)                            users/passwords#create
 #                    new_user_password GET    /users/password/new(.:format)                        users/passwords#new
 #                   edit_user_password GET    /users/password/edit(.:format)                       users/passwords#edit
