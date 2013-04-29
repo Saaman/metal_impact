@@ -15,6 +15,6 @@ class Administration::DashboardController < ApplicationController
 
 	private
 		def toggle_allow_debug
-			set_debug !can_debug?
+			Rails.cache.write(:allow_debug, !can_debug?, :expires_in => 1.day)
 		end
 end

@@ -29,10 +29,6 @@ module ApplicationHelper
     Rails.env.development? || (Rails.cache.fetch(:allow_debug) && user_is_admin?)
   end
 
-  def set_debug(value)
-    Rails.cache.write(:allow_debug, value, :expires_in => 1.day)
-  end
-
   #views helpers
   def t_attr_show(model_or_instance, method, suffix=nil)
     "#{t_attr(model_or_instance, method).camelize}#{suffix.nil? ? '' : ' '+suffix+' ' }"

@@ -41,7 +41,7 @@ class Artist < ActiveRecord::Base
 
   #callbacks
   before_validation do |artist|
-    return if artist.countries.blank?
+    return unless artist.countries?
     #turns all to uppercase
     artist.countries.map! { |c| c.upcase }
     #remove duplicates

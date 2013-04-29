@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20130426101803) do
   add_index "contributions", ["approvable_type", "approvable_id"], :name => "index_contributions_on_approvable_type_and_approvable_id"
   add_index "contributions", ["created_at"], :name => "index_contributions_on_created_at"
   add_index "contributions", ["state"], :name => "index_contributions_on_state"
+  add_index "contributions", ["whodunnit_id"], :name => "index_contributions_on_whodunnit_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

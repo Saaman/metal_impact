@@ -15,6 +15,7 @@ class CreateContributions < ActiveRecord::Migration
     add_index :contributions, :state
     add_index :contributions, :created_at
     add_index :contributions, [:approvable_type, :approvable_id]
+    add_index :contributions, :whodunnit_id
     add_foreign_key :contributions, :users, column: 'whodunnit_id'
   end
 end

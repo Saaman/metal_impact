@@ -21,6 +21,6 @@
     </tr>
   </thead>
   <tbody>
-    <%= render :partial => 'failure', collection: source_file.failures.includes(:entry) %>
+    <%= render 'failure', collection: source_file.failures.includes(:entry) %>
   </tbody>
 </table>

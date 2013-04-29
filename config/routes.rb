@@ -28,7 +28,6 @@ MetalImpact::Application.routes.draw do
   end
 
   namespace :administration do
-    resources :users, :only => [:index, :destroy, :update]
     resources :imports, :only => [:index, :show, :update] do
       put 'prepare', :on => :member
       put 'import', :on => :member

@@ -1,1 +1,1 @@
-$("div#modal-image").html("<%= j render(:partial => 'show_image') %>");
+$("div#modal-image").html("<%= j render(:partial => 'show_image', locals: {image_link: @image_link}) %>");
