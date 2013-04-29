@@ -3,8 +3,9 @@ PRNG ||= Random.new()
 FactoryGirl.define do
 
   sequence(:random_string) { |n| Faker::Lorem.words.join(" ") }
+  sequence(:random_text) { |n| Faker::Lorem.paragraphs.join("\n") }
 
-  factory :user, aliases: [:whodunnit] do
+  factory :user, aliases: [:whodunnit, :reviewer] do
     sequence(:email) { |n| "person_#{n}@example.com" }
     sequence(:pseudo) { |n| "person_#{n}" }
     password "foobar1"
@@ -137,5 +138,15 @@ FactoryGirl.define do
   factory :music_genre do
     name { generate :random_string }
     after(:build) { |music_genre| music_genre.music_types = FactoryGirl.create_list(:music_type, PRNG.rand(1..2)) }
+  end
+
+  factory :review do
+    body { generate(:random_text) }
+    score { PRNG.rand(0..10) }
+    reviewer
+    product { FactoryGirl.create :album_with_artists }
+    trait :published do
+      published true
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404143800) do
+ActiveRecord::Schema.define(:version => 20130426101803) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -224,6 +224,30 @@ ActiveRecord::Schema.define(:version => 20130404143800) do
   end
 
   add_index "practices", ["kind_cd"], :name => "index_practices_on_kind_cd", :unique => true
+
+  create_table "review_translations", :force => true do |t|
+    t.integer  "review_id"
+    t.string   "locale"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "review_translations", ["locale"], :name => "index_review_translations_on_locale"
+  add_index "review_translations", ["review_id"], :name => "index_review_translations_on_review_id"
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.integer  "score"
+    t.integer  "reviewer_id"
+    t.boolean  "published",    :default => false, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "reviews", ["product_type", "product_id"], :name => "index_reviews_on_product_type_and_product_id"
+  add_index "reviews", ["reviewer_id"], :name => "index_reviews_on_reviewer_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
