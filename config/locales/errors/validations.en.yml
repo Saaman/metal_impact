@@ -52,6 +52,12 @@ en:
               blank: "cannot be blank. Make sure there is in the data block a key named 'model' with a value corresponding to an entity type"
             state:
               invalid_transition: "Transition is invalid. Please contact the developer"
+        review:
+          attributes:
+            product:
+              is_not_productable: "A review can only be associated with a product"
+            reviewer_id:
+              taken: "You cannot submit two reviews on the same product"
         contribution:
           new_record_invalidity:  "you can't an contribution for an existing entity without providing the original entity"
           id_mismatch: "Your contribution is inconsistent as the entity is of id '%{id}' whereas the draft is of id '%{draft_id}'"

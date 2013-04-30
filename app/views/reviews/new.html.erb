@@ -1,13 +1,17 @@
-<div class='well'>
+<div class='well' id='new-review-form'>
+
 	<h3><%= t '.title' %></h3>
+
 	<%= render 'shared/error_messages', :object => @review %>
 
 	<%= simple_form_for @review, remote: true, html: {class: "form-horizontal"} do |f| %>
 
 		<%= f.input :score, required: true, collection: 0..10, input_html: {:class => 'input-mini'} %>
 		<%= f.input :body, :as => :text, input_html: {:class => 'input-xxlarge'} %>
-		<%= f.input :reviewer, :as => :string, disabled: true, input_html: { value: current_user.pseudo, :class => 'input-medium' } %>
-		<%= f.input :reviewer_id, :as => :hidden, input_html: { value: current_user.id } %>
+		<%= f.input :reviewer, :as => :string, required: false, disabled: true, input_html: { value: current_user.pseudo, :class => 'input-medium' } %>
+
+		<%= f.input :product_type, :as => :hidden %>
+		<%= f.input :product_id, :as => :hidden %>
 
 		<div class="btn-toolbar">
 			<%= f.button :submit, :class => 'btn-primary' %>

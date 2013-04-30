@@ -2,6 +2,8 @@ fr:
   reviews:
     new:
       title: "Ajouter une chronique"
+    review:
+      review_by: "Chronique par"
   helpers:
     submit:
       review:

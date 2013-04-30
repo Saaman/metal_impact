@@ -52,6 +52,12 @@ fr:
               blank: "doit être rempli. Assurez vous qu'il existe dans le bloc de données une clé 'model' avec une valeur représentant un type d'entité"
             state:
               invalid_transition: "Impossible de changer d'état. Contacter le développeur"
+        review:
+          attributes:
+            product:
+              is_not_productable: "Une chronique ne peut être associée qu'avec un produit"
+            reviewer_id:
+              taken: "Vous ne pouvez pas soumettre deux chroniques sur le même produit"
         contribution:
           new_record_invalidity:  "Il n'est pas possible de créer une Approbation pour une mise à jour d'entité sans fournir la version d'origine"
           id_mismatch: "L'Approbation est invalide car l'id de l'entité est '%{id}' tandis que celle du brouillon '%{draft_id}'"

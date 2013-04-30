@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
   load_and_authorize_resource
   skip_load_resource :only => :create
   respond_to :html
+  layout false
 
   def new
     @review = Review.new params.slice :product_id, :product_type
@@ -18,30 +19,25 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = Album.new
-    @review.attributes = params[:review].slice :product_id, :product_type
-    create_or_update_review(params, "new")
+    @review = build_review(Review.new(params[:review].slice :product_id, :product_type), params)
+
+    if @review.contribute(current_user, can?(:bypass_contribution, @review))
+      make_flash_for_contribution @review
+    end
+
+    respond_with @review
   end
 
   def update
-
     @review = review.find(params[:id])
     create_or_update_review(params, "edit")
   end
 
   private
 
-    def create_or_update_review(params, template)
-
-      @review.attributes = params[:review].slice :body, :score, :reviewer, :product
-
-      if @review.contribute(current_user, can?(:bypass_contribution, @review))
-        make_flash_for_contribution @review
-        respond_with @review
-      else
-        respond_with @review do |format|
-          format.html { render template }
-        end
-      end
+    def build_review(review, params)
+      review.attributes = params[:review].slice :body, :score
+      review.reviewer = current_user
+      return review
     end
 end

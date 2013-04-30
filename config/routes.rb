@@ -41,7 +41,7 @@ MetalImpact::Application.routes.draw do
     end
   end
 
-  resources :reviews, :only => [:new, :create, :update, :edit]
+  resources :reviews, :except => [:destroy]
 
   devise_for :users,:controllers => { :registrations => "users/registrations", :passwords => "users/passwords" }, :skip => [:sessions]
   devise_scope :user do
@@ -71,7 +71,7 @@ MetalImpact::Application.routes.draw do
 end
 
 #== Route Map
-# Generated on 29 Apr 2013 13:48
+# Generated on 30 Apr 2013 16:30
 #
 #                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote {:format=>"json"}
 #                               albums GET    /albums(.:format)                                    albums#index
@@ -94,9 +94,6 @@ end
 #                         music_labels POST   /music_labels(.:format)                              music_labels#create
 #                      new_music_label GET    /music_labels/new(.:format)                          music_labels#new
 #                  search_music_genres GET    /music_genres/search(.:format)                       music_genres#search
-#                 administration_users GET    /administration/users(.:format)                      administration/users#index
-#                  administration_user PUT    /administration/users/:id(.:format)                  administration/users#update
-#                                      DELETE /administration/users/:id(.:format)                  administration/users#destroy
 #        prepare_administration_import PUT    /administration/imports/:id/prepare(.:format)        administration/imports#prepare
 #         import_administration_import PUT    /administration/imports/:id/import(.:format)         administration/imports#import
 #       failures_administration_import GET    /administration/imports/:id/failures(.:format)       administration/imports#failures
@@ -110,10 +107,12 @@ end
 #   refuse_administration_contribution PUT    /administration/contributions/:id/refuse(.:format)   administration/contributions#refuse
 #         administration_contributions GET    /administration/contributions(.:format)              administration/contributions#index
 #          administration_contribution GET    /administration/contributions/:id(.:format)          administration/contributions#show
-#                              reviews POST   /reviews(.:format)                                   reviews#create
+#                              reviews GET    /reviews(.:format)                                   reviews#index
+#                                      POST   /reviews(.:format)                                   reviews#create
 #                           new_review GET    /reviews/new(.:format)                               reviews#new
 #                          edit_review GET    /reviews/:id/edit(.:format)                          reviews#edit
-#                               review PUT    /reviews/:id(.:format)                               reviews#update
+#                               review GET    /reviews/:id(.:format)                               reviews#show
+#                                      PUT    /reviews/:id(.:format)                               reviews#update
 #                        user_password POST   /users/password(.:format)                            users/passwords#create
 #                    new_user_password GET    /users/password/new(.:format)                        users/passwords#new
 #                   edit_user_password GET    /users/password/edit(.:format)                       users/passwords#edit

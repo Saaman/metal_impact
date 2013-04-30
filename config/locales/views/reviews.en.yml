@@ -2,6 +2,8 @@ en:
   reviews:
     new:
       title: "Add a review"
+    review:
+      review_by: "Review by"
   helpers:
     submit:
       review:

@@ -3,6 +3,11 @@ require "spec_helper"
 describe ReviewsController do
   describe "routing" do
 
+    it "routes to #show" do
+      get("/reviews/1").should route_to("reviews#show", :id => "1")
+      get(review_path(1)).should route_to("reviews#show", :id => "1")
+    end
+
     it "routes to #new" do
       get("/reviews/new").should route_to("reviews#new")
       get(new_review_path).should route_to("reviews#new")

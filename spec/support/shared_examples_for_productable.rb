@@ -20,6 +20,7 @@ shared_examples "productable model" do
     it { should respond_to(:cover) }
     it { should respond_to(:created_at) }
     it { should respond_to(:updated_at) }
+    it { should respond_to(:reviews, :review_ids) }
 
   end
 

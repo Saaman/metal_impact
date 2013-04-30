@@ -7,24 +7,19 @@ describe ReviewsController do
 
   subject { response }
 
-  # describe "GET show :" do
-  # 	let(:artist) { FactoryGirl.create(:artist) }
-  # 	describe "(unauthorized)" do
-		# 	before { get :show, {id: artist.id} }
-		# 	its_access_is "unauthorized"
-  # 	end
-  # 	describe "(authorized)" do
-  # 		before(:each) { @ability.can :show, Artist }
-	 #  	before { get :show, {id: artist.id} }
-	 #  	it { should render_template("show") }
-	 #  	specify { assigns(:artist).should == artist }
-	 #  end
-	 #  describe "(RecordNotFound exception)" do
-  # 		before(:each) { @ability.can :show, Artist }
-	 #  	before { get :show, {id: 10000} }
-	 #  	it { should redirect_to root_path }
-	 #  end
-  # end
+  describe "GET show :" do
+  	let(:review) { FactoryGirl.create :review }
+  	describe "(unauthorized)" do
+			before { get :show, {id: review.id} }
+			its_access_is "unauthorized"
+  	end
+  	describe "(authorized)" do
+  		before(:each) { @ability.can :show, Review }
+	  	before { get :show, {id: review.id} }
+	  	it { should render_template("show") }
+	  	specify { assigns(:review).should == review }
+	  end
+  end
 
   describe "GET new :" do
   	describe "(unauthorized)" do
@@ -41,5 +36,12 @@ describe ReviewsController do
 	  	specify { assigns(:review).should be_new_record }
       specify { assigns(:review).product.should == product }
 	  end
+  end
+
+  describe "POST create :" do
+    describe "(unauthorized)" do
+      before { post :create }
+      its_access_is "unauthorized"
+    end
   end
 end

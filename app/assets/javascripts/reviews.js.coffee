@@ -1,13 +1,18 @@
-toggle_review_form = (show) ->
-	$('form#add_review').toggle(!show)
-	$('div#review-form').toggle(show)
-
 $ ->
 	$('form#add_review').on {
 		'ajax:success': (event, data) ->
-			$('div#review-form').html(data)
-			toggle_review_form true
+			$('div#reviews-list').append data
+			$('form#add_review').hide()
 		}
-	$('body').on 'click', 'div#review-form a#cancel-form', () ->
-		toggle_review_form false
+
+	$('body').on 'click', 'div#new-review-form a#cancel-form', () ->
+		$('div#new-review-form').remove()
+		$('form#add_review').show()
 		return false
+
+	$('body').on {
+	'ajax:success': (event, data, a, b, c) ->
+		$('div#new-review-form').remove()
+		$('form#add_review').hide()
+		$('div#reviews-list').append data
+	}, 'form#new_review'

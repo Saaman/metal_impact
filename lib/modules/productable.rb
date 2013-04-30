@@ -9,6 +9,7 @@ module Productable
 
       #associations
       has_and_belongs_to_many_with_deferred_save :artists
+      has_many :reviews, :as => :product, :include => :reviewer
 
 
     	#attributes
