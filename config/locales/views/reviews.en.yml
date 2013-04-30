@@ -7,3 +7,9 @@ en:
       review:
         create: "Create review"
         update: "Update review"
+  simple_form:
+    labels:
+      review:
+        body: Body
+        score: Score
+        reviewer: Reviewer

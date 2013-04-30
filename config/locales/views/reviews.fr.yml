@@ -7,3 +7,9 @@ fr:
       review:
         create: "Ajouter la chronique"
         update: "Mettre à jour la chronique"
+  simple_form:
+    labels:
+      review:
+        body: Corps
+        score: Note
+        reviewer: Chroniqueur

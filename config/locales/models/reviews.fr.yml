@@ -1,0 +1,14 @@
+fr:
+  activerecord:
+    models:
+      review: chronique
+    attributes:
+      review:
+        score: "note"
+        body: "corps de la chronique"
+        reviewer: 'chroniqueur'
+  notices:
+    review:
+      create: "La nouvelle chronique a été créee."
+      update: "La chronique a été mise à jour."
+      contribute: "La contribution sur la chronique a été soumise pour approbation."

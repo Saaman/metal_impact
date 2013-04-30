@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      review: review
+    attributes:
+      review:
+        score: "score"
+        body: "review body"
+        reviewer: 'reviewer'
+  notices:
+    review:
+      create: "Review was successfully created."
+      update: "Review was successfully updated."
+      contribute: "Contribution on review was submitted for approval."

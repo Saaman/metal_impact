@@ -19,6 +19,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Album.new
+    @review.attributes = params[:review].slice :product_id, :product_type
     create_or_update_review(params, "new")
   end
 
