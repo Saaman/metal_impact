@@ -27,4 +27,14 @@ class Review < ActiveRecord::Base
   #validation
   validates :product, :reviewer, :body, :score, presence: true
   validates :score, :numericality => { :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0, :only_integer => true }
+  validates :reviewer_id, :uniqueness => { :scope => [:product_id, :product_type]}
+
+  validate :product_must_be_productable
+
+  private
+    def product_must_be_productable
+      if !product.nil? and !(product.is_a? Productable)
+        errors.add :product, :is_not_productable
+      end
+    end
 end

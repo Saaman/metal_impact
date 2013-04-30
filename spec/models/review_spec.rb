@@ -51,11 +51,30 @@ describe Review do
         before { @review.product_id = @review.product.id + 1000 }
         it { should_not be_valid }
       end
+      describe "is not a product" do
+        before { @review.product = FactoryGirl.create(:user) }
+        it { should_not be_valid }
+      end
     end
     describe "when reviewer" do
       describe "is not present" do
         before { @review.reviewer = nil }
         it { should_not be_valid }
+      end
+      describe 'already submitted a review on the same album' do
+        let(:previous_review) { FactoryGirl.create :review }
+        before do
+          @review.product = previous_review.product
+          @review.reviewer = previous_review.reviewer
+        end
+        it { should_not be_valid }
+      end
+      describe 'already submitted a review on a different album' do
+        let(:previous_review) { FactoryGirl.create :review }
+        before do
+          @review.reviewer = previous_review.reviewer
+        end
+        it { should be_valid }
       end
     end
     describe "when score" do
