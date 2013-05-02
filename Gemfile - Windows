@@ -54,6 +54,7 @@ gem 'squeel', '~>1.0.13'
 gem 'routing-filter', '~>0.3.1' #used for url filtering on languages codes
 gem 'turnout', '~>0.2.2' #maintenance mode gem
 gem 'activerecord-import', '~> 0.3.1' #massive insert tool
+gem 'redcarpet', '~> 2.2.0'
 
 #security
 gem 'honeypot-captcha', '~>0.0.2'
@@ -107,3 +108,8 @@ group :production do
   gem 'thin', '~> 1.5.0'
   gem 'pg', '~> 0.14.1'
 end
+
+
+# JQuery plugins versions #
+#
+# Markitup v1.1.14

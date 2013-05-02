@@ -3,7 +3,11 @@
   <head>
     <title>In Construction</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= stylesheet_link_tag 'markitup/skins/simple/style', 'markitup/sets/metalimpact/style' %>
+    <%= yield :stylesheets %>
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag 'markitup/jquery.markitup', 'markitup/sets/metalimpact/set' %>
+    <%= yield :javascripts %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
     <SCRIPT language="Javascript">

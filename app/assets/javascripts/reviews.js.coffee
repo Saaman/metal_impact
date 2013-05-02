@@ -3,6 +3,7 @@ $ ->
 		'ajax:success': (event, data) ->
 			$('div#reviews-list').append data
 			$('form#add_review').hide()
+			$('textarea#review_body').markItUp mySettings
 		}
 
 	$('body').on 'click', 'div#new-review-form a#cancel-form', () ->
