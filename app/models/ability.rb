@@ -12,6 +12,7 @@ class Ability
 
     can :read, :all
     cannot :show_image, :home
+    cannot :markdown_preview, :utils
     cannot :manage, [Import::SourceFile, Import::Entry, Contribution]
     cannot :manage, :dashboard
     can :create, User
@@ -24,6 +25,7 @@ class Ability
 
     can [:destroy, :update], User, :id => user.id
     can :show_image, :home
+    can :markdown_preview, :utils
     can :vote, :all
 
     if user.role_cd >= User.roles[:staff]

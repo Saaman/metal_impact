@@ -63,6 +63,7 @@ MetalImpact::Application.routes.draw do
   get 'show_image' => 'home#show_image', :defaults => { :format => 'js' }, :as => :show_image
   match 'dashboard' => 'administration/dashboard#index', :via => [:get]
   match 'toggle_debug' => 'administration/dashboard#toggle_debug', :via => [:post]
+  post '/markdown/preview' => 'utils#markdown_preview'
 
   mount DjMon::Engine => 'dj_mon'
 
@@ -71,7 +72,7 @@ MetalImpact::Application.routes.draw do
 end
 
 #== Route Map
-# Generated on 30 Apr 2013 16:30
+# Generated on 03 May 2013 11:56
 #
 #                       downvote_album PUT    /albums/:id/downvote(.:format)                       albums#downvote {:format=>"json"}
 #                               albums GET    /albums(.:format)                                    albums#index
@@ -140,6 +141,7 @@ end
 #                           show_image GET    /show_image(.:format)                                home#show_image {:format=>"js"}
 #                            dashboard GET    /dashboard(.:format)                                 administration/dashboard#index
 #                         toggle_debug POST   /toggle_debug(.:format)                              administration/dashboard#toggle_debug
+#                     markdown_preview POST   /markdown/preview(.:format)                          utils#markdown_preview
 #                               dj_mon        /dj_mon                                              DjMon::Engine
 #                                 root        /                                                    home#index
 # 

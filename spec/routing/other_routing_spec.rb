@@ -11,5 +11,10 @@ describe "other routes" do
 			get("show_image").should route_to("home#show_image", :format => "js")
 			get(show_image_path).should route_to("home#show_image", :format => "js")
 		end
+
+		it "routes to utils#render_markdown" do
+			post('/markdown/preview').should route_to 'utils#markdown_preview'
+			post(markdown_preview_path).should route_to 'utils#markdown_preview'
+		end
 	end
 end

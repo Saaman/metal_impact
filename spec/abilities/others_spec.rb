@@ -10,12 +10,14 @@ describe 'other authorizations' do
       let(:user) { User.new }
       it{ should be_able_to(:read, :home) }
       it{ should_not be_able_to(:show_image, :home) }
+      it{ should_not be_able_to(:markdown_preview, :utils) }
     end
 
     context "when is basic user" do
       let(:user) { FactoryGirl.create(:user) }
       it{ should be_able_to(:read, :home) }
       it{ should be_able_to(:show_image, :home) }
+      it{ should be_able_to(:markdown_preview, :utils) }
     end
   end
 
