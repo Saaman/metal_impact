@@ -13,7 +13,7 @@ gem 'public_activity', '~> 1.0.2'
 
 #cache
 gem 'memcachier', '~> 0.0.2'
-gem 'dalli', '~> 2.6.2'
+gem 'dalli', '~> 3.2.3'
 
 #Model stuff gems
 gem 'foreigner', '~> 1.2.1'
